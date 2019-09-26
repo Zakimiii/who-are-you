@@ -28,7 +28,7 @@ export default class Notification {
 
     async push({
         tt_key,
-        icon = config.CURRENT_APP_URL + '/images/selfinity-mini-logo2.png',
+        icon = config.CURRENT_APP_URL + '/images/brands/mini-logo.png',
         url = '/',
         ids = [],
     }) {

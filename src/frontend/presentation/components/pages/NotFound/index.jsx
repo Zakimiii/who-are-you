@@ -13,7 +13,7 @@ class NotFound extends React.Component {
                     <div className="not-found__body__logo">
                         <Img
                             className="not-found__body__logo-image"
-                            src="/images/selfinity-mini-logo1.png"
+                            src="/images/brands/mini-logo.png"
                             alt={tt('alts.default')}
                         />
                     </div>

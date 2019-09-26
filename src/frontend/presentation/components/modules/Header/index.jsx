@@ -403,7 +403,7 @@ class Header extends React.Component {
                 >
                     <Img
                         className="Header__logo"
-                        src="/images/selfinity-logo.png"
+                        src="/images/brands/logo.png"
                         alt={tt('alts.default')}
                     />
                 </Link>
