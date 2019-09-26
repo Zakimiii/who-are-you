@@ -1,45 +1,45 @@
-const { PythonShell } = require('python-shell');
-const env = require('./env.json');
 
-function pythonMethodsPath(method) {
-    return `${env.NODE_PATH}/python-scripts/`;
-}
+// const env = require('./env.json');
 
-const PYTHON_METHODS = [
-    'run_google_emperor',
-    'get_text_from_corpus',
-    'seed_label_create',
-    'text_vectorize',
-];
+// function pythonMethodsPath(method) {
+//     return `${env.NODE_PATH}/python-scripts/`;
+// }
 
-const options = (method, args = []) => {
-    return {
-        mode: 'text',
-        pythonPath: env.PYTHON_PATH,
-        pythonOptions: ['-u'],
-        scriptPath: pythonMethodsPath(method),
-        args: args,
-    };
-};
+// const PYTHON_METHODS = [
+//     'run_google_emperor',
+//     'get_text_from_corpus',
+//     'seed_label_create',
+//     'text_vectorize',
+// ];
 
-const runPython = (method, args = []) => {
-    var pyshell = new PythonShell(`${method}.py`, options(method, args));
-    pyshell.send(args);
+// const options = (method, args = []) => {
+//     return {
+//         mode: 'text',
+//         pythonPath: env.PYTHON_PATH,
+//         pythonOptions: ['-u'],
+//         scriptPath: pythonMethodsPath(method),
+//         args: args,
+//     };
+// };
 
-    return new Promise((resolve, reject) => {
-        pyshell.on('message', message => {
-            resolve(JSON.parse(message));
-            return;
-        });
+// const runPython = (method, args = []) => {
+//     var pyshell = new PythonShell(`${method}.py`, options(method, args));
+//     pyshell.send(args);
 
-        pyshell.end((err, code, signal) => {
-            return;
-        });
-    });
-};
+//     return new Promise((resolve, reject) => {
+//         pyshell.on('message', message => {
+//             resolve(JSON.parse(message));
+//             return;
+//         });
 
-module.exports = {
-    PYTHON_METHODS,
-    options,
-    runPython,
-};
+//         pyshell.end((err, code, signal) => {
+//             return;
+//         });
+//     });
+// };
+
+// module.exports = {
+//     PYTHON_METHODS,
+//     options,
+//     runPython,
+// };
