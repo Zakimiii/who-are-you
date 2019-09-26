@@ -1,0 +1,19 @@
+<svg id="レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 130 125.2">
+  <defs>
+    <style>.red-good-1{fill:url(#新規グラデーションスウォッチ_2)!important;}.red-good-2{fill:url(#新規グラデーションスウォッチ_2-2)!important;}
+    </style>
+    <linearGradient id="新規グラデーションスウォッチ_2" x1="98.59" y1="140.49" x2="194.56" y2="140.49" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ee7649"/>
+      <stop offset="0.08" stop-color="#e46544"/>
+      <stop offset="0.18" stop-color="#dd5a41"/>
+      <stop offset="0.28" stop-color="#db5640"/>
+      <stop offset="0.57" stop-color="#ea555c"/>
+      <stop offset="0.81" stop-color="#d64292"/>
+      <stop offset="1" stop-color="#d64292"/>
+    </linearGradient>
+    <linearGradient id="新規グラデーションスウォッチ_2-2" x1="64.56" y1="176.11" x2="91.12" y2="176.11" xlink:href="#新規グラデーションスウォッチ_2"/>
+  </defs>
+  <title>red-good</title>
+  <path class="red-good-1" d="M194.56,159.63a9.18,9.18,0,0,0-6.76-8.84A9.21,9.21,0,0,0,182.6,134H165.37c-3.72-.16-7.74-.79-9.79-3-5.51-5.91,3.73-14.44,5.45-19.15s5.57-13.7,2-23.79c-3.72-10.61-15-8.81-16.82,1.92-1,5.94-8.09,22.59-18.8,32.05-9.51,8.41-18,14.15-21.67,18.68a15.67,15.67,0,0,1-7.18,5.23v45.88h5.2c7.46,0,29.89,7.56,40.84,8,15.12.56,17.55.12,23.72-.56l5.78-.84a9.12,9.12,0,0,0,6.52-13.53,9.14,9.14,0,0,0,5.22-16.07A9.19,9.19,0,0,0,194.56,159.63Z" transform="translate(-64.56 -80.95)"/>
+  <path class="red-good-2" d="M64.56,155.36v41.5a9.29,9.29,0,0,0,9.29,9.29H84.93A6.19,6.19,0,0,0,91.12,200V146.07H73.85A9.29,9.29,0,0,0,64.56,155.36Zm13.06,32.36A4.27,4.27,0,1,1,73.36,192,4.27,4.27,0,0,1,77.62,187.72Z" transform="translate(-64.56 -80.95)"/>
+</svg>

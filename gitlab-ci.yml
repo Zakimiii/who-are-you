@@ -1,0 +1,18 @@
+image: docker:stable
+
+before_script:
+  - apk add --no-cache py-pip
+  - pip install docker-compose
+
+build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - docker-compose build
+# test:
+#   stage: test
+#   tags:
+#     - docker
+#   script:
+#     - docker-compose run web sh ./tests/test.sh

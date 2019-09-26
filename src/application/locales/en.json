@@ -1,0 +1,644 @@
+{
+    "g": {
+        "action_selfinity": "Actions in Selfinity",
+        "accept": "Approval",
+        "accepted": "Approvaled",
+        "good_opinion": "Good Opinion",
+        "acception_good_opinion": "Make Good Opinion",
+        "unacception_good_opinion": "UnMake Good Opinion",
+        "unaccepted": "Non Approval",
+        "address": "Address",
+        "age": "age",
+        "alert_request_title": "This contents answer your requests",
+        "alert_request_desc":
+            "You accept the solveing of your request if the content's answer for your requests is good. when you accept your request, reward will be send for content's author as your present. when you deny your request, reward will be send for you because of your strong decision.",
+        "anonymouse": "Anonymouse",
+        "answered_content": "Answer of content",
+        "answered_communication": "Answer of Communication",
+        "answered_request": "Answered Requests",
+        "answered_parent": "Reply",
+        "amount": "Amount",
+        "and": "and",
+        "api_key": "API Key",
+        "app_settings": "Application Settings",
+        "are_you_sure": "Are you sure?",
+        "ask": "Ask",
+        "balance": "Balance: %(balanceValue)s",
+        "balances": "Balances",
+        "bid": "Bid",
+        "blog": "Blog",
+        "browse": "Browse",
+        "buy": "Buy",
+        "buy_steem_power": "Buy Steem Power",
+        "buy_or_sell": "Buy or Sell",
+        "by": "by",
+        "body": "Content",
+        "cancel": "Cancel",
+        "copied": "Copied",
+        "change_password": "Change Password",
+        "choose_language": "Choose Language",
+        "choose_image": "Choose Image",
+        "clear": "Clear",
+        "cheering_mode": "Cheering Mode",
+        "cheering_content": "Cheering Content",
+        "cheering_content_desc":
+            "Cheering Content is role of sending poster owner cheering messeage and reward.(Author cannot get reward from this content)",
+        "close": "Close",
+        "collapse_or_expand": "Collapse/Expand",
+        "comment": "Opinion",
+        "do_comment": "Give Opinion",
+        "complete": "Complete",
+        "comment_empty":
+            "Post opinion for this content and make content's message deeper！",
+        "comments": "Opinions",
+        "contact": "Contact",
+        "confirm": "Confirm",
+        "confirm_of_password": "Confirm of password",
+        "congratulations": "Congratulations!",
+        "contents": "Contents",
+        "communicates": "Communicates",
+        "communication": "Communication",
+        "convert": "Convert",
+        "country_code": "Country Code",
+        "credit_way1": "Get Good Opinion",
+        "credit_way2": "Get Cheering",
+        "credit_way3": "Give good Potential opinion",
+        "credit_way4": "Answer Request",
+        "credit_ways":
+            "The more credit player who do above actions have you will get more rewards！",
+        "credit_merits": "The merit of Credit",
+        "credit_merit1": "This represents your reliability and honest",
+        "credit_merit2": "Opinion is easy to be respected",
+        "credit_merit3": "Reliable requests from people around you",
+        "credit_merit4":
+            "You can earn Self which is proof of contribution of others",
+        "credit_title": "Credit represent your reliability",
+        "credit": "Credit",
+        "credit_about":
+            "The number is importance of your actions in Selfinity and will be referenced to pay you reward.",
+        "credit_desc":
+            "We visualization information based on your actions in Selfinity and pay reward to Author・Voter・Requester based on the importance of it.",
+        "credition": "Reliability",
+        "credition_desc":
+            "Reliable User and Opinion will be easy to find by appearance. And Nuisance will not occur because of BlockChain",
+        "date": "Date",
+        "deny": "Deny",
+        "denial": "Denial",
+        "detail_user": "Intoroduce Yourself",
+        "detail": "Intoroduce Yourself",
+        "delete": "Delete",
+        "delete_password_link":
+            "Please click this in case forgetting your password",
+        "dismiss": "Dismiss",
+        "disscussion": "Disscussion",
+        "do_post": "Posts",
+        "do_answer": "Answer",
+        "do_it": "Please do %(data)s",
+        "edit": "Edit",
+        "email": "Email",
+        "eth_wallet": "Ethereum Wallet",
+        "eth_wallet_about": "This wallet has your Self.",
+        "eth_wallet_info_title": "It is your Ethereum Wallet private key.",
+        "eth_wallet_info_warning":
+            "You should not show this page for others. We not have responsible if others were get your private key.",
+        "external_link_message":
+            "This link will take you away from steemit.com",
+        "faq": "FAQ",
+        "faqs": "FAQ",
+        "feed": "Feed",
+        "fee": "Fee",
+        "first_user?": "Is this your first time to use Selfinity?",
+        "follow": "Follow",
+        "for": " for ",
+        "form_title": "What you think",
+        "form_body": "Details and evidences",
+        "form_request_body": "What you want the user do",
+        "from": " from ",
+        "function_credit": "ポイント制度",
+        "function_credit_desc":
+            "Selfinityはユーザーの満足度が高いアクションをするとポイントが手に入る質重視のプラットフォームです。またポイントの数に応じてSelfトークンという独自通貨を差し上げます",
+        "function_opinion": "良質なメッセージ",
+        "function_opinion_desc":
+            "Selfinityはユーザーに満足してもらえるようなメッセージはGood Opinionとして評価を倍増させますこれにより、スコアや見た目によって、どこに良質なコミュニケーションがあるかが一目瞭然になります",
+        "function_cheering": "応援機能",
+        "function_cheering_desc":
+            "Selfinity上に自分のためになったコンテンツがある場合、それに対して応援メッセージをつけることができます。応援メッセージを貰うともらったコンテンツはスコアが倍増します周りのみんなから応援されるようなコミュニケーションをしましょう!",
+        "function_request": "リクエスト機能",
+        "function_request_desc":
+            "コミュニケーション中に生まれた疑問や質問を直接、好きな人に聞くことができます！何気ない疑問でも大丈夫です満足の行くリクエストに答えると、ポイントが倍増するので、満足してもらえるような回答をしましょう",
+        "go_back": "Back",
+        "good_opinion": "Good Opinion",
+        "good_opinion_desc":
+            "Credit and Reward of your opinion will raise, if you get Good Opinion. Let's aim for an opinion that the poster owner can reduce their own rewards and get Good Opinion",
+        "hide": "Hide",
+        "histories": "Histories",
+        "home": "Home",
+        "image": "Image",
+        "in": "in",
+        "invite_code": "Invitement Code",
+        "invited_code": "Invited Code by other user",
+        "invite_code_desc":
+            "他ユーザーの招待コードを入力してもらうと１アカウントにつき１度だけ一定量のSelfがもらえます。ただし、招待コードを入力できるユーザーはアカウント登録から%(date)s日以内のユーザーのみです。",
+        "invite_desc":
+            "他ユーザーにこの招待コードを入力してもらうと一定量のSelfがもらえます。ただし、招待コードを入力できるユーザーはアカウント登録から%(date)s日以内のユーザーのみです。",
+        "index": "Index",
+        "in_reply_to": "in reply to",
+        "insufficient_balance": "Insufficient balance",
+        "add_wanted": "Add a Call for Contents",
+        "add_opinion": "Add an Opinion",
+        "new_wanted": "New a Call for Communications",
+        "request_wanted": "Call for Requests",
+        "opinion_wanted": "Call for Opinions",
+        "optional": "Optinal",
+        "invalid_amount": "Invalid amount",
+        "links": "Links",
+        "joined": "Joined",
+        "label": "Topic",
+        "lighting_title": "Open Talk Service",
+        "lighting_desc":
+            "You can get\nmoney,\ntalk of sting in your heart\nin Just Speak!!",
+        "loading": "Loading",
+        "login": "Login",
+        "login_desc": "Login to enjoy selfiniy!",
+        "logout": "Logout",
+        "max": "Max",
+        "mail_stop": "UnSubscribed your mail notifications",
+        "mail_reset_password": "Sent you mail of resetting your password",
+        "memo": "Memo",
+        "merit_title": "the best merit of using Selfinity",
+        "merit_point": "You can get a proof “Self” of other contributors",
+        "merit_point_short": "You can get a proof “Self” of other contributors",
+        "merit_desc":
+            "Self is crypto currency . This currency is a testament to your contribution to others. This virtual currency can be exchanged for money （time is not yet determined）, and the top 3％ can become a special member called Selves, or have other benefits beyond money. Details of this benefit will be announced later!",
+        "mute": "Mute",
+        "mypage": "MyPage",
+        "my_blog": "My blog",
+        "my_opinions": "My opinions",
+        "my_feed": "My feed",
+        "my_replies": "Replies to me",
+        "my_wallet": "My wallet",
+        "new": "New",
+        "newest": "Newest",
+        "new_post": "New Post",
+        "new_posts": "New Post",
+        "new_comment": "New Opinion",
+        "new_request": "New Request",
+        "newer": "新しい",
+        "newer": "Newer",
+        "next": "Next",
+        "nickname": "Display Name",
+        "notification": "Notification",
+        "no": "No",
+        "ok": "Ok",
+        "older": "Older",
+        "or": "or",
+        "order_placed": "Order placed: %(order)s",
+        "password": "Password",
+        "payouts": "Payouts",
+        "permissions": "Permissions",
+        "phishy_message":
+            "Link expanded to plain text; beware of a potential phishing attempt",
+        "phone": "TelePhone number",
+        "phone_number": "TelePhone number",
+        "phone_code": "Authentication Code",
+        "phone_code_with_notif": "Authentication code (see SMS)",
+        "send_code_not_reach":
+            "You don't receive the confirmation code within 10 minutes",
+        "phone_verify": "Telephone number authentication",
+        "please_enter": "Please enter %(data)s",
+        "please_enter": "Enter %(data)s",
+        "post": "Post",
+        "post_desc":
+            "Posts about what you want express or answer to requests. If you answer to requests, your reward will be increase",
+        "post_as_user": "Post as %(username)s",
+        "posts": "Posts",
+        "powered_up_100": "Powered Up 100%%",
+        "preview": "Preview",
+        "previous": "Previous",
+        "price": "Price",
+        "print": "Print",
+        "private_key": "Private Key",
+        "promote": "Promote",
+        "promoted": "Promoted",
+        "productivity": "Productivity",
+        "productivity_desc":
+            "You will get useful information by BlockChain in Selfinity",
+        "quit": "Quit From Selfinity",
+        "quality": "quality",
+        "quality_desc":
+            "Good and Follow Earning will not occur because the score of high credit user is higher than normal user's one",
+        "re": "RE",
+        "re_to": "RE: %(topic)s",
+        "recent_password": "Recent Password",
+        "recommend_user": "Recommend",
+        "receive": "Receive ",
+        "register_phone": "Register Phonenumber",
+        "related": "Related Contents",
+        "relate_label": "Related Topics",
+        "remove": "Remove",
+        "remove_vote": "Remove Vote",
+        "replied_to": "opinioned to %(account)s",
+        "replies": "Opinions",
+        "reply": "opinion",
+        "reply_count": {
+            "zero": "no opinions",
+            "one": "1 opinion",
+            "other": "%(count)s opinions"
+        },
+        "reputation": "Reputation",
+        "reputation_desc":
+            "Give your vote to what you thought really good. Great reputations will get great rewards.",
+        "requests": "Requests",
+        "requests_wanted": "Requests during the evaluation Wanted",
+        "reveal_comment": "Reveal opinion",
+        "request": "request",
+        "request_desc":
+            "Submit requests to person who you think good. Great request will be answered and get rewards.",
+        "required": "Required",
+        "return_to": "Return to %(data)s",
+        "rewards": "Rewards",
+        "save": "Save",
+        "saved": "Saved",
+        "search": "Search",
+        "search_result": "Search Results",
+        "sell": "Sell",
+        "selfinity_mission":
+            "Selfinity values with wisdom for solving some problems and send all individuals the values",
+        "send": "send",
+        "send_amount": "Remittance Fee",
+        "send_confirm_email_title": "Sent you Confirm Email!",
+        "send_email_not_reach":
+            "You don't receive the confirmation email within 10 minutes",
+        "sent": "Sent",
+        "settings": "Settings",
+        "share_this_post": "Share this post",
+        "show": "Show",
+        "show_more": "Show More",
+        "show_private_key": "See Private Key",
+        "send_confirm_email":
+            "Please confirm your mail box and access to the link in the email for activation of your account .",
+        "sign_in": "Sign in",
+        "sign_up": "Sign up",
+        "signup": "Sign up",
+        "signup_desc": "Create new your account and enjoy Selfinity at all!",
+        "signup_finish": "All procedures are done! \nEnjoy life with Selfinity",
+        "signup_middlepoint_descript":
+            "For now, you have finished sign up!! \nIf you want to play posting, you need to register your phone number. \nAre you ready?",
+        "since": "since %(date)s",
+        "solved": "Solved",
+        "unsolved": "UnSolved",
+        "stock": "Stock",
+        "start": "Start",
+        "submit": "Submit",
+        "sns_spread_campaign": "SNS Spread Campaign",
+        "sns_spread_campaign_desc":
+            "Twitter・Instagram・FacebookでSelfinityに関する投稿をするといいね数に応じてSelfを差し上げます。応募方法は以下のフォームに該当URL(下記の説明をお読みください)。期間は%(start)sから%(end)sまでです！ぜひ奮ってご応募ください!",
+        "subscribe": "Subscribe",
+        "unsubscribe": "UnSubscribe",
+        "subscribed_user": "Subscribed User",
+        "subscribed_label": "Subscribed Topic",
+        "summary_selfinity":
+            "Selfinity is an brand new bulletin board of BlockChain.",
+        "power_up": "Power Up",
+        "profile_image": "Profile Image",
+        "pickup_content": "Today's Hot Talks",
+        "pickup_opinion": "Today's Hot Good Opinions",
+        "privacy_policy": "Privacy Policy",
+        "submit_a_story": "Post",
+        "tag": "Tag",
+        "target_contents": "Return Shippings",
+        "target_requests": "Return Requests",
+        "terms": "Terms of service",
+        "accept_terms": "Agree with the terms of service and privacy policy",
+        "check_terms": "View the terms of service",
+        "check_privacy": "View the privacy policy",
+        "title": "Title",
+        "to": " to ",
+        "to_next": "to %(data)s",
+        "token_about":
+            "It is the amount of your current Self. Self can exchange with Ethereum in real",
+        "token_not_payment": "You can receive %(amount)sSelf now.",
+        "token_get_not_payment": "Receive Self of not payment",
+        "token_get": "Get Rewards",
+        "topics": "Topics",
+        "toggle_nightmode": "Toggle Night Mode",
+        "all_tags": "All tags",
+        "all_tags_mobile": "All content",
+        "thanks": "Thanks!",
+        "transfer": "Transfer ",
+        "trend": "Trends",
+        "trending_topics": "Trending Topics",
+        "type": "Type",
+        "unfollow": "Unfollow",
+        "unmute": "Unmute",
+        "unknown": "Unknown",
+        "upvote": "Upvote",
+        "upvote_post": "Upvote post",
+        "user": "user",
+        "username": "Username",
+        "username_not_display":
+            "Username(Not display name in this applicatioin)",
+        "user_edit": "User Edit",
+        "version": "Version",
+        "vote": "Vote",
+        "votes": "votes",
+        "wallet": "Wallet",
+        "warning": "warning",
+        "way_to_get": "How to get",
+        "way_to_get_credit1": "Get goods from users having high credit",
+        "way_to_get_credit2":
+            "Post to answer requests having high credit and obtain permission from requesters",
+        "way_to_get_credit3": "Give faster and less good for other contents.",
+        "welcome": "Welcome to Selfinity!",
+        "welcome_desc": "In Selfinity, Get wisdom of solving your problems.",
+        "what_selfinity": "What is Selfinity?",
+        "what_selfinity_desc":
+            "Please click this if you want know about Selfinity!",
+        "withdraw_token": "Withdraw Some Self",
+        "withdraw_token_title":
+            "Click berow button and withdraw some Self from this application for exchange real currency.",
+        "yes": "Yes",
+        "posting": "Posting",
+        "owner": "Owner",
+        "active": "Active",
+        "account_not_found": "Account not found",
+        "this_is_wrong_password": "This is the wrong password",
+        "do_you_need_to": "Do you need to",
+        "account_name": "Account Name",
+        "recover_your_account": "recover your account",
+        "reset_usernames_password": "Reset %(username)s's Password",
+        "this_will_update_usernames_authtype_key":
+            "This will update %(username)s %(authType)s key",
+        "passwords_do_not_match": "Passwords do not match",
+        "you_need_private_password_or_key_not_a_public_key":
+            "You need a private password or key (not a public key)",
+        "the_rules_of_APP_NAME": {
+            "one":
+                "The first rule of %(APP_NAME)s is: Do not lose your password.",
+            "second":
+                "The second rule of %(APP_NAME)s is: Do not lose your password.",
+            "third":
+                "The third rule of %(APP_NAME)s is: We cannot recover your password.",
+            "fourth":
+                "The fourth rule: If you can remember the password, it's not secure.",
+            "fifth": "The fifth rule: Use only randomly-generated passwords.",
+            "sixth": "The sixth rule: Do not tell anyone your password.",
+            "seventh": "The seventh rule: Always back up your password."
+        },
+        "recover_password": "Recover Account",
+        "current_password": "Current Password",
+        "generated_password": "Generated Password",
+        "backup_password_by_storing_it":
+            "Back it up by storing in your password manager or a text file",
+        "enter_account_show_password":
+            "Enter a valid account name to show the password",
+        "click_to_generate_password": "Click to generate password",
+        "re_enter_generate_password": "Re-enter Generated Password",
+        "understand_that_APP_NAME_cannot_recover_password":
+            "I understand that %(APP_NAME)s cannot recover lost passwords",
+        "i_saved_password": "I have securely saved my generated password",
+        "update_password": "Update Password",
+        "confirm_password": "Confirm Password",
+        "account_updated": "Account Updated",
+        "password_must_be_characters_or_more":
+            "Password must be %(amount)s characters or more",
+        "need_password_or_key":
+            "You need a private password or key (not a public key)",
+        "login_to_see_memo": "login to see memo",
+        "new_password": "New Password",
+        "incorrect_password": "Incorrect password",
+        "username_does_not_exist": "Username does not exist",
+        "account_name_should_start_with_a_letter":
+            "Account name should start with a letter.",
+        "account_name_should_be_shorter": "Account name should be shorter.",
+        "account_name_should_be_longer": "Account name should be longer.",
+        "account_name_should_have_only_letters_digits_or_dashes":
+            "Account name should have only letters, digits, periods or dashes.",
+        "cannot_increase_reward_of_post_within_the_last_minute_before_payout":
+            "Cannot increase reward of post within the last minute before payout",
+        "vote_currently_exists_user_must_be_indicate_a_to_reject_witness":
+            "vote currently exists, user must be indicate a desire to reject witness",
+        "only_one_APP_NAME_account_allowed_per_ip_address_every_10_minutes":
+            "Only one Steem account allowed per IP address every 10 minutes",
+        "resteem_this_post": "Resteem This Post",
+        "reblog": "Resteem",
+        "write_your_story": "Write your story...",
+        "remember_voting_and_posting_key": "Remember voting & posting key",
+        "auto_login_question_mark": "Auto login?",
+        "hide_private_key": "Hide private key",
+        "show_private_key": "Show private key",
+        "login_to_show": "Login to show",
+        "not_valid_email": "Not valid email",
+        "thank_you_for_being_an_early_visitor_to_APP_NAME":
+            "Thank you for being an early visitor to %(APP_NAME)s. We will get back to you at the earliest possible opportunity.",
+        "author_rewards": "Author rewards",
+        "curation_rewards": "Curation rewards",
+        "sorry_your_reddit_account_doesnt_have_enough_karma":
+            "Sorry, your Reddit account doesn't have enough Reddit Karma to qualify for a free sign up. Please add your email for a place on the waiting list",
+        "register_with_facebook": "Register with Facebook",
+        "or_click_the_button_below_to_register_with_facebook":
+            "Or click the button below to register with Facebook",
+        "server_returned_error": "server returned error",
+        "APP_NAME_support": "%(APP_NAME)s Support",
+        "please_email_questions_to": "Please email your questions to",
+        "next_7_strings_single_block": {
+            "authors_get_paid_when_people_like_you_upvote_their_post":
+                "Authors get paid when people like you upvote their post",
+            "if_you_enjoyed_what_you_read_earn_amount":
+                "If you enjoyed what you read here, create your account today and start earning FREE STEEM!",
+            "free_steem": "FREE STEEM!",
+            "sign_up_earn_steem": "Sign up now to earn "
+        },
+        "next_3_strings_together": {
+            "show_more": "Show more",
+            "show_less": "Show fewer",
+            "value_posts": "low value posts"
+        },
+        "read_only_mode":
+            "Due to server maintenance we are running in read only mode. We are sorry for the inconvenience.",
+        "tags_and_topics": "Tags",
+        "show_more_topics": "View all tags",
+        "basic": "Basic",
+        "advanced": "Advanced",
+        "views": {
+            "zero": "No Views",
+            "one": "%(count)s View",
+            "other": "%(count)s Views"
+        },
+        "responses": {
+            "zero": "No Responses",
+            "one": "%(count)s Response",
+            "other": "%(count)s Responses"
+        },
+        "post_key_warning": {
+            "confirm":
+                "You are about to publish a STEEM private key or master password. You will probably lose control of the associated account and all its funds.",
+            "warning":
+                "Legitimate users, including employees of Steemit Inc., will never ask you for a private key or master password.",
+            "checkbox": "I understand"
+        }
+    },
+    "checks": {
+        "lighting": {
+            "title": "Are you satisfied?",
+            "text": "Are you satisfied with superficial convesations？",
+            "foot": "Brand new bulletin board by blockchain"
+        },
+        "start": {
+            "title": "Start Disscussion",
+            "text": "Lets submit your opinion!",
+            "foot": "You can disscuss only here"
+        },
+        "home": {
+            "title": "Check Communications",
+            "text": "Find Communications",
+            "foot": "There are variable communicates"
+        },
+        "user": {
+            "title": "Send Request",
+            "text": "Let's send request",
+            "foot": "you can question for who you like"
+        },
+        "trend": {
+            "title": "Check Trend",
+            "text": "Share your thinks about trends",
+            "foot": "you can disscuss in real time"
+        },
+        "new": {
+            "title": "View New Communications",
+            "text": "Check newest Communicates",
+            "foot": "What you subscribe is easy to show"
+        }
+    },
+    "lightings": {
+        "opinion": {
+            "title": "1.Submit Opinion",
+            "text":
+                "Let's give the opinion that a partner is satisfied with! It is a point I do not aim at an all people tray, and to satisfy one! When a partner is satisfied, I get a reward!"
+        },
+        "good": {
+            "title": "2.満足させる",
+            "text":
+                "When a partner is satisfied, You get good opinion! This is proof of the satisfaction! I prove that your opinion can move the heart of the partner!"
+        },
+        "credit": {
+            "title": "3.頼られる",
+            "text":
+                "If satisfaction is high, I get credit! If this is high, it is relied by a rotation and becomes easy to get the reward!"
+        }
+    },
+    "notifications": {
+        "on_create_opinion": {
+            "title": "Let ckeck new received opinion!",
+            "body": "you got new opinion！check out！"
+        },
+        "on_create_content": {
+            "title": "Let ckeck new content!",
+            "body": "Let ckeck new content!"
+        },
+        "on_create_content_call": {
+            "title": "Let ckeck new wanted content!",
+            "body": "Let ckeck new wanted content!"
+        },
+        "on_create_request": {
+            "title": "Let ckeck new received request!",
+            "body": "you got new request！check out！"
+        },
+        "on_answer_request": {
+            "title": "Let ckeck answer of request!",
+            "body": "check answer and eval it!"
+        },
+        "on_get_good": {
+            "title": "You got Good!",
+            "body": "Check your score！"
+        },
+        "on_get_good_opinion": {
+            "title": "You got Good Opinion!",
+            "body": "Others accept your opinion!"
+        },
+        "on_get_good_answer": {
+            "title": "You got Good Answer!",
+            "body": "Others accept your answer!"
+        },
+        "on_get_cheering": {
+            "title": "You got Cheering!",
+            "body": "Let ckeck new received cheering!"
+        },
+        "on_get_token": {
+            "title": "You got Rewards!",
+            "body": "Let ckeck new received rewards!"
+        },
+        "on_daily_summary": {
+            "title": "Today's Recommends",
+            "body": "Check it out！"
+        },
+        "on_daily_opinion": {
+            "title": "Today's Good Opinion",
+            "body": "Check it out！"
+        }
+    },
+    "errors": {
+        "invalid_response_from_server": "Server send invalid response.",
+        "invalid_access_token": "This url is expired",
+        "action_is_not_correct": "%(action)s is invalid action",
+        "cant_created_with_error":
+            "%(content)s cannot be created because of %(error)s",
+        "cant_created": "%(content)s cannot be created",
+        "cant_updated": "%(content)s cannot be updated",
+        "not_exists": "%(content)s is not exists",
+        "is_not_eth_address": "%(data)s is not address of Ethereum's account",
+        "is_required": "%(data)s is required",
+        "is_not_correct": "%(data)s is not correct",
+        "is_not_correct_auth": "Authentication information is not correct",
+        "is_already_exists": "%(data)s is already exists",
+        "is_already_registered": "It has already been registered",
+        "is_not_registered": "It has not been registered yet",
+        "already_done": "%(data)s is already done",
+        "password_is_already_exists":
+            "Password is already setting. if you want update the passowrd, go setting screen.",
+        "confirm_password_is_not_valid":
+            "Passowrd is not same with confirm one.",
+        "is_not_permitted": "%(data)s is data of not permissions",
+        "not_finish_sign_up": "%(data)s is not finished sign up",
+        "is_limit": "You are only allowed to %(limit)s of %(data)s",
+        "invite_date":
+            "You are only allowed to invite other account that create in %(limit)s days",
+        "cannot_vote_own": "You can't like your own contents and requests",
+        "cannot_reaccept_payouted":
+            "You can't cancel requests and acceots that were pay out",
+        "cannot_answer_without_auth":
+            "You have not authority of answering this request",
+        "cannot_destroy_payouted":
+            "You can't cancel posts and votes that were pay out",
+        "answered": "This request is already answered",
+        "is_text_limit":
+            "You are only allowed to %(data)s of %(limit)s's character",
+        "is_text_min_max_limit":
+            "You are only allowed to %(data)s of from %(min)s's to %(max)s's character",
+        "is_limit": "You are only allowed to %(data)s of %(limit)s",
+        "invite_limit": "You are only allowed to invitement of %(limit)s",
+        "good_opinion_limit":
+            "You are only allowed to good opinion of %(limit)s per 1 content",
+        "is_limit_vote":
+            "You are only allowed to upvote of %(limit)s because of making better quality content",
+        "is_min_max_limit":
+            "You are only allowed to %(data)s of from %(min)s's to %(max)s",
+        "only_halfwidthalphanumeric_or_simbol":
+            "%(data)s is only half-width alphanumeric or simbol",
+        "only_halfwidthalphanumeric":
+            "%(data)s is only half-width alphanumeric",
+        "has_space": "%(data)s should not have space characters",
+        "wait_while": "Please wait a while and retry it",
+        "cannot_better_vote": "Only poster owner can make good opinion",
+        "should_better_vote":
+            "Because of Fraud prevention, you should evalate from making good opinion if being poster owner",
+        "cannot_better_vote_cheer": "Cheering content cannot be good opinion",
+        "votered_cant_vote":
+            "Because of Fraud prevention, user of getting request cannot evalate the request.",
+        "not_agree_term": "Please agree with the Terms of service",
+        "not_change_password_with_oauth":
+            "Who sign up with other SNS don't need set your password.",
+        "not_number_country_code": "You must enter the digits in Country Code",
+        "not_number_phone": "You must enter the digits in TelePhone Number"
+    }
+}

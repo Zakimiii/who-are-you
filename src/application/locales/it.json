@@ -1,0 +1,262 @@
+{
+    "g": {
+        "age": "età",
+        "amount": "Quantità",
+        "and": "e",
+        "are_you_sure": "Sei sicuro?",
+        "ask": "Ask",
+        "balance": "Saldo",
+        "balances": "Saldi",
+        "bid": "Bid",
+        "blog": "Blog",
+        "browse": "Naviga",
+        "buy": "Acquista",
+        "buy_or_sell": "Acquista o vendi",
+        "by": "da",
+        "cancel": "Cancella",
+        "change_password": "Cambia Password",
+        "choose_language": "Scegli la lingua",
+        "clear": "Pulisci",
+        "close": "Chiudi",
+        "collapse_or_expand": "Riduci/Espandi",
+        "comments": "Commenti",
+        "confirm": "Conferma",
+        "convert": "Converti",
+        "date": "Data",
+        "delete": "Elimina",
+        "dismiss": "Abbandona",
+        "edit": "Modifica",
+        "email": "Email",
+        "feed": "Feed",
+        "follow": "Segui",
+        "for": "per",
+        "from": "da",
+        "go_back": "Indietro",
+        "hide": "Nascondi",
+        "in": "in",
+        "in_reply_to": "in risposta a",
+        "insufficient_balance": "Credito insufficiente",
+        "invalid_amount": "Importo errato",
+        "joined": "Connesso",
+        "loading": "Caricamento",
+        "login": "Login",
+        "logout": "Logout",
+        "memo": "Memo",
+        "mute": "Silenzia",
+        "new": "Nuovo",
+        "newer": "Più recente",
+        "next": "Prossimo",
+        "no": "No",
+        "ok": "Ok",
+        "older": "Meno recente",
+        "or": "o",
+        "order_placed": "Ordine piazzato",
+        "password": "Password",
+        "payouts": "Pagamenti",
+        "permissions": "Permessi",
+        "phishy_message":
+            "Link expanded to plain text; beware of a potential phishing attempt",
+        "post": "Post",
+        "post_as": "Pubblica come",
+        "posts": "Posts",
+        "powered_up_100": "Powered Up 100%%",
+        "preview": "Anteprima",
+        "previous": "Precedente",
+        "price": "Prezzo",
+        "print": "Stampa",
+        "promote": "Promuovi",
+        "promoted": "promosso",
+        "re": "RE",
+        "re_to": "RE: %(topic)s",
+        "recent_password": "Password Recente",
+        "receive": "Ricevi",
+        "remove": "Rimuovi",
+        "remove_vote": "Rimuovi il voto",
+        "replied_to": "risposto a %(account)s",
+        "replies": "Risponde",
+        "reply": "Risposta",
+        "reply_count": {
+            "zero": "Nessuna risposta",
+            "one": "1 risposta",
+            "other": "%(count)s risposte"
+        },
+        "reputation": "Reputazione",
+        "reveal_comment": "Mostra Commento",
+        "request": "richiesta",
+        "required": "Richiesto",
+        "rewards": "Ricompense",
+        "save": "Salva",
+        "saved": "Salvato",
+        "search": "Cerca",
+        "sell": "Vendi",
+        "settings": "Impostazioni",
+        "share_this_post": "Condividi questo post",
+        "show": "Mostra",
+        "sign_in": "Accedi",
+        "sign_up": "Registrati",
+        "since": "da",
+        "submit": "Sottoscrivi",
+        "power_up": "Power Up",
+        "submit_a_story": "Post",
+        "tag": "Tag",
+        "to": "a",
+        "all_tags": "All tags",
+        "transfer": "Trasferisci",
+        "trending_topics": "Trending Topics",
+        "type": "Scrivi",
+        "unfollow": "Non seguire più",
+        "unmute": "Unmute",
+        "unknown": "Sconosciuto",
+        "upvote": "Upvote",
+        "upvote_post": "Upvote post",
+        "username": "Username",
+        "version": "Versione",
+        "vote": "Vota",
+        "votes": "voti",
+        "wallet": "Wallet",
+        "warning": "avviso",
+        "yes": "Sì",
+        "posting": "Postare",
+        "owner": "Proprietario",
+        "active": "Attivo",
+        "account_not_found": "Account non trovato",
+        "this_is_wrong_password": "Password errata",
+        "do_you_need_to": "Hai bisogno di",
+        "account_name": "Nome Account",
+        "recover_your_account": "recupera il tuo account",
+        "reset_usernames_password": "Resetta la password di %(username)s",
+        "this_will_update_usernames_authtype_key":
+            "Questo aggiornerà la  %(authType)s key di %(username)s ",
+        "passwords_do_not_match": "Le password non corrispondono",
+        "you_need_private_password_or_key_not_a_public_key":
+            "Hai bisogno di una password privata o di una chiave (non di una chiave pubblica)",
+        "the_rules_of_APP_NAME": {
+            "one":
+                "La prima regola di %(APP_NAME)sè: Non perdere la tua password.",
+            "second":
+                "La seconda regola di %(APP_NAME)s è: Non perdere la tua password.",
+            "third":
+                "La terza regola di %(APP_NAME)s è: Non possiamo recuperare la tua password.",
+            "fourth":
+                "La quarta regola è: Se puoi ricordare la password, non è sicura.",
+            "fifth":
+                "La quinta regola è: Usa solo password generate in modo casuale.",
+            "sixth": "La sesta regola è: Non dire a nessuno la tua password.",
+            "seventh": "La settima regola è: Salva sempre la tua password."
+        },
+        "recover_password": "Recupera Account",
+        "current_password": "Password attuale",
+        "generated_password": "Password generata",
+        "backup_password_by_storing_it":
+            "Effettua il backup copiando la password in un file di testo o in un gestore di password. ",
+        "enter_account_show_password":
+            "Inserisci un nome account valido per visualizzare la password",
+        "click_to_generate_password": "Clicca per generare una password",
+        "re_enter_generate_password": "Inserisci di nuovo la Password Generata",
+        "understand_that_APP_NAME_cannot_recover_password":
+            "Ho capito che %(APP_NAME)s non può recuperare le password perse",
+        "i_saved_password":
+            "Ho salvato in modo sicuro la mia password generata automaticamente",
+        "update_password": "Aggiorna la password",
+        "confirm_password": "Conferma la password",
+        "account_updated": "Account aggiornato",
+        "password_must_be_characters_or_more":
+            "La password deve essere lunga %(amount)s caratteri o più",
+        "need_password_or_key":
+            "Hai bisogno di una password o di una chiave privata  (non una chiave pubblica)",
+        "login_to_see_memo": "Esegui il login per visualizzare la memo",
+        "new_password": "Nuova password",
+        "incorrect_password": "Password errata",
+        "username_does_not_exist": "Il nome utente non esiste",
+        "account_name_should_start_with_a_letter":
+            "Il nome dell'account deve iniziare con una lettera.",
+        "account_name_should_be_shorter":
+            "Il nome dell'account deve essere più corto.",
+        "account_name_should_be_longer":
+            "Il nome dell'account deve essere più lungo.",
+        "account_name_should_have_only_letters_digits_or_dashes":
+            "Il nome account deve essere composto solo da lettere, cifre, punti o trattini.",
+        "cannot_increase_reward_of_post_within_the_last_minute_before_payout":
+            "Non è possibile aumentare le ricompense del post durante l'ultimo minuto prima del pagamento",
+        "vote_currently_exists_user_must_be_indicate_a_to_reject_witness":
+            "Attualmente il voto esiste, l'utente deve indicare la volonta di rigettare il witness ",
+        "only_one_APP_NAME_account_allowed_per_ip_address_every_10_minutes":
+            "è possibile utilizzare un solo Steem account per indirizzo IP ogni 10 minuti",
+        "resteem_this_post": "Fai il resteem di questo post",
+        "reblog": "Resteem",
+        "write_your_story": "Scrivi la tua storia",
+        "remember_voting_and_posting_key":
+            "Ricorda la chiave di voto e di pubblicazione",
+        "auto_login_question_mark": "Accesso automatico?",
+        "hide_private_key": "Nascondi la chiave privata",
+        "show_private_key": "Mostra la chiave privata",
+        "login_to_show": "Esegui il login per mostrare",
+        "not_valid_email": "Email non valida",
+        "thank_you_for_being_an_early_visitor_to_APP_NAME":
+            "Ti ringraziamo per essere uno dei primi visitatori di %(APP_NAME)s. Sarai ricontattato il prima possibile. ",
+        "author_rewards": "Ricompense da autore",
+        "curation_rewards": "Ricompense da curatore",
+        "sorry_your_reddit_account_doesnt_have_enough_karma":
+            "Purtroppo il tuo account Reddit non possiede abbastanza Reddit Karma per essere usato per la registrazione gratuita. Aggiungi per favore la tua email per ottenere un posto in lista d'attesa.",
+        "register_with_facebook": "Registrati con Facebook",
+        "or_click_the_button_below_to_register_with_facebook":
+            "O premi il pulsante sottostante per registrarti con Facebook",
+        "server_returned_error": "Errore del server",
+        "APP_NAME_support": "Supporto %(APP_NAME)s",
+        "please_email_questions_to":
+            "Per piacere invia le tue domande tramite email a",
+        "next_7_strings_single_block": {
+            "authors_get_paid_when_people_like_you_upvote_their_post":
+                "Gli autori ricevono un compenso quando gli utenti come te votano il loro post. ",
+            "if_you_enjoyed_what_you_read_earn_amount":
+                "Se ti piace quello che hai letto, crea il tuo account oggi e inizia ricevendo STEEM GRATIS!",
+            "free_steem": "STEEM GRATIS!",
+            "sign_up_earn_steem": "Registrati adesso per guadagnare"
+        },
+        "next_3_strings_together": {
+            "show_more": "Mostra di più",
+            "show_less": "Mostra di meno",
+            "value_posts": "post di basso valore"
+        },
+        "read_only_mode":
+            "Server in manutenzione, modalità sola lettura attiva. Ci scusiamo per l'inconveniente.",
+        "tags_and_topics": "Tag e argomenti",
+        "show_more_topics": "Vedi più argomenti",
+        "basic": "Base",
+        "advanced": "Avanzato",
+        "views": {
+            "zero": "Nessuna Visualizzazione",
+            "one": "%(count)s Visualizzazione",
+            "other": "%(count)s Visualizzazioni"
+        },
+        "responses": {
+            "zero": "Nessuna Risposta",
+            "one": "%(count)s Risposta",
+            "other": "%(count)s Risposte"
+        },
+        "post_key_warning": {
+            "confirm":
+                "You are about to publish a STEEM private key or master password. You will probably lose control of the associated account and all its funds.",
+            "warning":
+                "Legitimate users, including employees of Steemit Inc., will never ask you for a private key or master password.",
+            "checkbox": "I understand"
+        }
+    },
+    "errors": {
+        "invalid_response_from_server":
+            "サーバーから不当なレスポンスがありました",
+        "action_is_not_correct": "%(action)sは不当なアクションです",
+        "cant_created_with_error":
+            "%(content)sは%(error)sにより作成することができませんでした",
+        "cant_created": "%(content)sは作成することができませんでした",
+        "cant_updated": "%(content)sは更新することができませんでした",
+        "not_exists": "%(content)sは存在していません",
+        "is_required": "%(data)sは必須です",
+        "is_not_correct": "%(data)sは正しくないです",
+        "is_already_exists": "%(data)sはすでに存在しています",
+        "password_is_already_exists":
+            "パスワードはすでに設定しています。もしもパスワードを更新したい場合設定画面からご利用ください。",
+        "is_not_permitted": "%(data)sは許可されていないデータです",
+        "not_finish_sign_up": "%(data)sはまだ会員登録が終了していないです"
+    }
+}

@@ -1,0 +1,719 @@
+{
+    "g": {
+        "action_selfinity": "Selfinityでの3つのアクション",
+        "good_opinion": "スーパーグッド",
+        "acception_good_opinion": "スーパーグッドにする",
+        "unacception_good_opinion": "スーパーグッドを解除する",
+        "accept": "承認",
+        "accepted": "承認済み",
+        "unaccepted": "非承認",
+        "auction": "オークション",
+        "auction_title": "会話チケット機能",
+        "auction_desc":
+            "好きな人と好きな話題で会話できるチケットを購入できます。オークション方式ですので高い額を入札すると答えてくれる確率が上がります。",
+        "address": "アドレス",
+        "age": "日時",
+        "alert_request_title": "リクエストに答えたチャットです",
+        "alert_request_desc":
+            "もしリクエストの希望通りのチャットであれば落札をしましょう。もし払い戻しすれば入札額は返ってきます。",
+        "amount": "数量",
+        "anonymouse": "匿名",
+        "answered_content": "答えたメッセージ",
+        "answered_communication": "答えたメッセージ",
+        "answered_request": "答えたリクエスト",
+        "answered_parent": "返信先",
+        "and": "と",
+        "api_key": "APIキー",
+        "app_settings": "アプリ設定",
+        "are_you_sure": "よろしいですか？",
+        "ask": "買値",
+        "balance": "残高",
+        "balances": "残高",
+        "bid": "売値",
+        "blog": "ブログ",
+        "browse": "ブラウズ",
+        "buy": "買う",
+        "buy_or_sell": "購入または売却",
+        "by": "by",
+        "body": "内容",
+        "cancel": "キャンセル",
+        "copied": "コピーしました",
+        "change_password": "パスワードの変更",
+        "choose_language": "言語を選択",
+        "choose_image": "画像を選択",
+        "clear": "消去",
+        "cheering": "メッセージいいね",
+        "cheering_desc":
+            "メッセージを添えていいねできます。会話している人だけのいいねを実現してます！\nいいねのスコアはいいねしてくれた人の良い投稿の数で上がります",
+        "cheering_mode": "いいねモード",
+        "cheering_content": "いいねメッセージ",
+        "cheering_content_desc":
+            "いいねモードにすると%(data)sさんに報酬といいねをプレゼントできます！",
+        "close": "閉じる",
+        "collapse_or_expand": "折りたたみ/展開",
+        "comment": "メッセージ",
+        "do_comment": "メッセージ",
+        "complete": "完了",
+        "comment_empty":
+            "このチャットにメッセージを送信して、より深いチャットをしよう！",
+        "comments": "メッセージ",
+        "contact": "お問い合わせ",
+        "confirm": "確認",
+        "confirm_bridge": "上記の内容でSelfを受け取る",
+        "confirm_of_password": "パスワードの確認",
+        "congratulations": "おめでとうございます!",
+        "contents": "チャット",
+        "communicates": "チャット",
+        "communication": "チャット",
+        "convert": "変換する",
+        "country_code": "国番号",
+        "credit": "ポイント",
+        "credit_way1": "いいねをあげる・もらう",
+        "credit_way2": "応援やいいねを貰う",
+        "credit_way3": "伸びるチャットにいいねする",
+        "credit_way4": "リクエストに答える",
+        "credit_ways":
+            "これらのアクションしてくれた人が高いポイントを持っているほど報酬は高まっていきます！",
+        "credit_merits": "ポイントを多く獲得するメリット",
+        "credit_merit1": "独自通貨「Self」が手に入る",
+        "credit_merit2": "ポイントが高いほどあなたのいいねに影響力がでます",
+        "credit_merit3": "周りから頼られリクエストが届きやすい",
+        "credit_merit4": "「他者貢献の証」であるSelfを獲得できる",
+        "credit_title": "ポイントは独自通貨Selfの貰やすさを決めます！",
+        "credit_about":
+            "ポイントはいいねをあげたり,もらったりすると24時間後にもらえます。ポイントを手に入れる度にSelfも獲得する事ができます！",
+        "credit_desc":
+            "Selfinityでの3つのアクションに基づき必要な情報を可視化し重要度に基づき投稿者・評価者・リクエスト応募者に報酬が払われます",
+        "credition": "信頼性",
+        "credition_desc":
+            "メッセージは誰がいいねしたかという質で価値が決まるのでどこのSNSよりも満足度にコミットしておりいいね稼ぎなどの荒らし行為は起きづらいです",
+        "date": "日時",
+        "detail_user": "自己紹介",
+        "detail": "自己紹介",
+        "delete": "削除",
+        "delete_password_link": "パスワードを忘れた場合はこちらから",
+        "deny": "拒否",
+        "denial": "非承認",
+        "dismiss": "閉じる",
+        "disscussion": "チャット",
+        "do_post": "投稿する",
+        "do_answer": "答える",
+        "do_it": "%(data)sをしてください",
+        "edit": "編集",
+        "email": "メールアドレス",
+        "eth_address": "Ethereumアドレス",
+        "eth_send_address": "送信先Ethereumアドレス",
+        "eth_wallet": "Ethereum ウォレット",
+        "eth_wallet_about": "このWalletの中にあなたのSelfが入っています",
+        "eth_wallet_info_title": "Ethereum Walletの秘密鍵です",
+        "eth_wallet_info_warning":
+            "このページは他の人に見せてはいけません。もしも秘密鍵が誰かの手に渡ったとしても私達は責任を取りません。",
+        "faq": "FAQ",
+        "faqs": "FAQ・よくある質問",
+        "fee": "手数料",
+        "feed": "新着",
+        "first_user?": "Selfinityのご利用は初めてですか？",
+        "follow": "フォロー",
+        "flow_title": "Selfinityの楽しさがわかる最短のご利用の流れ",
+        "for": " : ",
+        "form_title": "チャットしたいことを書こう！",
+        "form_body": "どんなメッセージがほしいか書いてみよう！",
+        "opinion_form_title": "伝えたいことを書こう！",
+        "opinion_form_body": "「%(data)s」に対するメッセージを書いてみよう！",
+        "form_request_body":
+            "%(data)sさんと話したいことや相談したいことを書いてみよう！",
+        "from": " 送信元:",
+        "function_title": "Selfinityの使い方",
+        "function_desc": "Selfinityは簡単な2ステップで楽しめます！",
+        "function_super_good": "メッセージを出していいねとお金をゲット",
+        "function_super_good_desc":
+            "チャットに参加している人しかメッセージのいいねができません。なので万人受けを狙わずに匿名で自分の心からのメッセージを送れます。もし会話相手があなたのメッセージにいいねをしてくれたら、その分Self(Selfinity上の独自通貨)がもらえます！",
+        "function_bid": "会話チケットを購入",
+        "function_bid_desc":
+            "Selfinityで獲得したお金で好きな人と好きな話題の会話ができる会話チケットをオークション方式で購入できます。購入方法はそのユーザーアイコン隣の青い会話券購入ボタンを押して話したい内容を書いて送るだけです！",
+        "function_credit": "ポイント制度",
+        "function_credit_desc":
+            "Selfinityはユーザーの心にササるようなアクションをするとポイントが手に入る質重視のプラットフォームです。ポイントの数に応じてSelfという特殊な独自通貨も差し上げます",
+        "function_opinion": "良質なメッセージ",
+        "function_opinion_desc":
+            "Selfinityは聞き手にササるメッセージはスーパーグッドとしてポイントを倍増させます。これによりポイントや見た目によってどこに良質なメッセージがあるかが一目瞭然になります",
+        "function_cheering": "応援機能",
+        "function_cheering_desc":
+            "自分にササったメッセージがある場合、応援メッセージをつけることができます。応援を貰ったメッセージはポイントが倍増します。周りのみんなから応援されるようなチャットをしましょう!",
+        "function_request": "リクエスト機能",
+        "function_request_desc":
+            "チャット中に生まれた疑問や質問を直接、好きな人に聞くことができます！相手の心にササるようにリクエストに答えると、ポイントが倍増するので、相手の心にササるような回答をしましょう",
+        "get_score_desc": "獲得Self数",
+        "get_token_desc": "回答報酬",
+        "go_back": "戻る",
+        "good_opinion": "スーパーグッド",
+        "good_opinion_desc":
+            "メッセージを貰った人のみ出せるスーパーグッドは報酬を倍増させます！",
+        "hide": "非表示",
+        "histories": "履歴",
+        "home": "ホーム",
+        "image": "画像",
+        "in": "in",
+        "in_reply_to": "in reply to",
+        "index": "一覧",
+        "invite_code": "招待コード",
+        "invited_code": "他のユーザーから招待されたコード",
+        "invite_code_desc":
+            "他ユーザーの招待コードを入力してもらうと１アカウントにつき１度だけ一定量のSelfがもらえます。ただし、招待コードを入力できるユーザーはアカウント登録から%(date)s日以内のユーザーのみです。",
+        "invite_desc":
+            "他ユーザーにこの招待コードを入力してもらうと一定量のSelfがもらえます。ただし、招待コードを入力できるユーザーはアカウント登録から%(date)s日以内のユーザーのみです。",
+        "insufficient_balance": "残高が不足しています",
+        "add_wanted": "募集を追加",
+        "add_opinion": "メッセージ",
+        "new_wanted": "新規メッセージ募集",
+        "request_wanted": "リクエスト募集",
+        "opinion_wanted": "メッセージ募集",
+        "optional": "任意",
+        "invalid_amount": "入力が不正です",
+        "joined": "登録年月：",
+        "label": "トピック",
+        "lighting_title": "会話を売買できるSNS",
+        "lighting_desc": "会話の価値と\nお金の価値を\n結びつけた",
+        "loading": "ロード中",
+        "login": "ログイン",
+        "login_desc": "ログインしてSelfinityを存分に楽しもう",
+        "logout": "ログアウト",
+        "mail_stop": "メール通知を解除しました",
+        "mail_reset_password": "パスワード初期化メールを送りました",
+        "memo": "メモ",
+        "merit_title": "Selfinity上の通貨",
+        "merit_point": "独自通貨「Self」",
+        "merit_point_short": "独自通貨「Self」",
+        "merit_desc":
+            "・いいねをあげる・もらうとSelfがもらえます！\n・Selfを使って会話チケットを購入できます！\n・日本円などの法定通貨との交換準備中です！\n・この通貨の詳細は徐々に公開していく予定です！\n(これらの内容は変更する可能性があります)",
+        "token_desc":
+            "SelfはSelfinity内の通貨です。\nいいねをあげる・もらうとSelfがもらえます！\nSelfを使って好きな人と好きな話題で喋れます！",
+        "mute": "ミュート",
+        "mypage": "マイページ",
+        "max": "最大",
+        "new": "新着",
+        "newest": "最新",
+        "new_posts": "新規チャット",
+        "new_comment": "新規メッセージ投稿",
+        "new_request": "新規会話チケット購入リクエスト",
+        "newer": "新しい",
+        "next": "次へ",
+        "nickname": "表示名",
+        "no": "いいえ",
+        "notification": "通知",
+        "ok": "Ok",
+        "older": "古い",
+        "or": "または",
+        "order_placed": "注文しました",
+        "password": "パスワード",
+        "payouts": "支払額",
+        "permissions": "アクセス権",
+        "phishy_message":
+            "リンクをプレーンテキストに拡張しました。潜在的なフィッシングに注意してください。",
+        "phone": "電話番号",
+        "phone_number": "電話番号",
+        "phone_code": "認証コード",
+        "phone_code_with_notif": "認証コード(メッセンジャーを確認してください)",
+        "send_code_not_reach": "認証コードを再発行する",
+        "phone_verify": "電話番号認証",
+        "please_enter": "%(data)sを入力してください",
+        "enter": "%(data)sを入力",
+        "post": "チャット",
+        "pickup_content": "今日の注目チャット",
+        "pickup_opinion": "今日の注目スーパーグッド",
+        "post_desc":
+            "本当に伝えたいことや答えたいリクエストに対して投稿しましょう。リクエストに答えたり良いメッセージを出すと報酬がアップします",
+        "post_as": "投稿します:",
+        "posts": "チャット数",
+        "powered_up_100": "パワーアップ 100%%",
+        "preview": "プレビュー",
+        "previous": "前へ",
+        "price": "価格",
+        "print": "印刷",
+        "private_key": "秘密鍵",
+        "profile_image": "プロフィール画像",
+        "promote": "プロモート",
+        "promoted": "プロモート",
+        "productivity": "プライスレスペイメント",
+        "productivity_desc":
+            "Selfinityで生まれた相手に役立つ会話は独自通貨に変わります。また独自通貨で好きな人に好きな話題で会話できるチケットをオークション形式で購入できます",
+        "quit": "Selfinityを退会する",
+        "quality": "クオリティー",
+        "quality_desc":
+            "匿名参加でき,メッセージの評価は会話してる人しかできないため,周りの目を気にして万人受けを取る必要はないです",
+        "re": "RE",
+        "re_to": "RE: %(topic)s",
+        "recent_password": "直近のパスワード",
+        "recommend_user": "おすすめ",
+        "receive": "受信 ",
+        "register_phone": "電話番号登録",
+        "related": "関連チャット",
+        "relate_label": "関連トピック",
+        "remove": "削除",
+        "remove_vote": "voteを取り消す",
+        "replied_to": "%(account)sへの返信",
+        "replies": "メッセージ",
+        "reply": "メッセージ",
+        "reply_count": {
+            "zero": "返信がありません",
+            "one": "1件の返信",
+            "other": "%(count)s件のメッセージ"
+        },
+        "reputation": "評価",
+        "reputation_desc":
+            "あなたが本当に良いと思ったメッセージやリクエストに評価をつけましょう。優秀な評価に対して報酬が付きます",
+        "requests": "会話券購入",
+        "requests_wanted": "評価募集中のリクエスト",
+        "reveal_comment": "メッセージを表示する",
+        "request": "会話券購入",
+        "request_desc":
+            "あなたの好きな人にリクエストを出しましょう。評価の高いリクエストは応えてくれる確率が上がります",
+        "required": "必須です",
+        "return_to": "%(data)sへ戻る",
+        "rewards": "報酬",
+        "save": "保存",
+        "saved": "保存しました",
+        "search": "検索",
+        "search_result": "検索結果",
+        "selfinity_mission":
+            "Selfinityはかけがえのない会話の価値とお金の価値を結びつけるサービスです",
+        "sell": "売る",
+        "send": "送る",
+        "send_amount": "送金量",
+        "send_confirm_email_title": "確認メールを送信しました。",
+        "send_email_not_reach": "確認メールを再発行する",
+        "sent": "入札済み",
+        "repayout": "払い戻し",
+        "repayouted": "払い戻し済",
+        "bid_amount": "入札額",
+        "bid_amount_placeholder": "入札額(最大: %(data)s)",
+        "payout": "落札",
+        "settings": "設定",
+        "share_this_post": "この記事をシェアする",
+        "show": "表示",
+        "show_more": "さらに表示",
+        "show_private_key": "秘密鍵を見る",
+        "send_confirm_email":
+            "メールボックスをご確認ください。アカウントを有効化するために送られたメールのリンクからアクセスしてください。",
+        "sign_in": "ログイン",
+        "sign_up": "登録",
+        "signup": "ユーザー登録",
+        "signup_desc":
+            "ユーザー登録してSelfinityの機能を思う存分楽しみましょう",
+        "signup_finish":
+            "すべての手続が終了しました！\nこれからSelfinityを存分に楽しんでください！",
+        "signup_middlepoint_descript":
+            "会員登録はひとまず終了しました！\nチャット機能までお楽しみいただくには電話番号を登録する必要がありますが認証を進めますか？",
+        "since": "since",
+        "resolved": "回答済み",
+        "solved": "落札済み",
+        "unsolved": "未落札",
+        "stock": "追加",
+        "start": "始める",
+        "submit": "送信",
+        "sns_spread_campaign": "SNS拡散キャンペーン",
+        "sns_spread_campaign_desc":
+            "Selfinityのユーザー登録が終了した人の中で、Twitter・Instagram・FacebookでSelfinityに関するチャットをするといいね数に応じてSelfを差し上げます。応募方法は以下のフォームに該当URL(下記の説明をお読みください)。期間は%(start)sから%(end)sまでです！ぜひ奮ってご応募ください!",
+        "subscribe": "登録",
+        "unsubscribe": "登録解除",
+        "subscribed_user": "登録ユーザー",
+        "subscribed_label": "登録トピック",
+        "summary_selfinity":
+            "Selfinityはブロックチェーンによる新時代のオープンチャットアプリです",
+        "power_up": "パワーアップ",
+        "privacy_policy": "プライバシーポリシー",
+        "submit_a_story": "投稿",
+        "tag": "トピック",
+        "target_contents": "返信先",
+        "target_requests": "答えるリクエスト",
+        "terms": "利用規約",
+        "accept_terms": "利用規約とプライバシーポシリーに同意する",
+        "check_terms": "利用規約を確認する",
+        "check_privacy": "プライバシーポリシーを確認する",
+        "title": "タイトル",
+        "to": " 宛先:",
+        "token_about":
+            "現在のあなたのSelf数です。これは実際の日本円と換金可能です(現在は取引を開始してません)",
+        "token_not_payment": "現在、%(amount)sSelfの受け取りが可能です",
+        "token_get_not_payment": "未払いのSelfを受け取る",
+        "token_get": "報酬を受け取る",
+        "token_merits": "Selfを多く獲得するメリット",
+        "token_merit1": "・好きな人と好きな話題で話せるチケットを購入できる。",
+        "token_merit2": "他の詳細は後日解禁...",
+        "to_next": "%(data)sへ",
+        "topics": "トピック",
+        "toggle_nightmode": "ナイトモード切替",
+        "all_tags": "すべてのタグ",
+        "thanks": "ありがとうございます!",
+        "transfer": "送信 ",
+        "trend": "トレンド",
+        "trending_topics": "トレンドトピック",
+        "type": "売買",
+        "unfollow": "フォロー解除",
+        "unmute": "ミュート解除",
+        "unknown": "不明",
+        "upvote": "Upvote",
+        "upvote_post": "投稿をUpvoteする",
+        "user": "ユーザー",
+        "username": "ユーザー名",
+        "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
+        "user_edit": "ユーザー編集",
+        "version": "バージョン",
+        "vote": "投票",
+        "votes": "投票数",
+        "wallet": "ウォレット",
+        "way_to_get": "取得方法",
+        "way_to_get_credit1":
+            "ポイントの高いいいねを貰ってたくさんのCreditを稼ぐ",
+        "way_to_get_credit2":
+            "ポイントの高いリクエストに答えた投稿をして、リクエストにしっかり答えたかどうか許可をもらう",
+        "way_to_get_credit3":
+            "より早く、より少なくポイントの高い投稿やリクエストにいいねを押す",
+        "welcome": "Selfinityへようこそ!",
+        "what_selfinity": "Selfinityとは？",
+        "what_selfinity_desc": "Selfinityの使い方はこちら!",
+        "welcome_desc":
+            "会員登録を終わらせ、さっそく実りあるチャットライフを送ろう！",
+        "warning": "注意",
+        "withdraw_token": "Selfを引き下ろす",
+        "withdraw_token_title":
+            "下のボタンをクリックして、Selfをこのアプリ上から引き下ろし、実際にあなたのものとなり現実の通貨と取引所で交換できるようになります。",
+        "yes": "はい",
+        "posting": "投稿",
+        "owner": "オーナー",
+        "active": "アクティブ",
+        "account_not_found": "アカウントが存在しません",
+        "this_is_wrong_password": "パスワードが間違っています",
+        "do_you_need_to": "必要ですか？",
+        "account_name": "アカウント名",
+        "recover_your_account": "アカウントの回復",
+        "reset_usernames_password": "%(username)sのパスワードをリセットします",
+        "this_will_update_usernames_authtype_key":
+            "%(username)sの%(authType)sキーが更新されます",
+        "passwords_do_not_match": "パスワードが一致しません",
+        "you_need_private_password_or_key_not_a_public_key":
+            "秘密パスワードまたはキーが必要です（公開キーではありません）",
+        "the_rules_of_APP_NAME": {
+            "one": "%(APP_NAME)sの第1のルールは：パスワードをなくさないこと",
+            "second":
+                "%(APP_NAME)sの第2のルールは：パスワードをなくさないでください",
+            "third":
+                "%(APP_NAME)sの第3のルールは：紛失したパスワードを回復することはできません",
+            "fourth": "第4のルールは：覚えられるパスワードは安全ではありません",
+            "fifth":
+                "第5のルールは：ランダムに生成したパスワードのみを使用してください",
+            "sixth": "第6のルールは：誰にもパスワードを教えないでください",
+            "seventh":
+                "第7のルールは：いつもパスワードをバックアップしてください"
+        },
+        "recover_password": "アカウント回復",
+        "current_password": "現在のパスワード",
+        "generated_password": "生成したパスワード",
+        "backup_password_by_storing_it":
+            "パスワード管理ツールまたはテキストファイルにパスワードをバックアップすることを強く推奨します",
+        "enter_account_show_password":
+            "有効なアカウント名を入力してパスワードを表示します",
+        "click_to_generate_password": "クリックしてパスワードを生成",
+        "re_enter_generate_password": "生成したパスワードを再入力してください",
+        "understand_that_APP_NAME_cannot_recover_password":
+            "私は%(APP_NAME)sが紛失したパスワードを回復できないことを理解しました",
+        "i_saved_password":
+            "私は生成したパスワードを安全なところに保存しました",
+        "update_password": "パスワードを更新",
+        "confirm_password": "パスワードを確認してください",
+        "account_updated": "アカウントが更新されました",
+        "password_must_be_characters_or_more":
+            "パスワードは%(amount)s文字以上でなければなりません",
+        "need_password_or_key":
+            "秘密パスワードまたはキーが必要です（公開キーではありません）",
+        "login_to_see_memo": "メモを見るにはメモキーでログインしてください",
+        "new_password": "新しいパスワード",
+        "incorrect_password": "不正なパスワード",
+        "username_does_not_exist": "存在しないユーザー名です",
+        "account_name_should_start_with_a_letter":
+            "アカウント名はアルファベットで始まる必要があります。",
+        "account_name_should_be_shorter": "アカウント名が長すぎます。",
+        "account_name_should_be_longer": "アカウント名が短すぎます。",
+        "account_name_should_have_only_letters_digits_or_dashes":
+            "アカウント名には英数字またはダッシュが使用できます。",
+        "cannot_increase_reward_of_post_within_the_last_minute_before_payout":
+            "支払いの直前に投稿の報酬を増やすことはできません",
+        "vote_currently_exists_user_must_be_indicate_a_to_reject_witness":
+            "現在、投票が存在し、証人を拒否するには強い意志を示す必要があります",
+        "only_one_APP_NAME_account_allowed_per_ip_address_every_10_minutes":
+            "10分毎に各IPアドレスにつき1つのSteemアカウントのみ許可されています",
+        "resteem_this_post": "この投稿をResteemする",
+        "reblog": "Resteem",
+        "write_your_story": "投稿内容を書いてください",
+        "remember_voting_and_posting_key": "投稿キーを記憶する",
+        "auto_login_question_mark": "自動ログインしますか？",
+        "hide_private_key": "秘密キーを隠す",
+        "show_private_key": "秘密キーを表示する",
+        "login_to_show": "ログインして表示",
+        "not_valid_email": "無効なメールアドレス",
+        "thank_you_for_being_an_early_visitor_to_APP_NAME":
+            "%(APP_NAME)sに来ていただきありがとうございます。できるだけ早くご連絡いたします。",
+        "author_rewards": "投稿者報酬",
+        "curation_rewards": "キュレーション報酬",
+        "sorry_your_reddit_account_doesnt_have_enough_karma":
+            "申し訳ありません。あなたのRedditアカウントはRedditカルマが足りないため無料のサインアップができません。待機リストに載るにはメールアドレスを使用してください。",
+        "register_with_facebook": "Facebookで登録する。",
+        "or_click_the_button_below_to_register_with_facebook":
+            "Facebookで登録するには下のボタンをクリックしてください。",
+        "server_returned_error": "サーバーでエラーが発生しました",
+        "APP_NAME_support": "%(APP_NAME)sサポート",
+        "please_email_questions_to": "質問をメールしてください：",
+        "next_7_strings_single_block": {
+            "authors_get_paid_when_people_like_you_upvote_their_post":
+                "投稿者は読者から投稿をupvoteされることで報酬を得ます。",
+            "if_you_enjoyed_what_you_read_earn_amount":
+                "読んで楽しんだら、次はアカウントを作成してSTEEMを手に入れましょう！",
+            "free_steem": "STEEMを手に入れよう！",
+            "sign_up_earn_steem": "サインアップして "
+        },
+        "next_3_strings_together": {
+            "show_more": "評価の低い投稿の表示を増やす",
+            "show_less": "評価の低い投稿の表示を減らす",
+            "value_posts": ""
+        },
+        "read_only_mode":
+            "サーバーメンテナンスのため読み取り専用モードで実行しています。ご迷惑をおかけして申し訳ありません。",
+        "tags_and_topics": "タグ",
+        "show_more_topics": "すべてのタグを見る",
+        "basic": "基本設定",
+        "advanced": "高度設定",
+        "views": {
+            "zero": "PVなし",
+            "one": "%(count)s PV",
+            "other": "%(count)s PV"
+        },
+        "responses": {
+            "zero": "返信なし",
+            "one": "%(count)s件の返信",
+            "other": "%(count)s件の返信"
+        },
+        "post_key_warning": {
+            "confirm":
+                "STEEMの秘密キーまたはマスターパスワードを公開しようとしています。関連するアカウントの管理権とすべての資金を失う恐れがあります。",
+            "warning":
+                "Steemit Inc.の従業員を含む正当なユーザーは秘密キーまたはマスターパスワードを要求することはありません。",
+            "checkbox": "理解しました。"
+        }
+    },
+    "checks": {
+        "lighting": {
+            "title": "You have potential opinions",
+            "text": "あなたのメッセージを頼りにしてる人がいる",
+            "foot": "ここは1人1人の心を動かすメッセージが評価されます"
+        },
+        "start": {
+            "title": "Start Chats",
+            "text": "さっそくチャットに参加しよう！",
+            "foot": "スーパーグッドを貰ってお金をゲット"
+        },
+        "home": {
+            "title": "Check Communications",
+            "text": "メッセージで人を動かそう！",
+            "foot": "チャットするだけでお金が手に入ります"
+        },
+        "user": {
+            "title": "Send Request",
+            "text": "リクエストを出してみよう",
+            "foot": "好きな人に質問できます"
+        },
+        "auction": {
+            "title": "Check Aunction",
+            "text": "あなたとの会話を買いたい人がいます！",
+            "foot": "スーパーグッドが貰えるような返信をしよう！"
+        },
+        "trend": {
+            "title": "Check Trends",
+            "text": "トレンドに対してメッセージを出そう",
+            "foot": "リアルタイムでチャットができます"
+        },
+        "new": {
+            "title": "View New Communications",
+            "text": "最新のチャットをチェックしよう",
+            "foot": "より早くメッセージを出してお金が手に入れよう"
+        }
+    },
+    "lightings": {
+        "opinion": {
+            "title": "1.メッセージ",
+            "text":
+                "相手の心にササるメッセージを出しましょう！万人受けではなく1人の信頼できる人の心にササることがポイントです！相手が満足すると報酬がもらえます！"
+        },
+        "good": {
+            "title": "2.心にササる",
+            "text":
+                "メッセージが相手にササるとスーパーグッドがもらえます！メッセージが相手の心を動かせていることを証明します！"
+        },
+        "credit": {
+            "title": "3.頼られる",
+            "text":
+                "心にササると優しさの証であるポイントがもらえます！ポイントが高いと、よりメッセージが自分に届きやすくなり新たな考えと出会えます！"
+        }
+    },
+    "notifications": {
+        "on_create_opinion": {
+            "title": "新しいチャットを確認!",
+            "body": "新メッセージをもらいました！"
+        },
+        "on_create_content": {
+            "title": "新しいチャットをチェックしよう!",
+            "body": "新しいチャットをチェックしよう!"
+        },
+        "on_create_content_call": {
+            "title": "新しいチャット募集をチェックしよう!",
+            "body": "新しいチャット募集をチェックしよう!"
+        },
+        "on_create_request": {
+            "title": "最新リクエストを確認!",
+            "body": "新リクエストをもらいました！"
+        },
+        "on_answer_request": {
+            "title": "リクエストの回答を確認!",
+            "body": "回答を確認して評価しよう！"
+        },
+        "on_get_good": {
+            "title": "いいねをもらいました！",
+            "body": "ポイントを確認しよう！"
+        },
+        "on_get_good_opinion": {
+            "title": "スーパーグッドをもらいました！",
+            "body": "あなたの考えが相手に認められました！"
+        },
+        "on_get_good_answer": {
+            "title": "スーパーグッドをもらいました!",
+            "body": "あなたの回答が認められました！"
+        },
+        "on_get_cheering": {
+            "title": "応援をもらいました！",
+            "body": "もらった応援を確認しよう！"
+        },
+        "on_get_token": {
+            "title": "報酬をもらいました！",
+            "body": "通貨・ポイントを確認しよう！"
+        },
+        "on_daily_summary": {
+            "title": "本日のおすすめ",
+            "body": "クリックして確認しよう！"
+        },
+        "on_daily_opinion": {
+            "title": "本日のスーパーグッド",
+            "body": "クリックして確認しよう！"
+        }
+    },
+    "pages": {
+        "HomeIndex": "会話が売買できるオープンチャットアプリ",
+        "NotFound": "会話が売買できるオープンチャットアプリ",
+        "Welcome": "会話が売買できるオープンチャットアプリ",
+        "TrendIndex": "%(data)sがトレンド入り！",
+        "FeedIndex": "最新のチャットでトークしてお金をゲットしよう",
+        "ContentShow": "%(data)s",
+        "RequestShow": "%(data)s",
+        "LabelShow": "%(data)s",
+        "UserShow": "%(nickname)sさん %(detail)s",
+        "Search": "%(data)sの検索結果",
+        "SearchContent": "%(data)sでの投稿の検索結果",
+        "SearchUser": "%(data)sでのユーザーの検索結果",
+        "SearchLabel": "%(data)sでのトピックの検索結果"
+    },
+    "descriptions": {
+        "HomeIndex":
+            "Selfinityは会話の価値とお金の価値を結びつけた会話が売買できるブロックチェーンによる新時代のオープンチャットアプリであり世界初のプライスレスペイメントという概念を作っています。チャットをするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買えます。掲示板形式でチャットができ、匿名で始められるのでストレスなく自分のやりたい会話ができます！ブロックチェーンによりユーザーの満足度を可視化しており、会話してる人のみがいいねができるという合理的な価値付をしているためどこのSNSよりも満足度にコミットしてます。",
+        "NotFound":
+            "Selfinityは会話が売買できるブロックチェーンによる新時代のオープンチャットアプリであり世界初のプライスレスペイメントという概念を作っています。チャットをするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話をするチケットを買えます。掲示板形式でチャットができ、匿名で始められるのでストレスなく自分のやりたい会話ができます！ブロックチェーンによりユーザーの満足度を可視化しており、会話してる人のみがいいねができるという合理的な価値付をしているためどこのSNSよりも満足度にコミットしてます。",
+        "Welcome":
+            "Selfinityは会話の価値とお金の価値を結びつけた会話が売買できるブロックチェーンによる新時代のオープンチャットアプリであり世界初のプライスレスペイメントという概念を作っています。チャットをするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買えます。掲示板形式でチャットができ、匿名で始められるのでストレスなく自分のやりたい会話ができます！ブロックチェーンによりユーザーの満足度を可視化しており、会話してる人のみがいいねができるという合理的な価値付をしているためどこのSNSよりも満足度にコミットしてます。",
+        "TrendIndex":
+            "トレンド入りした%(data)sの話題でチャットするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買える,ブロックチェーンによる新時代のオープンチャットアプリです。",
+        "FeedIndex":
+            "最新の話題でチャットするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買える,ブロックチェーンによる新時代のオープンチャットアプリです。",
+        "ContentShow": "%(data)s",
+        "RequestShow": "%(data)s",
+        "LabelShow":
+            "%(data)sの話題でチャットするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買える,ブロックチェーンによる新時代のオープンチャットアプリです。",
+        "UserShow": "%(data)s",
+        "Search":
+            "%(data)sの話題でチャットするだけでお金( 独自通貨 )が貰え,オークション形式で好きな人と好きな会話できるチケットを買える,ブロックチェーンによる新時代のオープンチャットアプリです。",
+        "SearchContent": "%(data)sでの投稿の検索結果",
+        "SearchUser": "%(data)sでのユーザーの検索結果",
+        "SearchLabel": "%(data)sでのトピックの検索結果"
+    },
+    "alts": {
+        "lighting": "会話が売買できるオープンチャットアプリ",
+        "default": "会話が売買できるオープンチャットアプリ"
+    },
+    "flash": {
+        "new_message_upvote": "メッセージを添えるといいねができます",
+        "new_message_for_super":
+            "聞き手からスーパーグッドが貰えるようなメッセージを出しましょう！"
+    },
+    "errors": {
+        "invalid_response_from_server":
+            "サーバーから不当なレスポンスがありました",
+        "invalid_access_token": "このURLは有効期限切れです",
+        "action_is_not_correct": "%(action)sは不当なアクションです",
+        "cant_created_with_error":
+            "%(content)sは%(error)sにより作成することができませんでした",
+        "cant_created": "%(content)sは作成することができませんでした",
+        "cant_updated": "%(content)sは更新することができませんでした",
+        "not_exists": "%(content)sは存在していません",
+        "is_required": "%(data)sは必須です",
+        "is_not_correct": "%(data)sは正しくないです",
+        "is_not_correct_auth": "認証情報は正しくないです",
+        "is_not_eth_address":
+            "%(data)sはEthereumのアカウントアドレスではないです。",
+        "is_already_exists": "%(data)sはすでに存在しています",
+        "is_already_vote": "すでにいいね済みです",
+        "is_already_registered": "すでに登録されています",
+        "is_not_registered": "まだ登録されていません",
+        "already_done": "%(data)sはすでに行っています",
+        "password_is_already_exists":
+            "パスワードはすでに設定しています。もしもパスワードを更新したい場合設定画面からご利用ください。",
+        "confirm_password_is_not_valid":
+            "パスワードは確認用パスワードと一致しません。",
+        "is_not_permitted": "%(data)sは許可されていないデータです",
+        "not_finish_sign_up": "%(data)sはまだ会員登録が終了していないです",
+        "is_limit": "%(data)sは%(limit)s個までです",
+        "invite_limit": "招待は%(limit)s回までです",
+        "invite_date":
+            "招待はアカウント登録から%(limit)s日以内ではないとできません",
+        "cannot_destroy_payouted":
+            "取引済みの報酬に関与する投稿や評価は取り消せません。",
+        "cannot_reaccept_payouted":
+            "取引済みの報酬に関与するリクエスト承認は取り消せません。",
+        "is_text_limit": "%(data)sは%(limit)s文字までです",
+        "is_text_min_max_limit": "%(data)sは%(min)s文字から%(max)s文字までです",
+        "is_limit": "%(data)sは%(limit)sまでです",
+        "good_opinion_limit":
+            "スーパーグッドは１つのメッセージに対して%(limit)sつまでです",
+        "is_limit_vote":
+            "より質の良いチャットを生むために、１つのメッセージのいいねの数は%(limit)s個までとなってます",
+        "is_min_max_limit": "%(data)sは%(min)sから%(max)sまでです",
+        "cannot_answer_without_auth": "解答権限はありません。",
+        "answered": "このリクエストは解答済みです",
+        "cannot_vote_own": "自分のメッセージにいいねは押せません。",
+        "only_halfwidthalphanumeric_or_simbol":
+            "%(data)sは半角英数字記号のみです",
+        "only_halfwidthalphanumeric": "%(data)sは半角英数字のみです",
+        "has_space": "%(data)sは空文字を含んではいけません。",
+        "wait_while": "しばらく時間をあけて試してみてください",
+        "cannot_better_vote":
+            "このメッセージをもらった人のみスーパーグッドにできます",
+        "cannot_better_vote_cheer":
+            "応援メッセージはスーパーグッドにできません",
+        "should_better_vote":
+            "不正防止のため、自分が貰ったメッセージはスーパーグッドでしかいいねできません",
+        "votered_cant_vote":
+            "不正防止のため、自分のもとに届いたリクエストを評価できません",
+        "not_agree_term": "利用規約に同意してください",
+        "not_change_password_with_oauth":
+            "SNSで会員登録しているユーザーはパスワードを設定する必要はないです。",
+        "not_number_country_code": "国番号は数字で入力してください",
+        "not_number_phone": "電話番号は数字で入力してください",
+        "already_cheering": "応援いいね済みです",
+        "over_bid": "入札額があなたの所持額を超えてます"
+    }
+}

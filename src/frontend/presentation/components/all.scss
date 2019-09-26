@@ -1,0 +1,25 @@
+@import "src/assets/stylesheets/reset";
+@import "src/assets/stylesheets/variables";
+@import "src/assets/stylesheets/mixins";
+@import "src/assets/stylesheets/layout";
+@import "src/assets/stylesheets/fonts";
+@import "src/assets/stylesheets/themes";
+@import 'src/assets/stylesheets/animation';
+
+@import "./App";
+
+// cards
+// @import "./cards/ContentShowList/styles";
+
+// elements
+// @import "./elements/AdsCard/styles";
+
+// modules
+// @import "./modules/Modals/styles";
+
+// pages
+// @import "./pages/Privacy/styles";
+// @import "./pages/FAQ/styles";
+// @import "./pages/Contact/styles";
+// @import "./pages/NotFound/styles";
+// @import "./pages/Term/styles";

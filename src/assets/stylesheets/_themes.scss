@@ -1,0 +1,109 @@
+@import "./variables";
+@import "./layout";
+
+$themes: (
+  original: (
+    background: $color-white,
+    backgroundClear: $color-clear-white,
+    backgroundContrast: $color-black,
+    backgroundContrastLight: $color-light-black,
+    backgroundLight: $color-light-gray,
+    backgroundThick: $color-gray,
+    backgroundBlur: $blur-black,
+    base: $color-orenge,
+    sub: $color-gold,
+    complementary: $color-blue,
+    border: $color-light-gray,
+    itemBorder: darken($color-light-gray, 8%),
+    shadow: $color-clear-black,
+    strongShadow: $color-clear-blue,
+    string: $color-black,
+    alert: $color-red,
+    cheering: $color-pastel-red,
+    redString: $color-red,
+    blueString: $color-blue,
+    labelColor: $color-blue,
+    complementaryString: $color-white,
+    gradationR: $color-gradation-bright-orenge,
+    gradationL: $color-yelow,//$color-gradation-dark-orenge,
+    complementaryGradationL: $color-gradation-bright-blue,
+    complementaryGradationR: $color-gradation-dark-blue,
+    subGradationL: $color-gradation-bright-red,
+    subGradationR: $color-pastel-red,
+    authGradationT: $color-light-orenge,
+    authGradationB: $color-thick-orenge,
+    transparent: $color-transparent,
+    success: $color-green,
+    warning: $color-yelow,
+    danger: $color-red,
+    info: $color-blue,
+  ),
+);
+
+$themes-key: (
+  background: "background",
+  backgroundClear: "backgroundClear",
+  backgroundContrast: "backgroundLight",
+  backgroundLight: "backgroundLight",
+  backgroundThick: "backgroundThick",
+  backgroundBlur: "backgroundBlur",
+  base: "base",
+  sub: "sub",
+  complementary: "complementary",
+  border: "border",
+  shadow: "shadow",
+  strongShadow: "strongShadow",
+  string: "string",
+  redString: "redString",
+  blueString: "blueString",
+  labelColor: "labelColor",
+  complementaryString: "complementary",
+  gradationL: "gradationL",
+  gradationR: "gradationR",
+  complementaryGradationL: "complementaryGradationL",
+  complementaryGradationR: "complementaryGradationR",
+  subGradationL: "subGradationL",
+  subGradationR: "subGradationR",
+  transparent: "transparent",
+);
+
+/*
+ * Implementation of themes
+ */
+@mixin themify($themes) {
+  @each $theme, $map in $themes {
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+      @content;
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+
+.theme-original {
+  background-color: $color-white;
+  color: $color-black;
+  @include MQ(M) {
+    background-color: $color-white;
+  }
+}
+// .theme-light {
+//   background-color: $white;
+//   color: $color-text-dark;
+//   @include MQ(M) {
+//     background-color: $color-background-off-white;
+//   }
+// }
+// .theme-dark {
+//   background-color: $color-background-dark;
+//   color: $color-text-white;
+// }

@@ -1,0 +1,120 @@
+// breakpoints
+
+$FS_FXS: 10px;
+$FS_XS: 12px;
+$FS_FS: 14px;
+$FS_S: 16px;
+$FS_FM: 18px;
+$FS_M: 24px;
+$FS_XM: 26px;
+$FS_FL: 28px;
+$FS_L: 32px;
+
+$FS_XL: 40px;
+
+
+@mixin FS($size) {
+  @if $size == FXS {
+   font-size: $FS_FXS;
+  }
+  @if $size == XS {
+   font-size: $FS_XS;
+  }
+  @if $size == FS {
+   font-size: $FS_FS;
+  }
+  @if $size == S {
+   font-size: $FS_S;
+  }
+  @if $size == FM {
+    font-size: $FS_FM;
+  }
+  @else if $size == M {
+   font-size: $FS_M;
+  }
+  @else if $size == XM {
+   font-size: $FS_XM;
+  }
+  @else if $size == FL {
+    font-size: $FS_FL;
+  }
+  @else if $size == L {
+   font-size: $FS_L;
+  }
+  @else if $size == XL {
+    font-size: $FS_XL;
+  }
+}
+
+@mixin LH($size) {
+  @if $size == FXS {
+   line-height: calc( #{$FS_S} + ( #{$FS_S} / 2)  + 4px );
+  }
+  @if $size == XS {
+   line-height: calc( #{$FS_S} + ( #{$FS_S} / 2)  + 4px );
+  }
+  @if $size == FS {
+   line-height: calc( #{$FS_S} + ( #{$FS_S} / 2)  + 4px );
+  }
+  @if $size == S {
+   line-height: calc( #{$FS_S} + ( #{$FS_S} / 2)  + 4px );
+  }
+  @if $size == FM {
+    line-height: calc( #{$FS_FM} + ( #{$FS_FM} / 2) + 8px );
+  }
+  @else if $size == M {
+   line-height: calc( #{$FS_M} + ( #{$FS_M} / 2) + 12px );
+  }
+  @else if $size == XM {
+   line-height: calc( #{$FS_XM} + ( #{$FS_XM} / 2) + 12px );
+  }
+  @else if $size == FL {
+    line-height: calc( #{$FS_FL} + ( #{$FS_FL} / 2) + 16px );
+  }
+  @else if $size == L {
+   line-height: calc( #{$FS_L} + ( #{$FS_L} / 2) + 20px );
+  }
+  @else if $size == XL {
+    line-height: calc( #{$FS_XL} + ( #{$FS_XL} / 2) + 24px );
+  }
+}
+
+$F_THIN: "HelveticaNeue-Thin", "Helvetica Neue Thin", "Helvetica Neue", ".HiraKakuInterface-W1";
+$F_LIGHT: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", ".HiraKakuInterface-W2";
+$F_REGULAR: "Helvetica Neue", 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro';
+$F_BOLD: "HelveticaNeue-Bold", "Helvetica Neue Bold", "Helvetica Neue", 'ヒラギノ角ゴ Pro W6','Hiragino Kaku Gothic Pro';
+$F_HIRAGINO: "Hiragino Sans";
+$W_THIN: 100;
+$W_LIGHT: 300;
+$W_REGULAR: 400;
+$W_BOLD: 700;
+//HelveticaNeue
+// @mixin FM($font-family) {
+//   @if $font-family == T {
+//    font-family: $F_THIN; font-weight: $W_THIN;
+//   }
+//   @if $font-family == L {
+//     font-family: $F_LIGHT; font-weight: $W_LIGHT;
+//   }
+//   @else if $font-family == R {
+//    font-family: $F_REGULAR; font-weight: $W_REGULAR;
+//   }
+//   @else if $font-family == B {
+//     font-family: $F_BOLD; font-weight: $W_BOLD;
+//   }
+// }
+
+@mixin FM($font-family) {
+  @if $font-family == T {
+   font-family: $F_HIRAGINO; font-weight: $W_THIN;
+  }
+  @if $font-family == L {
+    font-family: $F_HIRAGINO; font-weight: $W_LIGHT;
+  }
+  @else if $font-family == R {
+   font-family: $F_HIRAGINO; font-weight: $W_REGULAR;
+  }
+  @else if $font-family == B {
+    font-family: $F_HIRAGINO; font-weight: $W_BOLD;
+  }
+}

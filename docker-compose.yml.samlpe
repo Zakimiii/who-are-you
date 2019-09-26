@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: selfinity
+    ports:
+      - "8070:8070"
+    environment:
+      - DATABASE_HOST=mysql
+    depends_on:
+      - mysql
+    links:
+      - "mysql"
+      - "phpmyadmin"
+    working_dir: /var/app/
+    shm_size: 16GB
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: selfinity_development
+      # MYSQL_DATABASE: selfinity_production
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/mysql/data:/var/lib/mysql
+      # - ./docker/mysql/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOSTS: mysql
+      PMA_PORT: 3306:3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - 8080:80
+
+  runner:
+    image: gitlab/gitlab-runner
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./config:/etc/gitlab-runner
+    environment:
+      - REGISTER_NON_INTERACTIVE=true
+      - CI_SERVER_URL=http://[GitLabサーバーのURL]:9090/ci
+      - REGISTRATION_TOKEN=xxxxxxxxxxxxxxxxxxxx
+      - RUNNER_EXECUTOR=docker
+      - RUNNER_TAG_LIST=docker
+      - RUNNER_NAME=Docker Executor (Docker socket binding)
+      - RUNNER_LIMIT=1
+      - DOCKER_IMAGE=docker:latest
+      - DOCKER_VOLUMES=/var/run/docker.sock:/var/run/docker.sock
+
+  nginx:
+    image: nginx
+    container_name: "nginx"
+    restart: always
+    ports:
+      - '8060:8060'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d:ro
+      # - var:/var/app:ro
+    links:
+      - 'web'

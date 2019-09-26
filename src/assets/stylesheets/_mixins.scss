@@ -1,0 +1,148 @@
+@mixin hoverUnderline() {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// rem fallback - credits: http://zerosixthree.se/
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+// Enables opacity to be safely used with older browsers
+
+@mixin init_wh {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin center-trans() {
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+@mixin blur($opacity, $blur) {
+  content: '';
+  opacity: $opacity;
+  filter: blur($blur);
+  position: absolute;
+  z-index: -1;
+}
+
+@mixin blur-after($color, $opacity) {
+  overflow: hidden;
+  background-color: $color;
+  z-index: 0;
+  @include init_wh();
+  background-color: $color;
+  @include opacity($opacity);
+  z-index: 0;
+}
+
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin svg-set() {
+  & svg g polygon {
+    @content;
+  }
+  & svg path {
+    @content;
+  }
+  & svg g path {
+    @content;
+  }
+  & svg g line {
+    @content;
+  }
+  & svg circle {
+    @content;
+  }
+}
+
+@mixin element-color($color) {
+  background-image: url('data:image/svg+xml;utf8,<svg ...><g stroke="#{$color}" ... /></g></svg>');
+}
+
+@mixin default-link() {
+  text-decoration: none !important;
+  display: inline;
+}
+
+@mixin initPage {
+  width: 80%;
+  margin: 20px auto;
+}
+
+@mixin hover-underline($type: fade, $dir: null, $weight: 2px, $color: #000) {
+  @if $dir == null {
+    @if $type == fade {
+      $dir: 'top';
+    } @else if $type == slide {
+      $dir: 'center';
+    }
+  }
+
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  &::after {
+    position: absolute;
+    left: 0;
+    content: '';
+    width: 100%;
+    height: $weight;
+    background: $color;
+    @if $type == fade {
+      transition: .3s;
+      opacity: 0;
+      visibility: hidden;
+      @if $dir == bottom {
+        bottom: $weight * -4;
+      } @else {
+        bottom: $weight;
+      }
+    } @else if $type == slide {
+      bottom: $weight * -2;
+      transform: scale(0, 1);
+      transition: transform .3s;
+      @if $dir == left-right or $dir == right-in-left {
+        transform-origin: left top;
+      } @else if $dir == right-left or $dir == left-in-right {
+        transform-origin: right top;
+      } @else {
+        transform-origin: center top;
+      }
+    }
+  }
+  &:hover::after {
+    @if $type == fade {
+      bottom: $weight * -2;
+      opacity: 1;
+      visibility: visible;
+    } @else if $type == slide {
+      @if $dir == left-in-right {
+        transform-origin: left top;
+      } @else if $dir == right-in-left {
+        transform-origin: right top;
+      }
+      transform: scale(1, 1);
+    }
+  }
+}

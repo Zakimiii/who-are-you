@@ -1,0 +1,29 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+uuid = "*"
+tornado = "==4.5.3"
+mecab-python3 = "*"
+beautifulsoup4 = "*"
+pandas = "*"
+urllib3 = "*"
+asyncio = "*"
+sklearn = "*"
+numpy = "*"
+requests = "*"
+janome = "*"
+nltk = "*"
+datetime = "*"
+selenium = "*"
+html2text = "*"
+gensim = "*"
+google = "*"
+paramiko = "*"
+
+[requires]
+python_version = "3.7"

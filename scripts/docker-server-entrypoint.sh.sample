@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -e
+
+raise(){
+ echo "raise exception"
+ exit 1
+}
+
+MYSQL_ID='root'
+MYSQL_PWD='root'
+MYSQL_HOST='localhost'
+MYSQL_SCHEMA='mysql'
+MYSQL_COMD="mysql -u root -proot -D mysql -e"
+NODE_ENV="production"
+export NODE_ENV
+
+echo "testing is mysql is up"
+echo "waiting for mysql to startup"
+cd /var/app/src/db
+service mysql restart
+(
+  mysql -u root --password="" -D mysql -e "update user set authentication_string=password('root'), plugin='mysql_native_password' where user='root'; FLUSH PRIVILEGES" || raise
+  sequelize db:create || raise
+) || {
+  echo "catch exception"
+  # mysql -u root -proot -D mysql -e "update user set authentication_string=password('root'), plugin='mysql_native_password' where user='root'; FLUSH PRIVILEGES"
+}
+sequelize db:migrate
+echo "mysql started"
+
+# FIXME: why this is need for cabocha. I run this command before install
+sudo ldconfig
+
+echo "bootstraping server"
+cd /var/app/
+yarn run production
