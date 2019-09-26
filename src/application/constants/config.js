@@ -1,20 +1,20 @@
 import env from '@env/env.json';
 
-export const APP_NAME = 'Selfinity';
-export const APP_NAME_LATIN = 'Selfinity';
-export const APP_NAME_UPPERCASE = 'SELFINITY';
-export const APP_ICON = 'selfinity';
-export const HOST_NAME = 'selfinity';
-export const APP_DOMAIN = 'selfinity.com';
-export const APP_URL = 'https://selfinity.me';
+export const APP_NAME = 'Who are you?';
+export const APP_NAME_LATIN = 'Who are you?';
+export const APP_NAME_UPPERCASE = 'WHO ARE YOU?';
+export const APP_ICON = 'who are you';
+export const HOST_NAME = 'who are you';
+export const APP_DOMAIN = 'whoareyou.com';
+export const APP_URL = 'https://whoareyou.com';
 export const LOCAL_APP_URL = 'http://localhost:8080';
 export const CURRENT_APP_URL =
     process.env.NODE_ENV == 'production' ? APP_URL : LOCAL_APP_URL;
-export const APP_HOST = 'selfinity.net';
+export const APP_HOST = 'whoareyou.com';
 export const APP_IP = 'http://13.114.65.196';
 export const TOKEN_NAME = 'Self';
-export const LIQUID_TOKEN = 'selfinity';
-export const INC_NAME = 'selfiinty';
+export const LIQUID_TOKEN = 'who are you';
+export const INC_NAME = 'who are you';
 export const INC_FULL_NAME = '株式会社Selfinity';
 export const img_proxy_prefix = 'https://selfinity.s3.amazonaws.com';
 export const img_host = 'https://selfinity.s3.ap-northeast-1.amazonaws.com';

@@ -1,0 +1,170 @@
+// .loading-overlay {
+//  height: 100%;
+//  width: 100%;
+//  position: absolute;
+//  top: 0; left: 95px; bottom: 0; right: 0;
+//  z-index: 1 !important;
+//  -webkit-transition: opacity linear 0.5s;
+//  transition: opacity linear 0.5s;
+// }
+
+//.loading-overlay.ng-hide {
+//  opacity: 0;
+//}
+
+.loading-panel {
+  z-index: 1000;
+  position: absolute;
+  top: 20rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+  height: 100px;
+  max-height: 110px;
+  width: 10rem;
+  opacity: 0.4;
+  border-radius: 5px;
+}
+
+//.splash .loading-panel {
+//  left: -380px;
+//}
+
+.progress-indicator {
+  height: 50px;
+  vertical-align: middle;
+  margin: 46px 20px 20px 20px;
+  text-align: center;
+  @include themify($themes) {
+    color: themed('backgroundComplementary');
+  }
+  display: none;
+}
+
+.progress-indicator > span {
+  vertical-align: middle;
+  display: table-cell;
+}
+
+.with-progress .progress-indicator {
+  display: table;
+}
+
+.spinner {
+  width: 64px;
+  height: 18px;
+  margin: auto;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+}
+
+.with-progress .spinner {
+  margin: 20px auto 0 auto;
+}
+
+.spinner > div {
+  margin: 2px;
+  width: 16px;
+  height: 16px;
+  @include themify($themes) {
+    background-color: themed('backgroundThick');
+  }
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+  animation-delay: -0.16s;
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0.0);
+  }
+  40% {
+    transform: scale(1.0);
+  }
+}
+
+// three bounce
+
+.three-bounce > div {
+  margin: 2px;
+  width: 16px;
+  height: 16px;
+  @include themify($themes) {
+    background-color: themed('backgroundThick');
+  }
+
+  border-radius: 100%;
+  display: inline-block;
+  animation: bouncedelay 1.4s infinite ease-in-out;
+  /* Prevent first frame from flickering when animation starts */
+  animation-fill-mode: both;
+}
+
+.three-bounce .bounce1 {
+  animation-delay: -0.32s;
+}
+
+.three-bounce .bounce2 {
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bouncedelay {
+  0%, 80%, 100% { -webkit-transform: scale(0.0) }
+  40% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0.0);
+  } 40% {
+      transform: scale(1.0);
+    }
+}
+
+.LoadingIndicator.circle {
+    $circle-radius: 16px;
+    &.inline {
+        display: inline-block;
+        position: relative;
+        top: 6px;
+    }
+    &.circle-strong {
+        padding-top:2em;
+        padding-bottom:2em;
+        div {
+            border-width:1px;
+            @include themify($themes) {
+              border-right-color: themed('background') !important;
+              border-top-color: themed('background') !important;
+              border-color: themed('base');
+            }
+        }
+    }
+
+    div {
+        width: $circle-radius;
+        height: $circle-radius;
+        margin: 4px;
+        @include themify($themes) {
+          border: 2px solid themed('base');
+          border-right-color: themed('background') !important;
+          border-top-color: themed('background') !important;
+        }
+        border-radius: 50%;
+        animation: loading 500ms infinite linear;
+    }
+}
+
+

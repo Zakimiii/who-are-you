@@ -1,0 +1,65 @@
+.alert {
+  width: 100%;
+  clear: both;
+  padding: 15px;
+  border-radius: 15px;
+  // @include opacity(0.8);
+  @include themify($themes) {
+    background: themed('background');
+    box-shadow: 0 0 4px 4px themed('shadow');
+  }
+  position: relative;
+  &__close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    &-button {
+      cursor: pointer;
+      border-radius: 50%;
+      @include FM(M);
+      @include FS(S);
+      width: 24px;
+      height: 24px;
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+        background: themed('transparent');
+      }
+    }
+  }
+  &__body {
+    width: 100%;
+    &__title {
+      width: 100%;
+      padding: 2px;
+      text-align: center;
+      @include FS(FM);
+      @include FM(B);
+      @include LH(FM);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+    }
+    &__message {
+      width: 100%;
+      padding: 2px;
+      text-align: center;
+      @include FS(S);
+      @include FM(M);
+      @include LH(S);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+    }
+    &__buttons {
+      width: 100%;
+      height: 44px;
+      clear: both;
+    }
+    &__button {
+      height: 34px;
+      margin: 5px;
+      width: calc(50% - 10px);
+      float: left;
+    }
+  }
+}

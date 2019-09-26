@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppPropTypes from '@extension/AppPropTypes';
 import Header from '@modules/Header';
-import * as authActions from '@redux/Auth/AuthReducer';
 import * as appActions from '@redux/App/AppReducer';
 import classNames from 'classnames';
 import tt from 'counterpart';
 import { Component } from 'react';
-// import PageViewsCounter from '@elements/PageViewsCounter';
 import resolveRoute from '@infrastructure/ResolveRoute';
 import Modals from '@modules/Modals';
-import DialogManager from '@elements/common/DialogManager';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import AlertContainer from '@cards/AlertContainer';
 import FlashContainer from '@cards/FlashContainer';
@@ -225,9 +222,6 @@ class App extends Component {
         if (!process.env.BROWSER)
             return <LoadingScreen loading={!process.env.BROWSER} />;
 
-        const miniHeader =
-            pathname === '/create_account' || pathname === '/pick_account';
-
         const whistleView = false;
         const headerHidden = whistleView;
         const params_keys = Object.keys(params);
@@ -246,7 +240,6 @@ class App extends Component {
                 <div
                     className={classNames('App', themeClass, {
                         'index-page': ip,
-                        'mini-header': miniHeader,
                         'whistle-view': whistleView,
                         'header-hidden':
                             !isHeaderVisible ||
@@ -263,7 +256,6 @@ class App extends Component {
                     />
                     {children}
                     <Modals />
-                    <DialogManager />
                     <AlertContainer />
                     <FlashContainer />
                     <ScreenLoadingIndicator />
@@ -313,7 +305,7 @@ export default connect(
         };
     },
     dispatch => ({
-        loginUser: () => dispatch(authActions.login({})),
-        syncCurrentUser: () => dispatch(authActions.syncCurrentUser()),
+        loginUser: () => {},
+        syncCurrentUser: () => {},
     })
 )(App);

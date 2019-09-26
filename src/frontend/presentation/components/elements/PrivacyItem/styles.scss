@@ -1,0 +1,31 @@
+.privacy-item {
+  @include init_wh;
+  &__body {
+    & > h1 {
+      @include FM(B);
+      @include FS(L);
+    }
+    & > p {
+      @include FM(M);
+      @include FS(FS);
+      margin: 16px 10px;
+    }
+    & > h2 {
+      @include FM(B);
+      @include FS(S);
+      margin: 16px 0;
+    }
+    & > ol > li {
+      @include FM(M);
+      @include FS(FS);
+      margin: 10px 24px;
+      list-style-type: decimal;
+      & > ol > li {
+        @include FM(M);
+        @include FS(FS);
+        margin: 10px 24px;
+        list-style-type: upper-roman;
+      }
+    }
+  }
+}

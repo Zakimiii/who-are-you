@@ -1,0 +1,110 @@
+$headerListSize: 32px;
+$searchBarHeight: 42px;
+
+.Header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.05);
+  @include themify($themes) {
+    background-color: themed('background');
+    border-bottom: themed('border');
+  }
+  clear: both;
+  &__list {
+    cursor: pointer;
+    float: left;
+    margin: calc( ( 6rem - #{ $headerListSize } ) / 2 ) 24px;
+    &-image {
+    }
+  }
+  &-hidden {
+    display: none !important;
+  }
+  &__logo {
+    $headerLogoSize: 40px;
+    width: 123px;
+    height: $headerLogoSize;
+    margin: calc( ( 6rem - #{ $headerLogoSize } ) / 2 ) 0px;
+    @include mq-down(sm) {
+      width: 90px;
+      height: 30px;
+      margin: calc( ( 6rem - 30px ) / 2 ) 0px;
+    }
+    @include mq-down(xs) {
+      display: none;
+    }
+    &__link {
+      @include default-link;
+      float: left;
+      margin-right: 12px;
+    }
+  }
+  &__link:hover {
+  }
+  &__search {
+    &-bar {
+      height: $searchBarHeight;
+      float: left;
+      margin: 12px 12px;
+      margin-left: 24px;
+      @include mq-up(lg) {
+        width: 27% !important;
+      }
+      @include mq-up(md) {
+        width: 32%;
+      }
+      @include mq-down(md) {
+        display: none;
+      }
+    }
+  }
+  &__buttons {
+    float: right;
+    padding: 10px 28px;
+    padding-left: 0px;
+  }
+  &__button {
+    float: left;
+    margin: 0 4px;
+    &-raw {
+      min-width: 140px;
+      height: 40px;
+    }
+    &-mini {
+      min-width: 110px;
+      height: 40px;
+    }
+    &-icon {
+      width: 44px;
+      height: 47px;
+    }
+  }
+  &__search-mode {
+    width: 100%;
+    @include mq-up(md) {
+      display: none;
+    }
+    @include themify($themes) {
+      background-color: themed('background');
+    }
+    &__bar {
+      height: $searchBarHeight;
+      float: left;
+      margin: 12px 0;
+      margin-right: 10px;
+      width: 65%;
+    }
+    &__back {
+      float: left;
+      cursor: pointer;
+      margin: 10px 12px;
+    }
+  }
+}
+
+#Header-less-button {
+  margin-right: 8vw !important;
+}

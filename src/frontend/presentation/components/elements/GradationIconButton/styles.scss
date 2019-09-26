@@ -1,0 +1,114 @@
+.gradation-icon-button {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(-135deg, themed('gradationL'), themed('gradationR'));
+  }
+  @include themify($themes) {
+    box-shadow: 0px 0px 4px 2px themed('itemBorder');
+  }
+  &__image {
+  }
+  @include svg-set() {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      stroke: themed('background') !important;
+      fill: themed('background') !important;
+    }
+  }
+  &:hover {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: linear-gradient(-135deg, lighten(themed('gradationL'), 20%), lighten(themed('gradationR'), 20%));
+    }
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('background') !important;
+        fill: themed('background') !important;
+      }
+    }
+  }
+}
+
+
+.gradation-blue-icon-button {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(-135deg, themed('complementaryGradationL'), themed('complementaryGradationR'));
+  }
+  @include themify($themes) {
+    box-shadow: 0px 0px 4px 2px themed('itemBorder');
+  }
+  &__image {
+  }
+  @include svg-set() {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      stroke: themed('background') !important;
+      fill: themed('background') !important;
+    }
+  }
+  &:hover {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: linear-gradient(-135deg, lighten(themed('complementaryGradationL'), 20%), lighten(themed('complementaryGradationR'), 20%));
+    }
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('background') !important;
+        fill: themed('background') !important;
+      }
+    }
+  }
+}
+
+.gradation-red-icon-button {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(-135deg, themed('subGradationL'), themed('subGradationR'));
+  }
+  @include themify($themes) {
+    box-shadow: 0px 0px 4px 2px themed('itemBorder');
+  }
+  &__image {
+  }
+  @include svg-set() {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      stroke: themed('background') !important;
+      fill: themed('background') !important;
+    }
+  }
+  &:hover {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: linear-gradient(-135deg, lighten(themed('subGradationL'), 20%), lighten(themed('subGradationR'), 20%));
+    }
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('background') !important;
+        fill: themed('background') !important;
+      }
+    }
+  }
+}

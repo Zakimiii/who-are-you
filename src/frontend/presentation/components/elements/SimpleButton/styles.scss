@@ -1,0 +1,533 @@
+@mixin simpleButtonActive {
+  .active & {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('base') !important;
+    }
+    & > .simple-button__items {
+      & > .simple-button__items-text {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          color: themed('background');
+        }
+      }
+      & > .simple-button__items-image {
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: themed('background') !important;
+            fill: themed('background') !important;
+          }
+        }
+      }
+    }
+    &:hover {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('background')  !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            color: themed('base');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              stroke: themed('base') !important;
+              fill: themed('base') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.simple-button {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  @include themify($themes) {
+    background: themed('transparent');
+    box-shadow: 0px 0px 0px 2px themed('base');
+    // border-color: themed('backgroundThick');
+  }
+  &__link {
+    cursor: pointer;
+    background: transparent;
+    @include default-link;
+    padding: 0px;
+    &:hover > .simple-button {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('base');
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              stroke: themed('background') !important;
+              fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  &__items {
+    transition: all 0.3s ease-in-out;
+    text-decoration: none !important;
+    clear: both;
+    &-text {
+      @include FS(FM);
+      @include FM(B);
+      text-decoration: none !important;
+      @include themify($themes) {
+        color: themed('base');
+      }
+      float: left;
+      margin-left: 8px;
+    }
+    &-image {
+      float: left;
+      text-decoration: none !important;
+      @include svg-set() {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          stroke: themed('base') !important;
+          fill: themed('base')!important;
+        }
+      }
+    }
+  }
+  @include simpleButtonActive;
+}
+
+#simple_button_submit {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@mixin simpleWhiteButtonActive {
+  .active & {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('background') !important;
+    }
+    & > .simple-button__items {
+      & > .simple-button__items-text {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          color: themed('authGradationB');
+        }
+      }
+      & > .simple-button__items-image {
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: themed('authGradationB') !important;
+            fill: themed('authGradationB') !important;
+          }
+        }
+      }
+    }
+    &:hover {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('transparent') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            // color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              // stroke: themed('background') !important;
+              // fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.simple-white-button {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  @include themify($themes) {
+    background: themed('transparent');
+    box-shadow: 0px 0px 0px 2px themed('background');
+    // border-color: themed('backgroundThick');
+  }
+  .simple-button__link {
+    @include themify($themes) {
+      background: themed('transparent');
+    }
+    cursor: pointer;
+    @include default-link;
+    &:hover > .simple-white-button {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('background') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            color: themed('authGradationB');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              stroke: themed('authGradationB') !important;
+              fill: themed('authGradationB') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .simple-button__items {
+    transition: all 0.3s ease-in-out;
+    text-decoration: none !important;
+    clear: both;
+    &-text {
+      @include FS(FM);
+      @include FM(B);
+      text-decoration: none !important;
+      @include themify($themes) {
+        color: themed('background');
+      }
+      float: left;
+      margin-left: 8px;
+    }
+    &-image {
+      float: left;
+      text-decoration: none !important;
+      @include svg-set() {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+    }
+  }
+  @include simpleWhiteButtonActive;
+}
+
+@mixin simpleBlueButtonActive {
+  .active & {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('complementary') !important;
+    }
+    & > .simple-button__items {
+      & > .simple-button__items-text {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          color: themed('background');
+        }
+      }
+      & > .simple-button__items-image {
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: themed('background') !important;
+            fill: themed('background') !important;
+          }
+        }
+      }
+    }
+    &:hover {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('transparent') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            // color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              // stroke: themed('background') !important;
+              // fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.simple-blue-button {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  @include themify($themes) {
+    background: themed('transparent');
+    box-shadow: 0px 0px 0px 2px themed('complementary');
+    // border-color: themed('backgroundThick');
+  }
+  .simple-button__link {
+    @include themify($themes) {
+      background: themed('transparent');
+    }
+    cursor: pointer;
+    @include default-link;
+    &:hover > .simple-blue-button {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('complementary') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              stroke: themed('background') !important;
+              fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .simple-button__items {
+    transition: all 0.3s ease-in-out;
+    text-decoration: none !important;
+    clear: both;
+    &-text {
+      @include FS(FM);
+      @include FM(B);
+      text-decoration: none !important;
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+      float: left;
+      margin-left: 8px;
+    }
+    &-image {
+      float: left;
+      text-decoration: none !important;
+      @include svg-set() {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          stroke: themed('complementary') !important;
+          fill: themed('complementary')!important;
+        }
+      }
+    }
+  }
+  @include simpleBlueButtonActive;
+}
+
+@mixin simpleBlueButtonActive {
+  .active & {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('complementary') !important;
+    }
+    & > .simple-button__items {
+      & > .simple-button__items-text {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          color: themed('background');
+        }
+      }
+      & > .simple-button__items-image {
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: themed('background') !important;
+            fill: themed('background') !important;
+          }
+        }
+      }
+    }
+    &:hover {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('transparent') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            // color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              // stroke: themed('background') !important;
+              // fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin simpleRedButtonActive {
+  .active & {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('cheering') !important;
+    }
+    & > .simple-button__items {
+      & > .simple-button__items-text {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          color: themed('background');
+        }
+      }
+      & > .simple-button__items-image {
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: themed('background') !important;
+            fill: themed('background') !important;
+          }
+        }
+      }
+    }
+    &:hover {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('transparent') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            // color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              // stroke: themed('background') !important;
+              // fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.simple-red-button {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  text-align: center;
+  @include themify($themes) {
+    background: themed('transparent');
+    box-shadow: 0px 0px 0px 2px themed('cheering');
+    // border-color: themed('backgroundThick');
+  }
+  .simple-button__link {
+    @include themify($themes) {
+      background: themed('transparent');
+    }
+    cursor: pointer;
+    @include default-link;
+    &:hover > .simple-red-button {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('cheering') !important;
+      }
+      & > .simple-button__items {
+        & > .simple-button__items-text {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            color: themed('background');
+          }
+        }
+        & > .simple-button__items-image {
+          @include svg-set() {
+            @include themify($themes) {
+              transition: all 0.3s ease-in-out;
+              stroke: themed('background') !important;
+              fill: themed('background') !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .simple-button__items {
+    transition: all 0.3s ease-in-out;
+    text-decoration: none !important;
+    clear: both;
+    &-text {
+      @include FS(FM);
+      @include FM(B);
+      text-decoration: none !important;
+      @include themify($themes) {
+        color: themed('cheering');
+      }
+      float: left;
+      margin-left: 8px;
+    }
+    &-image {
+      float: left;
+      text-decoration: none !important;
+      @include svg-set() {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          stroke: themed('cheering') !important;
+          fill: themed('cheering')!important;
+        }
+      }
+    }
+  }
+  @include simpleRedButtonActive;
+}

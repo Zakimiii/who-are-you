@@ -23,6 +23,7 @@ export const notfoundRoute = new RouteEntity({
 
 export const routeEntities = new RouteEntities({
     items: [
+        notfoundRoute
         // homeIndexRoute,
     ],
     notfoundRoute,

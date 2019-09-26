@@ -1,0 +1,35 @@
+.icon-button {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    box-shadow: 0px 0px 4px 2px themed('itemBorder');
+    background: themed('background');
+  }
+  &__image {
+  }
+  @include svg-set() {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      stroke: themed('backgroundThick') !important;
+      fill: themed('backgroundThick') !important;
+    }
+  }
+  &:hover {
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: darken(themed('background'), 5%) !important;
+      // box-shadow: 0px 0px 2px 4px themed('itemBorder');
+    }
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: lighten(themed('base'), 20%) !important;
+        fill: lighten(themed('base'), 20%)!important;
+      }
+    }
+  }
+}

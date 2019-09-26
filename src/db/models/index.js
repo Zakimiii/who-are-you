@@ -18,33 +18,7 @@ if (config.use_env_variable) {
 }
 
 const models = [
-    require('./user')(sequelize, Sequelize),
-    require('./account')(sequelize, Sequelize),
-    require('./account_recovery_request')(sequelize, Sequelize),
-    require('./identity')(sequelize, Sequelize),
-    require('./content')(sequelize, Sequelize),
-    require('./follow')(sequelize, Sequelize),
-    require('./label')(sequelize, Sequelize),
-    require('./labeling')(sequelize, Sequelize),
-    require('./repost')(sequelize, Sequelize),
-    require('./upvote')(sequelize, Sequelize),
-    require('./downvote')(sequelize, Sequelize),
-    require('./view_history')(sequelize, Sequelize),
-    require('./search_history')(sequelize, Sequelize),
-    require('./interest')(sequelize, Sequelize),
-    require('./home_label')(sequelize, Sequelize),
-    require('./request')(sequelize, Sequelize),
-    require('./request_upvote')(sequelize, Sequelize),
-    require('./request_downvote')(sequelize, Sequelize),
-    require('./label_stock')(sequelize, Sequelize),
-    require('./developer')(sequelize, Sequelize),
-    require('./platform')(sequelize, Sequelize),
-    require('./reward')(sequelize, Sequelize),
-    require('./bridge')(sequelize, Sequelize),
-    require('./invite')(sequelize, Sequelize),
-    require('./sns_campaign')(sequelize, Sequelize),
-    require('./access_token')(sequelize, Sequelize),
-    require('./bid_transaction')(sequelize, Sequelize),
+    // require('./user')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {

@@ -1,5 +1,4 @@
 import App from '@components/App';
-import HomeIndex from '@pages/HomeIndex';
 import resolveRoute from '@infrastructure/ResolveRoute';
 import { RouteEntity, RouteEntities } from '@entity';
 import { routeEntities } from '@infrastructure/RouteInitialize';

@@ -1,0 +1,83 @@
+.flash {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  padding: 12px;
+  clear: both;
+  display: flex;
+  align-items: center;
+  position: relative;
+  @include themify($themes) {
+    box-shadow: 2px 2px 1px 2px themed('shadow');
+    color: themed('background');
+  }
+  &.flash-success {
+    @include themify($themes) {
+      background: themed('success');
+    }
+    & > .flash__button {
+      @include themify($themes) {
+        color: themed('success');
+      }
+    }
+  }
+  &.flash-danger {
+    @include themify($themes) {
+      background: themed('danger');
+    }
+    & > .flash__button {
+      @include themify($themes) {
+        color: themed('danger');
+      }
+    }
+  }
+  &.flash-warning {
+    @include themify($themes) {
+      background: themed('warning');
+    }
+    & > .flash__button {
+      @include themify($themes) {
+        color: themed('warning');
+      }
+    }
+  }
+  &.flash-info {
+    @include themify($themes) {
+      background: themed('info');
+    }
+    & > .flash__button {
+      @include themify($themes) {
+        color: themed('info');
+      }
+    }
+  }
+  &__button {
+    padding: 0px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    border-radius: 12px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    text-align: center;
+    @include FM(M);
+    @include FS(FM);
+    @include opacity(0.4);
+    @include themify($themes) {
+      background: themed('background');
+    }
+  }
+  &__message {
+    max-width: calc(90%);
+    @include FM(M);
+    @include FS(S);
+    @include opacity(0.8);
+    text-align: left;
+    vertical-align: middle;
+    @include themify($themes) {
+      color: themed('background');
+    }
+  }
+}

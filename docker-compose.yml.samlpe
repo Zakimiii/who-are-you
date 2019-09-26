@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     build: .
-    container_name: selfinity
+    container_name: who-are-you
     ports:
       - "8070:8070"
     environment:

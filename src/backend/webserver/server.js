@@ -27,13 +27,14 @@ import session from 'koa-session';
 import serve from 'koa-static';
 import send from 'koa-send';
 import sitemap from '@network/sitemap';
+import config from '@constants/config';
 
 if (cluster.isMaster) console.log('application server starting, please wait.');
 
 // import uploadImage from 'server/upload-image' //medium-editor
 
 const app = new Koa();
-app.name = 'Selfinity';
+app.name = config.APP_NAME;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 // cache of a thousand days
 const cacheOpts = { maxAge: 86400000, gzip: true, buffer: true };

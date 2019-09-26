@@ -1,0 +1,13 @@
+.flash-messages {
+  @include init_wh();
+  &__item {
+    width: 33vw;
+    min-height: 72px;
+    margin: 5px 0;
+    @include mq-down(md) {
+      width: 100%;
+      min-height: 72px;
+      margin: 5px 0;
+    };
+  }
+}
