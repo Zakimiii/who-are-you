@@ -18,7 +18,12 @@ if (config.use_env_variable) {
 }
 
 const models = [
-    // require('./user')(sequelize, Sequelize),
+    require('./user')(sequelize, Sequelize),
+    require('./identity')(sequelize, Sequelize),
+    require('./heading')(sequelize, Sequelize),
+    require('./answer')(sequelize, Sequelize),
+    require('./search_history')(sequelize, Sequelize),
+    require('./access_token')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {
