@@ -11,6 +11,8 @@
 // cards
 @import "./cards/AlertContainer/styles";
 @import "./cards/FlashContainer/styles";
+@import "./cards/HomeList/styles";
+@import "./cards/UserShowList/styles";
 
 // elements
 @import "./elements/AdsCard/styles";
@@ -27,6 +29,7 @@
 @import "./elements/SimpleButton/styles";
 @import "./elements/TermItem/styles";
 @import "./elements/Tooltip/styles";
+@import "./elements/PictureItem/styles";
 
 // modules
 @import "./modules/Modals/styles";
@@ -43,3 +46,5 @@
 @import "./pages/NotFound/styles";
 @import "./pages/LoadingScreen/styles";
 @import "./pages/Term/styles";
+@import "./pages/UserShow/styles";
+@import "./pages/Home/styles";

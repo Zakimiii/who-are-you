@@ -3,11 +3,29 @@ import data_config from '@constants/data_config';
 import config from '@constants/config';
 import tt from 'counterpart';
 
-// export const homeIndexRoute = new RouteEntity({
-//     path: '/',
-//     page: 'HomeIndex',
-//     component: require('@components/pages/HomeIndex'),
-// });
+export const privacyRoute = new RouteEntity({
+    path: '/privacy',
+    page: 'Privacy',
+    component: require('@components/pages/Privacy'),
+});
+
+export const faqRoute = new RouteEntity({
+    path: '/FAQ',
+    page: 'FAQ',
+    component: require('@components/pages/FAQ'),
+});
+
+export const termRoute = new RouteEntity({
+    path: '/term',
+    page: 'Term',
+    component: require('@components/pages/Term'),
+});
+
+export const contactRoute = new RouteEntity({
+    path: '/contact',
+    page: 'Contact',
+    component: require('@components/pages/Contact'),
+});
 
 export const notfoundRoute = new RouteEntity({
     path: '/notfound',
@@ -23,7 +41,11 @@ export const notfoundRoute = new RouteEntity({
 
 export const routeEntities = new RouteEntities({
     items: [
-        notfoundRoute
+        notfoundRoute,
+        privacyRoute,
+        faqRoute,
+        termRoute,
+        contactRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,
@@ -41,4 +63,3 @@ export const getPageDescription = (pathname, state) => {
     return description;
 };
 
-// export default function initialize() {}

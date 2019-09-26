@@ -456,6 +456,124 @@ module.exports = {
                 return queryInterface.sequelize.query(
                     'ALTER TABLE `searchHistories` ROW_FORMAT=DYNAMIC;'
                 );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'developers',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        api_key: {
+                            type: Sequelize.STRING(126),
+                            allowNull: false,
+                            unique: true,
+                        },
+                        email: {
+                            type: Sequelize.STRING(126),
+                            allowNull: false,
+                            unique: true,
+                        },
+                        token: {
+                            type: Sequelize.STRING(255),
+                        },
+                        email_is_verified: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        last_attempt_verify_email: {
+                            type: Sequelize.DATE,
+                        },
+                        phone_number: {
+                            type: Sequelize.STRING(126),
+                            unique: true,
+                        },
+                        phone_number_is_verified: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        last_attempt_verify_phone_number: {
+                            type: Sequelize.DATE,
+                        },
+                        phone_code_attempts: {
+                            type: Sequelize.INTEGER,
+                            defaultValue: 0,
+                        },
+                        phone_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        country_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        account_is_created: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        confirmation_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        username: {
+                            type: Sequelize.STRING(255),
+                        },
+                        username_booked_at: {
+                            type: Sequelize.DATE,
+                        },
+                        password_hash: {
+                            type: Sequelize.STRING(255),
+                        },
+                        password: {
+                            type: Sequelize.STRING(255),
+                            allowNull: true,
+                            validate: {
+                                min: 8,
+                                max: 32,
+                            },
+                        },
+                        verified: {
+                            type: Sequelize.BOOLEAN,
+                        },
+                        bot: {
+                            type: Sequelize.BOOLEAN,
+                        },
+                        locale: {
+                            type: Sequelize.STRING(255),
+                        },
+                        meta: {
+                            type: Sequelize.STRING(255),
+                        },
+                        isPrivate: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        valid: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        permission: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `developers` ROW_FORMAT=DYNAMIC;'
+                );
             });
     },
     down: function(queryInterface, Sequelize) {

@@ -24,6 +24,7 @@ const models = [
     require('./answer')(sequelize, Sequelize),
     require('./search_history')(sequelize, Sequelize),
     require('./access_token')(sequelize, Sequelize),
+    require('./developer')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {
