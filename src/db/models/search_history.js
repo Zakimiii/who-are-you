@@ -27,6 +27,9 @@ module.exports = function(sequelize, DataTypes) {
             table_name: {
                 type: DataTypes.STRING(255),
             },
+            client_id: {
+                type: DataTypes.STRING(255),
+            },
         },
         {
             tableName: 'searchHistories',
@@ -53,6 +56,7 @@ module.exports = function(sequelize, DataTypes) {
             title: self.title,
             meta: self.meta,
             table_name: self.table_name,
+            client_id: self.client_id,
         };
     };
 

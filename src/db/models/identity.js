@@ -33,6 +33,9 @@ module.exports = function(sequelize, DataTypes) {
             username: {
                 type: DataTypes.STRING(126),
             },
+            token: {
+                type: DataTypes.STRING(255),
+            },
             email: {
                 type: DataTypes.STRING(126),
                 allowNull: false,
@@ -138,6 +141,7 @@ module.exports = function(sequelize, DataTypes) {
             id: self.id,
             UserId: self.UserId,
             username: self.username,
+            token: self.token,
             email: self.email,
             email_token: self.email_token,
             email_is_verified: self.email_is_verified,

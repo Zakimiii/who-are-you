@@ -2,7 +2,7 @@
     "development": {
         "username": "root",
         "password": null,
-        "database": "who-are-you_development",
+        "database": "who_are_you_development",
         "host": "127.0.0.1",
         "dialect": "mysql",
         "logging": false
@@ -10,14 +10,14 @@
     "staging": {
         "username": "root",
         "password": "root",
-        "database": "who-are-you_development",
+        "database": "who_are_you_development",
         "host": "127.0.0.1",
         "dialect": "mysql"
     },
     "production": {
         "username": "root",
         "password": "root",
-        "database": "who-are-you_production",
+        "database": "who_are_you_production",
         "host": "127.0.0.1",
         "dialect": "mysql"
     }

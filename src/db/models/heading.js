@@ -22,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             },
-            text: {
+            body: {
                 type: Sequelize.TEXT('long'),
             },
             locale: {
@@ -82,7 +82,7 @@ module.exports = function(sequelize, DataTypes) {
         return {
             id: self.id,
             UserId: self.UserId,
-            text: self.text,
+            body: self.body,
             locale: self.locale,
             country_code: self.country_code,
             answer_count: self.answer_count,

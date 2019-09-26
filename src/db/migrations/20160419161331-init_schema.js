@@ -108,6 +108,9 @@ module.exports = {
                             type: Sequelize.STRING(126),
                             unique: true,
                         },
+                        token: {
+                            type: Sequelize.STRING(255),
+                        },
                         email: {
                             type: Sequelize.STRING(126),
                             allowNull: false,
@@ -214,7 +217,7 @@ module.exports = {
                             onDelete: 'cascade',
                             allowNull: true,
                         },
-                        text: {
+                        body: {
                             type: Sequelize.TEXT('long'),
                         },
                         locale: {
@@ -425,6 +428,9 @@ module.exports = {
                             },
                             onUpdate: 'cascade',
                             onDelete: 'set null',
+                        },
+                        client_id: {
+                            type: Sequelize.STRING(255),
                         },
                         locale: {
                             type: Sequelize.STRING(255),
