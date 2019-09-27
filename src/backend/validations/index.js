@@ -4,7 +4,6 @@ import models from '@models';
 import badDomains from '@constants/bad-domains';
 import data_config from '@constants/data_config';
 import validator from 'validator';
-import { ACTION_TYPE } from '@entity';
 
 export const apiUnwrapData = key =>
     new ValidationEntity({

@@ -19,8 +19,8 @@ export default class HeadingDataStore extends DataStoreImpl {
         datum,
         params = {
             user: true,
-            answers: false
-        },
+            answers: false,
+        }
     ) {
         if (!datum) return;
         if (!(datum instanceof Array)) {
@@ -76,14 +76,14 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (!value) return;
         const heading = await models.Heading.findOne({
             where: {
-              id: Number(value.id)
+                id: Number(value.id),
             },
         });
         if (!heading) return;
 
         const answers = await models.Answer.findAll({
             where: {
-              heading_id: Number(heading.id)
+                heading_id: Number(heading.id),
             },
         });
 
@@ -197,6 +197,47 @@ export default class HeadingDataStore extends DataStoreImpl {
                 results.push(item);
             }
         }
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getUserHeadings({ user_id, username, offset, limit, isMyAccount }) {
+        const where = isMyAccount
+            ? {
+                  $or: [
+                      {
+                          user_id: Number(user_id),
+                      },
+                      {
+                          username,
+                      },
+                  ],
+              }
+            : {
+                  $or: [
+                      {
+                          user_id: Number(user_id),
+                      },
+                      {
+                          username,
+                      },
+                  ],
+                  isPrivate: false,
+              };
+
+        const results = await models.Heading.findAll({
+            where,
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+            subQuery: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
 
         return await this.getIndexIncludes(results);
     }

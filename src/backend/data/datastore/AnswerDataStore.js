@@ -20,8 +20,8 @@ export default class AnswerDataStore extends DataStoreImpl {
         params = {
             user: true,
             heading: true,
-            siblings: false
-        },
+            siblings: false,
+        }
     ) {
         if (!datum) return;
         if (!(datum instanceof Array)) {
@@ -185,6 +185,67 @@ export default class AnswerDataStore extends DataStoreImpl {
                 results.push(item);
             }
         }
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getUserAnswers({ user_id, username, offset, limit, isMyAccount }) {
+        const where = isMyAccount
+            ? {
+                  $or: [
+                      {
+                          user_id: Number(user_id),
+                      },
+                      {
+                          username,
+                      },
+                  ],
+              }
+            : {
+                  $or: [
+                      {
+                          user_id: Number(user_id),
+                      },
+                      {
+                          username,
+                      },
+                  ],
+                  isPrivate: false,
+              };
+
+        const results = await models.Answer.findAll({
+            where,
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+            subQuery: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getHeadingAnswers({ heading_id, offset, limit }) {
+        const results = await models.Answer.findAll({
+            where: {
+                heading_id,
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+            subQuery: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
 
         return await this.getIndexIncludes(results);
     }
