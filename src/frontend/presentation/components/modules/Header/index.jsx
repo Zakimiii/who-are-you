@@ -17,6 +17,8 @@ import { getWindowSize } from '@network/window';
 import Responsible from '@modules/Responsible';
 import GradationIconButton from '@elements/GradationIconButton';
 import Img from 'react-image';
+import autobind from 'class-autobind';
+import { homeRoute } from '@infrastructure/RouteInitialize';
 
 class Header extends React.Component {
     static propTypes = {
@@ -30,14 +32,8 @@ class Header extends React.Component {
 
     constructor(props) {
         super(props);
-        this.toggleHeader = this.toggleHeader.bind(this);
-        this.toggleSideBar = this.toggleSideBar.bind(this);
-        this.handleClickPost = this.handleClickPost.bind(this);
-        this.handleResize = this.handleResize.bind(this);
-        this.handleRequestSearch = this.handleRequestSearch.bind(this);
+        autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'Header');
-        this.handleClickComment = this.handleClickComment.bind(this);
-        this.handleClickRequest = this.handleClickRequest.bind(this);
     }
 
     handleResize() {
@@ -52,7 +48,6 @@ class Header extends React.Component {
             this.setState({
                 md: false,
             });
-            this.props.hideSideBarModal();
         } else {
             this.setState({
                 md: true,
@@ -76,72 +71,6 @@ class Header extends React.Component {
         if (this.toggleHeader) this.toggleHeader(nextProps);
     }
 
-    handleClickPost = e => {
-        const {
-            showNew,
-            showPhoneConfirm,
-            current_user,
-            showLogin,
-        } = this.props;
-
-        if (!current_user) {
-            showLogin();
-            return;
-        } else if (!current_user.verified) {
-            showPhoneConfirm();
-            return;
-        }
-
-        this.props.showNew();
-    };
-
-    handleClickComment = e => {
-        const {
-            show_content,
-            showNewComment,
-            current_user,
-            showPhoneConfirm,
-            showLogin,
-            addSuccess,
-        } = this.props;
-
-        if (!current_user) {
-            showLogin();
-            return;
-        } else if (!current_user.verified) {
-            showPhoneConfirm();
-            return;
-        }
-
-        if (show_content && current_user) {
-            addSuccess(tt('flash.new_message_for_super'));
-            showNewComment(show_content, current_user);
-        }
-    };
-
-    handleClickRequest = e => {
-        const {
-            current_user,
-            show_content,
-            showNewRequest,
-            show_user,
-            showPhoneConfirm,
-            showLogin,
-        } = this.props;
-
-        if (!current_user) {
-            showLogin();
-            return;
-        } else if (!current_user.verified) {
-            showPhoneConfirm();
-            return;
-        }
-
-        if (current_user && show_content)
-            showNewRequest(current_user, show_content.User);
-        if (current_user && show_user) showNewRequest(current_user, show_user);
-    };
-
     handleRequestSearch = e => {
         if (!e || e == '') return;
         this.setState({
@@ -159,23 +88,6 @@ class Header extends React.Component {
         );
     };
 
-    toggleSideBar = e => {
-        const {
-            show_side_bar,
-            show_side_bar_modal,
-            showSideBar,
-            hideSideBar,
-            hideSideBarModal,
-            showSideBarModal,
-        } = this.props;
-        if (e) e.preventDefault();
-        if (this.state.md) {
-            !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
-        } else {
-            !!show_side_bar ? hideSideBar() : showSideBar();
-        }
-    };
-
     toggleSearchMode = e => {
         const { search_mode } = this.state;
         this.setState({
@@ -183,24 +95,14 @@ class Header extends React.Component {
         });
     };
 
-    toggleHeader = props => {
+    toggleSideBar = e => {
         const {
-            isHeaderVisible,
-            route,
-            showHeader,
-            hideHeader,
-            showNew,
-        } = props;
-
-        switch (route) {
-            case routes.loginRoute:
-            case routes.signupRoute:
-                hideHeader();
-                break;
-            default:
-                showHeader();
-                break;
-        }
+            show_side_bar_modal,
+            hideSideBarModal,
+            showSideBarModal,
+        } = this.props;
+        if (e) e.preventDefault();
+        !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
     };
 
     render() {
@@ -211,10 +113,6 @@ class Header extends React.Component {
             route,
             showHeader,
             hideHeader,
-            showNew,
-            show_content,
-            showNewComment,
-            show_user,
             isMyAccount,
         } = this.props;
 
@@ -222,9 +120,6 @@ class Header extends React.Component {
             handleRequestSearch,
             toggleSideBar,
             toggleSearchMode,
-            handleClickComment,
-            handleClickRequest,
-            handleClickPost,
         } = this;
 
         const { search_mode } = this.state;
@@ -246,148 +141,6 @@ class Header extends React.Component {
             </div>
         );
 
-        const buttons = !!current_user ? (
-            <div className="Header__buttons">
-                <Responsible
-                    className="Header__button"
-                    breakMd={true}
-                    breakingContent={
-                        <div
-                            className="Header__button-icon"
-                            onClick={toggleSearchMode}
-                        >
-                            <IconButton src="search" size="2x" />
-                        </div>
-                    }
-                />
-                {!isMyAccount &&
-                /*(routes.contentShowRoute.isValidPath(pathname) ||*/
-                routes.userShowRoute.isValidPath(pathname) /*)*/ && (
-                        <Responsible
-                            className="Header__button"
-                            breakLg={true}
-                            defaultContent={
-                                <div className="Header__button-raw">
-                                    <GradationButton
-                                        value={tt('g.request')}
-                                        color="blue"
-                                        src={'auction'}
-                                        onClick={handleClickRequest}
-                                    />
-                                </div>
-                            }
-                            breakingContent={
-                                <div className="Header__button-icon">
-                                    <GradationIconButton
-                                        src="auction"
-                                        color="blue"
-                                        size="2x"
-                                        onClick={handleClickRequest}
-                                    />
-                                </div>
-                            }
-                        />
-                    )}
-                {routes.contentShowRoute.isValidPath(pathname) && (
-                    <Responsible
-                        className="Header__button"
-                        breakLg={true}
-                        defaultContent={
-                            <div className="Header__button-raw">
-                                <GradationButton
-                                    value={tt('g.do_comment')}
-                                    color="red"
-                                    src={'comment'}
-                                    onClick={handleClickComment}
-                                />
-                            </div>
-                        }
-                        breakingContent={
-                            <div className="Header__button-icon">
-                                <GradationIconButton
-                                    src="comment"
-                                    color="red"
-                                    size="2x"
-                                    onClick={handleClickComment}
-                                />
-                            </div>
-                        }
-                    />
-                )}
-                <Responsible
-                    className="Header__button"
-                    breakLg={true}
-                    defaultContent={
-                        <div className="Header__button-raw">
-                            <GradationButton
-                                value={tt('g.start')}
-                                src={'post'}
-                                onClick={handleClickPost}
-                            />
-                        </div>
-                    }
-                    breakingContent={
-                        <div className="Header__button-icon">
-                            <GradationIconButton
-                                src="post"
-                                size="2x"
-                                onClick={showNew}
-                            />
-                        </div>
-                    }
-                />
-            </div>
-        ) : (
-            <div className="Header__buttons">
-                <Responsible
-                    className="Header__button"
-                    breakMd={true}
-                    breakingContent={
-                        <div
-                            className="Header__button-icon"
-                            onClick={toggleSearchMode}
-                        >
-                            <IconButton src="search" size="2x" />
-                        </div>
-                    }
-                />
-                <Responsible
-                    className="Header__button"
-                    breakLg={true}
-                    breakingContent={
-                        <div
-                            className="Header__button-icon"
-                            onClick={() =>
-                                browserHistory.push(routes.loginRoute.getPath())
-                            }
-                        >
-                            <GradationIconButton src="noimage" size="2x" />
-                        </div>
-                    }
-                    defaultContent={
-                        <div className="Header__button-raw">
-                            <GradationButton
-                                value={tt('g.login')}
-                                url={routes.loginRoute.getPath()}
-                            />
-                        </div>
-                    }
-                />
-                <Responsible
-                    className="Header__button"
-                    breakLg={true}
-                    defaultContent={
-                        <div className="Header__button-raw">
-                            <GradationButton
-                                url={routes.signupRoute.getPath()}
-                                value={tt('g.signup')}
-                            />
-                        </div>
-                    }
-                />
-            </div>
-        );
-
         const nomal_body = (
             <div>
                 <div className="Header__list" onClick={toggleSideBar}>
@@ -398,7 +151,7 @@ class Header extends React.Component {
                     />
                 </div>
                 <Link
-                    to={routes.homeIndexRoute.getPath()}
+                    to={routes.homeRoute.getPath()}
                     className="Header__logo__link"
                 >
                     <Img
@@ -410,7 +163,6 @@ class Header extends React.Component {
                 <div className="Header__search-bar">
                     <SearchInput onRequestSearch={handleRequestSearch} />
                 </div>
-                {buttons}
             </div>
         );
 
@@ -427,22 +179,16 @@ export { Header as _Header_ };
 const mapStateToProps = (state, ownProps) => {
     const route = resolveRoute(ownProps.pathname);
     const isHeaderVisible = state.app.get('show_header');
-    const current_user = authActions.getCurrentUser(state);
-    const show_side_bar = state.app.get('show_side_bar');
+    // const current_user = authActions.getCurrentUser(state);
     const show_side_bar_modal = state.app.get('show_side_bar_modal');
-    let show_content = contentActions.getShowContent(state);
-    show_content = show_content && show_content.content;
-    const show_user = userActions.getShowUser(state);
-    const isMyAccount = userActions.isMyAccount(state, show_user);
+    // const isMyAccount = userActions.isMyAccount(state, show_user);
     return {
         isHeaderVisible,
         show_side_bar,
         show_side_bar_modal,
         route,
-        current_user,
-        show_user,
-        show_content,
-        isMyAccount,
+        // current_user,
+        // isMyAccount,
         ...ownProps,
     };
 };
@@ -457,24 +203,6 @@ const mapDispatchToProps = dispatch => ({
     hideHeader: () => {
         dispatch(appActions.hideHeader());
     },
-    showSideBar: () => {
-        dispatch(appActions.showSideBar());
-    },
-    hideSideBar: () => {
-        dispatch(appActions.hideSideBar());
-    },
-    showNew: () => {
-        dispatch(contentActions.showNew());
-    },
-    hideNew: () => {
-        dispatch(contentActions.hideNew());
-    },
-    showNewComment: (content, user) => {
-        dispatch(contentActions.showNewComment({ content, user }));
-    },
-    showNewRequest: (user, target_user) => {
-        dispatch(contentActions.showNewRequest({ user, target_user }));
-    },
     searchContent: keyword => {
         dispatch(searchActions.searchContent({ keyword }));
     },
@@ -488,28 +216,11 @@ const mapDispatchToProps = dispatch => ({
     },
     showLogin: e => {
         if (e) e.preventDefault();
-        dispatch(authActions.showLogin());
+        // dispatch(authActions.showLogin());
     },
     showPhoneConfirm: e => {
         if (e) e.preventDefault();
-        dispatch(authActions.showPhoneConfirm());
-    },
-    logout: e => {
-        // if (e) e.preventDefault();
-        // dispatch(authActions.logout());
-    },
-    toggleNightmode: e => {
-        // if (e) e.preventDefault();
-        // dispatch(appActions.toggleNightmode());
-    },
-    showSidePanel: () => {
-        //dispatch(userActions.showSidePanel());
-    },
-    hideSidePanel: () => {
-        //dispatch(userActions.hideSidePanel());
-    },
-    hideAnnouncement: () => {
-        //dispatch(userActions.hideAnnouncement());
+        // dispatch(authActions.showPhoneConfirm());
     },
 });
 

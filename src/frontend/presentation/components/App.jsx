@@ -251,8 +251,6 @@ class App extends Component {
                 >
                     <Header
                         pathname={pathname}
-                        category={category}
-                        order={order}
                     />
                     {children}
                     <Modals />
