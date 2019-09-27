@@ -3,7 +3,7 @@ import { Set, Map, fromJS, List } from 'immutable';
 import models from '@models';
 import { HeadingDataStore, AnswerDataStore, UserDataStore } from '@datastore';
 
-const answerDataStore = new answerDataStore();
+const answerDataStore = new AnswerDataStore();
 const headingDataStore = new HeadingDataStore();
 const userDataStore = new UserDataStore();
 
