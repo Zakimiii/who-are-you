@@ -7,7 +7,6 @@ import {
     IdentityDataStore,
     UserDataStore,
 } from '@datastore';
-import HandlerImpl from '@handlers/HandlerImpl';
 import querystring from 'querystring';
 import safe2json from '@extension/safe2json';
 import { ApiError } from '@extension/Error';

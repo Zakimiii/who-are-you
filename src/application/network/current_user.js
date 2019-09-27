@@ -17,35 +17,14 @@ export const setInitialCurrentUser = store => {
                 let key = val.split(escaper)[0];
                 let value = val.split(escaper)[1];
                 switch (key) {
-                    case 'vector':
-                    case 'post_vector':
-                    case 'follow_vector':
-                    case 'follower_vector':
-                    case 'upvote_vector':
-                    case 'request_post_vector':
-                    case 'request_upvote_vector':
-                    case 'label_stock_vector':
-                    case 'view_vector':
-                        // value = expo.ifStringParseJSON(value);
-                        value = value.split(',').map(v => parseFloat(v));
-                        break;
                     case 'id':
                         value = parseInt(value, 10);
-                        break;
-                    case 'pure_score':
-                    case 'score':
-                    case 'pure_score':
-                    case 'token_balance':
-                        value = parseFloat(value);
                         break;
                     case 'verified':
                     case 'bot':
                     case 'isPrivate':
                     case 'permission':
                         value = value == 'true';
-                        break;
-                    case 'vector':
-                        value = JSON.parse(value);
                         break;
                     default:
                         break;
@@ -64,35 +43,14 @@ export const setInitialCurrentUser = store => {
                 let key = val.split(escaper)[0];
                 let value = val.split(escaper)[1];
                 switch (key) {
-                    case 'vector':
-                    case 'post_vector':
-                    case 'follow_vector':
-                    case 'follower_vector':
-                    case 'upvote_vector':
-                    case 'request_post_vector':
-                    case 'request_upvote_vector':
-                    case 'label_stock_vector':
-                    case 'view_vector':
-                        // value = expo.ifStringParseJSON(value);
-                        value = value.split(',').map(v => parseFloat(v));
-                        break;
                     case 'id':
                         value = parseInt(value, 10);
-                        break;
-                    case 'pure_score':
-                    case 'score':
-                    case 'pure_score':
-                    case 'token_balance':
-                        value = parseFloat(value);
                         break;
                     case 'verified':
                     case 'bot':
                     case 'isPrivate':
                     case 'permission':
                         value = value == 'true';
-                        break;
-                    case 'vector':
-                        value = JSON.parse(value);
                         break;
                     default:
                         break;
