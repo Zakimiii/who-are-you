@@ -47,7 +47,7 @@ $searchBarHeight: 42px;
   &__search {
     &-bar {
       height: $searchBarHeight;
-      float: left;
+      float: right;
       margin: 12px 12px;
       margin-left: 24px;
       @include mq-up(lg) {

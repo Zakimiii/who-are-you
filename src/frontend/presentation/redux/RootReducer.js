@@ -4,6 +4,12 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 // import { contentStats } from '@utils/StateFunctions';
 import { appReducer } from '@redux/App';
+import { authReducer } from '@redux/Auth';
+import { answerReducer } from '@redux/Answer';
+import { headingReducer } from '@redux/Heading';
+import { searchReducer } from '@redux/Search';
+import { sessionReducer } from '@redux/Session';
+import { userReducer } from '@redux/User';
 
 function initReducer(reducer, type) {
     return (state, action) => {
@@ -41,6 +47,12 @@ function initReducer(reducer, type) {
 
 export default combineReducers({
     app: initReducer(appReducer),
+    auth: initReducer(authReducer),
+    answer: initReducer(answerReducer),
+    heading: initReducer(headingReducer),
+    search: initReducer(searchReducer),
+    session: initReducer(sessionReducer),
+    user: initReducer(userReducer),
     routing: initReducer(routerReducer),
     form: formReducer,
 });

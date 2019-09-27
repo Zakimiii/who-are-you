@@ -9,6 +9,7 @@ import tt from 'counterpart';
 import SearchInput from '@elements/SearchInput';
 import GradationButton from '@elements/GradationButton';
 import * as appActions from '@redux/App/AppReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
@@ -116,11 +117,7 @@ class Header extends React.Component {
             isMyAccount,
         } = this.props;
 
-        const {
-            handleRequestSearch,
-            toggleSideBar,
-            toggleSearchMode,
-        } = this;
+        const { handleRequestSearch, toggleSideBar, toggleSearchMode } = this;
 
         const { search_mode } = this.state;
 
@@ -179,16 +176,13 @@ export { Header as _Header_ };
 const mapStateToProps = (state, ownProps) => {
     const route = resolveRoute(ownProps.pathname);
     const isHeaderVisible = state.app.get('show_header');
-    // const current_user = authActions.getCurrentUser(state);
+    const current_user = authActions.getCurrentUser(state);
     const show_side_bar_modal = state.app.get('show_side_bar_modal');
-    // const isMyAccount = userActions.isMyAccount(state, show_user);
     return {
         isHeaderVisible,
-        show_side_bar,
         show_side_bar_modal,
         route,
-        // current_user,
-        // isMyAccount,
+        current_user,
         ...ownProps,
     };
 };
@@ -204,7 +198,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(appActions.hideHeader());
     },
     searchContent: keyword => {
-        dispatch(searchActions.searchContent({ keyword }));
+        // dispatch(searchActions.searchContent({ keyword }));
     },
     hideSideBarModal: e => {
         if (e) e.preventDefault();
@@ -216,11 +210,7 @@ const mapDispatchToProps = dispatch => ({
     },
     showLogin: e => {
         if (e) e.preventDefault();
-        // dispatch(authActions.showLogin());
-    },
-    showPhoneConfirm: e => {
-        if (e) e.preventDefault();
-        // dispatch(authActions.showPhoneConfirm());
+        dispatch(authActions.showLogin());
     },
 });
 

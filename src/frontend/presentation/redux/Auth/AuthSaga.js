@@ -7,16 +7,16 @@ import {
     takeLatest,
     takeEvery,
 } from 'redux-saga/effects';
-
 import { browserHistory } from 'react-router';
+import { loginRoute } from '@infrastructure/RouteInitialize';
 import { translate } from '@infrastructure/Translator';
 import DMCAUserList from '@constants/DMCAUserList';
-import { AppUseCase } from '@usecase';
-import * as appActions from './AppReducer';
+import * as authActions from './AuthReducer';
+import AuthUseCase from '@usecase/AuthUseCase';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-const appUseCase = new AppUseCase();
+const authUseCase = new AuthUseCase();
 
-export const appWatches = [
-    takeLatest(appActions.HIDE_ALL_MODAL, appUseCase.hideAllModal),
+export const authWatches = [
+    takeEvery(LOCATION_CHANGE, authUseCase.checkClientId),
 ];

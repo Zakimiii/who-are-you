@@ -11,12 +11,9 @@ import {
 import { browserHistory } from 'react-router';
 import { translate } from '@infrastructure/Translator';
 import DMCAUserList from '@constants/DMCAUserList';
-import { AppUseCase } from '@usecase';
-import * as appActions from './AppReducer';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { HeadingUseCase } from '@usecase';
+import * as headingActions from './HeadingReducer';
 
-const appUseCase = new AppUseCase();
+const headingUseCase = new HeadingUseCase();
 
-export const appWatches = [
-    takeLatest(appActions.HIDE_ALL_MODAL, appUseCase.hideAllModal),
-];
+export const headingWatches = [];
