@@ -200,6 +200,7 @@ export default class AnswerDataStore extends DataStoreImpl {
                           username,
                       },
                   ],
+                  isHide: false,
               }
             : {
                   $or: [
@@ -210,6 +211,7 @@ export default class AnswerDataStore extends DataStoreImpl {
                           username,
                       },
                   ],
+                  isHide: false,
                   isPrivate: false,
               };
 

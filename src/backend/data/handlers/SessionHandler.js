@@ -22,6 +22,90 @@ export default class SessionHandler extends HandlerImpl {
         super();
     }
 
+    async handleCheckAccessTokenRequest(router, ctx, next) {
+        const { accessToken, client_id } = router.request.body;
+
+        const identity = await sessionDataStore
+            .checkAccessToken({
+                access_token: accessToken,
+                client_id,
+            })
+            .catch(e => {
+                throw new ApiError({
+                    error: e,
+                    tt_key: 'errors.invalid_response_from_server',
+                });
+            });
+
+        if (!identity) {
+            router.body = {
+                success: true,
+            };
+            return;
+        }
+
+        const user =
+            identity.UserId &&
+            (await models.User.findOne({
+                where: {
+                    id: identity.UserId,
+                },
+            }).catch(e => {
+                throw new ApiError({
+                    error: e,
+                    tt_key: 'errors.invalid_response_from_server',
+                });
+            }));
+
+        router.body = {
+            success: true,
+            identity: safe2json(identity),
+            user: safe2json(user),
+        };
+    }
+
+    async handleGenerateAccessTokenRequest(router, ctx, next) {
+        const { accessToken, client_id, isOneTime } = router.request.body;
+
+        if (!accessToken) {
+            router.body = {
+                success: true,
+            };
+            return;
+        }
+
+        const identity = await sessionDataStore
+            .checkAccessToken({
+                access_token: accessToken,
+                client_id: isOneTime ? '' : client_id,
+                deleting: false,
+            })
+            .catch(e => {
+                throw new ApiError({
+                    error: e,
+                    tt_key: 'errors.invalid_response_from_server',
+                });
+            });
+
+        if (!identity) {
+            router.body = {
+                success: true,
+            };
+            return;
+        }
+
+        const newAccessToken = await sessionDataStore.setAccessToken({
+            identity,
+            client_id,
+            isOneTime: false,
+        });
+
+        router.body = {
+            success: true,
+            accessToken: newAccessToken,
+        };
+    }
+
     async handleStopMailNotificationRequest(router, ctx, next) {
         const { token } = router.query;
 

@@ -212,6 +212,7 @@ export default class HeadingDataStore extends DataStoreImpl {
                           username,
                       },
                   ],
+                  isHide: false,
               }
             : {
                   $or: [
@@ -222,6 +223,7 @@ export default class HeadingDataStore extends DataStoreImpl {
                           username,
                       },
                   ],
+                  isHide: false,
                   isPrivate: false,
               };
 

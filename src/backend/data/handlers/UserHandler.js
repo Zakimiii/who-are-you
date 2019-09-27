@@ -13,7 +13,7 @@ import {
 
 const headingDataStore = new HeadingDataStore();
 const answerDataStore = new AnswerDataStore();
-const userDataStore = new userDataStore();
+const userDataStore = new UserDataStore();
 const notificationDataStore = new NotificationDataStore();
 
 export default class UserHandler extends HandlerImpl {
@@ -22,16 +22,24 @@ export default class UserHandler extends HandlerImpl {
     }
 
     async handleGetUserRequest(router, ctx, next) {
-        const { username } = router.request.body;
+        const { username, id } = router.request.body;
 
         // await apiFindUserValidates.isValid({
         //     username,
-        //     user: { username },
+        //     id,
+        //     user: { id, username },
         // });
 
         const user = await models.User.findOne({
             where: {
-                username,
+                $or: [
+                    {
+                        id: Number(id),
+                    },
+                    {
+                        username,
+                    },
+                ],
             },
         });
 
@@ -136,6 +144,63 @@ export default class UserHandler extends HandlerImpl {
             };
             return;
         }
+
+        router.body = {
+            success: true,
+            user: safe2json(synced_user),
+            exist: !!safe2json(synced_user),
+        };
+    }
+
+    async handleSyncNotificationIdRequest(router, ctx, next) {
+        const { notification_id, user } = router.request.body;
+
+        if (!notification_id || notification_id == '') return;
+
+        // await apiSyncUserValidates
+        //     .isValid({
+        //         user,
+        //     })
+        //     .catch(e => {
+        //         router.body = {
+        //             success: true,
+        //             exist: false,
+        //         };
+        //         return;
+        //     });
+
+        let synced_user = await models.User.findOne({
+            where: {
+                id: Number(user.id),
+                username: user.username,
+            },
+        }).catch(e => {
+            router.body = {
+                success: true,
+                exist: false,
+            };
+            return;
+        });
+
+        if (!synced_user) {
+            router.body = {
+                success: true,
+                exist: false,
+            };
+            return;
+        }
+
+        synced_user = await synced_user
+            .update({
+                notification_id,
+            })
+            .catch(e => {
+                router.body = {
+                    success: true,
+                    exist: false,
+                };
+                return;
+            });
 
         router.body = {
             success: true,
