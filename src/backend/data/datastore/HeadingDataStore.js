@@ -4,6 +4,11 @@ import models from '@models';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
+import {
+    generateLikeQuery,
+    generateOrQuery,
+    generateOrQueries,
+} from '@extension/query';
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
@@ -156,4 +161,43 @@ export default class HeadingDataStore extends DataStoreImpl {
         return result;
     }
 
+    async search({ keyword, limit, offset }) {
+        let like_results = await Promise.all(
+            generateLikeQuery(keyword).map(val => {
+                return models.Heading.findAll({
+                    where: {
+                        $or: [
+                            {
+                                body: {
+                                    $like: val,
+                                },
+                            },
+                        ],
+                    },
+                    offset: Number(offset || 0),
+                    limit: Number(limit || data_config.fetch_data_limit('M')),
+                    raw: true,
+                    // order: [['score', 'DESC']],
+                });
+            })
+        ).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        like_results = Array.prototype.concat.apply([], like_results);
+
+        const results = [];
+        const map = new Map();
+        for (const item of like_results) {
+            if (!map.has(item.id)) {
+                map.set(item.id, true);
+                results.push(item);
+            }
+        }
+
+        return await this.getIndexIncludes(results);
+    }
 }

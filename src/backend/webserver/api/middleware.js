@@ -4,27 +4,30 @@ import crypto from 'crypto';
 import models from '@models';
 import { esc, escAttrs } from '@models';
 import coBody from 'co-body';
-// import {
-//     SessionHandler,
-//     IdentityHandler,
-//     AuthHandler,
-//     ContentHandler,
-//     LabelHandler,
-//     SearchHandler,
-//     HomeLabelHandler,
-//     TransactionHandler,
-//     RecommendHandler,
-//     RequestHandler,
-//     UserHandler,
-//     WalletHandler,
-//     BatchHandler,
-//     NotificationHandler,
-// } from '@handlers';
+import {
+    SessionHandler,
+    SearchHandler,
+    AuthHandler,
+    UserHandler,
+    NotificationHandler,
+    BatchHandler,
+    HeadingHandler,
+    AnswerHandler,
+} from '@handlers';
 import { handleApiError } from '@extension/Error';
 import Gateway from '@network/gateway';
-// import log from '@extension/log';
+import log from '@extension/log';
 
 const gateway = new Gateway();
+
+const sessionHandler = new SessionHandler();
+const searchHandler = new SearchHandler();
+const authHandler = new AuthHandler();
+const userHandler = new UserHandler();
+const notificationHandler = new NotificationHandler();
+const batchHandler = new BatchHandler();
+const headingHandler = new HeadingHandler();
+const answerHandler = new AnswerHandler();
 
 export default function ApiMiddleware(app) {
     const router = koa_router({ prefix: '/api/v1' });
