@@ -228,11 +228,7 @@ module.exports = {
                         },
                         answer_count: {
                             type: Sequelize.INTEGER,
-                            defaultValue: 1,
-                        },
-                        count: {
-                            type: Sequelize.INTEGER,
-                            defaultValue: 1,
+                            defaultValue: 0,
                         },
                         //global colomn
                         isHide: {
@@ -309,6 +305,10 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         //global colomn
+                        isMyAnswer: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
                         isHide: {
                             type: Sequelize.BOOLEAN,
                             defaultValue: false,

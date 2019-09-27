@@ -13,6 +13,7 @@ const answer = (
         body: casual.title,
         locale: 'ja',
         country_code: 'JP',
+        isMyAnswer: false,
         isHide: false,
         isPrivate: false,
         valid: true,

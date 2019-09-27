@@ -33,11 +33,7 @@ module.exports = function(sequelize, DataTypes) {
             },
             answer_count: {
                 type: Sequelize.INTEGER,
-                defaultValue: 1,
-            },
-            count: {
-                type: Sequelize.INTEGER,
-                defaultValue: 1,
+                defaultValue: 0,
             },
             //global colomn
             isHide: {
@@ -86,7 +82,6 @@ module.exports = function(sequelize, DataTypes) {
             locale: self.locale,
             country_code: self.country_code,
             answer_count: self.answer_count,
-            count: self.count,
             isHide: self.isHide,
             isPrivate: self.isPrivate,
             valid: self.valid,
