@@ -23,33 +23,33 @@ module.exports = function(sequelize, DataTypes) {
                 onDelete: 'cascade',
             },
             body: {
-                type: Sequelize.TEXT('long'),
+                type: DataTypes.TEXT('long'),
             },
             locale: {
-                type: Sequelize.STRING(255),
+                type: DataTypes.STRING(255),
             },
             country_code: {
-                type: Sequelize.STRING(255),
+                type: DataTypes.STRING(255),
             },
             answer_count: {
-                type: Sequelize.INTEGER,
+                type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
             //global colomn
             isHide: {
-                type: Sequelize.BOOLEAN,
+                type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
             isPrivate: {
-                type: Sequelize.BOOLEAN,
+                type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
             valid: {
-                type: Sequelize.BOOLEAN,
+                type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
             permission: {
-                type: Sequelize.BOOLEAN,
+                type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
         },

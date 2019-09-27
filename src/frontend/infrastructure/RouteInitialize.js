@@ -3,6 +3,12 @@ import data_config from '@constants/data_config';
 import config from '@constants/config';
 import tt from 'counterpart';
 
+export const homeRoute = new RouteEntity({
+    path: '/',
+    page: 'Home',
+    component: require('@components/pages/Home'),
+});
+
 export const privacyRoute = new RouteEntity({
     path: '/privacy',
     page: 'Privacy',
@@ -46,6 +52,7 @@ export const routeEntities = new RouteEntities({
         faqRoute,
         termRoute,
         contactRoute,
+        homeRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,

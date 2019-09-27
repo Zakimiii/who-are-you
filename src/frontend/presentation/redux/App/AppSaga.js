@@ -15,7 +15,7 @@ import DMCAUserList from '@constants/DMCAUserList';
 import * as appActions from './AppReducer';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-const appUseCase = new AppUseCase();
+// const appUseCase = new AppUseCase();
 
 export const appWatches = [
     // takeLatest(appActions.HIDE_ALL_MODAL, appUseCase.hideAllModal),

@@ -75,18 +75,18 @@ module.exports = function(sequelize, DataTypes) {
     User.Instance.prototype.toJSON = self => {
         return {
             id: self.id,
-            username: self.username
-            nickname: self.nickname
-            detail: self.detail
-            picture_small: self.picture_small
-            picture_large: self.picture_large
-            locale: self.locale
-            country_code: self.country_code
-            timezone: self.timezone
-            verified: self.verified
-            bot: self.bot
-            isPrivate: self.isPrivate
-            permission: self.permission
+            username: self.username,
+            nickname: self.nickname,
+            detail: self.detail,
+            picture_small: self.picture_small,
+            picture_large: self.picture_large,
+            locale: self.locale,
+            country_code: self.country_code,
+            timezone: self.timezone,
+            verified: self.verified,
+            bot: self.bot,
+            isPrivate: self.isPrivate,
+            permission: self.permission,
             notification_id: self.notification_id,
             created_at: self.created_at,
             updated_at: self.updated_at,
