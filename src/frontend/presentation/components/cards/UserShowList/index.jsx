@@ -9,6 +9,7 @@ import tt from 'counterpart';
 import UserShowHeader from '@modules/UserShowHeader';
 import HeadingNewButton from '@elements/HeadingNewButton';
 import HeadingItem from '@modules/HeadingItem';
+import { isScrollEndByClass } from '@extension/scroll';
 
 class UserShowList extends React.Component {
     static propTypes = {
@@ -30,6 +31,22 @@ class UserShowList extends React.Component {
             this,
             'UserShowList'
         );
+    }
+
+    componentWillMount() {
+        if (process.env.BROWSER)
+            window.addEventListener('scroll', this.onWindowScroll, false);
+    }
+
+    componentWillUnmount() {
+        if (process.env.BROWSER)
+            window.removeEventListener('scroll', this.onWindowScroll, false);
+    }
+
+    onWindowScroll() {
+        const { getMore, username } = this.props;
+        const isEnd = isScrollEndByClass('user-show-list__body__items');
+        if (isEnd && getMore) getMore();
     }
 
     render() {

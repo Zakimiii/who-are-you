@@ -1,6 +1,7 @@
 import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
+import { headingNewRoute } from '@infrastructure/RouteInitialize';
 
 // Action constants
 export const UPDATE_HEADING = 'heading/UPDATE_HEADING';
@@ -10,10 +11,17 @@ export const SET_CACHES = 'heading/SET_CACHES';
 export const RESET_CACHES = 'heading/SET_CACHES';
 export const SET_DELETES = 'heading/SET_DELETES';
 export const RESET_DELETES = 'heading/SET_DELETES';
+export const SHOW_NEW = 'heading/SHOW_NEW';
+export const SHOW_EDIT = 'heading/SHOW_EDIT';
+export const HIDE_NEW = 'heading/HIDE_NEW';
+export const RESET_NEW = 'content/RESET_NEW';
+export const SET_NEW = 'content/SET_NEW';
 
 const defaultState = fromJS({
     caches: List([]),
     deletes: List([]),
+    show_new_modal: false,
+    new_heading: Map(models.Heading.build()),
 });
 
 export default function reducer(state = defaultState, action) {
@@ -21,6 +29,9 @@ export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
             return state.merge({
+                show_new_modal: headingNewRoute.isValidPath(
+                    action.payload.pathname
+                ),
                 caches: List([]),
                 deletes: List([]),
             });
@@ -51,12 +62,62 @@ export default function reducer(state = defaultState, action) {
             return state.set('deletes', List([]));
         }
 
+        case SET_NEW: {
+            if (!payload.headings) return state;
+            return state.set('new_heading', Map(action.payload.headings));
+        }
+
+        case RESET_NEW: {
+            return state.merge({
+                new_heading: Map(models.Heading.build()),
+            });
+        }
+
+        case SHOW_EDIT:
+            if (!payload.heading) return state;
+            return state.merge({
+                new_heading: payload.heading,
+                show_new_modal: true,
+            });
+
+        case HIDE_NEW: {
+            return state.merge({
+                show_new_modal: false,
+                new_heading: Map(models.Heading.build()),
+            });
+        }
+
         default:
             return state;
     }
 }
 
 // Action creators
+
+export const showNew = payload => ({
+    type: SHOW_NEW,
+    payload,
+});
+
+export const showEdit = payload => ({
+    type: SHOW_EDIT,
+    payload,
+});
+
+export const hideNew = payload => ({
+    type: HIDE_NEW,
+    payload,
+});
+
+export const setNew = payload => ({
+    type: SET_NEW,
+    payload,
+});
+
+export const resetNew = payload => ({
+    type: RESET_NEW,
+    payload,
+});
 
 export const setCaches = payload => ({
     type: SET_CACHES,

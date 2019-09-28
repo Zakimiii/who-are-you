@@ -5,7 +5,7 @@
   padding: 44px 0;
   @include themify($themes) {
     transition: all 0.3s ease-in-out;
-    background: linear-gradient(0deg, themed('gradationL'), themed('gradationR'));
+    background: linear-gradient(180deg, themed('gradationL'), themed('gradationR'));
   }
   &__image {
     width: 120px;
@@ -22,10 +22,10 @@
     max-width: 500px;
     text-align: center;
     min-height: 44px;
+    width: calc(100% - 20px);
     @include FS(M);
     @include LH(M);
     @include FM(B);
-    @include init_wh();
     @include themify($themes) {
       color: themed('background');
     }
@@ -37,10 +37,10 @@
     max-width: 500px;
     text-align: center;
     min-height: 44px;
+    width: calc(100% - 20px);
     @include FS(S);
     @include LH(S);
     @include FM(R);
-    @include init_wh();
     @include themify($themes) {
       color: themed('background');
     }

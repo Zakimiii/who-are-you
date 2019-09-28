@@ -20,15 +20,19 @@
     min-height: 44px;
     clear: both;
     &-image {
-      float: left;
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
       width: 44px;
       height: 44px;
       padding: 6px;
     }
     &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
       word-wrap: break-word;
       white-space: pre-wrap;
-      float: left;
       min-height: 32px;
       width: calc(100% - 44px);
       padding: 6px;

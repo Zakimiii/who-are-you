@@ -10,10 +10,17 @@ export const SET_CACHES = 'answer/SET_CACHES';
 export const RESET_CACHES = 'answer/SET_CACHES';
 export const SET_DELETES = 'answer/SET_DELETES';
 export const RESET_DELETES = 'answer/SET_DELETES';
+export const SHOW_NEW = 'answer/SHOW_NEW';
+export const SHOW_EDIT = 'answer/SHOW_EDIT';
+export const HIDE_NEW = 'answer/HIDE_NEW';
+export const RESET_NEW = 'content/RESET_NEW';
+export const SET_NEW = 'content/SET_NEW';
 
 const defaultState = fromJS({
     caches: List([]),
     deletes: List([]),
+    show_new_modal: false,
+    new_answer: Map(models.Answer.build()),
 });
 
 export default function reducer(state = defaultState, action) {
@@ -51,12 +58,62 @@ export default function reducer(state = defaultState, action) {
             return state.set('deletes', List([]));
         }
 
+        case SET_NEW: {
+            if (!payload.answers) return state;
+            return state.set('new_answer', Map(action.payload.answers));
+        }
+
+        case RESET_NEW: {
+            return state.merge({
+                new_answer: Map(models.Answer.build()),
+            });
+        }
+
+        case SHOW_EDIT:
+            if (!payload.answer) return state;
+            return state.merge({
+                new_answer: payload.answer,
+                show_new_modal: true,
+            });
+
+        case HIDE_NEW: {
+            return state.merge({
+                show_new_modal: false,
+                new_answer: Map(models.Answer.build()),
+            });
+        }
+
         default:
             return state;
     }
 }
 
 // Action creators
+
+export const showNew = payload => ({
+    type: SHOW_NEW,
+    payload,
+});
+
+export const showEdit = payload => ({
+    type: SHOW_EDIT,
+    payload,
+});
+
+export const hideNew = payload => ({
+    type: HIDE_NEW,
+    payload,
+});
+
+export const setNew = payload => ({
+    type: SET_NEW,
+    payload,
+});
+
+export const resetNew = payload => ({
+    type: RESET_NEW,
+    payload,
+});
 
 export const setCaches = payload => ({
     type: SET_CACHES,

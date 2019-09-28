@@ -33,6 +33,12 @@ export default function reducer(state = defaultState, action) {
     const payload = action.payload;
 
     switch (action.type) {
+        case '@@router/LOCATION_CHANGE':
+            return state.merge({
+                show_login_modal: loginRoute.isValidPath(
+                    action.payload.pathname
+                ),
+            });
         case SHOW_LOGIN: {
             return state.merge({
                 show_login_modal: true,
