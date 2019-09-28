@@ -16,4 +16,9 @@ import * as answerActions from './AnswerReducer';
 
 const answerUseCase = new AnswerUseCase();
 
-export const answerWatches = [];
+export const answerWatches = [
+    takeLatest(answerActions.CREATE_ANSWER, headingUseCase.createAnswer),
+    takeLatest(answerActions.UPDATE_ANSWER, headingUseCase.updateAnswer),
+    takeLatest(answerActions.DELETE_ANSWER, headingUseCase.deleteAnswer),
+    takeLatest(answerActions.SYNC_ANSWER, headingUseCase.syncAnswer),
+];

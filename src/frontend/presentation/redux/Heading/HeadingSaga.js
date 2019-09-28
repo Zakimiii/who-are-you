@@ -16,4 +16,9 @@ import * as headingActions from './HeadingReducer';
 
 const headingUseCase = new HeadingUseCase();
 
-export const headingWatches = [];
+export const headingWatches = [
+    takeLatest(headingActions.CREATE_HEADING, headingUseCase.createHeading),
+    takeLatest(headingActions.UPDATE_HEADING, headingUseCase.updateHeading),
+    takeLatest(headingActions.DELETE_HEADING, headingUseCase.deleteHeading),
+    takeLatest(headingActions.SYNC_HEADING, headingUseCase.syncHeading),
+];
