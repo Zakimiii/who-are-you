@@ -26,15 +26,14 @@ class AlertContainer extends React.Component {
     }
 
     render() {
-        const {
-        } = this.props;
+        const {} = this.props;
 
-        if (!show_accept_alert) return <div />;
+        return <div />;
 
-        return (
-            <div className="alert-container">
-            </div>
-        );
+        // return (
+        //     <div className="alert-container">
+        //     </div>
+        // );
     }
 }
 
@@ -61,10 +60,8 @@ class AlertContainer extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {
-        };
+        return {};
     },
 
-    dispatch => ({
-    })
+    dispatch => ({})
 )(AlertContainer);

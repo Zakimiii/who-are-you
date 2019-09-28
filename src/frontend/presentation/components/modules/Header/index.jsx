@@ -77,16 +77,16 @@ class Header extends React.Component {
         this.setState({
             search_mode: false,
         });
-        browserHistory.push(
-            routes.searchRoute.getPath({
-                params: {
-                    section: 'contents',
-                },
-                query: {
-                    q: e,
-                },
-            })
-        );
+        // browserHistory.push(
+        //     routes.searchRoute.getPath({
+        //         params: {
+        //             section: 'contents',
+        //         },
+        //         query: {
+        //             q: e,
+        //         },
+        //     })
+        // );
     };
 
     toggleSearchMode = e => {
@@ -94,6 +94,20 @@ class Header extends React.Component {
         this.setState({
             search_mode: !search_mode,
         });
+    };
+
+    toggleHeader = props => {
+        const { isHeaderVisible, route, showHeader, hideHeader } = props;
+
+        switch (route) {
+            // case routes.loginRoute:
+            // case routes.signupRoute:
+            //     hideHeader();
+            //     break;
+            default:
+                showHeader();
+                break;
+        }
     };
 
     toggleSideBar = e => {

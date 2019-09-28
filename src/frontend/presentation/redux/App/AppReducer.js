@@ -124,6 +124,12 @@ export default function reducer(state = defaultState, action = {}) {
             });
         }
 
+        case HIDE_HEADER: {
+            return state.merge({
+                show_header: true,
+            });
+        }
+
         case SHOW_SIDE_BAR_MODAL: {
             return state.merge({
                 show_side_bar_modal: true,

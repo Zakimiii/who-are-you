@@ -25,11 +25,11 @@ $searchBarHeight: 42px;
   }
   &__logo {
     $headerLogoSize: 40px;
-    width: 123px;
+    width: 257px;
     height: $headerLogoSize;
     margin: calc( ( 6rem - #{ $headerLogoSize } ) / 2 ) 0px;
     @include mq-down(sm) {
-      width: 90px;
+      width: 180px;
       height: 30px;
       margin: calc( ( 6rem - 30px ) / 2 ) 0px;
     }

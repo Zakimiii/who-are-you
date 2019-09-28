@@ -42,9 +42,7 @@ const cacheOpts = { maxAge: 86400000, gzip: true, buffer: true };
 // Serve static assets without fanfare
 app.use(
     //favicon(path.join(__dirname, '../../assets/images/favicons/favicon.ico'))
-    favicon(
-        path.join(__dirname, '../../assets/images/selfinity-mini-logo1.png')
-    )
+    favicon(path.join(__dirname, '../../assets/images/brands/mini-logo.png'))
 );
 
 app.use(
