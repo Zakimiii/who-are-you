@@ -15,6 +15,24 @@ export const userShowRoute = new RouteEntity({
     component: require('@components/pages/UserShow'),
 });
 
+export const headingNewRoute = new RouteEntity({
+    path: '/heading/new',
+    page: 'HeadingNew',
+    component: require('@components/pages/HeadingNewAlias'),
+});
+
+export const answerNewRoute = new RouteEntity({
+    path: '/answer/new',
+    page: 'AnswerNew',
+    component: require('@components/pages/AnswerNewAlias'),
+});
+
+export const loginRoute = new RouteEntity({
+    path: '/login',
+    page: 'Login',
+    component: require('@components/pages/LoginModalAlias'),
+});
+
 export const privacyRoute = new RouteEntity({
     path: '/privacy',
     page: 'Privacy',
@@ -60,6 +78,9 @@ export const routeEntities = new RouteEntities({
         termRoute,
         contactRoute,
         homeRoute,
+        headingNewRoute,
+        answerNewRoute,
+        loginRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,
