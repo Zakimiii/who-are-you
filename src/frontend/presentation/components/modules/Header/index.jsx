@@ -10,6 +10,7 @@ import SearchInput from '@elements/SearchInput';
 import GradationButton from '@elements/GradationButton';
 import * as appActions from '@redux/App/AppReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import * as searchActions from '@redux/Search/SearchReducer';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
@@ -80,7 +81,7 @@ class Header extends React.Component {
         // browserHistory.push(
         //     routes.searchRoute.getPath({
         //         params: {
-        //             section: 'contents',
+        //             section: 'headings',
         //         },
         //         query: {
         //             q: e,
@@ -211,8 +212,8 @@ const mapDispatchToProps = dispatch => ({
     hideHeader: () => {
         dispatch(appActions.hideHeader());
     },
-    searchContent: keyword => {
-        // dispatch(searchActions.searchContent({ keyword }));
+    searchHeading: keyword => {
+        dispatch(searchActions.searchHeading({ keyword }));
     },
     hideSideBarModal: e => {
         if (e) e.preventDefault();
