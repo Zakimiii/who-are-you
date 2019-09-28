@@ -9,27 +9,28 @@ export default class UserRepository extends RepositoryImpl {
         super();
     }
 
-    async getUser({ id, username }) {
+    async getUser({ id, username, isMyAccount = false }) {
         const data = await super.apiCall('/api/v1/user', {
             id,
             username,
+            isMyAccount,
         });
         return data && data.user;
     }
 
-    // async updateUser(user) {
-    //     const data = await super.apiCall('/api/v1/user/update', {
-    //         user,
-    //     });
-    //     return data;
-    // }
+    async updateUser(user) {
+        // const data = await super.apiCall('/api/v1/user/update', {
+        //     user,
+        // });
+        // return data;
+    }
 
-    // async deleteUser(user) {
-    //     const data = await super.apiCall('/api/v1/user/delete', {
-    //         user,
-    //     });
-    //     return data;
-    // }
+    async deleteUser(user) {
+        // const data = await super.apiCall('/api/v1/user/delete', {
+        //     user,
+        // });
+        // return data;
+    }
 
     async getHeadings({ id, username, offset, limit, isMyAccount = false }) {
         const data = await super.apiCall('/api/v1/user/headings', {

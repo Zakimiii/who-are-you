@@ -20,4 +20,13 @@ const authUseCase = new AuthUseCase();
 const appUseCase = new AppUseCase();
 const userUseCase = new UserUseCase();
 
-export const userWatches = [];
+export const userWatches = [
+    takeEvery(LOCATION_CHANGE, userUseCase.initShow),
+    takeEvery(
+        userActions.GET_MORE_USER_HEADING,
+        userUseCase.getMoreUserHeadings
+    ),
+    takeLatest(userActions.UPDATE_USER, userUseCase.updateUser),
+    takeLatest(userActions.DELETE_USER, userUseCase.deleteUser),
+    takeLatest(userActions.SYNC_USER, userUseCase.syncUser),
+];

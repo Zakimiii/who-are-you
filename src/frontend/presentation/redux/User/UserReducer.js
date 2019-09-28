@@ -32,7 +32,10 @@ export default function reducer(state = defaultState, action) {
             });
 
         case SET_SHOW: {
-            return state.set('show_user', Map(action.payload.user));
+            return state.merge({
+                show_user: Map(action.payload.user),
+                user_heading: Map(action.payload.user.Headings),
+            });
         }
 
         case SET_CACHES: {
@@ -194,8 +197,8 @@ export const getUserHeading = state => {
     return contents;
 };
 
-export const getUserContentLength = state => {
-    const val = state.user.get('user_content');
+export const getUserHeadingLength = state => {
+    const val = state.user.get('user_heading');
     if (!val) return 0;
     let home_models = val.toJS();
     if (!home_models) return 0;
