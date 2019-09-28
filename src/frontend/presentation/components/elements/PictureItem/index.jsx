@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import Img from 'react-image';
+import classNames from 'classnames';
 
 class PictureItem extends React.Component {
     static propTypes = {
@@ -11,6 +12,7 @@ class PictureItem extends React.Component {
         width: PropTypes.number,
         radius: PropTypes.number,
         alt: PropTypes.string,
+        className: PropTypes.string,
     };
 
     static defaultProps = {
@@ -18,6 +20,7 @@ class PictureItem extends React.Component {
         width: 120,
         radius: 60,
         alt: '',
+        className: '',
     };
 
     state = {};
@@ -39,7 +42,7 @@ class PictureItem extends React.Component {
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        const { url, width, radius, alt } = this.props;
+        const { url, width, radius, alt, className } = this.props;
 
         const style = {
             width: `${width}px`,
@@ -55,7 +58,10 @@ class PictureItem extends React.Component {
         };
 
         return (
-            <div className="circle-picture-item" style={style}>
+            <div
+                className={classNames('circle-picture-item', className)}
+                style={style}
+            >
                 <img
                     className="circle-picture-item__image"
                     style={image_style}

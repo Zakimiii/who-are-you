@@ -33,9 +33,12 @@
 
 // modules
 @import "./modules/Modals/styles";
+@import "./modules/UserShowHeader/styles";
 @import "./modules/AlertMessages/styles";
 @import "./modules/FlashMessages/styles";
 @import "./modules/Header/styles";
+@import "./modules/HeadingItem/styles";
+@import "./modules/AnswerItem/styles";
 @import "./modules/Modals/styles";
 @import "./modules/ScreenLoadingIndicator/styles";
 
@@ -48,3 +51,4 @@
 @import "./pages/Term/styles";
 @import "./pages/UserShow/styles";
 @import "./pages/Home/styles";
+@import "./pages/IndexComponent/styles";

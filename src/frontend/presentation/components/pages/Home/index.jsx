@@ -9,6 +9,7 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import HomeList from '@cards/HomeList';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import * as appActions from '@redux/App/AppReducer';
+import IndexComponent from '@pages/IndexComponent';
 
 class Home extends React.Component {
     static pushURLState(title) {
@@ -31,9 +32,9 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className="home-index">
+            <IndexComponent>
                 <HomeList />
-            </div>
+            </IndexComponent>
         );
     }
 }
@@ -42,7 +43,7 @@ module.exports = {
     path: '',
     component: connect(
         (state, ownProps) => {
-            return {}
+            return {};
         },
         dispatch => {
             return {

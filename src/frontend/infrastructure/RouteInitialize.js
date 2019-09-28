@@ -9,6 +9,12 @@ export const homeRoute = new RouteEntity({
     component: require('@components/pages/Home'),
 });
 
+export const userShowRoute = new RouteEntity({
+    path: '/user/:username',
+    page: 'UserShow',
+    component: require('@components/pages/UserShow'),
+});
+
 export const privacyRoute = new RouteEntity({
     path: '/privacy',
     page: 'Privacy',
@@ -48,6 +54,7 @@ export const notfoundRoute = new RouteEntity({
 export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
+        userShowRoute,
         privacyRoute,
         faqRoute,
         termRoute,
@@ -69,4 +76,3 @@ export const getPageDescription = (pathname, state) => {
     let description = tt('descriptions.HomeIndex');
     return description;
 };
-
