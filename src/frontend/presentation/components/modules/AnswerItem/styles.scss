@@ -1,0 +1,80 @@
+.answer-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  padding: 12px 0;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    border-bottom: 1px solid themed('border');
+  }
+  &__user {
+    padding: 5px 16px;
+    width: 100%;
+    height: 32px;
+    clear: both;
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: themed('transparent');
+    }
+    cursor: pointer;
+    &-image {
+      float: left;
+      margin-right: 15px;
+    }
+    &-value {
+      max-width: calc(100% - 50px);
+      @include FS(FS);
+      @include FM(B);
+      // margin-bottom: 4px;
+      @include themify($themes) {
+        color: themed('backgroundThick');
+      }
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      float: left;
+    }
+  }
+  &__body {
+    transition: all 0.3s ease-in-out;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    width: calc(100% - 24px);
+    margin: 8px auto;
+    text-align: left;
+    @include FS(FS);
+    @include LH(S);
+    @include FM(R);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+  }
+  &__more {
+    & span {
+      display: block !important;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+    &-raw {
+      transition: all 0.3s ease-in-out;
+      @include svg-set() {
+        @include themify($themes) {
+          transition: all 0.3s ease-in-out;
+          stroke: themed('backgroundThick') !important;
+          fill: themed('backgroundThick') !important;
+        }
+      }
+      &:hover {
+        transition: all 0.3s ease-in-out;
+        @include svg-set() {
+          @include themify($themes) {
+            transition: all 0.3s ease-in-out;
+            stroke: lighten(themed('backgroundThick'), 20%) !important;
+            fill: lighten(themed('backgroundThick'), 20%)!important;
+          }
+        }
+      }
+    }
+  }
+}

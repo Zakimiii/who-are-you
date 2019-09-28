@@ -1,0 +1,49 @@
+.user-show-header {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 44px 0;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: linear-gradient(0deg, themed('gradationL'), themed('gradationR'));
+  }
+  &__image {
+    width: 120px;
+    height: 120px;
+    margin: 22px auto;
+    border-radius: 60px;
+    @include themify($themes) {
+      box-shadow: 0px 0px 4px 4px themed('shadow');
+      background: themed('background');
+    }
+  }
+  &__name {
+    white-space: normal;
+    max-width: 500px;
+    text-align: center;
+    min-height: 44px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('background');
+    }
+    margin: 22px auto;
+  }
+  &__detail {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 500px;
+    text-align: center;
+    min-height: 44px;
+    @include FS(S);
+    @include LH(S);
+    @include FM(R);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('background');
+    }
+    margin: 22px auto;
+  }
+}
