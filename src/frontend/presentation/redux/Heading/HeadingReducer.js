@@ -4,6 +4,7 @@ import models from '@network/client_models';
 import { headingNewRoute } from '@infrastructure/RouteInitialize';
 
 // Action constants
+export const CREATE_HEADING = 'answer/CREATE_HEADING';
 export const UPDATE_HEADING = 'heading/UPDATE_HEADING';
 export const DELETE_HEADING = 'heading/DELETE_HEADING';
 export const SYNC_HEADING = 'heading/SYNC_HEADING';
@@ -14,8 +15,8 @@ export const RESET_DELETES = 'heading/SET_DELETES';
 export const SHOW_NEW = 'heading/SHOW_NEW';
 export const SHOW_EDIT = 'heading/SHOW_EDIT';
 export const HIDE_NEW = 'heading/HIDE_NEW';
-export const RESET_NEW = 'content/RESET_NEW';
-export const SET_NEW = 'content/SET_NEW';
+export const RESET_NEW = 'heading/RESET_NEW';
+export const SET_NEW = 'heading/SET_NEW';
 
 const defaultState = fromJS({
     caches: List([]),

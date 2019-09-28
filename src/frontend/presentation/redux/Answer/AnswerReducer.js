@@ -15,8 +15,9 @@ export const RESET_DELETES = 'answer/SET_DELETES';
 export const SHOW_NEW = 'answer/SHOW_NEW';
 export const SHOW_EDIT = 'answer/SHOW_EDIT';
 export const HIDE_NEW = 'answer/HIDE_NEW';
-export const RESET_NEW = 'content/RESET_NEW';
-export const SET_NEW = 'content/SET_NEW';
+export const RESET_NEW = 'answer/RESET_NEW';
+export const SET_NEW = 'answer/SET_NEW';
+export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
 
 const defaultState = fromJS({
     caches: List([]),
