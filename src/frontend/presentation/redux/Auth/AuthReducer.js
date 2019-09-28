@@ -3,7 +3,6 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import { browserHistory } from 'react-router';
 import {
     loginRoute,
-    confirmForPrivateKeyRoute,
     confirmForDeleteRoute,
 } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';

@@ -95,7 +95,9 @@ class AnswerNew extends React.Component {
                     breakMd={true}
                     className="answer-new__button"
                 />
-                <AnswerNewList />
+                <div className="answer-new__items">
+                    <AnswerNewList />
+                </div>
             </div>
         );
     }

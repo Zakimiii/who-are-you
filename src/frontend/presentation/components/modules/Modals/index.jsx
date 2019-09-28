@@ -16,12 +16,14 @@ import HeadingNew from '@pages/HeadingNew';
 
 class Modals extends React.Component {
     static defaultProps = {
+        className: '',
         show_login_modal: false,
         show_new_heading_modal: false,
         show_new_answer_modal: false,
     };
 
     static propTypes = {
+        className: PropTypes.string,
         show_login_modal: PropTypes.bool,
         show_new_heading_modal: PropTypes.bool,
         show_new_answer_modal: PropTypes.bool,
@@ -44,12 +46,13 @@ class Modals extends React.Component {
             show_new_heading_modal,
             hideNewAnswer,
             show_new_answer_modal,
+            className,
         } = this.props;
 
         const themeClass = nightmodeEnabled ? ' theme-dark' : ' theme-original';
 
         return (
-            <div>
+            <div className={className}>
                 {show_login_modal && (
                     <Reveal onHide={hideLogin} show={show_login_modal}>
                         <LoginModal onCancel={hideLogin} />
@@ -65,7 +68,7 @@ class Modals extends React.Component {
                 )}
                 {show_new_answer_modal && (
                     <Reveal onHide={hideNewAnswer} show={show_new_answer_modal}>
-                        <HeadingNew onCancel={hideNewAnswer} />
+                        <AnswerNew onCancel={hideNewAnswer} />
                     </Reveal>
                 )}
             </div>
@@ -81,8 +84,8 @@ export default connect(
                 'nightmode',
             ]),
             show_login_modal: state.auth.get('show_login_modal'),
-            show_new_heading_modal: state.heading.get('show_new_heading_modal'),
-            show_new_answer_modal: state.answer.get('show_new_answer_modal'),
+            show_new_heading_modal: state.heading.get('show_new_modal'),
+            show_new_answer_modal: state.answer.get('show_new_modal'),
         };
     },
     dispatch => ({

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
+import Img from 'react-image';
+import TwitterButton from '@elements/TwitterButton';
 
 class LoginModalList extends React.Component {
     static propTypes = {};
@@ -23,14 +25,35 @@ class LoginModalList extends React.Component {
         );
     }
 
-    componentWillMount() {}
-
-    componentDidMount() {}
-
-    componentWillReceiveProps(nextProps) {}
-
     render() {
-        return <div className="login-modal-list" />;
+        const logo = (
+            <div className="login-modal-list__logo">
+                <Img
+                    className="login-modal-list__logo-image"
+                    src={'/images/brands/logo.png'}
+                />
+            </div>
+        );
+
+        const desc = (
+            <div className="login-modal-list__desc">
+                Twitter連携で簡単に始められる 一問一答形式の他己紹介アプリ
+            </div>
+        );
+
+        const buttons = (
+            <div className="login-modal-list__button">
+                <TwitterButton />
+            </div>
+        );
+
+        return (
+            <div className="login-modal-list">
+                {logo}
+                {desc}
+                {buttons}
+            </div>
+        );
     }
 }
 

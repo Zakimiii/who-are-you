@@ -172,6 +172,7 @@ class App extends Component {
             isHeaderVisible,
             title,
             description,
+            enableModal,
         } = this.props;
         const n = nextProps;
 
@@ -186,7 +187,8 @@ class App extends Component {
             showAnnouncement !== n.showAnnouncement ||
             isHeaderVisible !== n.isHeaderVisible ||
             title !== n.title ||
-            description !== n.description
+            description !== n.description ||
+            enableModal !== n.enableModal
         );
     }
 
@@ -217,6 +219,7 @@ class App extends Component {
             order,
             title,
             description,
+            enableModal,
         } = this.props;
 
         if (!process.env.BROWSER)
@@ -246,12 +249,11 @@ class App extends Component {
                             pathname === '/login' ||
                             pathname === '/signup',
                         withAnnouncement: false,
+                        blur: enableModal,
                     })}
                     ref="App_root"
                 >
-                    <Header
-                        pathname={pathname}
-                    />
+                    <Header pathname={pathname} />
                     {children}
                     <Modals />
                     <AlertContainer />
@@ -299,6 +301,7 @@ export default connect(
             category: ownProps.params.category,
             title: getPageTitle(ownProps.location.pathname, state),
             description: getPageDescription(ownProps.location.pathname, state),
+            enableModal: appActions.enableModal(state),
             // showAnnouncemenzt: state.user.get('showAnnouncement'),
         };
     },

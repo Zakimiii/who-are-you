@@ -95,7 +95,9 @@ class HeadingNew extends React.Component {
                     breakMd={true}
                     className="heading-new__button"
                 />
-                <HeadingNewList />
+                <div className="heading-new__items">
+                    <HeadingNewList />
+                </div>
             </div>
         );
     }

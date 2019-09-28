@@ -7,17 +7,6 @@
   @include themify($themes) {
     background: themed('backgroundBlur');
   }
-  @include mq-down(md) {
-    padding: 0 !important;
-    @include themify($themes) {
-      background: themed('background');
-    }
-  };
-  &:before {
-    width: 100%;
-    height: 100%;
-    filter: blur(6px);
-  }
   position: relative;
   &__button {
     border-radius: 50px;
@@ -44,5 +33,16 @@
       height: 44px;
       font-size: 0px;
     };
+  }
+  &__items {
+    margin: 0% auto;
+    max-width: 600px;
+    width: calc(100% - 44px);
+    // @include mq-down(lg) {
+    //   width: 700px;
+    // };
+    // @include mq-down(md) {
+    //   width: 100%;
+    // };
   }
 }

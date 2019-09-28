@@ -94,7 +94,7 @@ class LoginModal extends React.Component {
                     breakMd={true}
                     className="login-modal__button"
                 />
-                <div className="login-modal-items">
+                <div className="login-modal__items">
                     <LoginModalList onCancel={this.onCancel} />
                 </div>
             </div>

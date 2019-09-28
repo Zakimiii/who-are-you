@@ -6,6 +6,10 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
+import InputText from '@elements/InputText';
+import PictureItem from '@elements/PictureItem';
+import GradationButton from '@elements/GradationButton';
+import TextArea from '@elements/TextArea';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -23,14 +27,55 @@ class HeadingNewList extends React.Component {
         );
     }
 
-    componentWillMount() {}
+    onChange(e) {
+        // const
+        // this.setState({  })
+    }
 
-    componentDidMount() {}
-
-    componentWillReceiveProps(nextProps) {}
+    onSubmit(e) {}
 
     render() {
-        return <div className="heading-new-list" />;
+        const user_section = (
+            <div className="heading-new-list__user">
+                <div className="heading-new-list__user-image">
+                    <PictureItem
+                        url={'/icons/noimage.svg'}
+                        width={32}
+                        redius={16}
+                    />
+                </div>
+                <div className="heading-new-list__user-title">
+                    {'佐藤健さんの紹介カードを追加'}
+                </div>
+            </div>
+        );
+
+        const form = (
+            <form className="heading-new-list__form">
+                <div className="heading-new-list__form-input">
+                    <InputText
+                        label={'紹介カード'}
+                        onChange={this.onChange}
+                        placeholder={'佐藤健さんの紹介カードを追加'}
+                    />
+                </div>
+                <div className="heading-new-list__form-submit">
+                    <GradationButton
+                        submit={true}
+                        src={'plus'}
+                        value={'紹介カードを追加'}
+                        onClick={this.onSubmit}
+                    />
+                </div>
+            </form>
+        );
+
+        return (
+            <div className="heading-new-list">
+                {user_section}
+                {form}
+            </div>
+        );
     }
 }
 

@@ -302,3 +302,11 @@ export const removeErrorsFromError = (state, error) => {
             e.message != error.message
     );
 };
+
+export const enableModal = state => {
+    return (
+        state.auth.get('show_login_modal') ||
+        state.heading.get('show_new_modal') ||
+        state.answer.get('show_new_modal')
+    );
+};

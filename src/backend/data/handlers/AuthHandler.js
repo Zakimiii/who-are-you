@@ -15,6 +15,10 @@ import data_config from '@constants/data_config';
 import uuidv4 from 'uuid/v4';
 import env from '@env/env.json';
 
+const sessionDataStore = new SessionDataStore();
+const authDataStore = new AuthDataStore();
+const userDataStore = new UserDataStore();
+
 export default class AuthHandler extends HandlerImpl {
     constructor() {
         super();
