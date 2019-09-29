@@ -9,13 +9,20 @@ import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
 import TextArea from '@elements/TextArea';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
+import { Map } from 'immutable';
+import models from '@network/client_models';
 
 class AnswerNewList extends React.Component {
     static propTypes = {};
 
     static defaultProps = {};
 
-    state = {};
+    state = {
+        repository: Map(models.Answer.build()),
+    };
 
     constructor(props) {
         super(props);
@@ -26,14 +33,53 @@ class AnswerNewList extends React.Component {
         );
     }
 
-    onChange(e) {
-        // const
-        // this.setState({  })
+    componentWillMount() {
+        this.setState({
+            repository: Map(this.props.repository),
+        });
     }
 
-    onSubmit(e) {}
+    onChange(e) {
+        let { repository } = this.state;
+
+        repository = repository.toJS();
+        repository.body = e.target.value;
+
+        this.setState({
+            repository: Map(repository),
+        });
+    }
+
+    onSubmit(e) {
+        if (e.preventDefault) e.preventDefault();
+
+        let { repository } = this.state;
+
+        const { create, current_user } = this.props;
+
+        repository = repository.toJS();
+
+        if (current_user) {
+            repository.User = current_user;
+            repository.UserId = current_user.id;
+        }
+
+        if (!repository) {
+            return;
+        }
+
+        if (!repository.body || repository.body == '') {
+            return;
+        }
+
+        create(repository);
+    }
 
     render() {
+        let { repository } = this.state;
+
+        repository = repository.toJS();
+
         const user_section = (
             <div className="answer-new-list__user">
                 <div className="answer-new-list__user-image">
@@ -44,18 +90,27 @@ class AnswerNewList extends React.Component {
                     />
                 </div>
                 <div className="answer-new-list__user-title">
-                    {'佐藤健さんの「チャームポイント」とは...?'}
+                    {repository.Heading &&
+                        `${repository.Heading.User.nickname}さんの「${
+                            repository.Heading.body
+                        }」とは...?`}
                 </div>
             </div>
         );
 
         const form = (
-            <form className="answer-new-list__form">
+            <form className="answer-new-list__form" onSubmit={this.onSubmit}>
                 <div className="answer-new-list__form-input">
                     <TextArea
                         label={'回答'}
                         onChange={this.onChange}
-                        placeholder={'佐藤健さんの「チャームポイント」を記入'}
+                        placeholder={
+                            repository.Heading &&
+                            `${repository.Heading.User.nickname}さんの「${
+                                repository.Heading.body
+                            }」を記入`
+                        }
+                        value={repository.body}
                     />
                 </div>
                 <div className="answer-new-list__form-submit">
@@ -68,6 +123,7 @@ class AnswerNewList extends React.Component {
                 </div>
             </form>
         );
+
         return (
             <div className="answer-new-list">
                 {user_section}
@@ -79,8 +135,15 @@ class AnswerNewList extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: answerActions.getNewAnswer(state),
+            current_user: authActions.getCurrentUser(state),
+        };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        create: answer => {
+            dispatch(answerActions.createAnswer({ answer }));
+        },
+    })
 )(AnswerNewList);

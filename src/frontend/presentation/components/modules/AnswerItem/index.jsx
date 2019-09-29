@@ -8,10 +8,13 @@ import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import Icon from '@elements/Icon';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
 class AnswerItem extends React.Component {
     static propTypes = {
         repository: AppPropTypes.Answer,
+        _repository: AppPropTypes.Answer,
     };
 
     static defaultProps = {
@@ -42,15 +45,16 @@ class AnswerItem extends React.Component {
     render() {
         const { onClickUser } = this;
 
+        const { _repository } = this.props;
+
         const { isShow } = this.state;
 
-        const text = isShow
-            ? 'repository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nickname'
-            : 'repository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nicknamerepository.nickname';
+        if (!_repository) return <div />;
 
-        // if (!isShow) {
-
-        // }
+        const text =
+            isShow && _repository.body.length > 50
+                ? _repository.body.slice(0, 50) + '...'
+                : _repository.body;
 
         return (
             <div className="answer-item">
@@ -59,22 +63,30 @@ class AnswerItem extends React.Component {
                         <PictureItem
                             width={22}
                             redius={22 / 2}
-                            url={'/icons/noimage.svg'}
-                            alt={'repository && repository.nickname'}
+                            url={
+                                _repository.User &&
+                                _repository.User.picture_small
+                            }
+                            alt={_repository.User && _repository.User.nickname}
                         />
                     </div>
                     <div className="answer-item__user-value">
-                        {'repository.nickname'}
+                        {_repository.User && _repository.User.nickname}
                     </div>
                 </div>
                 <div className="answer-item__body">{text}</div>
-                <div className="answer-item__more" onClick={this.toggleShow}>
-                    <Icon
-                        className="answer-item__more-raw"
-                        src={'more'}
-                        size={'2x'}
-                    />
-                </div>
+                {_repository.body.length > 50 && (
+                    <div
+                        className="answer-item__more"
+                        onClick={this.toggleShow}
+                    >
+                        <Icon
+                            className="answer-item__more-raw"
+                            src={'more'}
+                            size={'2x'}
+                        />
+                    </div>
+                )}
             </div>
         );
     }
@@ -82,7 +94,10 @@ class AnswerItem extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            current_user: authActions.getCurrentUser(state),
+            _repository: answerActions.bind(props.repository, state),
+        };
     },
 
     dispatch => ({})

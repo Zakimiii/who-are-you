@@ -65,8 +65,8 @@ export default function reducer(state = defaultState, action) {
         }
 
         case SET_NEW: {
-            if (!payload.answers) return state;
-            return state.set('new_answer', Map(action.payload.answers));
+            if (!payload.answer) return state;
+            return state.set('new_answer', Map(action.payload.answer));
         }
 
         case RESET_NEW: {
@@ -78,7 +78,7 @@ export default function reducer(state = defaultState, action) {
         case SHOW_EDIT:
             if (!payload.answer) return state;
             return state.merge({
-                new_answer: payload.answer,
+                new_answer: Map(payload.answer),
                 show_new_modal: true,
             });
 
@@ -190,4 +190,10 @@ export const bind = (answer, state) => {
     if (!answer.id) return answer;
     if (getDelete(answer.id, state)) return null;
     return getCache(answer.id, state) || answer;
+};
+
+export const getNewAnswer = state => {
+    let val = state.answer.get('new_answer');
+    const answer = !!val ? val.toJS() : null;
+    return bind(answer, state);
 };

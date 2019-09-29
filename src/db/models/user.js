@@ -67,6 +67,13 @@ module.exports = function(sequelize, DataTypes) {
                     User.hasMany(models.SearchHistory);
                     User.hasMany(models.Answer);
                     User.hasOne(models.Identity);
+                    User.hasMany(models.Heading, {
+                        as: 'VoteHeadings',
+                        foreignKey: {
+                            name: 'voter_id',
+                            allowNull: true,
+                        },
+                    });
                 },
             },
         }

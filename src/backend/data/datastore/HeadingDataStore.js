@@ -20,6 +20,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         params = {
             user: true,
             answers: false,
+            voter: false,
             answer_limit: data_config.answer_index_limit,
         }
     ) {
@@ -37,6 +38,13 @@ export default class HeadingDataStore extends DataStoreImpl {
                         models.User.findOne({
                             where: {
                                 id: val.UserId,
+                            },
+                            raw: true,
+                        }),
+                    params.voter &&
+                        models.User.findOne({
+                            where: {
+                                id: val.VoterId,
                             },
                             raw: true,
                         }),
@@ -63,7 +71,8 @@ export default class HeadingDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (params.user) val.User = includes[index][0];
-                if (params.answers) val.Answers = includes[index][1];
+                if (params.voter) val.Voter = includes[index][1];
+                if (params.answers) val.Answers = includes[index][2];
                 return val;
             })
         );
@@ -72,6 +81,7 @@ export default class HeadingDataStore extends DataStoreImpl {
     async getIndexIncludes(datum) {
         return await this.getIncludes(datum, {
             user: true,
+            voter: true,
             answers: true,
             answer_limit: data_config.answer_index_limit,
         });

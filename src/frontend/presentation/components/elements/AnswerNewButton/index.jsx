@@ -10,10 +10,11 @@ import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import { answerNewRoute } from '@infrastructure/RouteInitialize';
+import models from '@network/client_models';
 
 class AnswerNewButton extends React.Component {
     static propTypes = {
-        repository: AppPropTypes.User,
+        repository: AppPropTypes.Heading,
     };
 
     static defaultProps = {
@@ -31,8 +32,9 @@ class AnswerNewButton extends React.Component {
         );
     }
 
-    onClick(e) {
-        this.props.showNew();
+    onClick() {
+        const { showNew, repository } = this.props;
+        showNew(repository);
     }
 
     render() {
@@ -52,6 +54,16 @@ export default connect(
     },
 
     dispatch => ({
-        showNew: () => dispatch(answerActions.showNew()),
+        showNew: heading => {
+            dispatch(
+                answerActions.setNew({
+                    answer: models.Answer.build({
+                        Heading: heading,
+                        HeadingId: heading.id,
+                    }),
+                })
+            );
+            dispatch(answerActions.showNew());
+        },
     })
 )(AnswerNewButton);

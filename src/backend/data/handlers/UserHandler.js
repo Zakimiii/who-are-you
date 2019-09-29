@@ -73,9 +73,18 @@ export default class UserHandler extends HandlerImpl {
             isMyAccount,
         });
 
+        const results = await Promise.all(
+            headings.map(async heading => {
+                heading.Answers = await answerDataStore.getIndexIncludes(
+                    heading.Answers
+                );
+                return heading;
+            })
+        );
+
         router.body = {
             success: true,
-            headings,
+            headings: results,
         };
     }
 

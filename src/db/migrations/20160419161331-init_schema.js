@@ -215,6 +215,16 @@ module.exports = {
                             },
                             onUpdate: 'cascade',
                             onDelete: 'cascade',
+                            allowNull: false,
+                        },
+                        voter_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
                             allowNull: true,
                         },
                         body: {

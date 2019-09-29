@@ -22,6 +22,7 @@ export default class UserDataStore extends DataStoreImpl {
         datum,
         params = {
             headings: true,
+            voter_headings: false,
             answers: true,
             search_histories: true,
         }
@@ -49,6 +50,13 @@ export default class UserDataStore extends DataStoreImpl {
                             },
                             raw: true,
                         }),
+                    params.voter_headings &&
+                        models.Heading.findAll({
+                            where: {
+                                voter_id: val.id,
+                            },
+                            raw: true,
+                        }),
                     // params.search_histories && models.SearchHistory.findAll({
                     //     where: {
                     //         user_id: val.id,
@@ -69,6 +77,8 @@ export default class UserDataStore extends DataStoreImpl {
             users.map(async (val, index) => {
                 if (params.headings) val.Headings = includes[index][0];
                 if (params.answers) val.Answers = includes[index][1];
+                if (params.voter_headings)
+                    val.VoterHeadings = includes[index][2];
                 return val;
             })
         );

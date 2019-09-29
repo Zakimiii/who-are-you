@@ -1,4 +1,5 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
 import { Link } from 'react-router';
@@ -9,6 +10,7 @@ import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import models from '@network/client_models';
 
 class HeadingNewButton extends React.Component {
     static propTypes = {
@@ -31,14 +33,15 @@ class HeadingNewButton extends React.Component {
     }
 
     onClick(e) {
-        this.props.showNew();
+        const { showNew, repository } = this.props;
+        showNew(repository);
     }
 
     render() {
         return (
             <GradationButton
                 src={'plus'}
-                value={'紹介項目を追加'}
+                value={'紹介テーマを追加'}
                 onClick={this.onClick}
             />
         );
@@ -51,6 +54,16 @@ export default connect(
     },
 
     dispatch => ({
-        showNew: () => dispatch(headingActions.showNew()),
+        showNew: user => {
+            dispatch(
+                headingActions.setNew({
+                    heading: models.Heading.build({
+                        User: user,
+                        UserId: user.id,
+                    }),
+                })
+            );
+            dispatch(headingActions.showNew());
+        },
     })
 )(HeadingNewButton);

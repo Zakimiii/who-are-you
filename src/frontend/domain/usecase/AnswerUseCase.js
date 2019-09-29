@@ -45,7 +45,7 @@ export default class AnswerUseCase extends UseCaseImpl {
         if (!answer) return;
         yield put(appActions.screenLoadingBegin());
         try {
-            const data = yield answerRepository.createAnswer(answer);
+            const data = yield answerRepository.create(answer);
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
         } catch (e) {
@@ -58,7 +58,7 @@ export default class AnswerUseCase extends UseCaseImpl {
         if (!answer) return;
         yield put(appActions.screenLoadingBegin());
         try {
-            const data = yield answerRepository.updateAnswer(answer);
+            const data = yield answerRepository.update(answer);
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
             yield put(answerActions.syncAnswer({ id: answer.id }));
@@ -71,7 +71,7 @@ export default class AnswerUseCase extends UseCaseImpl {
     *deleteAnswer({ payload: { answer } }) {
         if (!answer) return;
         try {
-            const data = yield answerRepository.deleteAnswer(answer);
+            const data = yield answerRepository.delete(answer);
             yield put(answerActions.syncAnswer({ id: answer.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

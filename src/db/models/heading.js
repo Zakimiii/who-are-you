@@ -22,6 +22,16 @@ module.exports = function(sequelize, DataTypes) {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             },
+            VoterId: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
+                field: 'voter_id',
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            },
             body: {
                 type: DataTypes.TEXT('long'),
             },
@@ -66,8 +76,16 @@ module.exports = function(sequelize, DataTypes) {
                         onDelete: 'CASCADE',
                         foreignKey: {
                             name: 'user_id',
+                            allowNull: false,
+                        },
+                    });
+                    Heading.belongsTo(models.User, {
+                        onDelete: 'CASCADE',
+                        foreignKey: {
+                            name: 'voter_id',
                             allowNull: true,
                         },
+                        as: 'Voters',
                     });
                     Heading.hasMany(models.Answer);
                 },
@@ -79,6 +97,7 @@ module.exports = function(sequelize, DataTypes) {
         return {
             id: self.id,
             UserId: self.UserId,
+            VoterId: self.VoterId,
             body: self.body,
             locale: self.locale,
             country_code: self.country_code,

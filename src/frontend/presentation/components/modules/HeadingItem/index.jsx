@@ -9,10 +9,13 @@ import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import AnswerNewButton from '@elements/AnswerNewButton';
 import AnswerItem from '@modules/AnswerItem';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
 class HeadingItem extends React.Component {
     static propTypes = {
         repository: AppPropTypes.Heading,
+        _repository: AppPropTypes.Heading,
     };
 
     static defaultProps = {};
@@ -30,12 +33,14 @@ class HeadingItem extends React.Component {
     }
 
     render() {
-        const { repository } = this.props;
+        const { _repository } = this.props;
+
+        if (!_repository) return <div />;
 
         const renderItems = items =>
             items.map((item, key) => (
                 <div className="heading-item__item" key={key}>
-                    <AnswerItem />
+                    <AnswerItem repository={item} />
                 </div>
             ));
 
@@ -44,26 +49,22 @@ class HeadingItem extends React.Component {
                 <div className="heading-item__head">
                     <div className="heading-item__head-image">
                         <PictureItem
-                            url={'/icons/noimage.svg'}
+                            url={
+                                _repository.User &&
+                                _repository.User.picture_small
+                            }
                             width={32}
                             redius={16}
+                            alt={_repository.User && _repository.User.nickname}
                         />
                     </div>
                     <div className="heading-item__head-title">
-                        {'佐藤健さんのチャームポイント'}
+                        {_repository.body}
                     </div>
                 </div>
                 <div className="heading-item__border" />
                 <div className="heading-item__items">
-                    <div className="heading-item__item">
-                        <AnswerItem />
-                    </div>
-                    <div className="heading-item__item">
-                        <AnswerItem />
-                    </div>
-                    <div className="heading-item__item">
-                        <AnswerItem />
-                    </div>
+                    {_repository.Answers && renderItems(_repository.Answers)}
                 </div>
                 <Link
                     className="heading-item__link"
@@ -72,7 +73,7 @@ class HeadingItem extends React.Component {
                     {tt('g.show_more')}
                 </Link>
                 <div className="heading-item__button">
-                    <AnswerNewButton />
+                    <AnswerNewButton repository={_repository} />
                 </div>
             </div>
         );
@@ -81,7 +82,10 @@ class HeadingItem extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            current_user: authActions.getCurrentUser(state),
+            _repository: headingActions.bind(props.repository, state),
+        };
     },
 
     dispatch => ({})

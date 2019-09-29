@@ -45,10 +45,11 @@ export default class HeadingUseCase extends UseCaseImpl {
         if (!heading) return;
         yield put(appActions.screenLoadingBegin());
         try {
-            const data = yield headingRepository.createHeading(heading);
+            const data = yield headingRepository.create(heading);
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());
@@ -58,7 +59,7 @@ export default class HeadingUseCase extends UseCaseImpl {
         if (!heading) return;
         yield put(appActions.screenLoadingBegin());
         try {
-            const data = yield headingRepository.updateHeading(heading);
+            const data = yield headingRepository.update(heading);
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
             yield put(headingActions.syncHeading({ id: heading.id }));
@@ -71,7 +72,7 @@ export default class HeadingUseCase extends UseCaseImpl {
     *deleteHeading({ payload: { heading } }) {
         if (!heading) return;
         try {
-            const data = yield headingRepository.deleteHeading(heading);
+            const data = yield headingRepository.delete(heading);
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

@@ -2,12 +2,10 @@ const casual = require('casual'); //.ja_JP;
 const times = require('../utils/times');
 const uuidv4 = require('uuid/v4');
 
-const heading = (
-    key,
-    users_limit,
-) => {
+const heading = (key, users_limit) => {
     return {
         user_id: casual.integer((from = 1), (to = users_limit)),
+        voter_id: casual.integer((from = 1), (to = users_limit)),
         body: casual.title,
         locale: 'ja',
         country_code: 'JP',
@@ -24,12 +22,7 @@ const heading = (
 async function headings(limit = 30, users_number = 30) {
     let headings_array = [];
     await times(limit)(() => {
-        headings_array.push(
-            heading(
-                headings_array.length,
-                users_number,
-            )
-        );
+        headings_array.push(heading(headings_array.length, users_number));
     });
     return headings_array;
 }

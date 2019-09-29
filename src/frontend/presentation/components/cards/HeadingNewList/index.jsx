@@ -10,13 +10,20 @@ import InputText from '@elements/InputText';
 import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
 import TextArea from '@elements/TextArea';
+import { Map } from 'immutable';
+import models from '@network/client_models';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
 
     static defaultProps = {};
 
-    state = {};
+    state = {
+        repository: Map(models.Heading.build()),
+    };
 
     constructor(props) {
         super(props);
@@ -27,44 +34,88 @@ class HeadingNewList extends React.Component {
         );
     }
 
-    onChange(e) {
-        // const
-        // this.setState({  })
+    componentWillMount() {
+        this.setState({
+            repository: Map(this.props.repository),
+        });
     }
 
-    onSubmit(e) {}
+    onChange(e) {
+        let { repository } = this.state;
+
+        repository = repository.toJS();
+        repository.body = e.target.value;
+
+        this.setState({
+            repository: Map(repository),
+        });
+    }
+
+    onSubmit(e) {
+        if (e.preventDefault) e.preventDefault();
+
+        let { repository } = this.state;
+
+        const { create, current_user } = this.props;
+
+        repository = repository.toJS();
+
+        if (current_user) {
+            repository.Voter = current_user;
+            repository.VoterId = current_user.id;
+        }
+
+        if (!repository) {
+            return;
+        }
+
+        if (!repository.body || repository.body == '') {
+            return;
+        }
+
+        create(repository);
+    }
 
     render() {
+        let { repository } = this.state;
+
+        repository = repository.toJS();
+
         const user_section = (
             <div className="heading-new-list__user">
                 <div className="heading-new-list__user-image">
                     <PictureItem
-                        url={'/icons/noimage.svg'}
+                        url={repository.User && repository.User.picture_small}
                         width={32}
                         redius={16}
+                        alt={repository.User && repository.User.nickname}
                     />
                 </div>
                 <div className="heading-new-list__user-title">
-                    {'佐藤健さんの紹介カードを追加'}
+                    {repository.User &&
+                        `${repository.User.nickname}さんの紹介テーマを追加`}
                 </div>
             </div>
         );
 
         const form = (
-            <form className="heading-new-list__form">
+            <form className="heading-new-list__form" onSubmit={this.onSubmit}>
                 <div className="heading-new-list__form-input">
                     <InputText
-                        label={'紹介カード'}
+                        label={'紹介テーマ'}
                         onChange={this.onChange}
-                        placeholder={'佐藤健さんの紹介カードを追加'}
+                        placeholder={
+                            repository.User &&
+                            `${repository.User.nickname}さんの紹介テーマを追加`
+                        }
+                        value={repository.body}
                     />
                 </div>
                 <div className="heading-new-list__form-submit">
                     <GradationButton
                         submit={true}
                         src={'plus'}
-                        value={'紹介カードを追加'}
-                        onClick={this.onSubmit}
+                        value={'紹介テーマを追加'}
                     />
                 </div>
             </form>
@@ -81,8 +132,15 @@ class HeadingNewList extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: headingActions.getNewHeading(state),
+            current_user: authActions.getCurrentUser(state),
+        };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        create: heading => {
+            dispatch(headingActions.createHeading({ heading }));
+        },
+    })
 )(HeadingNewList);

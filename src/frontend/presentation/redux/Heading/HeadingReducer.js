@@ -64,8 +64,8 @@ export default function reducer(state = defaultState, action) {
         }
 
         case SET_NEW: {
-            if (!payload.headings) return state;
-            return state.set('new_heading', Map(action.payload.headings));
+            if (!payload.heading) return state;
+            return state.set('new_heading', Map(action.payload.heading));
         }
 
         case RESET_NEW: {
@@ -77,7 +77,7 @@ export default function reducer(state = defaultState, action) {
         case SHOW_EDIT:
             if (!payload.heading) return state;
             return state.merge({
-                new_heading: payload.heading,
+                new_heading: Map(payload.heading),
                 show_new_modal: true,
             });
 
@@ -189,4 +189,10 @@ export const bind = (heading, state) => {
     if (!heading.id) return heading;
     if (getDelete(heading.id, state)) return null;
     return getCache(heading.id, state) || heading;
+};
+
+export const getNewHeading = state => {
+    let val = state.heading.get('new_heading');
+    const heading = !!val ? val.toJS() : null;
+    return bind(heading, state);
 };
