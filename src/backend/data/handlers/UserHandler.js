@@ -34,7 +34,7 @@ export default class UserHandler extends HandlerImpl {
             where: {
                 $or: [
                     {
-                        id: Number(id),
+                        id: Number(id) || 0,
                     },
                     {
                         username,

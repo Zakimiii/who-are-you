@@ -8,6 +8,7 @@ import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
+import * as headingActions from '@redux/Heading/HeadingReducer';
 
 class HeadingNewButton extends React.Component {
     static propTypes = {
@@ -30,7 +31,7 @@ class HeadingNewButton extends React.Component {
     }
 
     onClick(e) {
-        if (e) e.preventDefault();
+        this.props.showNew();
     }
 
     render() {
@@ -49,5 +50,7 @@ export default connect(
         return {};
     },
 
-    dispatch => ({})
+    dispatch => ({
+        showNew: () => dispatch(headingActions.showNew()),
+    })
 )(HeadingNewButton);

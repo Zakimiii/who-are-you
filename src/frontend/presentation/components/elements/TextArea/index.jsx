@@ -54,30 +54,28 @@ class TextArea extends React.Component {
 
         const { focus } = this.state;
         return (
-            <Ripple>
-                <div className="text-area">
-                    <TextareaAutosize
-                        className="text-area__input"
-                        onChange={this.onChange}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        placeholder={focus ? placeholder : ''}
-                        value={value}
-                    />
-                    <span
-                        className={classNames('text-area__label', {
-                            focus: focus || (value && value != ''),
-                        })}
-                    >
-                        {label}
-                    </span>
-                    <span
-                        className={classNames('text-area__border', {
-                            focus: focus || (value && value != ''),
-                        })}
-                    />
-                </div>
-            </Ripple>
+            <div className="text-area">
+                <TextareaAutosize
+                    className="text-area__input"
+                    onChange={this.onChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    placeholder={focus ? placeholder : ''}
+                    value={value}
+                />
+                <span
+                    className={classNames('text-area__label', {
+                        focus: focus || (value && value != ''),
+                    })}
+                >
+                    {label}
+                </span>
+                <span
+                    className={classNames('text-area__border', {
+                        focus: focus || (value && value != ''),
+                    })}
+                />
+            </div>
         );
     }
 }

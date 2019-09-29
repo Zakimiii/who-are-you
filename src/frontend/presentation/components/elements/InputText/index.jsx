@@ -54,32 +54,30 @@ class InputText extends React.Component {
         const { focus } = this.state;
 
         return (
-            <Ripple>
-                <div className="input-text">
-                    <input
-                        onChange={this.onChange}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        className="input-text__input"
-                        type="text"
-                        id="input-text-inp"
-                        placeholder={focus ? placeholder : ''}
-                        value={value}
-                    />
-                    <span
-                        className={classNames('input-text__label', {
-                            focus: focus || (value && value != ''),
-                        })}
-                    >
-                        {label}
-                    </span>
-                    <span
-                        className={classNames('input-text__border', {
-                            focus: focus || (value && value != ''),
-                        })}
-                    />
-                </div>
-            </Ripple>
+            <div className="input-text">
+                <input
+                    onChange={this.onChange}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+                    className="input-text__input"
+                    type="text"
+                    id="input-text-inp"
+                    placeholder={focus ? placeholder : ''}
+                    value={value}
+                />
+                <span
+                    className={classNames('input-text__label', {
+                        focus: focus || (value && value != ''),
+                    })}
+                >
+                    {label}
+                </span>
+                <span
+                    className={classNames('input-text__border', {
+                        focus: focus || (value && value != ''),
+                    })}
+                />
+            </div>
         );
     }
 }

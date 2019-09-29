@@ -81,6 +81,12 @@ export default function reducer(state = defaultState, action) {
                 show_new_modal: true,
             });
 
+        case SHOW_NEW: {
+            return state.merge({
+                show_new_modal: true,
+            });
+        }
+
         case HIDE_NEW: {
             return state.merge({
                 show_new_modal: false,

@@ -206,7 +206,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             ? {
                   $or: [
                       {
-                          user_id: Number(user_id),
+                          user_id: Number(user_id) || 0,
                       },
                       {
                           username,
@@ -217,7 +217,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             : {
                   $or: [
                       {
-                          user_id: Number(user_id),
+                          user_id: Number(user_id) || 0,
                       },
                       {
                           username,

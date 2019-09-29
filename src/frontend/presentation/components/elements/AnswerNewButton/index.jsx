@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import GradationButton from '@elements/GradationButton';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import { answerNewRoute } from '@infrastructure/RouteInitialize';
 
 class AnswerNewButton extends React.Component {
     static propTypes = {
@@ -30,7 +32,7 @@ class AnswerNewButton extends React.Component {
     }
 
     onClick(e) {
-        if (e) e.preventDefault();
+        this.props.showNew();
     }
 
     render() {
@@ -49,5 +51,7 @@ export default connect(
         return {};
     },
 
-    dispatch => ({})
+    dispatch => ({
+        showNew: () => dispatch(answerActions.showNew()),
+    })
 )(AnswerNewButton);
