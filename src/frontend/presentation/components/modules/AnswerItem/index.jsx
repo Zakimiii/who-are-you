@@ -10,6 +10,7 @@ import PictureItem from '@elements/PictureItem';
 import Icon from '@elements/Icon';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import dummy from '@network/dummy';
 
 class AnswerItem extends React.Component {
     static propTypes = {
@@ -50,6 +51,10 @@ class AnswerItem extends React.Component {
         const { isShow } = this.state;
 
         if (!_repository) return <div />;
+
+        if (!_repository.User) {
+            _repository.User = dummy.User;
+        }
 
         const text =
             isShow && _repository.body.length > 50

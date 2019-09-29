@@ -11,6 +11,7 @@ import AnswerNewButton from '@elements/AnswerNewButton';
 import AnswerItem from '@modules/AnswerItem';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import dummy from '@network/dummy';
 
 class HeadingItem extends React.Component {
     static propTypes = {
@@ -36,6 +37,10 @@ class HeadingItem extends React.Component {
         const { _repository } = this.props;
 
         if (!_repository) return <div />;
+
+        if (!_repository.User) {
+            _repository.User = dummy.User;
+        }
 
         const renderItems = items =>
             items.map((item, key) => (

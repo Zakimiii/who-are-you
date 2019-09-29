@@ -118,7 +118,6 @@ class AnswerNewList extends React.Component {
                         submit={true}
                         src={'plus'}
                         value={'回答を追加'}
-                        onClick={this.onSubmit}
                     />
                 </div>
             </form>

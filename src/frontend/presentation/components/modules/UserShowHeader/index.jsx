@@ -8,6 +8,8 @@ import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import * as userActions from '@redux/User/UserReducer';
+import models from '@network/client_models';
+import dummy from '@network/dummy';
 
 class UserShowHeader extends React.Component {
     static propTypes = {
@@ -19,7 +21,9 @@ class UserShowHeader extends React.Component {
         repository: null,
     };
 
-    state = {};
+    state = {
+        _repository: dummy.User,
+    };
 
     constructor(props) {
         super(props);
@@ -30,14 +34,14 @@ class UserShowHeader extends React.Component {
         );
     }
 
-    componentWillMount() {}
-
-    componentDidMount() {}
-
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        const { _repository } = this.props;
+        let { _repository } = this.props;
+
+        if (!_repository) {
+            _repository = dummy.User;
+        }
 
         return (
             <div className="user-show-header">
