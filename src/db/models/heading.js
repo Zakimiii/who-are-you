@@ -62,13 +62,14 @@ module.exports = function(sequelize, DataTypes) {
 
             classMethods: {
                 associate: function(models) {
-                    Heading.belongsTo(models.Identity, {
+                    Heading.belongsTo(models.User, {
                         onDelete: 'CASCADE',
                         foreignKey: {
-                            name: 'identity_id',
-                            allowNull: false,
+                            name: 'user_id',
+                            allowNull: true,
                         },
                     });
+                    Heading.hasMany(models.Answer);
                 },
             },
         }

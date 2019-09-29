@@ -10,6 +10,7 @@ import UserShowHeader from '@modules/UserShowHeader';
 import HeadingNewButton from '@elements/HeadingNewButton';
 import HeadingItem from '@modules/HeadingItem';
 import { isScrollEndByClass } from '@extension/scroll';
+import * as userActions from '@redux/User/UserReducer';
 
 class UserShowList extends React.Component {
     static propTypes = {
@@ -50,46 +51,31 @@ class UserShowList extends React.Component {
     }
 
     render() {
-        const { repository } = this.props;
+        const { repository, repositories } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
                 <div className="user-show-list__body__item" key={key}>
-                    <HeadingItem />
+                    <HeadingItem repository={item} />
                 </div>
             ));
 
         return (
             <div className="user-show-list">
                 <div className="user-show-list__header">
-                    <UserShowHeader />
+                    <UserShowHeader repository={repository} />
                 </div>
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__heading-new">
                         <HeadingNewButton repository={repository} />
                     </div>
                     <div className="user-show-list__body__category">
-                        {'佐藤健さんの紹介カード'}
+                        {repository.nickname + 'さんの紹介カード'}
                     </div>
                     <div className="user-show-list__body__items">
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
-                        <div className="user-show-list__body__item">
-                            <HeadingItem />
-                        </div>
+                        {repositories &&
+                            repositories.length > 0 &&
+                            renderItems(repositories)}
                     </div>
                 </div>
             </div>
@@ -99,7 +85,10 @@ class UserShowList extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: userActions.getShowUser(state),
+            repositories: userActions.getUserHeading(state),
+        };
     },
 
     dispatch => ({})

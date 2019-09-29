@@ -7,10 +7,12 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
+import * as userActions from '@redux/User/UserReducer';
 
 class UserShowHeader extends React.Component {
     static propTypes = {
         repository: AppPropTypes.User,
+        _repository: AppPropTypes.User,
     };
 
     static defaultProps = {
@@ -35,7 +37,7 @@ class UserShowHeader extends React.Component {
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        const { repository } = this.props;
+        const { _repository } = this.props;
 
         return (
             <div className="user-show-header">
@@ -43,15 +45,14 @@ class UserShowHeader extends React.Component {
                     <PictureItem
                         width={120}
                         radius={60}
-                        url={'/icons/noimage.svg'}
+                        url={_repository.picture_small}
                     />
                 </div>
-                <div className="user-show-header__name">fdsfdsafdsafd</div>
+                <div className="user-show-header__name">
+                    {_repository.nickname}
+                </div>
                 <div className="user-show-header__detail">
-                    fdsanflkdsanfgldsanbkjlfnadslfnsalkdfnlkdsanfl
-                    fdsanflkdsanfgldsanbkjlfnadslfnsalkdfnlkdsanfl
-                    fdsanflkdsanfgldsanbkjlfnadslfnsalkdfnlkdsanfl
-                    fdsanflkdsanfgldsanbkjlfnadslfnsalkdfnlkdsanfl
+                    {_repository.detail}
                 </div>
             </div>
         );
@@ -60,7 +61,9 @@ class UserShowHeader extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            _repository: userActions.bind(props.repository, state),
+        };
     },
 
     dispatch => ({})

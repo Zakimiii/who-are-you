@@ -114,7 +114,7 @@ export default class AuthHandler extends HandlerImpl {
             accessToken: accessToken,
         });
 
-        router.redirect(`/user/${identity.username}?${params}`);
+        // router.redirect(`/user/${identity.username}?${params}`);
     }
 
     async handleTwitterAuthenticateRequest(router, req, res, next) {
@@ -133,11 +133,13 @@ export default class AuthHandler extends HandlerImpl {
             },
         }).catch(async e => {
             await this.handleTwitterInitializeAuth(router, req, res, next);
+            await this.handleTwitterAuthenticateRequest(router, req, res, next);
             return;
         });
 
         if (!identity) {
             await this.handleTwitterInitializeAuth(router, req, res, next);
+            await this.handleTwitterAuthenticateRequest(router, req, res, next);
             return;
         }
 

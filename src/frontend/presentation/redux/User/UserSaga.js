@@ -22,6 +22,7 @@ const userUseCase = new UserUseCase();
 
 export const userWatches = [
     takeEvery(LOCATION_CHANGE, userUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, userUseCase.initUserHeadings),
     takeEvery(
         userActions.GET_MORE_USER_HEADING,
         userUseCase.getMoreUserHeadings

@@ -13,6 +13,7 @@ import { translate } from '@infrastructure/Translator';
 import DMCAUserList from '@constants/DMCAUserList';
 import { AnswerUseCase } from '@usecase';
 import * as answerActions from './AnswerReducer';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 const answerUseCase = new AnswerUseCase();
 

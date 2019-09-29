@@ -20,6 +20,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         params = {
             user: true,
             answers: false,
+            answer_limit: data_config.answer_index_limit,
         }
     ) {
         if (!datum) return;
@@ -44,6 +45,9 @@ export default class HeadingDataStore extends DataStoreImpl {
                             where: {
                                 heading_id: val.id,
                             },
+                            limit:
+                                data_config.answer_index_limit ||
+                                data_config.fetch_data_limit('M'),
                             raw: true,
                         }),
                 ]);
@@ -69,6 +73,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         return await this.getIncludes(datum, {
             user: true,
             answers: true,
+            answer_limit: data_config.answer_index_limit,
         });
     }
 
@@ -204,36 +209,35 @@ export default class HeadingDataStore extends DataStoreImpl {
     async getUserHeadings({ user_id, username, offset, limit, isMyAccount }) {
         const where = isMyAccount
             ? {
-                  $or: [
-                      {
-                          user_id: Number(user_id) || 0,
-                      },
-                      {
-                          username,
-                      },
-                  ],
                   isHide: false,
               }
             : {
-                  $or: [
-                      {
-                          user_id: Number(user_id) || 0,
-                      },
-                      {
-                          username,
-                      },
-                  ],
                   isHide: false,
                   isPrivate: false,
               };
 
         const results = await models.Heading.findAll({
             where,
+            include: [
+                {
+                    model: models.User,
+                    where: {
+                        $or: [
+                            {
+                                id: Number(user_id) || 0,
+                            },
+                            {
+                                username,
+                            },
+                        ],
+                    },
+                    attributes: ['id'],
+                },
+            ],
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
             limit: Number(limit || data_config.fetch_data_limit('L')),
-            subQuery: true,
         }).catch(e => {
             throw new ApiError({
                 error: e,
