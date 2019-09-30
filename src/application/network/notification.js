@@ -28,7 +28,7 @@ export default class Notification {
 
     async push({
         tt_key,
-        icon = config.CURRENT_APP_URL + '/images/brands/mini-logo.png',
+        icon = config.CURRENT_APP_URL + '/images/brands/who-are-you_logo.png',
         url = '/',
         ids = [],
     }) {

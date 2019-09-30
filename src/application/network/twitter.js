@@ -53,20 +53,35 @@ export default class TwitterHandler {
         });
 
     //@params: user_id or screen_name
-    static getUser = (params, onSuccess, onError) =>
-        twitter.getUser(params, onError, result =>
-            onSuccess(JSON.parse(result))
-        );
+    static getUser = async params => {
+        return new Promise((resolve, reject) => {
+            twitter.getUser(
+                params,
+                e => reject(e),
+                result => resolve(JSON.parse(result))
+            );
+        });
+    };
 
     //@params: status possibly_sensitive media_ids oauth_token
-    static postTweet = (params, onSuccess, onError) =>
-        twitter.postTweet(params, onError, result =>
-            onSuccess(JSON.parse(result))
-        );
+    static postTweet = async params => {
+        return new Promise((resolve, reject) => {
+            twitter.postTweet(
+                params,
+                e => reject(e),
+                result => resolve(JSON.parse(result))
+            );
+        });
+    };
 
     //@params: media or media_data(base64 encoded)
-    static postMedia = (params, onSuccess, onError) =>
-        twitter.postMedia(parameters, onError, result =>
-            onSuccess(JSON.parse(result))
-        );
+    static postMedia = async params => {
+        return new Promise((resolve, reject) => {
+            twitter.postMedia(
+                params,
+                e => reject(e),
+                result => resolve(JSON.parse(result))
+            );
+        });
+    };
 }

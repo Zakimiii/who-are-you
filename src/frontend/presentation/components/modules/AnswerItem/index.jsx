@@ -11,6 +11,7 @@ import Icon from '@elements/Icon';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
+import data_config from '@constants/data_config';
 
 class AnswerItem extends React.Component {
     static propTypes = {
@@ -57,9 +58,16 @@ class AnswerItem extends React.Component {
         }
 
         const text =
-            isShow && _repository.body.length > 50
-                ? _repository.body.slice(0, 50) + '...'
-                : _repository.body;
+            isShow &&
+            _repository.body.length > data_config.answer_show_text_limit
+                ? _repository.body
+                : _repository.body.slice(
+                      0,
+                      data_config.answer_show_text_limit
+                  ) +
+                  (_repository.body.length > data_config.answer_show_text_limit
+                      ? '...'
+                      : '');
 
         return (
             <div className="answer-item">
@@ -80,16 +88,13 @@ class AnswerItem extends React.Component {
                     </div>
                 </div>
                 <div className="answer-item__body">{text}</div>
-                {_repository.body.length > 50 && (
+                {_repository.body.length >
+                    data_config.answer_show_text_limit && (
                     <div
                         className="answer-item__more"
                         onClick={this.toggleShow}
                     >
-                        <Icon
-                            className="answer-item__more-raw"
-                            src={'more'}
-                            size={'2x'}
-                        />
+                        {isShow ? '少なく表示' : '全て表示'}
                     </div>
                 )}
             </div>

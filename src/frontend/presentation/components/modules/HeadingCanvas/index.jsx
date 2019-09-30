@@ -11,6 +11,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import canvas from '@network/canvas';
 import { FileEntity, FileEntities } from '@entity';
 import { Map } from 'immutable';
+import Img from 'react-image';
 
 class HeadingCanvas extends React.Component {
     static propTypes = {
@@ -61,25 +62,39 @@ class HeadingCanvas extends React.Component {
                 className="heading-canvas__wrapper"
                 style={{ display: mounted ? 'none' : 'block' }}
             >
-                <div className="heading-canvas">
-                    <div className="heading-canvas__user">
-                        <div className="heading-canvas__user-image">
-                            <PictureItem
-                                url={repository.User.picture_small}
-                                width={64}
-                                redius={32}
-                            />
+                <div
+                    className="heading-canvas"
+                    style={{
+                        backgroundImage:
+                            "url('/images/brands/eye-catch-back.png')",
+                    }}
+                >
+                    <div className="heading-canvas__container">
+                        <div className="heading-canvas__user">
+                            <div className="heading-canvas__user-image">
+                                <PictureItem
+                                    url={repository.User.picture_small}
+                                    width={64}
+                                    redius={32}
+                                />
+                            </div>
+                            <div className="heading-canvas__user-title">
+                                {`${repository.User.nickname}さんの`}
+                            </div>
                         </div>
-                        <div className="heading-canvas__user-title">
-                            {`${repository.User.nickname}の「${
-                                repository.body
-                            }」`}
+                        <div className="heading-canvas__title">
+                            {`「${repository.body}」`}
+                        </div>
+                        <div className="heading-canvas__text">
+                            {`回答募集中です！\n${
+                                repository.User.nickname
+                            }さんをご存知の人はぜひご回答ください！`}
                         </div>
                     </div>
-                    <div className="heading-canvas__border" />
-                    <div className="heading-canvas__text">
-                        {'募集中です！！'}
-                    </div>
+                    <Img
+                        className="heading-canvas__image"
+                        src={'/images/brands/who_are_you.png'}
+                    />
                 </div>
             </div>
         );

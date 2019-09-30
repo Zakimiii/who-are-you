@@ -164,6 +164,12 @@ module.exports = {
                             type: Sequelize.STRING(126),
                             unique: true,
                         },
+                        twitter_token: {
+                            type: Sequelize.STRING(255),
+                        },
+                        twitter_secret: {
+                            type: Sequelize.STRING(255),
+                        },
                         verified: {
                             type: Sequelize.BOOLEAN,
                         },

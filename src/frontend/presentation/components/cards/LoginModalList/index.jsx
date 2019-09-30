@@ -30,14 +30,14 @@ class LoginModalList extends React.Component {
             <div className="login-modal-list__logo">
                 <Img
                     className="login-modal-list__logo-image"
-                    src={'/images/brands/logo.png'}
+                    src={'/images/brands/who_are_you.png'}
                 />
             </div>
         );
 
         const desc = (
             <div className="login-modal-list__desc">
-                {'Twitter連携で簡単に始められる\n一問一答形式の友達紹介アプリ'}
+                {'Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ'}
             </div>
         );
 

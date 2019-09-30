@@ -27,6 +27,18 @@ export const answerNewRoute = new RouteEntity({
     component: require('@components/pages/AnswerNewAlias'),
 });
 
+export const headingCanvasTestRoute = new RouteEntity({
+    path: '/heading/canvas/test',
+    page: 'HeadingCanvasTest',
+    component: require('@components/pages/HeadingCanvasTest'),
+});
+
+export const answerCanvasTestRoute = new RouteEntity({
+    path: '/answer/canvas/test',
+    page: 'AnswerCanvasTest',
+    component: require('@components/pages/AnswerCanvasTest'),
+});
+
 export const loginRoute = new RouteEntity({
     path: '/login',
     page: 'Login',
@@ -81,6 +93,8 @@ export const routeEntities = new RouteEntities({
         headingNewRoute,
         answerNewRoute,
         loginRoute,
+        headingCanvasTestRoute,
+        answerCanvasTestRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,

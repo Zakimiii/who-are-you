@@ -2,6 +2,7 @@ import { ClientError, ApiError } from '@extension/Error';
 import Entity from '@entity/Entity';
 import { Enum, defineEnum } from '@extension/Enum';
 import AWSHandler from '@network/aws';
+import TwitterHandler from '@network/twitter';
 import file_config from '@constants/file_config';
 import data_config from '@constants/data_config';
 const Jimp = require('jimp');
@@ -87,10 +88,29 @@ export class FileEntity extends Entity {
                     filename: name,
                 });
                 this.url = s3url;
-                console.log(s3url);
                 this.file = null;
                 URL.revokeObjectURL(url);
                 break;
+        }
+    }
+
+    async upload_twitter(params = {}) {
+        const { extension, url, xsize, ysize, type, name } = this;
+
+        switch (true) {
+            case file_config.isImage(extension):
+                const lenna = await Jimp.read(url);
+                let src;
+                lenna
+                    .resize(params.xsize || xsize, params.ysize || ysize)
+                    .quality(60)
+                    .getBuffer(Jimp.AUTO, (e, d) => {
+                        src = d;
+                    });
+                const media_id = await TwitterHandler.postMedia({
+                    media: src,
+                });
+                return media_id;
         }
     }
 

@@ -37,8 +37,8 @@
       width: calc(100% - 44px);
       padding: 6px;
       text-align: left;
-      @include FS(FM);
-      @include LH(FM);
+      @include FS(M);
+      @include LH(M);
       @include FM(B);
       @include themify($themes) {
         color: themed('subThick2');

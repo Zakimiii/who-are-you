@@ -11,6 +11,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import canvas from '@network/canvas';
 import { FileEntity, FileEntities } from '@entity';
 import { Map } from 'immutable';
+import Img from 'react-image';
 
 class AnswerCanvas extends React.Component {
     static propTypes = {
@@ -70,15 +71,20 @@ class AnswerCanvas extends React.Component {
                             />
                         </div>
                         <div className="answer-canvas__user-title">
-                            {`${repository.Heading.User.nickname}の「${
-                                repository.Heading.body
-                            }」`}
+                            {`${repository.Heading.User.nickname}の`}
                         </div>
+                    </div>
+                    <div className="answer-canvas__title">
+                        {`「${repository.Heading.body}」`}
                     </div>
                     <div className="answer-canvas__border" />
                     <div className="answer-canvas__text">
                         {`${repository.body}`}
                     </div>
+                    <Img
+                        className="answer-canvas__image"
+                        src={'/images/brands/who_are_you.png'}
+                    />
                 </div>
             </div>
         );

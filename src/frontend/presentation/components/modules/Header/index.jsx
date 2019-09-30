@@ -20,7 +20,11 @@ import Responsible from '@modules/Responsible';
 import GradationIconButton from '@elements/GradationIconButton';
 import Img from 'react-image';
 import autobind from 'class-autobind';
-import { homeRoute, headingCanvasRoute } from '@infrastructure/RouteInitialize';
+import {
+    homeRoute,
+    headingCanvasTestRoute,
+    answerCanvasTestRoute,
+} from '@infrastructure/RouteInitialize';
 
 class Header extends React.Component {
     static propTypes = {
@@ -100,7 +104,8 @@ class Header extends React.Component {
     toggleHeader = props => {
         const { isHeaderVisible, route, showHeader, hideHeader } = props;
         switch (route) {
-            case routes.headingCanvasRoute:
+            case routes.headingCanvasTestRoute:
+            case routes.answerCanvasTestRoute:
                 hideHeader();
                 break;
             default:
@@ -166,7 +171,7 @@ class Header extends React.Component {
                 >
                     <Img
                         className="Header__logo"
-                        src="/images/brands/logo.png"
+                        src="/images/brands/who_are_you.png"
                         alt={tt('alts.default')}
                     />
                 </Link>

@@ -71,6 +71,8 @@ const detail_max_limit = 1000;
 const password_min_limit = 8;
 const password_max_limit = 125;
 const provider_limit = 3;
+const answer_body_min_limit = 0;
+const answer_body_max_limit = 50;
 
 const max_decimal_range = 65;
 const min_decimal_range = 4;
@@ -78,6 +80,8 @@ const min_decimal_range = 4;
 const drop_down_search_limit = 3;
 
 const answer_index_limit = 3;
+
+const answer_show_text_limit = 100;
 
 const shot_picture_xsize = 1200;
 const shot_picture_ysize = 600;
@@ -104,6 +108,7 @@ module.exports = {
     min_decimal_range,
     drop_down_search_limit,
     answer_index_limit,
+    answer_show_text_limit,
     shot_picture_xsize,
     shot_picture_ysize,
 };

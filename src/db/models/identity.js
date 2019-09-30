@@ -85,6 +85,12 @@ module.exports = function(sequelize, DataTypes) {
             twitter_username: {
                 type: DataTypes.STRING(126),
             },
+            twitter_token: {
+                type: DataTypes.STRING(255),
+            },
+            twitter_secret: {
+                type: DataTypes.STRING(255),
+            },
             verified: {
                 type: DataTypes.BOOLEAN,
             },
@@ -157,6 +163,8 @@ module.exports = function(sequelize, DataTypes) {
             delete_password_token: self.delete_password_token,
             twitter_id: self.twitter_id,
             twitter_username: self.twitter_username,
+            twitter_secret: self.twitter_secret,
+            twitter_token: self.twitter_token,
             verified: self.verified,
             bot: self.bot,
             isDelete: self.isDelete,
