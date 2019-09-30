@@ -52,15 +52,21 @@ export default class TwitterHandler {
                     : `http://localhost:8080/auth/twitter/${modal}/callback`,
         });
 
-    //@params: user_id or handle (screen_name)
-    static getUser = ({ params, onSuccess, onError }) =>
-        twitter.getUser(params, onError, onSuccess);
+    //@params: user_id or screen_name
+    static getUser = (params, onSuccess, onError) =>
+        twitter.getUser(params, onError, result =>
+            onSuccess(JSON.parse(result))
+        );
 
-    //@params: status possibly_sensitive media_ids
-    static postTweet = ({ params, onSuccess, onError }) =>
-        twitter.postTweet(params, onError, onSuccess);
+    //@params: status possibly_sensitive media_ids oauth_token
+    static postTweet = (params, onSuccess, onError) =>
+        twitter.postTweet(params, onError, result =>
+            onSuccess(JSON.parse(result))
+        );
 
     //@params: media or media_data(base64 encoded)
-    static postTweet = ({ params, onSuccess, onError }) =>
-        twitter.postMedia(parameters, onError, onSuccess);
+    static postMedia = (params, onSuccess, onError) =>
+        twitter.postMedia(parameters, onError, result =>
+            onSuccess(JSON.parse(result))
+        );
 }
