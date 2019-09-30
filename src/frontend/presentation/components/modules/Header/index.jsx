@@ -175,11 +175,14 @@ class Header extends React.Component {
                         alt={tt('alts.default')}
                     />
                 </Link>
-                <div className="Header__search-bar">
-                    <SearchInput onRequestSearch={handleRequestSearch} />
-                </div>
             </div>
         );
+
+        /*
+        <div className="Header__search-bar">
+                    <SearchInput onRequestSearch={handleRequestSearch} />
+                </div>
+        */
 
         return (
             <div className={header_className}>
