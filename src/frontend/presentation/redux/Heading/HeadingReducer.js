@@ -119,7 +119,7 @@ export default function reducer(state = defaultState, action) {
         case SCREEN_SHOT: {
             return state.merge({
                 show_screen_shot: true,
-                screen_shot_heading: payload.screen_shot,
+                screen_shot_heading: Map(payload.heading),
             });
         }
 

@@ -35,7 +35,9 @@ class AnswerCanvas extends React.Component {
     }
 
     componentDidMount() {
-        if (!process.env.BROWSER) return false;
+        const { repository } = this.props;
+        const { mounted } = this.state;
+        if (!repository || !repository.Heading) return;
         canvas.get_shot_by_url('answer-canvas').then(data => {
             this.setState({ mounted: !!data });
             !!data &&
@@ -48,7 +50,10 @@ class AnswerCanvas extends React.Component {
     }
 
     render() {
+        const { repository } = this.props;
         const { mounted } = this.state;
+
+        if (!repository || !repository.Heading) return <div />;
 
         return (
             <div
@@ -59,20 +64,20 @@ class AnswerCanvas extends React.Component {
                     <div className="answer-canvas__user">
                         <div className="answer-canvas__user-image">
                             <PictureItem
-                                url={
-                                    'https://pbs.twimg.com/profile_images/1175304215427612672/azlHuabi_400x400.jpg'
-                                }
+                                url={repository.Heading.User.picture_small}
                                 width={64}
                                 redius={32}
                             />
                         </div>
                         <div className="answer-canvas__user-title">
-                            {'佐藤健さんの「チャームポイント」'}
+                            {`${repository.Heading.User.nickname}の「${
+                                repository.Heading.body
+                            }」`}
                         </div>
                     </div>
                     <div className="answer-canvas__border" />
                     <div className="answer-canvas__text">
-                        {'めちゃくちゃかっこいい'}
+                        {`${repository.body}`}
                     </div>
                 </div>
             </div>
@@ -82,7 +87,9 @@ class AnswerCanvas extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: answerActions.getScreenShotAnswer(state),
+        };
     },
 
     dispatch => ({})

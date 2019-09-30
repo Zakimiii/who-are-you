@@ -35,7 +35,10 @@ class HeadingCanvas extends React.Component {
     }
 
     componentDidMount() {
-        if (!process.env.BROWSER) return false;
+        const { repository } = this.props;
+        const { mounted } = this.state;
+        if (!process.env.BROWSER) return;
+        if (!repository || !repository.User) return;
         canvas.get_shot_by_url('heading-canvas').then(data => {
             this.setState({ mounted: !!data });
             !!data &&
@@ -48,7 +51,10 @@ class HeadingCanvas extends React.Component {
     }
 
     render() {
+        const { repository } = this.props;
         const { mounted } = this.state;
+
+        if (!repository || !repository.User) return <div />;
 
         return (
             <div
@@ -59,20 +65,20 @@ class HeadingCanvas extends React.Component {
                     <div className="heading-canvas__user">
                         <div className="heading-canvas__user-image">
                             <PictureItem
-                                url={
-                                    'https://pbs.twimg.com/profile_images/1175304215427612672/azlHuabi_400x400.jpg'
-                                }
+                                url={repository.User.picture_small}
                                 width={64}
                                 redius={32}
                             />
                         </div>
                         <div className="heading-canvas__user-title">
-                            {'佐藤健さんの「チャームポイント」'}
+                            {`${repository.User.nickname}の「${
+                                repository.body
+                            }」`}
                         </div>
                     </div>
                     <div className="heading-canvas__border" />
                     <div className="heading-canvas__text">
-                        {'めちゃくちゃかっこいい'}
+                        {'募集中です！！'}
                     </div>
                 </div>
             </div>
@@ -82,7 +88,9 @@ class HeadingCanvas extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: headingActions.getScreenShotHeading(state),
+        };
     },
 
     dispatch => ({})

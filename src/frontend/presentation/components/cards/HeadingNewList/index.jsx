@@ -93,7 +93,7 @@ class HeadingNewList extends React.Component {
         }
         this.setState({ submiting: true });
 
-        screenShot(repository);
+        screenShot(Map(repository));
     }
 
     render() {
