@@ -100,6 +100,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             where: {
                 heading_id: Number(heading.id),
             },
+            attributes: ['id'],
         });
 
         const result = await heading.update({

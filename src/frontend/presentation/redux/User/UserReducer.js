@@ -8,7 +8,9 @@ export const SYNC_USER = 'user/SYNC_USER';
 export const DELETE_USER = 'user/DELETE_USER';
 export const SET_USER_HEADING = 'user/SET_USER_HEADING';
 export const ADD_USER_HEADING = 'user/ADD_USER_HEADING';
+export const ADD_USER_HEADING_ANSWER = 'user/ADD_USER_HEADING_ANSWER';
 export const GET_MORE_USER_HEADING = 'user/GET_MORE_USER_HEADING';
+export const GET_MORE_USER_HEADING_ANSWER = 'user/GET_MORE_USER_HEADING_ANSWER';
 export const SET_CACHES = 'user/SET_CACHES';
 export const RESET_CACHES = 'user/SET_CACHES';
 export const SET_DELETES = 'user/SET_DELETES';
@@ -68,27 +70,35 @@ export default function reducer(state = defaultState, action) {
             if (!payload.headings) return state;
             return state.set(
                 'user_heading',
-                List(
-                    action.payload.headings.map(val => {
-                        return Map(val);
-                    })
-                )
+                List(action.payload.headings.map(val => Map(val)))
             );
         }
 
         case ADD_USER_HEADING: {
-            if (!payload.contents) return state;
+            if (!payload.headings) return state;
             let before = state.get('user_heading');
             return state.set(
                 'user_heading',
                 before.concat(
-                    List(
-                        action.payload.contents.map(val => {
-                            return Map(val);
-                        })
-                    )
+                    List(action.payload.headings.map(val => Map(val)))
                 )
             );
+        }
+
+        case ADD_USER_HEADING_ANSWER: {
+            if (!payload.heading || !payload.answers) return state;
+            let befores = state.get('user_heading');
+            befores = befores.toJS();
+            let before = befores.filter(val => val.id == payload.heading.id);
+            before = before[0] instanceof Map ? before[0].toJS() : before[0];
+            before.Answers = before.Answers.concat(payload.answers);
+            befores = befores.map(val => {
+                if (val.id == payload.heading.id) {
+                    val = Map(before);
+                }
+                return val;
+            });
+            return state.set('user_heading', List(befores));
         }
 
         default:
@@ -141,8 +151,18 @@ export const addUserHeading = payload => ({
     payload,
 });
 
+export const addUserHeadingAnswer = payload => ({
+    type: ADD_USER_HEADING_ANSWER,
+    payload,
+});
+
 export const getMoreUserHeading = payload => ({
     type: GET_MORE_USER_HEADING,
+    payload,
+});
+
+export const getMoreUserHeadingAnswer = payload => ({
+    type: GET_MORE_USER_HEADING_ANSWER,
     payload,
 });
 

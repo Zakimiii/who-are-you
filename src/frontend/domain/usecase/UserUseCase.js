@@ -1,5 +1,5 @@
 import UseCaseImpl from '@usecase/UseCaseImpl';
-import { UserRepository } from '@repository';
+import { UserRepository, HeadingRepository } from '@repository';
 import { Set, Map, fromJS, List } from 'immutable';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import models from '@network/client_models';
@@ -15,6 +15,7 @@ import { FileEntity, FileEntities } from '@entity';
 import data_config from '@constants/data_config';
 
 const userRepository = new UserRepository();
+const headingRepository = new HeadingRepository();
 const appUsecase = new AppUseCase();
 
 export default class UserUseCase extends UseCaseImpl {
@@ -92,8 +93,37 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) return;
                 yield put(userActions.addUserHeading({ headings }));
             } catch (e) {
+                console.log(e);
                 yield put(appActions.addError({ error: e }));
             }
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *getMoreUserHeadingAnswers({ payload: { heading } }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        if (!heading) return;
+        if (!heading.Answers) return;
+        try {
+            yield put(authActions.syncCurrentUser());
+            const indexContentsLength = heading.Answers.length;
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const loading = yield select(state =>
+                state.app.get('more_loading')
+            );
+            if (indexContentsLength == 0) return;
+            yield put(appActions.fetchMoreDataBegin());
+            const answers = yield headingRepository.getAnswers({
+                heading,
+                offset: indexContentsLength,
+            });
+            if (answers.length == 0) return;
+            yield put(userActions.addUserHeadingAnswer({ heading, answers }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchMoreDataEnd());
     }

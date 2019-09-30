@@ -11,6 +11,7 @@ import HeadingNewButton from '@elements/HeadingNewButton';
 import HeadingItem from '@modules/HeadingItem';
 import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
 
 class UserShowList extends React.Component {
     static propTypes = {
@@ -91,5 +92,9 @@ export default connect(
         };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        getMore: () => {
+            dispatch(userActions.getMoreUserHeading());
+        },
+    })
 )(UserShowList);

@@ -12,6 +12,7 @@ import AnswerItem from '@modules/AnswerItem';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
+import * as userActions from '@redux/User/UserReducer';
 
 class HeadingItem extends React.Component {
     static propTypes = {
@@ -31,6 +32,8 @@ class HeadingItem extends React.Component {
 
     onClickLoadMore(e) {
         if (e) e.preventDefault();
+        const { getMore, _repository } = this.props;
+        getMore(_repository);
     }
 
     render() {
@@ -71,12 +74,14 @@ class HeadingItem extends React.Component {
                 <div className="heading-item__items">
                     {_repository.Answers && renderItems(_repository.Answers)}
                 </div>
-                <Link
-                    className="heading-item__link"
-                    onClick={this.onClickLoadMore}
-                >
-                    {tt('g.show_more')}
-                </Link>
+                {_repository.answer_count > _repository.Answers.length && (
+                    <Link
+                        className="heading-item__link"
+                        onClick={this.onClickLoadMore}
+                    >
+                        {tt('g.show_more')}
+                    </Link>
+                )}
                 <div className="heading-item__button">
                     <AnswerNewButton repository={_repository} />
                 </div>
@@ -93,5 +98,9 @@ export default connect(
         };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        getMore: heading => {
+            dispatch(userActions.getMoreUserHeadingAnswer({ heading }));
+        },
+    })
 )(HeadingItem);

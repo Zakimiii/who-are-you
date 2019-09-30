@@ -37,7 +37,7 @@ export default class UserRepository extends RepositoryImpl {
             user_id: id,
             username,
             offset: Number(offset || 0),
-            limit: limit || data_config.fetch_data_limit('L'),
+            limit: limit || data_config.fetch_data_limit('S'),
             isMyAccount,
         });
 
@@ -49,7 +49,7 @@ export default class UserRepository extends RepositoryImpl {
             user_id: id,
             username,
             offset: Number(offset || 0),
-            limit: limit || data_config.fetch_data_limit('L'),
+            limit: limit || data_config.fetch_data_limit('S'),
             isMyAccount,
         });
 

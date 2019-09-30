@@ -27,6 +27,10 @@ export const userWatches = [
         userActions.GET_MORE_USER_HEADING,
         userUseCase.getMoreUserHeadings
     ),
+    takeEvery(
+        userActions.GET_MORE_USER_HEADING_ANSWER,
+        userUseCase.getMoreUserHeadingAnswers
+    ),
     takeLatest(userActions.UPDATE_USER, userUseCase.updateUser),
     takeLatest(userActions.DELETE_USER, userUseCase.deleteUser),
     takeLatest(userActions.SYNC_USER, userUseCase.syncUser),
