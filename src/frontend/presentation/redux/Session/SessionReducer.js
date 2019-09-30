@@ -1,5 +1,4 @@
 import { Map, List } from 'immutable';
-import SIGNUP_STEP from '@entity/SignupStep';
 import models from '@network/client_models';
 import {
     loginRoute,

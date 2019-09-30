@@ -13,6 +13,7 @@ import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
 import { AnswerRepository } from '@repository';
+import { FileEntity, FileEntities } from '@entity';
 
 const answerRepository = new AnswerRepository();
 const appUsecase = new AppUseCase();
@@ -45,6 +46,14 @@ export default class AnswerUseCase extends UseCaseImpl {
         if (!answer) return;
         yield put(appActions.screenLoadingBegin());
         try {
+            if (answer.picture instanceof Map) {
+                let model = FileEntity.build(answer.picture.toJS());
+                answer.picture = yield model.upload({
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                });
+                answer.picture = model.url;
+            }
             const data = yield answerRepository.create(answer);
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
@@ -58,6 +67,14 @@ export default class AnswerUseCase extends UseCaseImpl {
         if (!answer) return;
         yield put(appActions.screenLoadingBegin());
         try {
+            if (answer.picture instanceof Map) {
+                let model = FileEntity.build(answer.picture.toJS());
+                answer.picture = yield model.upload({
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                });
+                answer.picture = model.url;
+            }
             const data = yield answerRepository.update(answer);
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());

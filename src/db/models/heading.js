@@ -41,6 +41,12 @@ module.exports = function(sequelize, DataTypes) {
             country_code: {
                 type: DataTypes.STRING(255),
             },
+            picture: {
+                type: DataTypes.STRING(255),
+            },
+            tweet_url: {
+                type: DataTypes.STRING(255),
+            },
             answer_count: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
@@ -100,6 +106,8 @@ module.exports = function(sequelize, DataTypes) {
             VoterId: self.VoterId,
             body: self.body,
             locale: self.locale,
+            tweet_url: self.tweet_url,
+            picture: self.picture,
             country_code: self.country_code,
             answer_count: self.answer_count,
             isHide: self.isHide,

@@ -37,7 +37,7 @@ class LoginModalList extends React.Component {
 
         const desc = (
             <div className="login-modal-list__desc">
-                Twitter連携で簡単に始められる 一問一答形式の他己紹介アプリ
+                {'Twitter連携で簡単に始められる\n一問一答形式の友達紹介アプリ'}
             </div>
         );
 

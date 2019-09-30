@@ -21,6 +21,7 @@ class AnswerNewList extends React.Component {
     static defaultProps = {};
 
     state = {
+        submiting: false,
         repository: Map(models.Answer.build()),
     };
 
@@ -50,33 +51,50 @@ class AnswerNewList extends React.Component {
         });
     }
 
-    onSubmit(e) {
-        if (e.preventDefault) e.preventDefault();
+    componentWillReceiveProps(nextProps) {
+        if (!!nextProps.screen_shot && !!this.state.submiting) {
+            this.handleSubmit(nextProps.screen_shot);
+        }
+    }
 
+    handleSubmit(screen_shot) {
+        this.setState({ submiting: false });
+
+        const { create, current_user, screenShot } = this.props;
         let { repository } = this.state;
 
-        const { create, current_user } = this.props;
-
         repository = repository.toJS();
+        repository.picture = screen_shot;
 
         if (current_user) {
-            repository.User = current_user;
-            repository.UserId = current_user.id;
-        }
-
-        if (!repository) {
-            return;
-        }
-
-        if (!repository.body || repository.body == '') {
-            return;
+            repository.Voter = current_user;
+            repository.VoterId = current_user.id;
         }
 
         create(repository);
     }
 
-    render() {
+    onSubmit(e) {
+        if (e.preventDefault) e.preventDefault();
+
         let { repository } = this.state;
+
+        const { create, current_user, screenShot } = this.props;
+
+        repository = repository.toJS();
+
+        if (!repository) {
+            return;
+        } else if (!repository.body || repository.body == '') {
+            return;
+        }
+        this.setState({ submiting: true });
+
+        screenShot(repository);
+    }
+
+    render() {
+        let { repository, submiting } = this.state;
 
         repository = repository.toJS();
 
@@ -118,6 +136,7 @@ class AnswerNewList extends React.Component {
                         submit={true}
                         src={'plus'}
                         value={'回答を追加'}
+                        disabled={submiting}
                     />
                 </div>
             </form>
@@ -137,12 +156,17 @@ export default connect(
         return {
             repository: answerActions.getNewAnswer(state),
             current_user: authActions.getCurrentUser(state),
+            show_screen_shot: state.answer.get('show_screen_shot'),
+            screen_shot: answerActions.getScreenShot(state),
         };
     },
 
     dispatch => ({
         create: answer => {
             dispatch(answerActions.createAnswer({ answer }));
+        },
+        screenShot: answer => {
+            dispatch(answerActions.screenShot({ answer }));
         },
     })
 )(AnswerNewList);

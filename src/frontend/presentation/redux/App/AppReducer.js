@@ -126,7 +126,7 @@ export default function reducer(state = defaultState, action = {}) {
 
         case HIDE_HEADER: {
             return state.merge({
-                show_header: true,
+                show_header: false,
             });
         }
 

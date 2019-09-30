@@ -13,6 +13,7 @@ import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
 import { HeadingRepository } from '@repository';
+import { FileEntity, FileEntities } from '@entity';
 
 const headingRepository = new HeadingRepository();
 const appUsecase = new AppUseCase();
@@ -45,6 +46,14 @@ export default class HeadingUseCase extends UseCaseImpl {
         if (!heading) return;
         yield put(appActions.screenLoadingBegin());
         try {
+            if (heading.picture instanceof Map) {
+                let model = FileEntity.build(heading.picture.toJS());
+                heading.picture = yield model.upload({
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                });
+                heading.picture = model.url;
+            }
             const data = yield headingRepository.create(heading);
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
@@ -59,6 +68,14 @@ export default class HeadingUseCase extends UseCaseImpl {
         if (!heading) return;
         yield put(appActions.screenLoadingBegin());
         try {
+            if (heading.picture instanceof Map) {
+                let model = FileEntity.build(heading.picture.toJS());
+                heading.picture = yield model.upload({
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                });
+                heading.picture = model.url;
+            }
             const data = yield headingRepository.update(heading);
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());

@@ -18,12 +18,17 @@ export const HIDE_NEW = 'answer/HIDE_NEW';
 export const RESET_NEW = 'answer/RESET_NEW';
 export const SET_NEW = 'answer/SET_NEW';
 export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
+export const SCREEN_SHOT = 'answer/SCREEN_SHOT';
+export const FINISH_SCREEN_SHOT = 'answer/FINISH_SCREEN_SHOT';
 
 const defaultState = fromJS({
     caches: List([]),
     deletes: List([]),
     show_new_modal: false,
     new_answer: Map(models.Answer.build()),
+    show_screen_shot: false,
+    screen_shot: null,
+    screen_shot_answer: Map(models.Answer.build()),
 });
 
 export default function reducer(state = defaultState, action) {
@@ -36,6 +41,9 @@ export default function reducer(state = defaultState, action) {
                 ),
                 caches: List([]),
                 deletes: List([]),
+                show_screen_shot: false,
+                screen_shot: null,
+                screen_shot_answer: Map(models.Answer.build()),
             });
 
         case SET_CACHES: {
@@ -92,6 +100,21 @@ export default function reducer(state = defaultState, action) {
             return state.merge({
                 show_new_modal: false,
                 new_answer: Map(models.Answer.build()),
+            });
+        }
+
+        case SCREEN_SHOT: {
+            return state.merge({
+                show_screen_shot: true,
+                screen_shot_answer: payload.screen_shot,
+            });
+        }
+
+        case FINISH_SCREEN_SHOT: {
+            return state.merge({
+                screen_shot: payload.screen_shot,
+                show_screen_shot: false,
+                screen_shot_answer: Map(models.Answer.build()),
             });
         }
 
@@ -167,6 +190,16 @@ export const deleteAnswer = payload => ({
     payload,
 });
 
+export const screenShot = payload => ({
+    type: SCREEN_SHOT,
+    payload,
+});
+
+export const finishScreenShot = payload => ({
+    type: FINISH_SCREEN_SHOT,
+    payload,
+});
+
 export const getCache = (id, state) => {
     if (!id) return;
     const val = state.answer.get('caches');
@@ -196,4 +229,15 @@ export const getNewAnswer = state => {
     let val = state.answer.get('new_answer');
     const answer = !!val ? val.toJS() : null;
     return bind(answer, state);
+};
+
+export const getScreenShotAnswer = state => {
+    let val = state.answer.get('screen_shot_answer');
+    const answer = !!val ? val.toJS() : null;
+    return answer;
+};
+
+export const getScreenShot = state => {
+    let val = state.answer.get('screen_shot');
+    return val;
 };

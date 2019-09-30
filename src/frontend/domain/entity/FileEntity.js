@@ -12,6 +12,11 @@ export class FileEntity extends Entity {
     static getExtension = str => {
         return /[.]/.exec(str) ? /[^.]+$/.exec(str) : '';
     };
+
+    static build = h => {
+        return new FileEntity(h);
+    };
+
     constructor({
         uid,
         file,
@@ -82,6 +87,7 @@ export class FileEntity extends Entity {
                     filename: name,
                 });
                 this.url = s3url;
+                console.log(s3url);
                 this.file = null;
                 URL.revokeObjectURL(url);
                 break;

@@ -1,0 +1,57 @@
+.heading-canvas {
+  width: 1200px;
+  height: 630px;
+  padding: 84px 0;
+  &__user {
+    margin-bottom: 24px;
+    min-height: 64px;
+    @include flex-center();
+    &-image {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      width: 64px;
+      height: 64px;
+      padding: 6px;
+    }
+    &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 64px;
+      padding: 0 24px;
+      text-align: left;
+      @include FS(L);
+      @include LH(L);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('subThick2');
+      }
+    }
+  }
+  &__border {
+    width: 1000px;
+    margin: 0 auto;
+    height: 4px;
+    @include themify($themes) {
+      background: themed('subThick2');
+    }
+  }
+  &__text {
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 64px;
+    height: 4px;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(XL);
+    @include LH(L);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+  }
+}

@@ -20,7 +20,7 @@ import Responsible from '@modules/Responsible';
 import GradationIconButton from '@elements/GradationIconButton';
 import Img from 'react-image';
 import autobind from 'class-autobind';
-import { homeRoute } from '@infrastructure/RouteInitialize';
+import { homeRoute, headingCanvasRoute } from '@infrastructure/RouteInitialize';
 
 class Header extends React.Component {
     static propTypes = {
@@ -99,12 +99,10 @@ class Header extends React.Component {
 
     toggleHeader = props => {
         const { isHeaderVisible, route, showHeader, hideHeader } = props;
-
         switch (route) {
-            // case routes.loginRoute:
-            // case routes.signupRoute:
-            //     hideHeader();
-            //     break;
+            case routes.headingCanvasRoute:
+                hideHeader();
+                break;
             default:
                 showHeader();
                 break;

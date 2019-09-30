@@ -79,6 +79,9 @@ const drop_down_search_limit = 3;
 
 const answer_index_limit = 3;
 
+const shot_picture_xsize = 1200;
+const shot_picture_ysize = 600;
+
 module.exports = {
     fetch_data_limit,
     fetch_data_raw_limit,
@@ -101,4 +104,6 @@ module.exports = {
     min_decimal_range,
     drop_down_search_limit,
     answer_index_limit,
+    shot_picture_xsize,
+    shot_picture_ysize,
 };

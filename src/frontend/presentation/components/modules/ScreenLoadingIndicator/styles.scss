@@ -56,7 +56,7 @@
         border-radius: 50%;
         border: 3px solid transparent;
         @include themify($themes) {
-          border-top-color: themed('redString');
+          border-top-color: themed('sub');
         }
 
         -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */

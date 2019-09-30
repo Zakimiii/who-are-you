@@ -17,12 +17,20 @@ export const SHOW_EDIT = 'heading/SHOW_EDIT';
 export const HIDE_NEW = 'heading/HIDE_NEW';
 export const RESET_NEW = 'heading/RESET_NEW';
 export const SET_NEW = 'heading/SET_NEW';
+export const RESET_SHOW = 'heading/RESET_SHOW';
+export const SET_SHOW = 'heading/SET_SHOW';
+export const SCREEN_SHOT = 'heading/SCREEN_SHOT';
+export const FINISH_SCREEN_SHOT = 'heading/FINISH_SCREEN_SHOT';
 
 const defaultState = fromJS({
     caches: List([]),
     deletes: List([]),
     show_new_modal: false,
     new_heading: Map(models.Heading.build()),
+    show_heading: Map(models.Heading.build()),
+    show_screen_shot: false,
+    screen_shot: null,
+    screen_shot_heading: Map(models.Heading.build()),
 });
 
 export default function reducer(state = defaultState, action) {
@@ -35,6 +43,9 @@ export default function reducer(state = defaultState, action) {
                 ),
                 caches: List([]),
                 deletes: List([]),
+                show_screen_shot: false,
+                screen_shot: null,
+                screen_shot_heading: Map(models.Heading.build()),
             });
 
         case SET_CACHES: {
@@ -74,6 +85,17 @@ export default function reducer(state = defaultState, action) {
             });
         }
 
+        case SET_SHOW: {
+            if (!payload.heading) return state;
+            return state.set('show_heading', Map(action.payload.heading));
+        }
+
+        case RESET_SHOW: {
+            return state.merge({
+                show_heading: Map(models.Heading.build()),
+            });
+        }
+
         case SHOW_EDIT:
             if (!payload.heading) return state;
             return state.merge({
@@ -91,6 +113,21 @@ export default function reducer(state = defaultState, action) {
             return state.merge({
                 show_new_modal: false,
                 new_heading: Map(models.Heading.build()),
+            });
+        }
+
+        case SCREEN_SHOT: {
+            return state.merge({
+                show_screen_shot: true,
+                screen_shot_heading: payload.screen_shot,
+            });
+        }
+
+        case FINISH_SCREEN_SHOT: {
+            return state.merge({
+                screen_shot: payload.screen_shot,
+                show_screen_shot: false,
+                screen_shot_heading: Map(models.Heading.build()),
             });
         }
 
@@ -123,6 +160,16 @@ export const setNew = payload => ({
 
 export const resetNew = payload => ({
     type: RESET_NEW,
+    payload,
+});
+
+export const setShow = payload => ({
+    type: SET_SHOW,
+    payload,
+});
+
+export const resetShow = payload => ({
+    type: RESET_SHOW,
     payload,
 });
 
@@ -166,6 +213,16 @@ export const deleteHeading = payload => ({
     payload,
 });
 
+export const screenShot = payload => ({
+    type: SCREEN_SHOT,
+    payload,
+});
+
+export const finishScreenShot = payload => ({
+    type: FINISH_SCREEN_SHOT,
+    payload,
+});
+
 export const getCache = (id, state) => {
     if (!id) return;
     const val = state.heading.get('caches');
@@ -195,4 +252,21 @@ export const getNewHeading = state => {
     let val = state.heading.get('new_heading');
     const heading = !!val ? val.toJS() : null;
     return bind(heading, state);
+};
+
+export const getShowHeading = state => {
+    let val = state.heading.get('show_heading');
+    const heading = !!val ? val.toJS() : null;
+    return bind(heading, state);
+};
+
+export const getScreenShotHeading = state => {
+    let val = state.heading.get('screen_shot_heading');
+    const heading = !!val ? val.toJS() : null;
+    return heading;
+};
+
+export const getScreenShot = state => {
+    let val = state.heading.get('screen_shot');
+    return val;
 };

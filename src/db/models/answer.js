@@ -35,6 +35,12 @@ module.exports = function(sequelize, DataTypes) {
             body: {
                 type: DataTypes.TEXT('long'),
             },
+            picture: {
+                type: DataTypes.STRING(255),
+            },
+            tweet_url: {
+                type: DataTypes.STRING(255),
+            },
             locale: {
                 type: DataTypes.STRING(255),
             },
@@ -97,6 +103,8 @@ module.exports = function(sequelize, DataTypes) {
             UserId: self.UserId,
             HeadingId: self.HeadingId,
             body: self.body,
+            picture: self.picture,
+            tweet_url: self.tweet_url,
             locale: self.locale,
             country_code: self.country_code,
             isMyAnswer: self.isMyAnswer,

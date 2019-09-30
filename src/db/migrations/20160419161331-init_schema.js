@@ -236,6 +236,12 @@ module.exports = {
                         country_code: {
                             type: Sequelize.STRING(255),
                         },
+                        picture: {
+                            type: Sequelize.STRING(255),
+                        },
+                        tweet_url: {
+                            type: Sequelize.STRING(255),
+                        },
                         answer_count: {
                             type: Sequelize.INTEGER,
                             defaultValue: 0,
@@ -312,6 +318,12 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         country_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        picture: {
+                            type: Sequelize.STRING(255),
+                        },
+                        tweet_url: {
                             type: Sequelize.STRING(255),
                         },
                         //global colomn

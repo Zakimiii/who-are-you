@@ -15,6 +15,8 @@ import models from '@network/client_models';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import HeadingCanvas from '@modules/HeadingCanvas';
+import { FileEntity, FileEntities } from '@entity';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -23,6 +25,7 @@ class HeadingNewList extends React.Component {
 
     state = {
         repository: Map(models.Heading.build()),
+        submiting: false,
     };
 
     constructor(props) {
@@ -51,33 +54,50 @@ class HeadingNewList extends React.Component {
         });
     }
 
-    onSubmit(e) {
-        if (e.preventDefault) e.preventDefault();
+    componentWillReceiveProps(nextProps) {
+        if (!!nextProps.screen_shot && !!this.state.submiting) {
+            this.handleSubmit(nextProps.screen_shot);
+        }
+    }
 
+    handleSubmit(screen_shot) {
+        this.setState({ submiting: false });
+
+        const { create, current_user, screenShot } = this.props;
         let { repository } = this.state;
 
-        const { create, current_user } = this.props;
-
         repository = repository.toJS();
+        repository.picture = screen_shot;
 
         if (current_user) {
             repository.Voter = current_user;
             repository.VoterId = current_user.id;
         }
 
-        if (!repository) {
-            return;
-        }
-
-        if (!repository.body || repository.body == '') {
-            return;
-        }
-
         create(repository);
     }
 
-    render() {
+    onSubmit(e) {
+        if (e.preventDefault) e.preventDefault();
+
         let { repository } = this.state;
+
+        const { create, current_user, screenShot } = this.props;
+
+        repository = repository.toJS();
+
+        if (!repository) {
+            return;
+        } else if (!repository.body || repository.body == '') {
+            return;
+        }
+        this.setState({ submiting: true });
+
+        screenShot(repository);
+    }
+
+    render() {
+        let { repository, submiting } = this.state;
 
         repository = repository.toJS();
 
@@ -116,6 +136,7 @@ class HeadingNewList extends React.Component {
                         submit={true}
                         src={'plus'}
                         value={'紹介テーマを追加'}
+                        disabled={submiting}
                     />
                 </div>
             </form>
@@ -135,12 +156,17 @@ export default connect(
         return {
             repository: headingActions.getNewHeading(state),
             current_user: authActions.getCurrentUser(state),
+            show_screen_shot: state.heading.get('show_screen_shot'),
+            screen_shot: headingActions.getScreenShot(state),
         };
     },
 
     dispatch => ({
         create: heading => {
             dispatch(headingActions.createHeading({ heading }));
+        },
+        screenShot: heading => {
+            dispatch(headingActions.screenShot({ heading }));
         },
     })
 )(HeadingNewList);
