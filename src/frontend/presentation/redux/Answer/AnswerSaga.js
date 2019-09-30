@@ -22,4 +22,6 @@ export const answerWatches = [
     takeLatest(answerActions.UPDATE_ANSWER, answerUseCase.updateAnswer),
     takeLatest(answerActions.DELETE_ANSWER, answerUseCase.deleteAnswer),
     takeLatest(answerActions.SYNC_ANSWER, answerUseCase.syncAnswer),
+    takeLatest(answerActions.TRASH_ANSWER, answerUseCase.trashAnswer),
+    takeLatest(answerActions.UNTRASH_ANSWER, answerUseCase.untrashAnswer),
 ];

@@ -95,4 +95,30 @@ export default class HeadingUseCase extends UseCaseImpl {
             yield put(appActions.addError({ error: e }));
         }
     }
+
+    *trashHeading({ payload: { heading } }) {
+        if (!heading) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            const data = yield headingRepository.trash(heading);
+            yield put(headingActions.syncHeading({ id: heading.id }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
+
+    *untrashHeading({ payload: { heading } }) {
+        if (!heading) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            const data = yield headingRepository.trash(heading);
+            yield put(headingActions.syncHeading({ id: heading.id }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
 }

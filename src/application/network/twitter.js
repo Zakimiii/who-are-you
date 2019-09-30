@@ -51,4 +51,16 @@ export default class TwitterHandler {
                     ? config.APP_URL + `/auth/twitter/${modal}/callback`
                     : `http://localhost:8080/auth/twitter/${modal}/callback`,
         });
+
+    //@params: user_id or handle (screen_name)
+    static getUser = ({ params, onSuccess, onError }) =>
+        twitter.getUser(params, onError, onSuccess);
+
+    //@params: status possibly_sensitive media_ids
+    static postTweet = ({ params, onSuccess, onError }) =>
+        twitter.postTweet(params, onError, onSuccess);
+
+    //@params: media or media_data(base64 encoded)
+    static postTweet = ({ params, onSuccess, onError }) =>
+        twitter.postMedia(parameters, onError, onSuccess);
 }

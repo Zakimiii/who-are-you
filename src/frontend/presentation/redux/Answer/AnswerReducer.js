@@ -5,8 +5,11 @@ import { answerNewRoute } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
 
 // Action constants
+export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
 export const UPDATE_ANSWER = 'answer/UPDATE_ANSWER';
 export const DELETE_ANSWER = 'answer/DELETE_ANSWER';
+export const TRASH_ANSWER = 'answer/TRASH_ANSWER';
+export const UNTRASH_ANSWER = 'answer/UNTRASH_ANSWER';
 export const SYNC_ANSWER = 'answer/SYNC_ANSWER';
 export const SET_CACHES = 'answer/SET_CACHES';
 export const RESET_CACHES = 'answer/SET_CACHES';
@@ -17,7 +20,6 @@ export const SHOW_EDIT = 'answer/SHOW_EDIT';
 export const HIDE_NEW = 'answer/HIDE_NEW';
 export const RESET_NEW = 'answer/RESET_NEW';
 export const SET_NEW = 'answer/SET_NEW';
-export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
 export const SCREEN_SHOT = 'answer/SCREEN_SHOT';
 export const FINISH_SCREEN_SHOT = 'answer/FINISH_SCREEN_SHOT';
 
@@ -187,6 +189,16 @@ export const updateAnswer = payload => ({
 
 export const deleteAnswer = payload => ({
     type: DELETE_ANSWER,
+    payload,
+});
+
+export const trashAnswer = payload => ({
+    type: TRASH_ANSWER,
+    payload,
+});
+
+export const untrashAnswer = payload => ({
+    type: UNTRASH_ANSWER,
     payload,
 });
 

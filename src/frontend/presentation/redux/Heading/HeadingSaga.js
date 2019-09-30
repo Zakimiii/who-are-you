@@ -21,4 +21,6 @@ export const headingWatches = [
     takeLatest(headingActions.UPDATE_HEADING, headingUseCase.updateHeading),
     takeLatest(headingActions.DELETE_HEADING, headingUseCase.deleteHeading),
     takeLatest(headingActions.SYNC_HEADING, headingUseCase.syncHeading),
+    takeLatest(headingActions.TRASH_HEADING, headingUseCase.trashHeading),
+    takeLatest(headingActions.UNTRASH_HEADING, headingUseCase.untrashHeading),
 ];

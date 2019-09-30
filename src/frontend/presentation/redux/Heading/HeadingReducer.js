@@ -4,9 +4,11 @@ import models from '@network/client_models';
 import { headingNewRoute } from '@infrastructure/RouteInitialize';
 
 // Action constants
-export const CREATE_HEADING = 'answer/CREATE_HEADING';
+export const CREATE_HEADING = 'heading/CREATE_HEADING';
 export const UPDATE_HEADING = 'heading/UPDATE_HEADING';
 export const DELETE_HEADING = 'heading/DELETE_HEADING';
+export const TRASH_HEADING = 'heading/TRASH_HEADING';
+export const UNTRASH_HEADING = 'heading/UNTRASH_HEADING';
 export const SYNC_HEADING = 'heading/SYNC_HEADING';
 export const SET_CACHES = 'heading/SET_CACHES';
 export const RESET_CACHES = 'heading/SET_CACHES';
@@ -210,6 +212,16 @@ export const updateHeading = payload => ({
 
 export const deleteHeading = payload => ({
     type: DELETE_HEADING,
+    payload,
+});
+
+export const trashHeading = payload => ({
+    type: TRASH_HEADING,
+    payload,
+});
+
+export const untrashHeading = payload => ({
+    type: UNTRASH_HEADING,
     payload,
 });
 

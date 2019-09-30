@@ -94,4 +94,30 @@ export default class AnswerUseCase extends UseCaseImpl {
             yield put(appActions.addError({ error: e }));
         }
     }
+
+    *trashAnswer({ payload: { answer } }) {
+        if (!answer) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            const data = yield answerRepository.trash(answer);
+            yield put(answerActions.syncAnswer({ id: answer.id }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
+
+    *untrashAnswer({ payload: { answer } }) {
+        if (!answer) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            const data = yield answerRepository.trash(answer);
+            yield put(answerActions.syncAnswer({ id: answer.id }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
 }
