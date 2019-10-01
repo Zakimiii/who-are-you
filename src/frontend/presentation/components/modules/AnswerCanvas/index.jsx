@@ -61,7 +61,13 @@ class AnswerCanvas extends React.Component {
                 className="answer-canvas__wrapper"
                 style={{ display: mounted ? 'none' : 'block' }}
             >
-                <div className="answer-canvas">
+                <div
+                    className="answer-canvas"
+                    style={{
+                        backgroundImage:
+                            "url('/images/brands/eye-catch-back.png')",
+                    }}
+                >
                     <div className="answer-canvas__user">
                         <div className="answer-canvas__user-image">
                             <PictureItem
