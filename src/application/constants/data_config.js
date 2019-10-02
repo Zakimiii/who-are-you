@@ -86,6 +86,8 @@ const answer_show_text_limit = 100;
 const shot_picture_xsize = 1200;
 const shot_picture_ysize = 600;
 
+const picture_save_limit = 100;
+
 module.exports = {
     fetch_data_limit,
     fetch_data_raw_limit,
@@ -111,4 +113,5 @@ module.exports = {
     answer_show_text_limit,
     shot_picture_xsize,
     shot_picture_ysize,
+    picture_save_limit,
 };

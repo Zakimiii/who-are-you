@@ -62,12 +62,14 @@ app.use(
         staticCache(path.join(__dirname, '../../assets/images'), cacheOpts)
     )
 );
+
 app.use(
     mount(
         '/icons',
         staticCache(path.join(__dirname, '../../assets/icons'), cacheOpts)
     )
 );
+
 app.use(
     mount(
         '/notifications',
@@ -77,6 +79,7 @@ app.use(
         )
     )
 );
+
 app.use(
     mount('/manifest.json', function*(next) {
         yield send(
