@@ -70,7 +70,9 @@ class AnswerShowList extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            repository: answerActions.getShowAnswer(state),
+        };
     },
 
     dispatch => ({})

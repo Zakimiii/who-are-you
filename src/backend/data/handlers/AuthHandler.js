@@ -77,6 +77,8 @@ export default class AuthHandler extends HandlerImpl {
 
         const { oauth_token } = router.query;
 
+        console.log(profile);
+
         if (!profile) {
             router.redirect('/login');
             return;

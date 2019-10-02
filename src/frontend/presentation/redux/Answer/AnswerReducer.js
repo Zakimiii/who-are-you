@@ -277,3 +277,9 @@ export const getScreenShot = state => {
     let val = state.answer.get('screen_shot');
     return val;
 };
+
+export const getShowAnswer = state => {
+    let val = state.answer.get('show_answer');
+    const answer = !!val ? val.toJS() : null;
+    return bind(answer, state);
+};

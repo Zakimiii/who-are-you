@@ -32,6 +32,10 @@ passport.use(
 export default class TwitterHandler {
     static passport = passport;
 
+    static fix_image_name = str => str.replace('_normal.', '_400x400.');
+
+    static fix_banner_name = str => str + '/1500x500';
+
     static configure = ({ accessToken, accessTokenSecret }) =>
         new Twitter({
             consumerKey: env.TWITTER.KEY,

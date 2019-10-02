@@ -10,7 +10,7 @@ import { apiInitAuthValidates } from '@validations/auth';
 import data_config from '@constants/data_config';
 import uuidv4 from 'uuid/v4';
 import env from '@env/env.json';
-import TwitterHander from '@network/twitter';
+import TwitterHandler from '@network/twitter';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
@@ -18,7 +18,7 @@ export default class AuthDataStore extends DataStoreImpl {
     }
 
     async create_by_twitter_username({ username }) {
-        const profile = await TwitterHander.getUser({
+        const profile = await TwitterHandler.getUser({
             screen_name: username,
         });
 
@@ -27,10 +27,13 @@ export default class AuthDataStore extends DataStoreImpl {
             nickname: profile.displayName,
             detail: profile._json.description,
             picture_small:
-                profile._json.profile_image_url_https || '/icons/noimage.svg',
+                TwitterHandler.fix_image_name(
+                    profile._json.profile_image_url_https
+                ) || '/icons/noimage.svg',
             picture_large:
-                profile._json.profile_background_image_url_https ||
-                '/icons/noimage.svg',
+                TwitterHandler.fix_banner_name(
+                    profile._json.profile_banner_url
+                ) || '/icons/noimage.svg',
             verified: false,
             bot: false,
             isPrivate: false,
@@ -99,10 +102,13 @@ export default class AuthDataStore extends DataStoreImpl {
             nickname: profile.displayName,
             detail: profile._json.description,
             picture_small:
-                profile._json.profile_image_url_https || '/icons/noimage.svg',
+                TwitterHandler.fix_image_name(
+                    profile._json.profile_image_url_https
+                ) || '/icons/noimage.svg',
             picture_large:
-                profile._json.profile_background_image_url_https ||
-                '/icons/noimage.svg',
+                TwitterHandler.fix_banner_name(
+                    profile._json.profile_banner_url
+                ) || '/icons/noimage.svg',
             verified: true,
             bot: false,
             isPrivate: false,
@@ -140,7 +146,7 @@ export default class AuthDataStore extends DataStoreImpl {
     }
 
     async update_by_twitter_username({ user, identity, username }) {
-        const profile = await TwitterHander.getUser({
+        const profile = await TwitterHandler.getUser({
             screen_name: username,
         });
 
@@ -148,10 +154,13 @@ export default class AuthDataStore extends DataStoreImpl {
             nickname: profile.displayName,
             detail: profile._json.description,
             picture_small:
-                profile._json.profile_image_url_https || '/icons/noimage.svg',
+                TwitterHandler.fix_image_name(
+                    profile._json.profile_image_url_https
+                ) || '/icons/noimage.svg',
             picture_large:
-                profile._json.profile_background_image_url_https ||
-                '/icons/noimage.svg',
+                TwitterHandler.fix_banner_name(
+                    profile._json.profile_banner_url
+                ) || '/icons/noimage.svg',
         });
 
         identity = await identity.update({
@@ -203,10 +212,13 @@ export default class AuthDataStore extends DataStoreImpl {
             nickname: profile.displayName,
             detail: profile._json.description,
             picture_small:
-                profile._json.profile_image_url_https || '/icons/noimage.svg',
+                TwitterHandler.fix_image_name(
+                    profile._json.profile_image_url_https
+                ) || '/icons/noimage.svg',
             picture_large:
-                profile._json.profile_background_image_url_https ||
-                '/icons/noimage.svg',
+                TwitterHandler.fix_banner_name(
+                    profile._json.profile_banner_url
+                ) || '/icons/noimage.svg',
         });
 
         identity = await identity.update({

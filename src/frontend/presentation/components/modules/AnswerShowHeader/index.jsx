@@ -55,8 +55,8 @@ class AnswerShowHeader extends React.Component {
                     <div className="answer-show-header__user-image">
                         <PictureItem
                             url={_repository.Heading.User.picture_small}
-                            width={64}
-                            redius={32}
+                            width={32}
+                            redius={16}
                         />
                     </div>
                     <div className="answer-show-header__user-title">
