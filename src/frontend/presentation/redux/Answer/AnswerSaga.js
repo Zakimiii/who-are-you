@@ -18,6 +18,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const answerUseCase = new AnswerUseCase();
 
 export const answerWatches = [
+    takeEvery(LOCATION_CHANGE, answerUseCase.initShow),
     takeLatest(answerActions.CREATE_ANSWER, answerUseCase.createAnswer),
     takeLatest(answerActions.UPDATE_ANSWER, answerUseCase.updateAnswer),
     takeLatest(answerActions.DELETE_ANSWER, answerUseCase.deleteAnswer),

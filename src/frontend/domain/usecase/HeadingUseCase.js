@@ -6,7 +6,11 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import AppUseCase from '@usecase/AppUseCase';
-import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
+import {
+    userShowRoute,
+    headingShowRoute,
+    homeRoute,
+} from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import models from '@network/client_models';
 import Notification from '@network/notification';
@@ -22,6 +26,74 @@ const notification = new Notification();
 export default class HeadingUseCase extends UseCaseImpl {
     constructor() {
         super();
+    }
+
+    *initShow({ payload: { pathname } }) {
+        if (!headingShowRoute.isValidPath(pathname)) return;
+        try {
+            const id = headingShowRoute.params_value('id', pathname);
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const heading = yield headingRepository.getHeading({
+                id,
+            });
+            yield put(headingActions.setShow({ heading }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *initHeadingAnswers({ payload: { pathname } }) {
+        if (!headingShowRoute.isValidPath(pathname)) return;
+        try {
+            const id = headingShowRoute.params_value('id', pathname);
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const answers = yield headingRepository.getAnswers({
+                heading: { id },
+            });
+            yield put(headingActions.setHeadingAnswer({ answers }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreHeadingAnswers({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        if (headingShowRoute.isValidPath(pathname)) {
+            try {
+                yield put(authActions.syncCurrentUser());
+                const id = headingShowRoute.params_value('id', pathname);
+                const indexContentsLength = yield select(state =>
+                    headingActions.getHeadingAnswerLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const answers = yield headingRepository.getAnswers({
+                    heading: { id },
+                    offset: indexContentsLength,
+                });
+                if (answers.length == 0) return;
+                yield put(headingActions.addHeadingAnswer({ answers }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
+        }
+        yield put(appActions.fetchMoreDataEnd());
     }
 
     *syncHeading({ payload: { id } }) {

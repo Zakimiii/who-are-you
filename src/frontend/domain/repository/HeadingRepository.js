@@ -9,6 +9,14 @@ export default class HeadingRepository extends RepositoryImpl {
         super();
     }
 
+    async getHeading({ id, offset, limit }) {
+        const data = await super.apiCall('/api/v1/heading', {
+            id: Number(id),
+        });
+
+        return data && data.heading;
+    }
+
     async create(heading) {
         const data = await super.apiCall('/api/v1/heading/create', {
             heading: safe2json(heading),

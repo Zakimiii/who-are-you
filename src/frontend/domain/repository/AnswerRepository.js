@@ -9,6 +9,14 @@ export default class AnswerRepository extends RepositoryImpl {
         super();
     }
 
+    async getAnswer({ id, offset, limit }) {
+        const data = await super.apiCall('/api/v1/answer', {
+            id: Number(id),
+        });
+
+        return data && data.answer;
+    }
+
     async create(answer) {
         const data = await super.apiCall('/api/v1/answer/create', {
             answer: safe2json(answer),

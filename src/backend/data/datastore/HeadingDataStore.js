@@ -87,6 +87,15 @@ export default class HeadingDataStore extends DataStoreImpl {
         });
     }
 
+    async getShowIncludes(datum) {
+        return await this.getIncludes(datum, {
+            user: true,
+            voter: true,
+            answers: false,
+            answer_limit: data_config.answer_index_limit,
+        });
+    }
+
     async updateCount(value) {
         if (!value) return;
         const heading = await models.Heading.findOne({

@@ -15,6 +15,18 @@ export const userShowRoute = new RouteEntity({
     component: require('@components/pages/UserShow'),
 });
 
+export const headingShowRoute = new RouteEntity({
+    path: '/heading/:id',
+    page: 'HeadingShow',
+    component: require('@components/pages/HeadingShow'),
+});
+
+export const answerShowRoute = new RouteEntity({
+    path: '/answer/:id',
+    page: 'AnswerShow',
+    component: require('@components/pages/AnswerShow'),
+});
+
 export const headingNewRoute = new RouteEntity({
     path: '/heading/new',
     page: 'HeadingNew',
@@ -95,6 +107,8 @@ export const routeEntities = new RouteEntities({
         loginRoute,
         headingCanvasTestRoute,
         answerCanvasTestRoute,
+        headingShowRoute,
+        answerShowRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,

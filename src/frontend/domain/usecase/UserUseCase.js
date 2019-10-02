@@ -93,7 +93,6 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) return;
                 yield put(userActions.addUserHeading({ headings }));
             } catch (e) {
-                console.log(e);
                 yield put(appActions.addError({ error: e }));
             }
         }

@@ -22,12 +22,15 @@ export const RESET_NEW = 'answer/RESET_NEW';
 export const SET_NEW = 'answer/SET_NEW';
 export const SCREEN_SHOT = 'answer/SCREEN_SHOT';
 export const FINISH_SCREEN_SHOT = 'answer/FINISH_SCREEN_SHOT';
+export const RESET_SHOW = 'answer/RESET_SHOW';
+export const SET_SHOW = 'answer/SET_SHOW';
 
 const defaultState = fromJS({
     caches: List([]),
     deletes: List([]),
     show_new_modal: false,
     new_answer: Map(models.Answer.build()),
+    show_answer: Map(models.Answer.build()),
     show_screen_shot: false,
     screen_shot: null,
     screen_shot_answer: Map(models.Answer.build()),
@@ -120,6 +123,17 @@ export default function reducer(state = defaultState, action) {
             });
         }
 
+        case SET_SHOW: {
+            if (!payload.answer) return state;
+            return state.set('show_answer', Map(action.payload.answer));
+        }
+
+        case RESET_SHOW: {
+            return state.merge({
+                show_answer: Map(models.Answer.build()),
+            });
+        }
+
         default:
             return state;
     }
@@ -149,6 +163,16 @@ export const setNew = payload => ({
 
 export const resetNew = payload => ({
     type: RESET_NEW,
+    payload,
+});
+
+export const setShow = payload => ({
+    type: SET_SHOW,
+    payload,
+});
+
+export const resetShow = payload => ({
+    type: RESET_SHOW,
     payload,
 });
 

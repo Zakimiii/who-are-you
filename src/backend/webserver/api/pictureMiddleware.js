@@ -77,7 +77,7 @@ export default function PictureMiddleware(app) {
         id = Number(id.replace('.png', ''));
         const answer = yield models.Answer.findOne({
             where: {
-                id: Number(id.replace('.png', '')),
+                id,
             },
         });
 

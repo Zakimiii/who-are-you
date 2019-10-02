@@ -39,6 +39,8 @@ class HeadingWantedItem extends React.Component {
     render() {
         const { _repository } = this.props;
 
+        if (!_repository || !_repository.User) return <div />;
+
         return (
             <div
                 className="heading-wanted-item"

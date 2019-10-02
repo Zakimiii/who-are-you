@@ -15,7 +15,9 @@
 @import "./cards/UserShowList/styles";
 @import "./cards/LoginModalList/styles";
 @import "./cards/AnswerNewList/styles";
+@import "./cards/AnswerShowList/styles";
 @import "./cards/HeadingNewList/styles";
+@import "./cards/HeadingShowList/styles";
 
 // elements
 @import "./elements/AdsCard/styles";
@@ -27,6 +29,7 @@
 @import "./elements/LoadingIndicator/styles";
 @import "./elements/PrivacyItem/styles";
 @import "./elements/InputText/styles";
+@import "./elements/UserSection/styles";
 @import "./elements/Reveal/styles";
 @import "./elements/Ripple/styles";
 @import "./elements/SearchInput/styles";
@@ -40,6 +43,7 @@
 // modules
 @import "./modules/Modals/styles";
 @import "./modules/UserShowHeader/styles";
+@import "./modules/AnswerShowHeader/styles";
 @import "./modules/AlertMessages/styles";
 @import "./modules/FlashMessages/styles";
 @import "./modules/Header/styles";
@@ -64,4 +68,6 @@
 @import "./pages/IndexComponent/styles";
 @import "./pages/LoginModal/styles";
 @import "./pages/HeadingNew/styles";
+@import "./pages/HeadingShow/styles";
 @import "./pages/AnswerNew/styles";
+@import "./pages/AnswerShow/styles";
