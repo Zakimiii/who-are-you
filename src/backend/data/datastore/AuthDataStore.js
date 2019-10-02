@@ -152,14 +152,10 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_large:
                 profile._json.profile_background_image_url_https ||
                 '/icons/noimage.svg',
-            verified: true,
-            permission: true,
         });
 
         identity = await identity.update({
             email,
-            verified: true,
-            permission: true,
             mail_notification_token,
             isMailNotification,
         });
@@ -170,7 +166,13 @@ export default class AuthDataStore extends DataStoreImpl {
         };
     }
 
-    async update_by_twitter_profile({ user, identity, profile }) {
+    async update_by_twitter_profile({
+        user,
+        identity,
+        profile,
+        token,
+        tokenSecret,
+    }) {
         let email;
         let mail_notification_token;
         let isMailNotification = false;
@@ -205,16 +207,12 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_large:
                 profile._json.profile_background_image_url_https ||
                 '/icons/noimage.svg',
-            verified: true,
-            permission: true,
         });
 
         identity = await identity.update({
             twitter_id: profile.id,
-            twitter_token: profile.token,
-            twitter_secret: profile.tokenSecret,
-            verified: true,
-            permission: true,
+            twitter_token: token,
+            twitter_secret: tokenSecret,
         });
 
         // if (identity.email != email) {
@@ -273,7 +271,7 @@ export default class AuthDataStore extends DataStoreImpl {
         };
     }
 
-    async find_or_create_by_twitter_profile({ profile }) {
+    async find_or_create_by_twitter_profile({ profile, token, tokenSecret }) {
         if (!profile) return;
 
         let identity;
@@ -291,6 +289,8 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!user) {
             const results = await this.create_by_twitter_profile({
                 profile,
+                token,
+                tokenSecret,
             });
             identity = results.identity;
             user = results.user;
@@ -304,6 +304,8 @@ export default class AuthDataStore extends DataStoreImpl {
                 profile,
                 identity,
                 user,
+                token,
+                tokenSecret,
             });
             identity = results.identity;
             user = results.user;

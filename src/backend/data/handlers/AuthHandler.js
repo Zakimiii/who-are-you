@@ -31,7 +31,7 @@ export default class AuthHandler extends HandlerImpl {
     // }
 
     async handleTwitterInitializeAuth(router, req, res, next) {
-        const { profile } = res;
+        const { profile, token, tokenSecret } = res;
 
         if (!profile) {
             router.redirect('/login');
@@ -41,6 +41,8 @@ export default class AuthHandler extends HandlerImpl {
         const { user, identity } = await authDataStore
             .find_or_create_by_twitter_profile({
                 profile,
+                token,
+                tokenSecret,
             })
             .catch(e => {
                 throw new ApiError({
@@ -71,7 +73,7 @@ export default class AuthHandler extends HandlerImpl {
     }
 
     async handleTwitterAuthenticateRequest(router, req, res, next) {
-        const { profile } = res;
+        const { profile, token, tokenSecret } = res;
 
         const { oauth_token } = router.query;
 
@@ -83,6 +85,8 @@ export default class AuthHandler extends HandlerImpl {
         const { user, identity } = await authDataStore
             .find_or_create_by_twitter_profile({
                 profile,
+                token,
+                tokenSecret,
             })
             .catch(e => {
                 throw new ApiError({

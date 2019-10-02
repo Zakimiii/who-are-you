@@ -22,6 +22,7 @@ import Img from 'react-image';
 import autobind from 'class-autobind';
 import {
     homeRoute,
+    userShowRoute,
     headingCanvasTestRoute,
     answerCanvasTestRoute,
 } from '@infrastructure/RouteInitialize';
@@ -166,7 +167,13 @@ class Header extends React.Component {
                     />
                 </div>
                 <Link
-                    to={routes.homeRoute.getPath()}
+                    to={
+                        current_user
+                            ? userShowRoute.getPath({
+                                  params: { username: current_user.username },
+                              })
+                            : routes.homeRoute.getPath()
+                    }
                     className="Header__logo__link"
                 >
                     <Img

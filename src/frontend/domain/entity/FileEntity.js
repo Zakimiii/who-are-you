@@ -104,12 +104,14 @@ export class FileEntity extends Entity {
                 lenna
                     .resize(params.xsize || xsize, params.ysize || ysize)
                     .quality(60)
-                    .getBuffer(Jimp.AUTO, (e, d) => {
+                    .getBase64(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
                 const media_id = await TwitterHandler.postMedia({
+                    possibly_sensitive: true,
                     media: src,
                 });
+                console.log(media_id);
                 return media_id;
         }
     }

@@ -32,6 +32,15 @@ passport.use(
 export default class TwitterHandler {
     static passport = passport;
 
+    static configure = ({ accessToken, accessTokenSecret }) =>
+        new Twitter({
+            consumerKey: env.TWITTER.KEY,
+            consumerSecret: env.TWITTER.SECRET,
+            accessToken,
+            accessTokenSecret,
+            callBackUrl: config.APP_URL,
+        });
+
     static authenticate = () => passport.authenticate('twitter');
 
     static callback = callback => passport.authenticate('twitter', callback);
@@ -64,9 +73,12 @@ export default class TwitterHandler {
     };
 
     //@params: status possibly_sensitive media_ids oauth_token
-    static postTweet = async params => {
+    static postTweet = async (params, accessToken, accessTokenSecret) => {
         return new Promise((resolve, reject) => {
-            twitter.postTweet(
+            TwitterHandler.configure({
+                accessToken,
+                accessTokenSecret,
+            }).postTweet(
                 params,
                 e => reject(e),
                 result => resolve(JSON.parse(result))
