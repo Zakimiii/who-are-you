@@ -67,8 +67,8 @@ class AnswerNewList extends React.Component {
         repository.picture = screen_shot;
 
         if (current_user) {
-            repository.Voter = current_user;
-            repository.VoterId = current_user.id;
+            repository.User = current_user;
+            repository.UserId = current_user.id;
         }
 
         create(repository);

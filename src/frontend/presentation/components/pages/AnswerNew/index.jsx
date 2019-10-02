@@ -78,23 +78,9 @@ class AnswerNew extends React.Component {
 
         return (
             <div className="answer-new">
-                <Responsible
-                    defaultContent={
-                        <CloseButton
-                            onClick={onCancel}
-                            className="answer-new__button"
-                        />
-                    }
-                    breakingContent={
-                        <IconButton
-                            onClick={onCancel}
-                            src="close"
-                            size={'2x'}
-                        />
-                    }
-                    breakMd={true}
-                    className="answer-new__button"
-                />
+                <div className="answer-new__button">
+                    <IconButton onClick={onCancel} src="close" size={'2x'} />
+                </div>
                 <div className="answer-new__items">
                     <AnswerNewList />
                 </div>

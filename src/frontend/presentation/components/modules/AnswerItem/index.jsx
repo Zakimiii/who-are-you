@@ -12,6 +12,7 @@ import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
+import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
 
 class AnswerItem extends React.Component {
     static propTypes = {
@@ -71,7 +72,18 @@ class AnswerItem extends React.Component {
 
         return (
             <div className="answer-item">
-                <div className="answer-item__user" onClick={onClickUser}>
+                <Link
+                    className="answer-item__user"
+                    to={
+                        _repository.User.username == dummy.User.username
+                            ? null
+                            : userShowRoute.getPath({
+                                  params: {
+                                      username: _repository.User.username,
+                                  },
+                              })
+                    }
+                >
                     <div className="answer-item__user-image">
                         <PictureItem
                             width={22}
@@ -86,7 +98,7 @@ class AnswerItem extends React.Component {
                     <div className="answer-item__user-value">
                         {_repository.User && _repository.User.nickname}
                     </div>
-                </div>
+                </Link>
                 <div className="answer-item__body">{text}</div>
                 {_repository.body.length >
                     data_config.answer_show_text_limit && (

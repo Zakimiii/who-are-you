@@ -18,6 +18,8 @@
       background: themed('transparent');
     }
     cursor: pointer;
+    border: none;
+    display: block;
     &-image {
       float: left;
       margin-right: 15px;

@@ -78,23 +78,9 @@ class HeadingNew extends React.Component {
 
         return (
             <div className="heading-new">
-                <Responsible
-                    defaultContent={
-                        <CloseButton
-                            onClick={onCancel}
-                            className="heading-new__button"
-                        />
-                    }
-                    breakingContent={
-                        <IconButton
-                            onClick={onCancel}
-                            src="close"
-                            size={'2x'}
-                        />
-                    }
-                    breakMd={true}
-                    className="heading-new__button"
-                />
+                <div className="heading-new__button">
+                    <IconButton onClick={onCancel} src="close" size={'2x'} />
+                </div>
                 <div className="heading-new__items">
                     <HeadingNewList />
                 </div>

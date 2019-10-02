@@ -7,6 +7,7 @@
   @include themify($themes) {
     background: themed('backgroundBlur');
   }
+  position: relative;
   &__button {
     border-radius: 50px;
     cursor: pointer;
@@ -23,15 +24,13 @@
     @include themify($themes) {
       color: themed('background');
     }
-    @include mq-down(md) {
-      position: fixed;
-      top: 25px;
-      right: 50px;
-      z-index: 999;
-      width: 44px;
-      height: 44px;
-      font-size: 0px;
-    };
+    position: fixed;
+    top: 25px;
+    right: 50px;
+    z-index: 999;
+    width: 44px;
+    height: 44px;
+    font-size: 0px;
   }
   &__items {
     margin: 0% auto;

@@ -77,23 +77,9 @@ class LoginModal extends React.Component {
 
         return (
             <div className="login-modal">
-                <Responsible
-                    defaultContent={
-                        <CloseButton
-                            onClick={onCancel}
-                            className="login-modal__button"
-                        />
-                    }
-                    breakingContent={
-                        <IconButton
-                            onClick={onCancel}
-                            src="close"
-                            size={'2x'}
-                        />
-                    }
-                    breakMd={true}
-                    className="login-modal__button"
-                />
+                <div className="login-modal__button">
+                    <IconButton onClick={onCancel} src="close" size={'2x'} />
+                </div>
                 <div className="login-modal__items">
                     <LoginModalList onCancel={this.onCancel} />
                 </div>
