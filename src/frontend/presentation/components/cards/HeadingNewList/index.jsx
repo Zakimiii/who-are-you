@@ -129,6 +129,7 @@ class HeadingNewList extends React.Component {
                             `${repository.User.nickname}さんの紹介テーマを追加`
                         }
                         value={repository.body}
+                        focus={true}
                     />
                 </div>
                 <div className="heading-new-list__form-submit">

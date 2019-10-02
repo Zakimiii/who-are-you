@@ -16,9 +16,15 @@
   //     background: darken(themed('background'), 3%) !important;
   //   }
   // }
+  &__container {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
   &__head {
     min-height: 44px;
     clear: both;
+    @include flex-center();
     &-image {
       vertical-align: middle;
       position: relative;
@@ -33,16 +39,28 @@
       display: inline-block;
       word-wrap: break-word;
       white-space: pre-wrap;
-      min-height: 32px;
-      width: calc(100% - 44px);
-      padding: 6px;
+      padding: 4px;
       text-align: left;
-      @include FS(M);
-      @include LH(M);
+      @include FS(FM);
+      @include LH(FM);
       @include FM(B);
       @include themify($themes) {
-        color: themed('subThick2');
+        color: themed('backgroundThick');
       }
+    }
+  }
+  &__title {
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 6px;
+    padding-bottom: 12px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
     }
   }
   &__border {

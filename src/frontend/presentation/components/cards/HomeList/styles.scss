@@ -1,0 +1,117 @@
+.home-list {
+  width: 100%;
+  height: 100%;
+  &__top {
+    height: 800px;
+    width: 100%;
+    padding: 150px 0;
+    &-logo {
+      // width: 374px;
+      // height: 79px;
+      width: 473px;
+      height: 87px;
+      margin: 32px auto;
+      &-image {
+        // width: 374px;
+        // height: 70px;
+        width: 473px;
+        height: 87px;
+      }
+    }
+    &-desc {
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 44px;
+      width: 100%;
+      padding: 18px;
+      text-align: center;
+      @include FS(XXL);
+      @include LH(XXL);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+    }
+    &-button {
+      max-width: 720px;
+      width: calc(100% - 22px);
+      margin: 44px auto;
+      margin-bottom: 0;
+      height: 54px;
+    }
+    &__back-logo {
+      position: absolute;
+      top: calc(50% - 400px);
+      left: calc(50% - 400px);
+      width: 800px;
+      height: 800px;
+      @include opacity(.2);
+      z-index: -1;
+    }
+  }
+  &__ways {
+    width: 100%;
+    height: 100%;
+    padding: 44px 0;
+    &-title {
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 44px;
+      width: 100%;
+      padding: 18px;
+      text-align: center;
+      @include FS(XL);
+      @include LH(XL);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+    }
+    &__answer-title {
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 44px;
+      width: 100%;
+      padding: 18px;
+      text-align: center;
+      @include FS(L);
+      @include LH(L);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('subThick');
+      }
+    }
+    &__answer-image {
+      width: 800px;
+      height: 400px;
+      margin: 44px auto;
+      &-img {
+        width: 800px;
+        height: 400px;
+      }
+    }
+    &__heading-title {
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 44px;
+      width: 100%;
+      padding: 18px;
+      text-align: center;
+      @include FS(L);
+      @include LH(L);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('subThick2');
+      }
+    }
+    &__heading-image {
+      width: 800px;
+      height: 400px;
+      margin: 44px auto;
+      &-img {
+        width: 800px;
+        height: 400px;
+      }
+    }
+  }
+}

@@ -12,6 +12,7 @@ import HeadingItem from '@modules/HeadingItem';
 import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import HeadingNewSection from '@elements/HeadingNewSection';
 
 class UserShowList extends React.Component {
     static propTypes = {
@@ -68,7 +69,7 @@ class UserShowList extends React.Component {
                 </div>
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__heading-new">
-                        <HeadingNewButton repository={repository} />
+                        <HeadingNewSection repository={repository} />
                     </div>
                     <div className="user-show-list__body__category">
                         {repository.nickname + 'さんの紹介テーマ'}

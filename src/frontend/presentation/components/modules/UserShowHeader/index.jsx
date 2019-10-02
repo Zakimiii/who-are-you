@@ -45,18 +45,28 @@ class UserShowHeader extends React.Component {
 
         return (
             <div className="user-show-header">
-                <div className="user-show-header__image">
-                    <PictureItem
-                        width={120}
-                        radius={60}
-                        url={_repository.picture_small}
-                    />
+                <div
+                    className="user-show-header__background"
+                    style={{
+                        backgroundImage: `url('${_repository.picture_large}')`,
+                    }}
+                >
+                    <div className="user-show-header__background-filter" />
                 </div>
-                <div className="user-show-header__name">
-                    {_repository.nickname}
-                </div>
-                <div className="user-show-header__detail">
-                    {_repository.detail}
+                <div className="user-show-header__foreground">
+                    <div className="user-show-header__image">
+                        <PictureItem
+                            width={120}
+                            radius={60}
+                            url={_repository.picture_small}
+                        />
+                    </div>
+                    <div className="user-show-header__name">
+                        {_repository.nickname}
+                    </div>
+                    <div className="user-show-header__detail">
+                        {_repository.detail}
+                    </div>
                 </div>
             </div>
         );

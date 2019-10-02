@@ -10,6 +10,11 @@ export function getEnvLocale(env) {
     return env.LC_ALL || env.LC_MESSAGES || env.LANG || env.LANGUAGE;
 }
 
+export function getEnvCountryCode(env) {
+    env = env || process.env;
+    return env.LC_ALL || env.LC_MESSAGES || env.LANG || env.LANGUAGE;
+}
+
 export function getTimeZone() {
     var tz = jstz.determine();
     return tz.name();

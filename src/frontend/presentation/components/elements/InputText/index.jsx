@@ -15,16 +15,23 @@ class InputText extends React.Component {
         value: PropTypes.string,
         placeholder: PropTypes.string,
         onChange: PropTypes.func,
+        onClick: PropTypes.func,
+        onFocus: PropTypes.func,
+        onBlur: PropTypes.func,
+        disabled: PropTypes.bool,
+        focus: PropTypes.bool,
     };
 
     static defaultProps = {
         label: '',
         value: '',
         placeholder: '&nbsp;',
+        disabled: false,
+        foucus: true,
     };
 
     state = {
-        focus: false,
+        focused: false,
     };
 
     constructor(props) {
@@ -33,41 +40,56 @@ class InputText extends React.Component {
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'InputText');
     }
 
+    componentDidMount() {
+        this.props.focus && this.nameInput.focus();
+    }
+
     onChange(e) {
         if (e) e.preventDefault();
         if (this.props.onChange) this.props.onChange(e);
     }
 
+    onClick(e) {
+        if (e) e.preventDefault();
+        if (this.props.onClick) this.props.onClick(e);
+    }
+
     onFocus(e) {
         // if (e) e.preventDefault();
-        this.setState({ focus: true });
+        this.setState({ focused: true });
+        if (this.props.onFocus) this.props.onFocus(e);
     }
 
     onBlur(e) {
         // if (e) e.preventDefault();
-        this.setState({ focus: false });
+        this.setState({ focused: false });
+        if (this.props.onBlur) this.props.onBlur(e);
     }
 
     render() {
-        const { label, value, placeholder } = this.props;
+        const { label, value, placeholder, disabled } = this.props;
 
-        const { focus } = this.state;
+        const { focused } = this.state;
 
         return (
-            <div className="input-text">
+            <div className="input-text" onClick={this.onClick}>
                 <input
+                    ref={input => {
+                        this.nameInput = input;
+                    }}
                     onChange={this.onChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     className="input-text__input"
                     type="text"
                     id="input-text-inp"
-                    placeholder={focus ? placeholder : ''}
+                    placeholder={focused ? placeholder : ''}
                     value={value}
+                    disabled={disabled}
                 />
                 <span
                     className={classNames('input-text__label', {
-                        focus: focus || (value && value != ''),
+                        focus: focused || (value && value != ''),
                     })}
                 >
                     {label}

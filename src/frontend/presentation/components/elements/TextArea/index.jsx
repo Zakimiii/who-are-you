@@ -16,22 +16,28 @@ class TextArea extends React.Component {
         value: PropTypes.string,
         placeholder: PropTypes.string,
         onChange: PropTypes.func,
+        focus: PropTypes.bool,
     };
 
     static defaultProps = {
         label: '',
         value: '',
         placeholder: '&nbsp;',
+        foucus: true,
     };
 
     state = {
-        focus: false,
+        focused: false,
     };
 
     constructor(props) {
         super(props);
         autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'TextArea');
+    }
+
+    componentDidMount() {
+        // this.props.focus && this.nameInput.focus();
     }
 
     onChange(e) {
@@ -41,38 +47,41 @@ class TextArea extends React.Component {
 
     onFocus(e) {
         // if (e) e.preventDefault();
-        this.setState({ focus: true });
+        this.setState({ focused: true });
     }
 
     onBlur(e) {
         // if (e) e.preventDefault();
-        this.setState({ focus: false });
+        this.setState({ focused: false });
     }
 
     render() {
         const { label, value, placeholder } = this.props;
 
-        const { focus } = this.state;
+        const { focused } = this.state;
         return (
             <div className="text-area">
                 <TextareaAutosize
+                    ref={input => {
+                        this.nameInput = input;
+                    }}
                     className="text-area__input"
                     onChange={this.onChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
-                    placeholder={focus ? placeholder : ''}
+                    placeholder={focused ? placeholder : ''}
                     value={value}
                 />
                 <span
                     className={classNames('text-area__label', {
-                        focus: focus || (value && value != ''),
+                        focus: focused || (value && value != ''),
                     })}
                 >
                     {label}
                 </span>
                 <span
                     className={classNames('text-area__border', {
-                        focus: focus || (value && value != ''),
+                        focus: focused || (value && value != ''),
                     })}
                 />
             </div>

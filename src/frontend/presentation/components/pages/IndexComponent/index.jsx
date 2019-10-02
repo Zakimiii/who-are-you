@@ -10,9 +10,12 @@ import tt from 'counterpart';
 class IndexComponent extends React.Component {
     static propTypes = {
         children: PropTypes.node,
+        style: PropTypes.object,
     };
 
-    static defaultProps = {};
+    static defaultProps = {
+        style: {},
+    };
 
     state = {};
 
@@ -32,7 +35,13 @@ class IndexComponent extends React.Component {
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        return <div className="index-component">{this.props.children}</div>;
+        const { style } = this.props;
+
+        return (
+            <div className="index-component" style={style}>
+                {this.props.children}
+            </div>
+        );
     }
 }
 

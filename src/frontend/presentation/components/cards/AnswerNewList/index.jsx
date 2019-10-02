@@ -129,6 +129,7 @@ class AnswerNewList extends React.Component {
                             }」を記入`
                         }
                         value={repository.body}
+                        focus={true}
                     />
                 </div>
                 <div className="answer-new-list__form-submit">

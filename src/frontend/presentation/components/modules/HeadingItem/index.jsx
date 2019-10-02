@@ -13,6 +13,7 @@ import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import * as userActions from '@redux/User/UserReducer';
+import HeadingWantedItem from '@modules/HeadingWantedItem';
 
 class HeadingItem extends React.Component {
     static propTypes = {
@@ -52,25 +53,42 @@ class HeadingItem extends React.Component {
                 </div>
             ));
 
+        if (!_repository.Answers || _repository.Answers.length == 0)
+            return <HeadingWantedItem repository={_repository} />;
+
         return (
             <div className="heading-item">
-                <div className="heading-item__head">
-                    <div className="heading-item__head-image">
-                        <PictureItem
-                            url={
-                                _repository.User &&
-                                _repository.User.picture_small
-                            }
-                            width={32}
-                            redius={16}
-                            alt={_repository.User && _repository.User.nickname}
-                        />
+                <div
+                    className="heading-item__container"
+                    style={{
+                        backgroundImage:
+                            "url('/images/brands/eye-catch-back.png')",
+                    }}
+                >
+                    <div className="heading-item__head">
+                        <div className="heading-item__head-image">
+                            <PictureItem
+                                url={
+                                    _repository.User &&
+                                    _repository.User.picture_small
+                                }
+                                width={32}
+                                redius={16}
+                                alt={
+                                    _repository.User &&
+                                    _repository.User.nickname
+                                }
+                            />
+                        </div>
+                        <div className="heading-item__head-title">
+                            {`${_repository.User.nickname}さんの`}
+                        </div>
                     </div>
-                    <div className="heading-item__head-title">
-                        {_repository.body}
+                    <div className="heading-item__title">
+                        {`「${_repository.body}」`}
                     </div>
+                    <div className="heading-item__border" />
                 </div>
-                <div className="heading-item__border" />
                 <div className="heading-item__items">
                     {_repository.Answers && renderItems(_repository.Answers)}
                 </div>
