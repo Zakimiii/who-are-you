@@ -94,6 +94,23 @@ export class FileEntity extends Entity {
         }
     }
 
+    async getBuffer(params = {}) {
+        const { extension, url, xsize, ysize, type, name } = this;
+
+        switch (true) {
+            case file_config.isImage(extension):
+                const lenna = await Jimp.read(url);
+                let src;
+                lenna
+                    .resize(params.xsize || xsize, params.ysize || ysize)
+                    .quality(60)
+                    .getBuffer(Jimp.AUTO, (e, d) => {
+                        src = d;
+                    });
+                return src.toString('binary');
+        }
+    }
+
     async upload_twitter(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
 
@@ -111,7 +128,6 @@ export class FileEntity extends Entity {
                     possibly_sensitive: true,
                     media: src,
                 });
-                console.log(media_id);
                 return media_id;
         }
     }

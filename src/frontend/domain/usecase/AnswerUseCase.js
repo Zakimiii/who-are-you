@@ -48,11 +48,15 @@ export default class AnswerUseCase extends UseCaseImpl {
         try {
             if (answer.picture instanceof Map) {
                 let model = FileEntity.build(answer.picture.toJS());
-                answer.picture = yield model.upload({
+                // answer.picture = yield model.upload({
+                //     xsize: data_config.shot_picture_xsize,
+                //     ysize: data_config.shot_picture_ysize,
+                // });
+                // answer.picture = model.url;
+                answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
                 });
-                answer.picture = model.url;
             }
             const data = yield answerRepository.create(answer);
             yield put(answerActions.hideNew());
@@ -69,11 +73,15 @@ export default class AnswerUseCase extends UseCaseImpl {
         try {
             if (answer.picture instanceof Map) {
                 let model = FileEntity.build(answer.picture.toJS());
-                answer.picture = yield model.upload({
+                // answer.picture = yield model.upload({
+                //     xsize: data_config.shot_picture_xsize,
+                //     ysize: data_config.shot_picture_ysize,
+                // });
+                // answer.picture = model.url;
+                answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
                 });
-                answer.picture = model.url;
             }
             const data = yield answerRepository.update(answer);
             yield put(answerActions.hideNew());

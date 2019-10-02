@@ -243,7 +243,7 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         picture: {
-                            type: Sequelize.STRING(255),
+                            type: Sequelize.BLOB('long'),
                         },
                         tweet_url: {
                             type: Sequelize.STRING(255),
@@ -327,7 +327,7 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         picture: {
-                            type: Sequelize.STRING(255),
+                            type: Sequelize.BLOB('long'),
                         },
                         tweet_url: {
                             type: Sequelize.STRING(255),

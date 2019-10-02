@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
             },
             picture: {
-                type: DataTypes.STRING(255),
+                type: DataTypes.BLOB('long'),
             },
             tweet_url: {
                 type: DataTypes.STRING(255),
