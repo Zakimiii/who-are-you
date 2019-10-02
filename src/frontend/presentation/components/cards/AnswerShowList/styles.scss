@@ -1,0 +1,34 @@
+.heading-show-list {
+  max-width: 630px;
+  height: 100%;
+  margin: 0 auto;
+  padding-bottom: 45vh;
+  &__top {
+    width: 100%;
+    margin: 12px auto;
+  }
+  &__user {
+    width: 100%;
+    height: 64px;
+  }
+  &__category {
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    height: 44px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    margin: 22px auto;
+    margin-bottom: 12px;
+  }
+  &__body {
+    width: 100%;
+    height: 100%;
+    margin: 12px auto;
+  }
+}

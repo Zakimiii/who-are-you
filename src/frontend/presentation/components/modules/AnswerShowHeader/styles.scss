@@ -1,0 +1,74 @@
+.answer-show-header {
+  position: relative;
+  width:  100%;
+  height: 100%;
+  padding: 12px 0;
+  @include themify($themes) {
+    background-color: themed('background');
+    border: solid 16px themed('sub');
+  }
+  background-position: center center;
+  background-size: contain;
+  &__user {
+    margin-bottom: 12px;
+    @include flex-center();
+    &-image {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      width: 32px;
+      height: 32px;
+      padding: 6px;
+    }
+    &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      padding-left: 12px;
+      text-align: left;
+      @include FS(L);
+      @include LH(L);
+      @include FM(FB);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+    }
+  }
+  &__border {
+    width: calc(100% -20px);
+    margin: 0 auto;
+    height: 4px;
+    @include themify($themes) {
+      background: themed('subThick2');
+    }
+  }
+  &__title {
+    width: calc(100% -20px);
+    margin: 0 auto;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(XL);
+    @include LH(L);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('subThick2');
+    }
+  }
+  &__text {
+    width: calc(100% -20px);
+    margin: 0 auto;
+    padding-top: 4px;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(M);
+    @include LH(XL);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+  }
+}
