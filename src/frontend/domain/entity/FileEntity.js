@@ -96,7 +96,6 @@ export class FileEntity extends Entity {
 
     async getBuffer(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
-
         switch (true) {
             case file_config.isImage(extension):
                 const lenna = await Jimp.read(url);
@@ -104,10 +103,10 @@ export class FileEntity extends Entity {
                 lenna
                     .resize(params.xsize || xsize, params.ysize || ysize)
                     .quality(60)
-                    .getBuffer(Jimp.AUTO, (e, d) => {
+                    .getBase64(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
-                return src.toString('binary');
+                return src; //src.replace(/^data:image\/png;base64,/, "");
         }
     }
 
