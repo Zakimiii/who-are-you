@@ -30,6 +30,12 @@ export default class NotificationDataStore extends DataStoreImpl {
             },
         });
 
+        const heading = await models.Heading.findOne({
+            where: {
+                id: Number(answer.HeadingId),
+            },
+        });
+
         const identity = await models.Identity.findOne({
             where: {
                 user_id: Number(target.UserId),
@@ -74,5 +80,56 @@ export default class NotificationDataStore extends DataStoreImpl {
         );
     }
 
-    async onCreateHeading(answer) {}
+    async onCreateHeading(heading) {
+        if (!heading) return;
+
+        const target = await models.Heading.findOne({
+            where: {
+                id: Number(heading.id),
+            },
+        });
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: Number(target.VoterId),
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        if (!identity)
+            throw new ApiError({
+                error: new Error('identity is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'g.user' },
+            });
+
+        const user = await models.User.findOne({
+            where: {
+                id: Number(target.VoterId),
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        if (!user)
+            throw new ApiError({
+                error: new Error('identity is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'g.user' },
+            });
+
+        const results = await TwitterHandler.postTweet(
+            heading.body,
+            `/heading/${target.id}`,
+            identity.twitter_token,
+            identity.twitter_secret
+        );
+    }
 }

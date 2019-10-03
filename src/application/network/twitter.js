@@ -119,7 +119,10 @@ export default class TwitterHandler {
                 },
                 '',
                 (err, data, res) => {
-                    if (err) reject(err);
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    }
                     resolve(data, res);
                 }
             );

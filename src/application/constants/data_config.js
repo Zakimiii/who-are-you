@@ -62,8 +62,12 @@ const uuid_size = size => {
 };
 
 const post_template = (status, pathname) =>
-    `${status.length > 50 ? status.slice(0, 50) + '...' : status}
-    \n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
+    `${
+        status.length > 40
+            ? status.slice(0, 40) + '...\n\n続きはwho are youへ?'
+            : status
+    }
+    \n\n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
 
 const username_min_limit = 0;
 const username_max_limit = 45;

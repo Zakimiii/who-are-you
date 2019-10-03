@@ -102,7 +102,7 @@ class AnswerNewList extends React.Component {
             <div className="answer-new-list__user">
                 <div className="answer-new-list__user-image">
                     <PictureItem
-                        url={'/icons/noimage.svg'}
+                        url={repository.Heading.User.picture_small}
                         width={32}
                         redius={16}
                     />
