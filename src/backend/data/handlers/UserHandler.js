@@ -7,12 +7,14 @@ import { apiFindUserValidates, apiSyncUserValidates } from '@validations/user';
 import {
     HeadingDataStore,
     AnswerDataStore,
+    AuthDataStore,
     UserDataStore,
     NotificationDataStore,
 } from '@datastore';
 
 const headingDataStore = new HeadingDataStore();
 const answerDataStore = new AnswerDataStore();
+const authDataStore = new AuthDataStore();
 const userDataStore = new UserDataStore();
 const notificationDataStore = new NotificationDataStore();
 
@@ -42,6 +44,28 @@ export default class UserHandler extends HandlerImpl {
                 ],
             },
         });
+
+        router.body = {
+            success: true,
+            user: safe2json(user),
+        };
+    }
+
+    async handleGetUserFollowerRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const followers = await authDataStore.find_or_create_by_twitter_followers(
+            {
+                username: user.username,
+                user_id: id,
+            }
+        );
 
         router.body = {
             success: true,

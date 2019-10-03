@@ -18,6 +18,14 @@ export default class UserRepository extends RepositoryImpl {
         return data && data.user;
     }
 
+    async getUserFollower({ id, username }) {
+        const data = await super.apiCall('/api/v1/user/followers', {
+            id,
+            username,
+        });
+        return data && data.users;
+    }
+
     async updateUser(user) {
         // const data = await super.apiCall('/api/v1/user/update', {
         //     user,

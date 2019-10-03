@@ -12,6 +12,7 @@ import UserSection from '@elements/UserSection';
 import AnswerItem from '@modules/AnswerItem';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import { isScrollEndByClass } from '@extension/scroll';
+import AnswerNewSection from '@elements/AnswerNewSection';
 
 class HeadingShowList extends React.Component {
     static propTypes = {
@@ -78,6 +79,9 @@ class HeadingShowList extends React.Component {
                 {top}
                 {user}
                 <div className="heading-show-list__category">{'回答一覧'}</div>
+                <div className="heading-show-list__new">
+                    <AnswerNewSection repository={repository} />
+                </div>
                 <div className="heading-show-list__answers">
                     {repositories && renderItems(repositories)}
                 </div>

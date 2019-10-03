@@ -29,7 +29,6 @@ import serve from 'koa-static';
 import send from 'koa-send';
 import sitemap from '@network/sitemap';
 import config from '@constants/config';
-
 if (cluster.isMaster) console.log('application server starting, please wait.');
 
 // import uploadImage from 'server/upload-image' //medium-editor
@@ -132,6 +131,10 @@ app.use(
 
 app.use(cors());
 
+// app.use(bodyParser({
+//     formLimit: '512kb'
+// }));
+
 // Proxy asset folder to webpack development server in development mode
 if (NODE_ENV === 'development' || NODE_ENV === 'staging') {
     const webpack_dev_port = process.env.PORT
@@ -188,85 +191,6 @@ function convertEntriesToArrays(obj) {
         return result;
     }, {});
 }
-
-// some redirects and health status
-app.use(function*(next) {
-    if (this.method === 'GET' && this.url === '/.well-known/healthcheck.json') {
-        this.status = 200;
-        this.body = {
-            status: 'ok',
-            docker_tag: process.env.DOCKER_TAG ? process.env.DOCKER_TAG : false,
-            source_commit: process.env.SOURCE_COMMIT
-                ? process.env.SOURCE_COMMIT
-                : false,
-        };
-        return;
-    }
-
-    // redirect to home page/feed if known account
-    // if (this.method === 'GET' && this.url === '/' && this.session.a) {
-    //     this.status = 302;
-    //     this.redirect(`/@${this.session.a}/feed`);
-    //     return;
-    // }
-    // normalize user name url from cased params
-
-    //FIXME: this is a test route
-    // if (
-    //     this.method === 'GET' &&
-    //     (routeRegex.UserProfile1.test(this.url) ||
-    //         routeRegex.PostNoCategory.test(this.url) ||
-    //         routeRegex.Post.test(this.url))
-    // ) {
-    //     const p = this.originalUrl.toLowerCase();
-    //     let userCheck = '';
-    //     if (routeRegex.Post.test(this.url)) {
-    //         userCheck = p.split('/')[2].slice(1);
-    //     } else {
-    //         userCheck = p.split('/')[1].slice(1);
-    //     }
-    //     if (userIllegalContent.includes(userCheck)) {
-    //         console.log('Illegal content user found blocked', userCheck);
-    //         this.status = 451;
-    //         return;
-    //     }
-    //     if (p !== this.originalUrl) {
-    //         this.status = 301;
-    //         this.redirect(p);
-    //         return;
-    //     }
-    // }
-    // // normalize top category filtering from cased params
-    // if (this.method === 'GET' && routeRegex.CategoryFilters.test(this.url)) {
-    //     const p = this.originalUrl.toLowerCase();
-    //     if (p !== this.originalUrl) {
-    //         this.status = 301;
-    //         this.redirect(p);
-    //         return;
-    //     }
-    // }
-    // // do not enter unless session uid & verified phone
-    // if (this.url === '/create_account' && !this.session.uid) {
-    //     this.status = 302;
-    //     this.redirect('/enter_email');
-    //     return;
-    // }
-    // remember ch, cn, r url params in the session and remove them from url
-    if (this.method === 'GET' && /\?[^\w]*(ch=|cn=|r=)/.test(this.url)) {
-        let redir = this.url.replace(/((ch|cn|r)=[^&]+)/gi, r => {
-            const p = r.split('=');
-            if (p.length === 2) this.session[p[0]] = p[1];
-            return '';
-        });
-        redir = redir.replace(/&&&?/, '');
-        redir = redir.replace(/\?&?$/, '');
-        console.log(`server redirect ${this.url} -> ${redir}`);
-        this.status = 302;
-        this.redirect(redir);
-    } else {
-        yield next;
-    }
-});
 
 // load production middleware
 if (NODE_ENV === 'production' || NODE_ENV === 'staging') {

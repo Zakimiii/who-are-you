@@ -54,6 +54,8 @@ export default class AnswerHandler extends HandlerImpl {
     async handleCreateRequest(router, ctx, next) {
         const { answer, limit, offset } = router.request.body;
 
+        console.log('come');
+
         // await apiCreateAnswerValidates.isValid({
         //     answer,
         // });

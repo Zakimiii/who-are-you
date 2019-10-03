@@ -32,7 +32,11 @@ const answerHandler = new AnswerHandler();
 export default function ApiMiddleware(app) {
     const router = koa_router({ prefix: '/api/v1' });
     app.use(router.routes());
-    const koaBody = koa_body();
+    const koaBody = koa_body({
+        formLimit: '5mb',
+        jsonLimit: '5mb',
+        textLimit: '5mb',
+    });
 
     // router.get('/confirm_email', koaBody, function*(ctx, next) {
     //     yield sessionHandler
@@ -489,6 +493,34 @@ export default function ApiMiddleware(app) {
         }
         yield userHandler
             .handleGetUserRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/followers', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserFollowerRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(

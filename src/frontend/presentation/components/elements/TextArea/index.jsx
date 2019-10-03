@@ -37,7 +37,7 @@ class TextArea extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.focus && this.nameInput.focus();
+        this.props.focus && this.nameInput.focus();
     }
 
     onChange(e) {
@@ -62,7 +62,7 @@ class TextArea extends React.Component {
         return (
             <div className="text-area">
                 <TextareaAutosize
-                    ref={input => {
+                    inputRef={input => {
                         this.nameInput = input;
                     }}
                     className="text-area__input"

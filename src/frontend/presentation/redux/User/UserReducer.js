@@ -3,6 +3,10 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 
 // Action constants
 export const SET_SHOW = 'user/SET_SHOW';
+export const SET_FOLLOWER = 'user/SET_FOLLOWER';
+export const ADD_FOLLOWER = 'user/ADD_FOLLOWER';
+export const GET_MORE_FOLLOWER = 'user/GET_MORE_FOLLOWER';
+export const RESET_FOLLOWER = 'user/RESET_FOLLOWER';
 export const UPDATE_USER = 'user/UPDATE_USER';
 export const SYNC_USER = 'user/SYNC_USER';
 export const DELETE_USER = 'user/DELETE_USER';
@@ -18,7 +22,8 @@ export const RESET_DELETES = 'user/SET_DELETES';
 
 const defaultState = fromJS({
     show_user: Map(),
-    user_heading: List(),
+    user_heading: List([]),
+    user_follower: List([]),
     caches: List([]),
     deletes: List([]),
 });
@@ -64,6 +69,27 @@ export default function reducer(state = defaultState, action) {
 
         case RESET_DELETES: {
             return state.set('deletes', List([]));
+        }
+
+        case SET_FOLLOWER: {
+            if (!payload.users) return state;
+            return state.set(
+                'user_follower',
+                List(action.payload.users.map(val => Map(val)))
+            );
+        }
+
+        case RESET_FOLLOWER: {
+            return state.set('user_follower', List([]));
+        }
+
+        case ADD_FOLLOWER: {
+            if (!payload.users) return state;
+            let before = state.get('user_follower');
+            return state.set(
+                'user_follower',
+                before.concat(List(action.payload.users.map(val => Map(val))))
+            );
         }
 
         case SET_USER_HEADING: {
@@ -138,6 +164,26 @@ export const updateUser = payload => ({
 
 export const deleteUser = payload => ({
     type: DELETE_USER,
+    payload,
+});
+
+export const setFollower = payload => ({
+    type: SET_FOLLOWER,
+    payload,
+});
+
+export const resetFollower = payload => ({
+    type: RESET_FOLLOWER,
+    payload,
+});
+
+export const addFollower = payload => ({
+    type: ADD_FOLLOWER,
+    payload,
+});
+
+export const getMoreFollower = payload => ({
+    type: GET_MORE_FOLLOWER,
     payload,
 });
 

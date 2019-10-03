@@ -42,6 +42,24 @@ export default class UserUseCase extends UseCaseImpl {
         yield put(appActions.fetchDataEnd());
     }
 
+    *initFollower({ payload: { pathname } }) {
+        if (!userShowRoute.isValidPath(pathname)) return;
+        try {
+            const username = userShowRoute.params_value('username', pathname);
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const users = yield userRepository.getUserFollower({
+                username,
+            });
+            yield put(userActions.setFollower({ users }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
     *initUserHeadings({ payload: { pathname } }) {
         if (!userShowRoute.isValidPath(pathname)) return;
         try {

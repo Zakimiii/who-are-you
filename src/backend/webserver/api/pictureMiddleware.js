@@ -52,7 +52,11 @@ const getBase64ImageBuffer = async (base64, id) => {
 export default function PictureMiddleware(app) {
     const router = koa_router({ prefix: '/pictures' });
     app.use(router.routes());
-    const koaBody = koa_body();
+    const koaBody = koa_body({
+        formLimit: '5mb',
+        jsonLimit: '5mb',
+        textLimit: '5mb',
+    });
 
     router.get('/heading/:id/', koaBody, function*(ctx, next) {
         let { id } = this.params;

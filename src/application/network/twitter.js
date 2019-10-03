@@ -76,6 +76,17 @@ export default class TwitterHandler {
         });
     };
 
+    //@params: user_id or screen_name
+    static getFollows = async params => {
+        return new Promise((resolve, reject) => {
+            twitter.getFollowersList(
+                params,
+                e => reject(e),
+                result => resolve(JSON.parse(result))
+            );
+        });
+    };
+
     //@params: status possibly_sensitive media_ids oauth_token
     static postTweet = async (params, accessToken, accessTokenSecret) => {
         return new Promise((resolve, reject) => {

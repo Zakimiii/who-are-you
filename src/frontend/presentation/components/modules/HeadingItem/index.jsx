@@ -14,6 +14,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import * as userActions from '@redux/User/UserReducer';
 import HeadingWantedItem from '@modules/HeadingWantedItem';
+import { headingShowRoute } from '@infrastructure/RouteInitialize';
 
 class HeadingItem extends React.Component {
     static propTypes = {
@@ -95,7 +96,11 @@ class HeadingItem extends React.Component {
                 {_repository.answer_count > _repository.Answers.length && (
                     <Link
                         className="heading-item__link"
-                        onClick={this.onClickLoadMore}
+                        to={headingShowRoute.getPath({
+                            params: {
+                                id: _repository.id,
+                            },
+                        })}
                     >
                         {tt('g.show_more')}
                     </Link>

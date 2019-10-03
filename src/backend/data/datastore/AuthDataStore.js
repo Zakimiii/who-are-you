@@ -328,4 +328,23 @@ export default class AuthDataStore extends DataStoreImpl {
             user,
         };
     }
+
+    async find_or_create_by_twitter_followers({ username, user_id }) {
+        if (!username) return;
+        const identity = await models.Identity.findOne({
+            where: {
+                username,
+                user_id,
+            },
+        });
+
+        const twitter_followers = await TwitterHandler.getFollows({
+            screen_name: username,
+        });
+
+        console.log(twitter_followers);
+
+        // const followers = await Promise.all(
+        // );
+    }
 }
