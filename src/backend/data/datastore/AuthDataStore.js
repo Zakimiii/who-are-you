@@ -504,11 +504,15 @@ export default class AuthDataStore extends DataStoreImpl {
 
         if (!identity.twitter_username) return;
 
-        const twitter_followers = await TwitterHandler.getFollows({
-            count: 20,
-            screen_name: identity.twitter_username,
-            include_user_entities: true,
-        });
+        const twitter_followers = await TwitterHandler.getFollows(
+            {
+                count: 20,
+                screen_name: identity.twitter_username,
+                include_user_entities: true,
+            },
+            identity.token,
+            identity.secret
+        );
 
         if (!twitter_followers) return;
 

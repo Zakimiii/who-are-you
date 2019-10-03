@@ -89,29 +89,18 @@ export default class TwitterHandler {
     };
 
     //@params: user_id or screen_name
-    static getFollows = async params => {
+    static getFollows = async (params, accessToken, accessTokenSecret) => {
         return new Promise((resolve, reject) => {
-            twitter.getFollowersList(
+            TwitterHandler.configure({
+                accessToken,
+                accessTokenSecret,
+            }).getFollowersList(
                 params,
                 e => reject(e),
                 result => resolve(JSON.parse(result))
             );
         });
     };
-
-    //@params: status possibly_sensitive media_ids oauth_token
-    // static postTweet = async (params, accessToken, accessTokenSecret) => {
-    //     return new Promise((resolve, reject) => {
-    //         TwitterHandler.configure({
-    //             accessToken,
-    //             accessTokenSecret,
-    //         }).postTweet(
-    //             params,
-    //             e => reject(e),
-    //             result => resolve(JSON.parse(result))
-    //         );
-    //     });
-    // };
 
     static postTweet = async (
         status,
