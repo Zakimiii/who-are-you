@@ -65,7 +65,7 @@ export default class HeadingHandler extends HandlerImpl {
             });
         });
 
-        // notificationDataStore.onCreateHeading(result);
+        notificationDataStore.onCreateHeading(result);
 
         router.body = {
             success: true,

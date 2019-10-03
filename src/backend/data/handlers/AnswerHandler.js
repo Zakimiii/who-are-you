@@ -67,7 +67,7 @@ export default class AnswerHandler extends HandlerImpl {
 
         headingDataStore.updateCount({ id: result.HeadingId });
 
-        // notificationDataStore.onCreateAnswer(result);
+        notificationDataStore.onCreateAnswer(result);
 
         router.body = {
             success: true,

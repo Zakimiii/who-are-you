@@ -1,8 +1,10 @@
 const Twitter = require('twitter-node-client').Twitter;
+const OAuth = require('oauth');
 const env = require('@env/env.json');
 const config = require('@constants/config');
 var passport = require('koa-passport'),
     TwitterStrategy = require('passport-twitter').Strategy;
+const data_config = require('@constants/data_config');
 
 const twitter = new Twitter({
     consumerKey: env.TWITTER.KEY,
@@ -11,6 +13,16 @@ const twitter = new Twitter({
     accessTokenSecret: env.TWITTER.ACCESS_TOKEN_SECRET,
     callBackUrl: config.APP_URL,
 });
+
+const oauth = new OAuth.OAuth(
+    'https://api.twitter.com/oauth/request_token',
+    'https://api.twitter.com/oauth/access_token',
+    env.TWITTER.KEY,
+    env.TWITTER.SECRET,
+    '1.0A',
+    null,
+    'HMAC-SHA1'
+);
 
 passport.use(
     new TwitterStrategy(
@@ -88,15 +100,39 @@ export default class TwitterHandler {
     };
 
     //@params: status possibly_sensitive media_ids oauth_token
-    static postTweet = async (params, accessToken, accessTokenSecret) => {
+    // static postTweet = async (params, accessToken, accessTokenSecret) => {
+    //     return new Promise((resolve, reject) => {
+    //         TwitterHandler.configure({
+    //             accessToken,
+    //             accessTokenSecret,
+    //         }).postTweet(
+    //             params,
+    //             e => reject(e),
+    //             result => resolve(JSON.parse(result))
+    //         );
+    //     });
+    // };
+
+    static postTweet = async (
+        status,
+        pathname,
+        accessToken,
+        accessTokenSecret
+    ) => {
         return new Promise((resolve, reject) => {
-            TwitterHandler.configure({
+            oauth.post(
+                'https://api.twitter.com/1.1/statuses/update.json',
                 accessToken,
                 accessTokenSecret,
-            }).postTweet(
-                params,
-                e => reject(e),
-                result => resolve(JSON.parse(result))
+                {
+                    status:
+                        status + data_config.post_template(status, pathname),
+                },
+                '',
+                (err, data, res) => {
+                    if (err) reject(err);
+                    resolve(data, res);
+                }
             );
         });
     };

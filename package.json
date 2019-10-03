@@ -157,6 +157,7 @@
     "nexmo": "^2.4.1",
     "node-cron": "^2.0.3",
     "node-sass": "4.9.0",
+    "oauth": "^0.9.15",
     "onesignal-node": "^2.1.0",
     "os": "0.1.1",
     "passport-facebook": "^3.0.0",

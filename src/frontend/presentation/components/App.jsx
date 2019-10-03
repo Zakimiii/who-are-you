@@ -25,6 +25,7 @@ import {
     routeEntities,
     getPageTitle,
     getPageDescription,
+    getPageTweetTag,
 } from '@infrastructure/RouteInitialize';
 import config from '@constants/config';
 import ScreenShot from '@modules/ScreenShot';
@@ -116,6 +117,9 @@ class App extends Component {
 
         if (this.props.description !== np.description)
             this.setDescription(np.description);
+
+        if (this.props.tweet_tags !== np.tweet_tags)
+            this.setTwitterMeta(np.tweet_tags);
     }
 
     setDescription(description) {
@@ -124,6 +128,26 @@ class App extends Component {
         document
             .getElementsByName('description')[0]
             .setAttribute('content', description);
+    }
+
+    setTwitterMeta(obj) {
+        if (!process.env.BROWSER || !obj) return;
+
+        document
+            .getElementsByName('twitter:card')[0]
+            .setAttribute('content', obj.card);
+
+        document
+            .getElementsByName('twitter:title')[0]
+            .setAttribute('content', obj.title);
+
+        document
+            .getElementsByName('twitter:description')[0]
+            .setAttribute('content', obj.description);
+
+        document
+            .getElementsByName('twitter:image')[0]
+            .setAttribute('content', obj.image);
     }
 
     render() {
@@ -216,6 +240,7 @@ export default connect(
             category: ownProps.params.category,
             title: getPageTitle(ownProps.location.pathname, state),
             description: getPageDescription(ownProps.location.pathname, state),
+            tweet_tags: getPageTweetTag(ownProps.location.pathname, state),
             enableModal: appActions.enableModal(state),
             show_heading_screen_shot,
             screen_shot_heading: headingActions.getScreenShotHeading(state),

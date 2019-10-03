@@ -1,3 +1,5 @@
+import config from '@constants/config';
+
 const fetch_data_limit = size => {
     switch (size) {
         case 'S':
@@ -59,6 +61,10 @@ const uuid_size = size => {
     }
 };
 
+const post_template = (status, pathname) =>
+    `${status.length > 50 ? status.slice(0, 50) + '...' : status}
+    \n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
+
 const username_min_limit = 0;
 const username_max_limit = 45;
 const small_picture_size = 256; //px
@@ -114,4 +120,5 @@ module.exports = {
     shot_picture_xsize,
     shot_picture_ysize,
     picture_save_limit,
+    post_template,
 };

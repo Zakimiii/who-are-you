@@ -35,9 +35,13 @@ class IndexComponent extends React.Component {
     render() {
         const { style, showSide, children } = this.props;
 
-        return (
+        return showSide ? (
             <div className="index-component" style={style}>
                 <div className="index-component__center">{children}</div>
+            </div>
+        ) : (
+            <div className="index-component" style={style}>
+                {children}
             </div>
         );
         // return showSide ? (

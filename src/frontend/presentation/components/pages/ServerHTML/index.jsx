@@ -117,12 +117,25 @@ export default class ServerHTML extends React.Component {
                         src="https://www.googletagmanager.com/gtag/js?id=UA-145144621-1"
                     />
 
-                    <title>
-                        {tt('pages.HomeIndex') + ' | ' + config.APP_NAME}
-                    </title>
+                    <title>{tt('pages.Home') + ' | ' + config.APP_NAME}</title>
                     <meta
                         name="description"
-                        content={tt('descriptions.HomeIndex')}
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta name="twitter:card" content={'summary_large_image'} />
+                    <meta
+                        name="twitter:title"
+                        content={tt('pages.Home') + ' | ' + config.APP_NAME}
+                    />
+                    <meta
+                        name="twitter:description"
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta
+                        name="twitter:image"
+                        content={`${
+                            config.CURRENT_APP_URL
+                        }/images/brands/who-are-you_logo.png`}
                     />
                 </head>
                 <body>
