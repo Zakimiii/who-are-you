@@ -57,7 +57,7 @@ module.exports = function(sequelize, DataTypes) {
             updatedAt: 'updated_at',
             timestamps: true,
             underscored: true,
-
+            charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
                     AccessToken.belongsTo(models.Identity, {

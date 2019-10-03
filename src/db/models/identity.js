@@ -116,7 +116,7 @@ module.exports = function(sequelize, DataTypes) {
                 beforeCreate: hashPasswordHook,
                 beforeUpdate: hashPasswordHook,
             },
-
+            charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
                     Identity.belongsTo(models.User, {

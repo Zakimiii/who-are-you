@@ -1,8 +1,7 @@
 .user-show-list {
-  max-width: 630px;
+  width: 100%;
   height: 100%;
   margin: 0 auto;
-  padding-bottom: 45vh;
   &__header {
     width: 100%;
   }
@@ -11,7 +10,7 @@
     margin: 0 auto;
     &__heading-new {
       width: 100%;
-      height: 152px;
+      min-height: 152px;
       margin: 44px auto;
     }
     &__category {

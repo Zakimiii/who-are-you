@@ -34,11 +34,11 @@ const sessionHandler = new SessionHandler();
 const resolveAssetsPath = (...rest) =>
     path.join(__dirname, '..', '..', '..', 'assets', ...rest);
 
-const getBase64ImageBuffer = async (base64, id) => {
+const getBase64ImageBuffer = async (base64, id, foldername) => {
     return new Promise((resolve, reject) => {
         base64Img.img(
             base64,
-            resolveAssetsPath('pictures', 'heading'),
+            resolveAssetsPath('pictures', foldername),
             `${id % data_config.picture_save_limit}`,
             async (err, filepath) => {
                 if (err) reject(err);
@@ -71,7 +71,8 @@ export default function PictureMiddleware(app) {
         this.response.length = heading.picture.toString().length;
         const buffer = yield getBase64ImageBuffer(
             heading.picture.toString(),
-            id
+            id,
+            'heading'
         );
         this.body = buffer;
     });
@@ -90,7 +91,8 @@ export default function PictureMiddleware(app) {
         this.response.length = answer.picture.toString().length;
         const buffer = yield getBase64ImageBuffer(
             answer.picture.toString(),
-            id
+            id,
+            'answer'
         );
         this.body = buffer;
     });

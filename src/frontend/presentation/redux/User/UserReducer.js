@@ -270,3 +270,18 @@ export const getUserHeadingLength = state => {
     if (!home_models) return 0;
     return home_models.length;
 };
+
+export const getFollower = state => {
+    const val = state.user.get('user_follower');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getFollowerLength = state => {
+    const val = state.user.get('user_follower');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};

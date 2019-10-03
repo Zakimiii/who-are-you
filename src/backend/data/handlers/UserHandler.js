@@ -62,14 +62,14 @@ export default class UserHandler extends HandlerImpl {
 
         const followers = await authDataStore.find_or_create_by_twitter_followers(
             {
-                username: user.username,
-                user_id: id,
+                username,
+                user_id: Number(id),
             }
         );
 
         router.body = {
             success: true,
-            user: safe2json(user),
+            users: followers.map(follower => safe2json(follower.user)),
         };
     }
 

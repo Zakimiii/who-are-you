@@ -131,10 +131,6 @@ app.use(
 
 app.use(cors());
 
-// app.use(bodyParser({
-//     formLimit: '512kb'
-// }));
-
 // Proxy asset folder to webpack development server in development mode
 if (NODE_ENV === 'development' || NODE_ENV === 'staging') {
     const webpack_dev_port = process.env.PORT

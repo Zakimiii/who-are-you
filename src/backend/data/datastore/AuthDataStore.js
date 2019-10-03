@@ -11,6 +11,9 @@ import data_config from '@constants/data_config';
 import uuidv4 from 'uuid/v4';
 import env from '@env/env.json';
 import TwitterHandler from '@network/twitter';
+import mail from '@network/mail';
+import jwt from 'jsonwebtoken';
+import emojiStrip from 'emoji-strip';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
@@ -21,6 +24,10 @@ export default class AuthDataStore extends DataStoreImpl {
         const profile = await TwitterHandler.getUser({
             screen_name: username,
         });
+
+        const email = `${'twitter'.slice(0, data_config.provider_limit)}${
+            profile.id
+        }${profile.username}`;
 
         const user = await models.User.create({
             username: uuidv4(),
@@ -44,7 +51,7 @@ export default class AuthDataStore extends DataStoreImpl {
             UserId: user.id,
             email,
             token: '',
-            email_is_verified: true,
+            email_is_verified: false,
             phone_number: uuidv4(),
             phone_number_is_verified: false,
             phone_code: '',
@@ -70,7 +77,108 @@ export default class AuthDataStore extends DataStoreImpl {
         };
     }
 
+    async update_by_twitter_username({ user, identity, username }) {
+        const profile = await TwitterHandler.getUser({
+            screen_name: username,
+        });
+
+        user = await user.update({
+            nickname: profile.displayName,
+            detail: profile._json.description,
+            picture_small:
+                TwitterHandler.fix_image_name(
+                    profile._json.profile_image_url_https
+                ) || '/icons/noimage.svg',
+            picture_large:
+                TwitterHandler.fix_banner_name(
+                    profile._json.profile_banner_url
+                ) || '/icons/noimage.svg',
+        });
+
+        identity = await identity.update({
+            email,
+            mail_notification_token,
+            isMailNotification,
+        });
+
+        return {
+            user,
+            identity,
+        };
+    }
+
     async create_by_twitter_profile({ profile }) {
+        const user = await models.User.create({
+            username: uuidv4(),
+            nickname: profile.name,
+            detail: profile.description,
+            picture_small:
+                TwitterHandler.fix_image_name(
+                    profile.profile_image_url_https
+                ) || '/icons/noimage.svg',
+            picture_large:
+                TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
+                '/icons/noimage.svg',
+            verified: false,
+            bot: false,
+            isPrivate: false,
+            permission: true,
+        });
+
+        const email = `${'twitter'.slice(0, data_config.provider_limit)}${
+            profile.id
+        }${profile.screen_name}`;
+
+        const identity = await models.Identity.create({
+            UserId: user.id,
+            token: '',
+            email,
+            email_is_verified: false,
+            phone_number: uuidv4(),
+            phone_number_is_verified: false,
+            phone_code: '',
+            username: user.username,
+            account_is_created: false,
+            confirmation_code: '',
+            password_hash: '',
+            password: '',
+            twitter_id: profile.id,
+            twitter_username: profile.screen_name,
+            verified: false,
+            bot: false,
+            permission: true,
+        });
+
+        return {
+            user,
+            identity,
+        };
+    }
+
+    async update_by_twitter_profile({ user, identity, profile }) {
+        user = await user.update({
+            nickname: profile.name,
+            detail: profile.description,
+            picture_small:
+                TwitterHandler.fix_image_name(
+                    profile.profile_image_url_https
+                ) || '/icons/noimage.svg',
+            picture_large:
+                TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
+                '/icons/noimage.svg',
+        });
+
+        identity = await identity.update({
+            twitter_id: profile.id,
+        });
+
+        return {
+            user,
+            identity,
+        };
+    }
+
+    async create_by_twitter_oauth_profile({ profile, token, tokenSecret }) {
         let email;
         let mail_notification_token;
         let isMailNotification = false;
@@ -130,8 +238,8 @@ export default class AuthDataStore extends DataStoreImpl {
             password: '',
             twitter_id: profile.id,
             twitter_username: profile.username,
-            twitter_token: profile.token,
-            twitter_secret: profile.tokenSecret,
+            twitter_token: token,
+            twitter_secret: tokenSecret,
             verified: true,
             bot: false,
             permission: true,
@@ -151,8 +259,8 @@ export default class AuthDataStore extends DataStoreImpl {
         });
 
         user = await user.update({
-            nickname: profile.displayName,
-            detail: profile._json.description,
+            nickname: emojiStrip(profile.displayName),
+            detail: emojiStrip(profile._json.description),
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
@@ -175,7 +283,7 @@ export default class AuthDataStore extends DataStoreImpl {
         };
     }
 
-    async update_by_twitter_profile({
+    async update_by_twitter_oauth_profile({
         user,
         identity,
         profile,
@@ -226,6 +334,10 @@ export default class AuthDataStore extends DataStoreImpl {
             twitter_token: token,
             twitter_secret: tokenSecret,
         });
+
+        //TODO: make verified
+        if (!identity.verified) {
+        }
 
         // if (identity.email != email) {
         //     identity = await identity.update({
@@ -283,7 +395,53 @@ export default class AuthDataStore extends DataStoreImpl {
         };
     }
 
-    async find_or_create_by_twitter_profile({ profile, token, tokenSecret }) {
+    async find_or_create_by_twitter_profile({ profile }) {
+        if (!profile) return;
+
+        let identity;
+        let user = await models.User.findOne({
+            include: [
+                {
+                    model: models.Identity,
+                    where: {
+                        twitter_username: profile.screen_name,
+                    },
+                },
+            ],
+        });
+
+        if (!user) {
+            const results = await this.create_by_twitter_profile({
+                profile,
+            });
+            identity = results.identity;
+            user = results.user;
+        } else {
+            identity = await models.Identity.findOne({
+                where: {
+                    user_id: Number(user.id),
+                },
+            });
+            const results = await this.update_by_twitter_profile({
+                profile,
+                identity,
+                user,
+            });
+            identity = results.identity;
+            user = results.user;
+        }
+
+        return {
+            identity,
+            user,
+        };
+    }
+
+    async find_or_create_by_twitter_oauth_profile({
+        profile,
+        token,
+        tokenSecret,
+    }) {
         if (!profile) return;
 
         let identity;
@@ -299,7 +457,7 @@ export default class AuthDataStore extends DataStoreImpl {
         });
 
         if (!user) {
-            const results = await this.create_by_twitter_profile({
+            const results = await this.create_by_twitter_oauth_profile({
                 profile,
                 token,
                 tokenSecret,
@@ -312,7 +470,7 @@ export default class AuthDataStore extends DataStoreImpl {
                     user_id: Number(user.id),
                 },
             });
-            const results = await this.update_by_twitter_profile({
+            const results = await this.update_by_twitter_oauth_profile({
                 profile,
                 identity,
                 user,
@@ -333,18 +491,33 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!username) return;
         const identity = await models.Identity.findOne({
             where: {
-                username,
-                user_id,
+                $or: [
+                    {
+                        user_id: Number(user_id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
             },
         });
 
+        if (!identity.twitter_username) return;
+
         const twitter_followers = await TwitterHandler.getFollows({
-            screen_name: username,
+            count: 20,
+            screen_name: identity.twitter_username,
+            include_user_entities: true,
         });
 
-        console.log(twitter_followers);
+        if (!twitter_followers) return;
 
-        // const followers = await Promise.all(
-        // );
+        const followers = await Promise.all(
+            twitter_followers.users.map(profile =>
+                this.find_or_create_by_twitter_profile({ profile })
+            )
+        );
+
+        return followers;
     }
 }

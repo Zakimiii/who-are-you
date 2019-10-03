@@ -39,7 +39,7 @@ export default class AuthHandler extends HandlerImpl {
         }
 
         const { user, identity } = await authDataStore
-            .find_or_create_by_twitter_profile({
+            .find_or_create_by_twitter_oauth_profile({
                 profile,
                 token,
                 tokenSecret,
@@ -77,15 +77,13 @@ export default class AuthHandler extends HandlerImpl {
 
         const { oauth_token } = router.query;
 
-        console.log(profile);
-
         if (!profile) {
             router.redirect('/login');
             return;
         }
 
         const { user, identity } = await authDataStore
-            .find_or_create_by_twitter_profile({
+            .find_or_create_by_twitter_oauth_profile({
                 profile,
                 token,
                 tokenSecret,

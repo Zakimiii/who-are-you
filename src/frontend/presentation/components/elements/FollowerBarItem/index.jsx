@@ -3,63 +3,65 @@ import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import * as userActions from '@redux/User/UserReducer';
-import * as authActions from '@redux/Auth/AuthReducer';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
-import models from '@network/client_models';
+import autobind from 'class-autobind';
+import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import { browserHistory } from 'react-router';
 import { userShowRoute } from '@infrastructure/RouteInitialize';
-import tt from 'counterpart';
 import Responsible from '@modules/Responsible';
+import * as userActions from '@redux/User/UserReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
-class UserSection extends React.Component {
+class FollowerBarItem extends React.Component {
     static propTypes = {
         repository: AppPropTypes.User,
-        image_width: PropTypes.number,
-        image_height: PropTypes.number,
+        _repository: AppPropTypes.User,
     };
 
     static defaultProps = {
         repository: null,
-        image_width: 44,
-        image_height: 44,
+        _repository: null,
     };
 
     state = {};
 
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'UserSection');
+        autobind(this);
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'FollowerBarItem'
+        );
     }
 
     render() {
-        const { repository, image_width, image_height } = this.props;
+        const { _repository } = this.props;
 
-        if (!repository) return <div />;
+        if (!_repository) return <div />;
 
         return (
             <Link
-                className="user-section"
+                className="follower-bar-item"
                 to={
-                    repository &&
+                    _repository &&
                     userShowRoute.getPath({
                         params: {
-                            username: repository.username,
+                            username: _repository.username,
                         },
                     })
                 }
             >
-                <div className="user-section__image">
+                <div className="follower-bar-item__image">
                     <PictureItem
-                        width={image_width}
-                        redius={image_width / 2}
-                        url={repository && repository.picture_small}
-                        alt={repository && repository.nickname}
+                        width={24}
+                        redius={24 / 2}
+                        url={_repository && _repository.picture_small}
+                        alt={_repository && _repository.nickname}
                     />
                 </div>
-                <div className="user-section__title">
-                    {repository && repository.nickname}
+                <div className="follower-bar-item__title">
+                    {_repository && _repository.nickname}
                 </div>
             </Link>
         );
@@ -73,8 +75,9 @@ export default connect(
         return {
             current_user,
             isMyAccount,
+            _repository: userActions.bind(props.repository, state),
         };
     },
 
     dispatch => ({})
-)(UserSection);
+)(FollowerBarItem);

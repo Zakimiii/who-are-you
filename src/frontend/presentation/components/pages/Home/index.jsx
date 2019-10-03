@@ -32,7 +32,7 @@ class Home extends React.Component {
 
     render() {
         return (
-            <IndexComponent style={{ background: '#ffffff' }}>
+            <IndexComponent style={{ background: '#ffffff' }} showSide={false}>
                 <HomeList />
             </IndexComponent>
         );
