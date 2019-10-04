@@ -15,6 +15,12 @@ export const userShowRoute = new RouteEntity({
     component: require('@components/pages/UserShow'),
 });
 
+export const userEditRoute = new RouteEntity({
+    path: '/settings',
+    page: 'UserEdit',
+    component: require('@components/pages/UserEdit'),
+});
+
 export const headingShowRoute = new RouteEntity({
     path: '/heading/:id',
     page: 'HeadingShow',
@@ -37,6 +43,18 @@ export const answerNewRoute = new RouteEntity({
     path: '/answer/new',
     page: 'AnswerNew',
     component: require('@components/pages/AnswerNewAlias'),
+});
+
+export const notificationIndexRoute = new RouteEntity({
+    path: '/notifications',
+    page: 'NotificationIndex',
+    component: require('@components/pages/NotificationIndex'),
+});
+
+export const postIndexRoute = new RouteEntity({
+    path: '/posts',
+    page: 'PostIndex',
+    component: require('@components/pages/PostIndex'),
 });
 
 export const headingCanvasTestRoute = new RouteEntity({
@@ -97,6 +115,7 @@ export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
         userShowRoute,
+        userEditRoute,
         privacyRoute,
         faqRoute,
         termRoute,
@@ -109,6 +128,8 @@ export const routeEntities = new RouteEntities({
         answerCanvasTestRoute,
         headingShowRoute,
         answerShowRoute,
+        notificationIndexRoute,
+        postIndexRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,
