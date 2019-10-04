@@ -1,0 +1,29 @@
+.side-bar {
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    background: themed('sidebar');
+  }
+  &__items {
+    // height: 100%;
+    padding: 24px 0px;
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebar');
+    }
+  }
+  &__item {
+    height: 50px;
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebarItem');
+    }
+  }
+  &__user {
+    height: 300px;
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebarItem');
+    }
+  }
+}
