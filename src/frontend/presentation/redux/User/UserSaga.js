@@ -22,8 +22,8 @@ const userUseCase = new UserUseCase();
 
 export const userWatches = [
     takeEvery(LOCATION_CHANGE, userUseCase.initShow),
-    takeEvery(LOCATION_CHANGE, userUseCase.initPost),
-    takeEvery(LOCATION_CHANGE, userUseCase.initNotification),
+    takeEvery(LOCATION_CHANGE, userUseCase.initUserPosts),
+    takeEvery(LOCATION_CHANGE, userUseCase.initUserNotifications),
     takeEvery(LOCATION_CHANGE, userUseCase.initFollower),
     takeEvery(LOCATION_CHANGE, userUseCase.initUserHeadings),
     takeEvery(

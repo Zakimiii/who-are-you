@@ -196,7 +196,7 @@ export default class UserHandler extends HandlerImpl {
             isMyAccount,
         } = router.request.body;
 
-        const results = await models.Notification({
+        const results = await models.Notification.findAll({
             include: [
                 {
                     model: models.User,

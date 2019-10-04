@@ -364,7 +364,8 @@ export default class HeadingDataStore extends DataStoreImpl {
                     raw: true,
                 });
 
-                val.Heading = heading;
+                // MEMO: TypeError: Converting circular structure to JSON
+                // val.Heading = heading;
                 val.User = user;
 
                 heading.Answers = [val];

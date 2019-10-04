@@ -170,6 +170,7 @@ export default class UserUseCase extends UseCaseImpl {
             if (headings.length == 0) return;
             yield put(userActions.setUserPost({ headings }));
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());

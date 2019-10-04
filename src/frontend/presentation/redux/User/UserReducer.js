@@ -123,19 +123,21 @@ export default function reducer(state = defaultState, action) {
         }
 
         case SET_USER_POST: {
-            if (!payload.posts) return state;
+            if (!payload.headings) return state;
             return state.set(
                 'user_post',
-                List(action.payload.posts.map(val => Map(val)))
+                List(action.payload.headings.map(val => Map(val)))
             );
         }
 
         case ADD_USER_POST: {
-            if (!payload.posts) return state;
+            if (!payload.headings) return state;
             let before = state.get('user_post');
             return state.set(
                 'user_post',
-                before.concat(List(action.payload.posts.map(val => Map(val))))
+                before.concat(
+                    List(action.payload.headings.map(val => Map(val)))
+                )
             );
         }
 
@@ -357,6 +359,36 @@ export const getFollower = state => {
 
 export const getFollowerLength = state => {
     const val = state.user.get('user_follower');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getUserPost = state => {
+    const val = state.user.get('user_post');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getUserPostLength = state => {
+    const val = state.user.get('user_post');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getUserNotification = state => {
+    const val = state.user.get('user_notification');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getUserNotificationLength = state => {
+    const val = state.user.get('user_notification');
     if (!val) return 0;
     let home_models = val.toJS();
     if (!home_models) return 0;

@@ -39,7 +39,8 @@
     top: 62px;
     right: 0;
     bottom: 0;
-    left: 400px;
+    left: 0;
+    margin-left: auto;
     @include themify($themes) {
       background: themed('backgroundLight');
     }
@@ -63,8 +64,10 @@
     width: 100%;
     padding-left: 44px;
     padding-right: 10px;
+    width: 40%;
+    flex: 1 0 40%;
     &-in {
-      max-width: 350px;
+      max-width: 300px;
       margin-right: auto;
       height: 100%;
       @include themify($themes) {
@@ -79,10 +82,11 @@
   }
   &__center {
     order: 2;
-    width: 800px;
-    flex: 1 0 800px;
+    width: 60%;
+    flex: 1 0 60%;
     height: 100%;
     margin: 0 auto;
+    max-width: 800px;
     &-in {
       height: 100%;
       margin: 0 auto;
