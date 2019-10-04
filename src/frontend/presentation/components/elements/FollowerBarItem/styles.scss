@@ -12,7 +12,7 @@
   @include themify($themes) {
     transition: all 0.3s ease-in-out;
     background: themed('background');
-    border-top: solid 1px themed('border');
+    // border-top: solid 1px themed('border');
     border-bottom: solid 1px themed('border');
   }
   &__image {
@@ -27,10 +27,12 @@
     vertical-align: middle;
     position: relative;
     display: inline-block;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     padding: 4px;
     text-align: left;
+    width: calc(100% - 50px);
     @include FS(S);
     @include LH(S);
     @include FM(R);

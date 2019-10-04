@@ -5,15 +5,24 @@ import { browserHistory } from 'react-router';
 import tt from 'counterpart';
 
 export const SideBarSection = defineEnum({
-    Recommend: {
+    MyPage: {
         rawValue: 0,
         value: 'Recommend',
-        string: () => 'トレンド',
+        string: () => 'マイページ',
         image: 'recommend',
-        link: '/recommend',
+        link: '/',
         active: pathname =>
             !!userShowRoute ? userShowRoute.isValidPath(pathname) : false,
     },
+    // Recommend: {
+    //     rawValue: 0,
+    //     value: 'Recommend',
+    //     string: () => 'トレンド',
+    //     image: 'recommend',
+    //     link: '/recommend',
+    //     active: pathname =>
+    //         !!userShowRoute ? userShowRoute.isValidPath(pathname) : false,
+    // },
     Post: {
         rawValue: 0,
         value: 'Post',

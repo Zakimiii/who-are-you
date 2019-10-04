@@ -17,10 +17,11 @@
     @include FM(B);
     @include themify($themes) {
       color: themed('backgroundContrastLight');
+      border-bottom: solid 1px themed('border');
     }
     padding: 8px;
     margin: 12px auto;
-    margin-bottom: 12px;
+    padding-bottom: 20px;
   }
 
   &__items {
