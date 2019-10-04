@@ -22,6 +22,8 @@ const userUseCase = new UserUseCase();
 
 export const userWatches = [
     takeEvery(LOCATION_CHANGE, userUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, userUseCase.initPost),
+    takeEvery(LOCATION_CHANGE, userUseCase.initNotification),
     takeEvery(LOCATION_CHANGE, userUseCase.initFollower),
     takeEvery(LOCATION_CHANGE, userUseCase.initUserHeadings),
     takeEvery(
@@ -31,6 +33,11 @@ export const userWatches = [
     takeEvery(
         userActions.GET_MORE_USER_HEADING_ANSWER,
         userUseCase.getMoreUserHeadingAnswers
+    ),
+    takeEvery(userActions.GET_MORE_USER_POST, userUseCase.getMoreUserPosts),
+    takeEvery(
+        userActions.GET_MORE_USER_NOTIFICATION,
+        userUseCase.getMoreUserNotifications
     ),
     takeLatest(userActions.UPDATE_USER, userUseCase.updateUser),
     takeLatest(userActions.DELETE_USER, userUseCase.deleteUser),

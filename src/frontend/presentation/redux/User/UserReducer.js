@@ -15,6 +15,15 @@ export const ADD_USER_HEADING = 'user/ADD_USER_HEADING';
 export const ADD_USER_HEADING_ANSWER = 'user/ADD_USER_HEADING_ANSWER';
 export const GET_MORE_USER_HEADING = 'user/GET_MORE_USER_HEADING';
 export const GET_MORE_USER_HEADING_ANSWER = 'user/GET_MORE_USER_HEADING_ANSWER';
+
+export const SET_USER_POST = 'user/SET_USER_POST';
+export const ADD_USER_POST = 'user/ADD_USER_POST';
+export const GET_MORE_USER_POST = 'user/GET_MORE_USER_POST';
+
+export const SET_USER_NOTIFICATION = 'user/SET_USER_NOTIFICATION';
+export const ADD_USER_NOTIFICATION = 'user/ADD_USER_NOTIFICATION';
+export const GET_MORE_USER_NOTIFICATION = 'user/GET_MORE_USER_NOTIFICATION';
+
 export const SET_CACHES = 'user/SET_CACHES';
 export const RESET_CACHES = 'user/SET_CACHES';
 export const SET_DELETES = 'user/SET_DELETES';
@@ -23,6 +32,8 @@ export const RESET_DELETES = 'user/SET_DELETES';
 const defaultState = fromJS({
     show_user: Map(),
     user_heading: List([]),
+    user_post: List([]),
+    user_notification: List([]),
     user_follower: List([]),
     caches: List([]),
     deletes: List([]),
@@ -107,6 +118,42 @@ export default function reducer(state = defaultState, action) {
                 'user_heading',
                 before.concat(
                     List(action.payload.headings.map(val => Map(val)))
+                )
+            );
+        }
+
+        case SET_USER_POST: {
+            if (!payload.posts) return state;
+            return state.set(
+                'user_post',
+                List(action.payload.posts.map(val => Map(val)))
+            );
+        }
+
+        case ADD_USER_POST: {
+            if (!payload.posts) return state;
+            let before = state.get('user_post');
+            return state.set(
+                'user_post',
+                before.concat(List(action.payload.posts.map(val => Map(val))))
+            );
+        }
+
+        case SET_USER_NOTIFICATION: {
+            if (!payload.notifications) return state;
+            return state.set(
+                'user_notification',
+                List(action.payload.notifications.map(val => Map(val)))
+            );
+        }
+
+        case ADD_USER_NOTIFICATION: {
+            if (!payload.notifications) return state;
+            let before = state.get('user_notification');
+            return state.set(
+                'user_notification',
+                before.concat(
+                    List(action.payload.notifications.map(val => Map(val)))
                 )
             );
         }
@@ -209,6 +256,36 @@ export const getMoreUserHeading = payload => ({
 
 export const getMoreUserHeadingAnswer = payload => ({
     type: GET_MORE_USER_HEADING_ANSWER,
+    payload,
+});
+
+export const setUserPost = payload => ({
+    type: SET_USER_POST,
+    payload,
+});
+
+export const addUserPost = payload => ({
+    type: ADD_USER_POST,
+    payload,
+});
+
+export const getMoreUserPost = payload => ({
+    type: GET_MORE_USER_POST,
+    payload,
+});
+
+export const setUserNotification = payload => ({
+    type: SET_USER_NOTIFICATION,
+    payload,
+});
+
+export const addUserNotification = payload => ({
+    type: ADD_USER_NOTIFICATION,
+    payload,
+});
+
+export const getMoreUserNotification = payload => ({
+    type: GET_MORE_USER_NOTIFICATION,
     payload,
 });
 

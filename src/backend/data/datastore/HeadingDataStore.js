@@ -267,4 +267,115 @@ export default class HeadingDataStore extends DataStoreImpl {
 
         return await this.getIndexIncludes(results);
     }
+
+    async getUserPostHeadings({
+        user_id,
+        username,
+        offset,
+        limit,
+        isMyAccount,
+    }) {
+        const results = await models.Heading.findAll({
+            where: {
+                isHide: false,
+            },
+            include: [
+                {
+                    as: 'Voters',
+                    model: models.User,
+                    where: {
+                        $or: [
+                            {
+                                id: Number(user_id) || 0,
+                            },
+                            {
+                                username,
+                            },
+                        ],
+                    },
+                    attributes: ['id'],
+                },
+            ],
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getUserPostHeadingAnswers({
+        user_id,
+        username,
+        offset,
+        limit,
+        isMyAccount,
+    }) {
+        const answers = await models.Answer.findAll({
+            where: {
+                isHide: false,
+            },
+            include: [
+                {
+                    model: models.User,
+                    where: {
+                        $or: [
+                            {
+                                id: Number(user_id) || 0,
+                            },
+                            {
+                                username,
+                            },
+                        ],
+                    },
+                    attributes: ['id'],
+                },
+            ],
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        const results = await Promise.all(
+            answers.map(async val => {
+                let heading = await models.Heading.findOne({
+                    where: {
+                        id: val.HeadingId,
+                    },
+                    raw: true,
+                });
+
+                let user = await models.User.findOne({
+                    where: {
+                        id: val.UserId,
+                    },
+                    raw: true,
+                });
+
+                val.Heading = heading;
+                val.User = user;
+
+                heading.Answers = [val];
+                return heading;
+            })
+        );
+
+        return await this.getIncludes(results, {
+            user: true,
+            voter: true,
+            answers: false,
+        });
+    }
 }

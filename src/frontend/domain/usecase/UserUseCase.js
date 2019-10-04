@@ -9,7 +9,12 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import AppUseCase from '@usecase/AppUseCase';
-import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
+import {
+    userShowRoute,
+    homeRoute,
+    postIndexRoute,
+    notificationIndexRoute,
+} from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
 import data_config from '@constants/data_config';
@@ -145,6 +150,112 @@ export default class UserUseCase extends UseCaseImpl {
         } catch (e) {
             console.log(e);
             yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *initUserPosts({ payload: { pathname } }) {
+        if (!postIndexRoute.isValidPath(pathname)) return;
+        try {
+            yield put(authActions.syncCurrentUser());
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            if (!current_user) return;
+            const headings = yield userRepository.getPosts({
+                username: current_user.username,
+                isMyAccount: true,
+            });
+            if (headings.length == 0) return;
+            yield put(userActions.setUserPost({ headings }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreUserPosts({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        if (postIndexRoute.isValidPath(pathname)) {
+            try {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserPostLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (!current_user || loading || indexContentsLength == 0)
+                    return;
+                yield put(appActions.fetchMoreDataBegin());
+                const headings = yield userRepository.getPosts({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (headings.length == 0) return;
+                yield put(userActions.addUserPost({ headings }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *initUserNotifications({ payload: { pathname } }) {
+        if (!notificationIndexRoute.isValidPath(pathname)) return;
+        try {
+            yield put(authActions.syncCurrentUser());
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            if (!current_user) return;
+            const notifications = yield userRepository.getNotifications({
+                username: current_user.username,
+                isMyAccount: true,
+            });
+            if (notifications.length == 0) return;
+            yield put(userActions.setUserNotification({ notifications }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreUserNotifications({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        if (notificationIndexRoute.isValidPath(pathname)) {
+            try {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserPostLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (!current_user || loading || indexContentsLength == 0)
+                    return;
+                yield put(appActions.fetchMoreDataBegin());
+                const notifications = yield userRepository.getNotifications({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (notifications.length == 0) return;
+                yield put(userActions.addUserNotification({ notifications }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
         }
         yield put(appActions.fetchMoreDataEnd());
     }
