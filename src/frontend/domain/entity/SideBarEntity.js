@@ -1,64 +1,41 @@
 import Entity from '@entity/Entity';
 import { Enum, defineEnum } from '@extension/Enum';
-import ope from '@extension/operator';
-import {
-    userShowRoute,
-    labelShowRoute,
-    feedsRoute,
-    homeIndexRoute,
-    usersRecommendRoute,
-    trendRoute,
-} from '@infrastructure/RouteInitialize';
+import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import tt from 'counterpart';
 
-export const menuSection = defineEnum({
-    Home: {
+export const SideBarSection = defineEnum({
+    Recommend: {
         rawValue: 0,
-        value: 'Home',
-        string: () => tt('g.home'),
-        image: 'home',
-        link: '/', //homeIndexRoute.path,
+        value: 'Recommend',
+        string: () => 'トレンド',
+        image: 'recommend',
+        link: '/recommend',
         active: pathname =>
-            !!homeIndexRoute ? homeIndexRoute.isValidPath(pathname) : false,
+            !!userShowRoute ? userShowRoute.isValidPath(pathname) : false,
     },
-    Trend: {
+    Post: {
+        rawValue: 0,
+        value: 'Post',
+        string: () => '過去の投稿',
+        image: 'tip',
+        link: '/posts',
+        active: pathname => false,
+    },
+    Notification: {
         rawValue: 1,
-        value: 'Trend',
-        string: () => tt('g.trend'),
-        image: 'trend',
-        link: '/trends',
-        active: pathname =>
-            !!trendRoute ? trendRoute.isValidPath(pathname) : false,
+        value: 'Notification',
+        string: () => 'お知らせ',
+        image: 'notification',
+        link: '/notifications',
+        active: pathname => false,
     },
-    // Events: {
-    //     rawValue: 2,
-    //     value: 'Events',
-    //     image: 'event',
-    //     link: '/events',
-    // },
-    Feed: {
-        rawValue: 2,
-        value: 'Feed',
-        string: () => tt('g.feed'),
-        image: 'feed',
-        link: '/feeds', //feedsRoute.path,
-        active: pathname =>
-            !!feedsRoute ? feedsRoute.isValidPath(pathname) : false,
-    },
-    Mypage: {
-        rawValue: 3,
-        value: 'MyPage',
-        string: () => tt('g.mypage'),
-        image: 'noimage',
-        link: id => userShowRoute.getPath({ params: { id } }),
-        active: (id, pathname) =>
-            !!userShowRoute
-                ? userShowRoute.isValidPathWithParams(pathname, { id })
-                : false,
-    },
-    Border3: {
-        rawValue: 3,
-        value: 'Border',
+    Setting: {
+        rawValue: 1,
+        value: 'Setting',
+        string: () => '設定',
+        image: 'setting',
+        link: '/settings',
+        active: pathname => false,
     },
 });

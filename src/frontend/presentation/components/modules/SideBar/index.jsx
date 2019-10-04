@@ -1,17 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import SideBarItem from '@elements/SideBarItem';
+import UserSideItem from '@modules/UserSideItem';
+import { SideBarSection } from '@entity';
+import Img from 'react-image';
 
 class SideBar extends React.Component {
-    static propTypes = {};
+    static propTypes = {
+        section: PropTypes.object,
+        pathname: PropTypes.string,
+    };
 
-    static defaultProps = {};
+    static defaultProps = {
+        section: SideBarSection,
+        pathname: browserHistory
+            ? browserHistory.getCurrentLocation().pathname
+            : null,
+    };
 
     state = {};
 
@@ -28,39 +39,11 @@ class SideBar extends React.Component {
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        const { section } = this.props;
+        const { section, pathname } = this.props;
 
         const renderItem = items =>
             items._enums.map((item, index) => {
                 switch (item.value) {
-                    case 'Border':
-                        return <div className="side-bar__border" key={index} />;
-                    case 'MyPage':
-                        if (!!current_user) {
-                            return (
-                                <li key={index} className="side-bar__item">
-                                    <SideBarItem
-                                        value={item.string()}
-                                        image={item.image}
-                                        link={item.link(current_user.id)}
-                                        active={item.active(
-                                            current_user.id,
-                                            pathname
-                                        )}
-                                    />
-                                </li>
-                            );
-                        } else {
-                            return (
-                                <li key={index} className="side-bar__item">
-                                    <SideBarItem
-                                        value={item.string()}
-                                        image={item.image}
-                                        onClick={showLogin}
-                                    />
-                                </li>
-                            );
-                        }
                     default:
                         return (
                             <li key={index} className="side-bar__item">
@@ -74,11 +57,21 @@ class SideBar extends React.Component {
                         );
                 }
             });
+
         return (
             <div className="side-bar">
+                <div className="side-bar__user">
+                    <UserSideItem />
+                </div>
                 <ul className="side-bar__items">
                     {section && renderItem(section)}
                 </ul>
+                <div className="side-bar__logo">
+                    <Img
+                        className="side-bar__logo-image"
+                        src={'/images/brands/gray-logo.png'}
+                    />
+                </div>
             </div>
         );
     }

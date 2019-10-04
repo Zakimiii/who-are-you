@@ -20,10 +20,22 @@
     }
   }
   &__user {
-    height: 300px;
     transition: all 0.3s ease-in-out;
     @include themify($themes) {
       background: themed('sidebarItem');
+    }
+  }
+  &__logo {
+    position: fixed;
+    bottom: 44px;
+    left: 0;
+    margin: 0 auto;
+    width: 300px;
+    &-image {
+      display: block;
+      width: 159px;
+      height: 30px;
+      margin: 0 auto;
     }
   }
 }
