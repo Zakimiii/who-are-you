@@ -44,6 +44,10 @@ passport.use(
 export default class TwitterHandler {
     static passport = passport;
 
+    static getShareUrl = ({ text, pathname }) =>
+        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
+            pathname}&text=${text}&hashtags=whoareyou`;
+
     static fix_image_name = str => str.replace('_normal.', '_400x400.');
 
     static fix_banner_name = str => str + '/1500x500';
@@ -114,8 +118,7 @@ export default class TwitterHandler {
                 accessToken,
                 accessTokenSecret,
                 {
-                    status:
-                        status + data_config.post_template(status, pathname),
+                    status: data_config.post_template(status, pathname),
                 },
                 '',
                 (err, data, res) => {

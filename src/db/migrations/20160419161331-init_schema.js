@@ -662,6 +662,104 @@ module.exports = {
                 return queryInterface.sequelize.query(
                     'ALTER TABLE `notifications` ROW_FORMAT=DYNAMIC;'
                 );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'follows',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        voter_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
+                        },
+                        votered_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
+                        },
+                        isPrivate: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        valid: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        permission: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `follows` ROW_FORMAT=DYNAMIC;'
+                );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'withdrawals',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        twitter_username: {
+                            type: Sequelize.STRING(255),
+                        },
+                        twitter_id: {
+                            type: Sequelize.STRING(255),
+                        },
+                        valid: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `follows` ROW_FORMAT=DYNAMIC;'
+                );
             });
     },
     down: function(queryInterface, Sequelize) {

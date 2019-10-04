@@ -50,6 +50,7 @@
       flex-wrap: nowrap;
       width: 100%;
       min-height: 100vh;
+      padding-bottom: 45vh;
       position: relative;
       align-items: stretch;
       @include themify($themes) {

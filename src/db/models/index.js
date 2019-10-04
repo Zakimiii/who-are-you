@@ -26,6 +26,8 @@ const models = [
     require('./access_token')(sequelize, Sequelize),
     require('./developer')(sequelize, Sequelize),
     require('./notification')(sequelize, Sequelize),
+    require('./follow')(sequelize, Sequelize),
+    require('./withdrawal')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {

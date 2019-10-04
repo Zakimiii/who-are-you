@@ -555,53 +555,13 @@
         }
     },
     "notifications": {
-        "on_create_opinion": {
-            "title": "新しいチャットを確認!",
-            "body": "新メッセージをもらいました！"
+        "on_create_heading": {
+            "title": "新しい紹介カードが届きました！",
+            "body": "カードをシェアして回答を募集しましょう！"
         },
-        "on_create_content": {
-            "title": "新しいチャットをチェックしよう!",
-            "body": "新しいチャットをチェックしよう!"
-        },
-        "on_create_content_call": {
-            "title": "新しいチャット募集をチェックしよう!",
-            "body": "新しいチャット募集をチェックしよう!"
-        },
-        "on_create_request": {
-            "title": "最新リクエストを確認!",
-            "body": "新リクエストをもらいました！"
-        },
-        "on_answer_request": {
-            "title": "リクエストの回答を確認!",
-            "body": "回答を確認して評価しよう！"
-        },
-        "on_get_good": {
-            "title": "いいねをもらいました！",
-            "body": "ポイントを確認しよう！"
-        },
-        "on_get_good_opinion": {
-            "title": "スーパーグッドをもらいました！",
-            "body": "あなたの考えが相手に認められました！"
-        },
-        "on_get_good_answer": {
-            "title": "スーパーグッドをもらいました!",
-            "body": "あなたの回答が認められました！"
-        },
-        "on_get_cheering": {
-            "title": "応援をもらいました！",
-            "body": "もらった応援を確認しよう！"
-        },
-        "on_get_token": {
-            "title": "報酬をもらいました！",
-            "body": "通貨・ポイントを確認しよう！"
-        },
-        "on_daily_summary": {
-            "title": "本日のおすすめ",
-            "body": "クリックして確認しよう！"
-        },
-        "on_daily_opinion": {
-            "title": "本日のスーパーグッド",
-            "body": "クリックして確認しよう！"
+        "on_create_answer": {
+            "title": "新しい回答が届きました！",
+            "body": "回答をシェアして自分のことを多くの人に広めましょう！"
         }
     },
     "pages": {

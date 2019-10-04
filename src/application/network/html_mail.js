@@ -550,18 +550,8 @@ export const summary_template = `
 `;
 
 export const templates = {
-    content_notification: base_template,
-    content_call_notification: base_template,
-    opinion_notification: base_template,
-    answer_notification: base_template,
-    request_notification: base_template,
-    good_notification: base_template,
-    good_opinion_notification: base_template,
-    good_answer_notification: base_template,
-    cheering_notification: base_template,
-    token_notification: base_template,
-    daily_summary_notification: summary_template,
-    daily_opinion_notification: summary_template,
+    on_create_heading: base_template,
+    on_create_answer: base_template,
 };
 
 /*<tr>

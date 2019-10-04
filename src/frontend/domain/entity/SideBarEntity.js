@@ -7,9 +7,9 @@ import tt from 'counterpart';
 export const SideBarSection = defineEnum({
     MyPage: {
         rawValue: 0,
-        value: 'Recommend',
+        value: 'MyPage',
         string: () => 'マイページ',
-        image: 'recommend',
+        image: 'noimage',
         link: '/',
         active: pathname =>
             !!userShowRoute ? userShowRoute.isValidPath(pathname) : false,
