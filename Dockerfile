@@ -1,4 +1,4 @@
-FROM node:8.7 as builder
+FROM node:8.9 as builder
 
 MAINTAINER zakimiii
 
