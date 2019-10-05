@@ -46,7 +46,7 @@ export default class TwitterHandler {
 
     static getShareUrl = ({ text, pathname }) =>
         `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
-            pathname}&text=${text}&hashtags=whoareyou`;
+            pathname}&text=${text + '\n\n'}&hashtags=whoareyou`;
 
     static fix_image_name = str => str.replace('_normal.', '_400x400.');
 

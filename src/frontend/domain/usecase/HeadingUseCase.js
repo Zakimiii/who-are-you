@@ -18,6 +18,7 @@ import tt from 'counterpart';
 import data_config from '@constants/data_config';
 import { HeadingRepository } from '@repository';
 import { FileEntity, FileEntities } from '@entity';
+import TwitterHandler from '@network/twitter';
 
 const headingRepository = new HeadingRepository();
 const appUsecase = new AppUseCase();
@@ -131,10 +132,15 @@ export default class HeadingUseCase extends UseCaseImpl {
                 });
             }
             const data = yield headingRepository.create(heading);
+            window.open(
+                TwitterHandler.getShareUrl({
+                    text: data.body,
+                    pathname: `/headeing/${data.id}`,
+                })
+            );
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());

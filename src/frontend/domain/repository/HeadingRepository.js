@@ -22,7 +22,7 @@ export default class HeadingRepository extends RepositoryImpl {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async update(heading) {
@@ -30,7 +30,7 @@ export default class HeadingRepository extends RepositoryImpl {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async delete(heading) {
@@ -38,7 +38,7 @@ export default class HeadingRepository extends RepositoryImpl {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async trash(heading) {
