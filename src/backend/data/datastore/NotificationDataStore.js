@@ -22,6 +22,23 @@ export default class NotificationDataStore extends DataStoreImpl {
         super();
     }
 
+    async check(notification) {
+        if (!notification) return;
+        const result = await models.Notification.findOne({
+            where: {
+                id: notification.id,
+            },
+        });
+
+        if (!result) return;
+
+        const updated = await result.update({
+            isChecked: true,
+        });
+
+        return updated;
+    }
+
     async onCreateAnswer(answer) {
         console.log(answer);
         if (!answer) return;

@@ -183,7 +183,6 @@ export default class HeadingUseCase extends UseCaseImpl {
             const data = yield headingRepository.trash(heading);
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());
@@ -196,7 +195,6 @@ export default class HeadingUseCase extends UseCaseImpl {
             const data = yield headingRepository.trash(heading);
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());
