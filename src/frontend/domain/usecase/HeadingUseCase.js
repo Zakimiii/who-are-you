@@ -132,12 +132,7 @@ export default class HeadingUseCase extends UseCaseImpl {
                 });
             }
             const data = yield headingRepository.create(heading);
-            window.open(
-                TwitterHandler.getShareUrl({
-                    text: data.body,
-                    pathname: `/headeing/${data.id}`,
-                })
-            );
+            yield put(headingActions.createdHeading({ heading: data }));
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
         } catch (e) {
@@ -163,6 +158,7 @@ export default class HeadingUseCase extends UseCaseImpl {
                 });
             }
             const data = yield headingRepository.update(heading);
+            yield put(headingActions.createdHeading({ heading: data }));
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
             yield put(headingActions.syncHeading({ id: heading.id }));

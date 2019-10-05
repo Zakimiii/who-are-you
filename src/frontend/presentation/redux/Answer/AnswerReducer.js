@@ -3,9 +3,11 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import { answerNewRoute } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
+import TwitterHandler from '@network/twitter';
 
 // Action constants
 export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
+export const CREATED_ANSWER = 'answer/CREATED_ANSWER';
 export const UPDATE_ANSWER = 'answer/UPDATE_ANSWER';
 export const DELETE_ANSWER = 'answer/DELETE_ANSWER';
 export const TRASH_ANSWER = 'answer/TRASH_ANSWER';
@@ -134,6 +136,18 @@ export default function reducer(state = defaultState, action) {
             });
         }
 
+        case CREATED_ANSWER: {
+            const answer = payload.answer;
+            if (!answer) return state;
+            if (!answer.id) return state;
+            window.open(
+                TwitterHandler.getShareUrl({
+                    text: answer.body,
+                    pathname: `/answer/${answer.id}`,
+                })
+            );
+        }
+
         default:
             return state;
     }
@@ -198,6 +212,11 @@ export const resetDeletes = payload => ({
 
 export const createAnswer = payload => ({
     type: CREATE_ANSWER,
+    payload,
+});
+
+export const createdAnswer = payload => ({
+    type: CREATED_ANSWER,
     payload,
 });
 

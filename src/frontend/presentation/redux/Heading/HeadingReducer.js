@@ -2,9 +2,11 @@ import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import { headingNewRoute } from '@infrastructure/RouteInitialize';
+import TwitterHandler from '@network/twitter';
 
 // Action constants
 export const CREATE_HEADING = 'heading/CREATE_HEADING';
+export const CREATED_HEADING = 'heading/CREATED_HEADING';
 export const UPDATE_HEADING = 'heading/UPDATE_HEADING';
 export const DELETE_HEADING = 'heading/DELETE_HEADING';
 export const TRASH_HEADING = 'heading/TRASH_HEADING';
@@ -155,6 +157,18 @@ export default function reducer(state = defaultState, action) {
             );
         }
 
+        case CREATED_HEADING: {
+            const heading = payload.heading;
+            if (!heading) return state;
+            if (!heading.id) return state;
+            window.open(
+                TwitterHandler.getShareUrl({
+                    text: heading.body,
+                    pathname: `/headeing/${heading.id}`,
+                })
+            );
+        }
+
         default:
             return state;
     }
@@ -224,6 +238,11 @@ export const createHeading = payload => ({
 
 export const syncHeading = payload => ({
     type: SYNC_HEADING,
+    payload,
+});
+
+export const createdHeading = payload => ({
+    type: CREATED_HEADING,
     payload,
 });
 

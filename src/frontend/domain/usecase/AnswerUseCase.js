@@ -81,6 +81,7 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.create(answer);
+            yield put(answerActions.createdAnswer({ answer: data }));
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
         } catch (e) {
@@ -106,6 +107,7 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.update(answer);
+            yield put(answerActions.createdAnswer({ answer: data }));
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
             yield put(answerActions.syncAnswer({ id: answer.id }));
