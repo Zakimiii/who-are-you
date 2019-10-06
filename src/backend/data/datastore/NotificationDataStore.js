@@ -40,7 +40,6 @@ export default class NotificationDataStore extends DataStoreImpl {
     }
 
     async onCreateAnswer(answer) {
-        console.log(answer);
         if (!answer) return;
         const target = await models.Answer.findOne({
             where: {

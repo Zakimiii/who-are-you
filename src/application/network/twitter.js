@@ -2,7 +2,7 @@ const Twitter = require('twitter-node-client').Twitter;
 const OAuth = require('oauth');
 const env = require('@env/env.json');
 const config = require('@constants/config');
-var passport = require('koa-passport'),
+var passport = require('@network/koa-passport'),
     TwitterStrategy = require('passport-twitter').Strategy;
 const data_config = require('@constants/data_config');
 

@@ -1,6 +1,6 @@
 const env = require('@env/env.json');
 const config = require('@constants/config');
-var passport = require('koa-passport'),
+var passport = require('@network/koa-passport'),
     InstagramStrategy = require('passport-instagram').Strategy;
 
 passport.use(

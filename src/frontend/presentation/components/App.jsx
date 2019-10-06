@@ -33,10 +33,10 @@ import ScreenShot from '@modules/ScreenShot';
 class App extends Component {
     static redirect = url => {
         if (
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com/' == url ||
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com' == url ||
-            'http://selfinity.me/' == url ||
-            'http://selfinity.me' == url
+            `${config.APP_PUBLIC_IP}/` == url ||
+            `${config.APP_PUBLIC_IP}` == url ||
+            `http://${config.APP_DOMAIN}/` == url ||
+            `http://${config.APP_DOMAIN}` == url
         ) {
             window.location.replace('https://selfinity.me');
         }

@@ -10,6 +10,41 @@ ENV DOCKER_TAG ${DOCKER_TAG}
 # yarn > npm
 #RUN npm install --global yarn
 
+RUN apt-get -y -qq update
+
+RUN echo "mysql-server mysql-server/root_password password root" | debconf-set-selections && \
+    echo "mysql-server mysql-server/root_password_again password root" | debconf-set-selections && \
+    apt-get -y install mysql-server
+
+# RUN apt-get install -y vim \
+#   && apt-get install -y mysql-client \
+#   # && apt-get install -y mysql-server \
+#   && apt-get install -y gcc \
+#   && apt-get install -y curl \
+#   && apt-get install -y bash \
+#   && apt-get install -y file \
+#   && apt-get install -y openssh-server \
+#   && apt-get install -y ssh \
+#   && apt-get install -y build-essential \
+#   && apt-get install -y openssl \
+#   # && apt-get install -y mecab \
+#   # && apt-get install -y libmecab-dev \
+#   # && apt-get install -y mecab-ipadic-utf8 \
+#   && apt-get install -y git \
+#   && apt-get install -y make \
+#   && apt-get install -y curl \
+#   && apt-get install -y xz-utils \
+#   && apt-get install -y file \
+#   && apt-get install -y sudo \
+#   && apt-get install -y wget \
+#   && apt-get install -y bzip2 \
+#   && apt-get install -y libtool \
+#   && apt-get install -y shtool \
+#   && apt-get install -y autogen \
+#   && apt-get install -y autoconf \
+#   && apt-get install -y automake \
+#   && apt-get install -y swig
+
 RUN npm install -g yarn
 
 RUN npm install -g yarn \

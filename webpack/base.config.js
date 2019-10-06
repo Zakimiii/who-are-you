@@ -65,7 +65,7 @@ module.exports = {
                 test: /\.js$|\.jsx$/,
                 exclude: {
                   include: /(node_modules|bower_compontents)/,
-                  exclude: es6_modules,
+                  // exclude: es6_modules,
                 },
                 use: 'babel-loader',
             },
