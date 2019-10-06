@@ -520,6 +520,33 @@ export default class AuthDataStore extends DataStoreImpl {
             twitter_followers.users.map(profile =>
                 this.find_or_create_by_twitter_profile({ profile })
             )
+        ).catch(async e => {
+            const users = await models.User.findAll({
+                include: [
+                    {
+                        model: models.Follow,
+                        as: 'Followers',
+                        where: {
+                            votered_id: identity.UserId,
+                        },
+                    },
+                ],
+                limit: 20,
+            });
+            return users.map(val => {
+                return { user: val };
+            });
+        });
+
+        await Promise.all(
+            followers.map(val =>
+                models.Follow.findOrCreate({
+                    where: {
+                        voter_id: val.user.id,
+                        votered_id: identity.UserId,
+                    },
+                })
+            )
         );
 
         return followers;

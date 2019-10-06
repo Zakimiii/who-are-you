@@ -76,6 +76,30 @@ module.exports = function(sequelize, DataTypes) {
                             allowNull: true,
                         },
                     });
+                    User.hasMany(models.Follow, {
+                        foreignKey: {
+                            name: 'voter_id',
+                            allowNull: false,
+                        },
+                    });
+                    User.hasMany(models.Follow, {
+                        foreignKey: {
+                            name: 'votered_id',
+                            allowNull: false,
+                        },
+                    });
+                    User.belongsToMany(models.User, {
+                        as: 'Followers',
+                        through: 'Follow',
+                        foreignKey: 'voter_id',
+                        otherKey: 'votered_id',
+                    });
+                    User.belongsToMany(models.User, {
+                        as: 'Follows',
+                        through: 'Follow',
+                        foreignKey: 'votered_id',
+                        otherKey: 'voter_id',
+                    });
                 },
             },
         }
