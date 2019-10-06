@@ -11,31 +11,13 @@ module.exports = function(sequelize, DataTypes) {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            VoterId: {
-                type: DataTypes.INTEGER,
-                references: {
-                    model: 'users',
-                    key: 'id',
-                },
-                field: 'voter_id',
+            twitter_username: {
+                type: DataTypes.STRING(255),
             },
-            VoteredId: {
-                type: DataTypes.INTEGER,
-                references: {
-                    model: 'users',
-                    key: 'id',
-                },
-                field: 'votered_id',
-            },
-            isPrivate: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
+            twitter_id: {
+                type: DataTypes.STRING(255),
             },
             valid: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
-            },
-            permission: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
@@ -47,41 +29,30 @@ module.exports = function(sequelize, DataTypes) {
             timestamps: true,
             underscored: true,
             classMethods: {
-                associate: function(models) {
-                    Withdrawal.belongsTo(models.User, {
-                        foreignKey: {
-                            name: 'voter_id',
-                            allowNull: false,
-                        },
-                    });
-                    Withdrawal.belongsTo(models.User, {
-                        foreignKey: {
-                            name: 'votered_id',
-                            allowNull: false,
-                        },
-                    });
-                },
+                associate: function(models) {},
             },
         }
     );
 
     Withdrawal.Instance.prototype.toJSON = self => {
         return {
-            VoterId: self.VoterId,
-            VoteredId: self.VoteredId,
-            isPrivate: self.isPrivate,
+            id: self.id,
+            twitter_username: self.twitter_username,
+            twitter_id: self.twitter_id,
             valid: self.valid,
-            permission: self.permission,
+            createdAt: self.createdAt,
+            updatedAt: self.updatedAt,
         };
     };
 
     Withdrawal.Instance.prototype.toMap = self => {
         return Map({
-            VoterId: self.VoterId,
-            VoteredId: self.VoteredId,
-            isPrivate: self.isPrivate,
+            id: self.id,
+            twitter_username: self.twitter_username,
+            twitter_id: self.twitter_id,
             valid: self.valid,
-            permission: self.permission,
+            createdAt: self.createdAt,
+            updatedAt: self.updatedAt,
         });
     };
 

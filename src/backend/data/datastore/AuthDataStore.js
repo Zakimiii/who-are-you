@@ -13,7 +13,6 @@ import env from '@env/env.json';
 import TwitterHandler from '@network/twitter';
 import mail from '@network/mail';
 import jwt from 'jsonwebtoken';
-import emojiStrip from 'emoji-strip';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
@@ -502,6 +501,7 @@ export default class AuthDataStore extends DataStoreImpl {
             },
         });
 
+        if (!identity) return;
         if (!identity.twitter_username) return;
 
         const twitter_followers = await TwitterHandler.getFollows(

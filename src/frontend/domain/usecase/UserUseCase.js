@@ -37,6 +37,7 @@ export default class UserUseCase extends UseCaseImpl {
                     pathname
                 );
                 yield put(appActions.fetchDataBegin());
+                yield put(authActions.syncCurrentUser());
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
                 );
@@ -48,6 +49,7 @@ export default class UserUseCase extends UseCaseImpl {
                 yield put(userActions.setShow({ user }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(appActions.fetchDataBegin());
+                yield put(authActions.syncCurrentUser());
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
                 );
@@ -69,6 +71,7 @@ export default class UserUseCase extends UseCaseImpl {
         try {
             // const username = userShowRoute.params_value('username', pathname);
             yield put(appActions.fetchDataBegin());
+            yield put(authActions.syncCurrentUser());
             const current_user = yield select(state =>
                 authActions.getCurrentUser(state)
             );
