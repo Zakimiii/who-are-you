@@ -12,6 +12,7 @@ import AppUseCase from '@usecase/AppUseCase';
 import {
     userShowRoute,
     homeRoute,
+    homeAliasRoute,
     postIndexRoute,
     notificationIndexRoute,
 } from '@infrastructure/RouteInitialize';
@@ -29,18 +30,34 @@ export default class UserUseCase extends UseCaseImpl {
     }
 
     *initShow({ payload: { pathname } }) {
-        if (!userShowRoute.isValidPath(pathname)) return;
         try {
-            const username = userShowRoute.params_value('username', pathname);
-            yield put(appActions.fetchDataBegin());
-            const current_user = yield select(state =>
-                authActions.getCurrentUser(state)
-            );
-            const user = yield userRepository.getUser({
-                username,
-                isMyAccount: current_user && current_user.username == username,
-            });
-            yield put(userActions.setShow({ user }));
+            if (userShowRoute.isValidPath(pathname)) {
+                const username = userShowRoute.params_value(
+                    'username',
+                    pathname
+                );
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const user = yield userRepository.getUser({
+                    username,
+                    isMyAccount:
+                        current_user && current_user.username == username,
+                });
+                yield put(userActions.setShow({ user }));
+            } else if (homeRoute.isValidPath(pathname)) {
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                const user = yield userRepository.getUser({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                yield put(userActions.setShow({ user }));
+            }
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -48,7 +65,7 @@ export default class UserUseCase extends UseCaseImpl {
     }
 
     *initFollower({ payload: { pathname } }) {
-        if (homeRoute.isValidPath(pathname)) return;
+        if (homeAliasRoute.isValidPath(pathname)) return;
         try {
             // const username = userShowRoute.params_value('username', pathname);
             yield put(appActions.fetchDataBegin());
@@ -70,20 +87,38 @@ export default class UserUseCase extends UseCaseImpl {
     }
 
     *initUserHeadings({ payload: { pathname } }) {
-        if (!userShowRoute.isValidPath(pathname)) return;
         try {
-            const username = userShowRoute.params_value('username', pathname);
-            yield put(authActions.syncCurrentUser());
-            yield put(appActions.fetchDataBegin());
-            const current_user = yield select(state =>
-                authActions.getCurrentUser(state)
-            );
-            const headings = yield userRepository.getHeadings({
-                username,
-                isMyAccount: current_user && current_user.username == username,
-            });
-            if (headings.length == 0) return;
-            yield put(userActions.setUserHeading({ headings }));
+            if (userShowRoute.isValidPath(pathname)) {
+                const username = userShowRoute.params_value(
+                    'username',
+                    pathname
+                );
+                yield put(authActions.syncCurrentUser());
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const headings = yield userRepository.getHeadings({
+                    username,
+                    isMyAccount:
+                        current_user && current_user.username == username,
+                });
+                if (headings.length == 0) return;
+                yield put(userActions.setUserHeading({ headings }));
+            } else if (homeRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                const headings = yield userRepository.getHeadings({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                if (headings.length == 0) return;
+                yield put(userActions.setUserHeading({ headings }));
+            }
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -92,8 +127,8 @@ export default class UserUseCase extends UseCaseImpl {
 
     *getMoreUserHeadings({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
-        if (userShowRoute.isValidPath(pathname)) {
-            try {
+        try {
+            if (userShowRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
                 const username = userShowRoute.params_value(
                     'username',
@@ -119,9 +154,31 @@ export default class UserUseCase extends UseCaseImpl {
                 });
                 if (headings.length == 0) return;
                 yield put(userActions.addUserHeading({ headings }));
-            } catch (e) {
-                yield put(appActions.addError({ error: e }));
+            } else if (homeRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserHeadingLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const headings = yield userRepository.getHeadings({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (headings.length == 0) return;
+                yield put(userActions.addUserHeading({ headings }));
             }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchMoreDataEnd());
     }

@@ -9,6 +9,12 @@ export const homeRoute = new RouteEntity({
     component: require('@components/pages/Home'),
 });
 
+export const homeAliasRoute = new RouteEntity({
+    path: '/home',
+    page: 'HomeAlias',
+    component: require('@components/pages/HomeAlias'),
+});
+
 export const userShowRoute = new RouteEntity({
     path: '/user/:username',
     page: 'UserShow',
@@ -121,6 +127,7 @@ export const routeEntities = new RouteEntities({
         termRoute,
         contactRoute,
         homeRoute,
+        homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
         loginRoute,
