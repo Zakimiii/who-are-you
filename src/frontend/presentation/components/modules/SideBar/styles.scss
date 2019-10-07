@@ -31,6 +31,9 @@
     left: 0;
     margin: 0 auto;
     width: 300px;
+    @include mq-down(xl) {
+      width: 240px;
+    };
     &-image {
       display: block;
       width: 159px;

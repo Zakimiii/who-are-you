@@ -211,7 +211,6 @@ export const getPageDescription = (pathname, state) => {
 
 export const getPageImage = pathname => {
     const page = routeEntities.resolveRoute(pathname).page;
-    let card = 'summary_large_image';
     let image;
     if (page == answerShowRoute.page) {
         image = `${

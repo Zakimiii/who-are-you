@@ -32,12 +32,6 @@ class SideBar extends React.Component {
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'SideBar');
     }
 
-    componentWillMount() {}
-
-    componentDidMount() {}
-
-    componentWillReceiveProps(nextProps) {}
-
     render() {
         const { section, pathname } = this.props;
 
