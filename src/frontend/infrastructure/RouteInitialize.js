@@ -209,39 +209,42 @@ export const getPageDescription = (pathname, state) => {
     return description;
 };
 
-export const getPageTweetTag = (pathname, state) => {
+export const getPageImage = pathname => {
     const page = routeEntities.resolveRoute(pathname).page;
     let card = 'summary_large_image';
-    let title = getPageTitle(pathname, state);
-    let description = getPageDescription(pathname, state);
     let image;
     if (page == answerShowRoute.page) {
-        if (
-            !!state.answer.get('show_answer') &&
-            !!state.answer.get('show_answer').get('id')
-        )
-            image = `${
-                config.CURRENT_APP_URL
-            }/pictures/answer/${state.answer.get('show_answer').get('id')}.png`;
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/answer/${answerShowRoute.params_value('id', pathname)}.png`;
     } else if (page == headingShowRoute.page) {
-        if (
-            !!state.heading.get('show_heading') &&
-            !!state.heading.get('show_heading').get('id')
-        )
-            image = `${
-                config.CURRENT_APP_URL
-            }/pictures/heading/${state.heading
-                .get('show_heading')
-                .get('id')}.png`;
-    } else if (page == userShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/heading/${headingShowRoute.params_value(
+            'id',
+            pathname
+        )}.png`;
+    } else {
+        /*else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
             !!state.user.get('show_user').get('picture_small')
         )
             image = `${state.user.get('show_user').get('picture_small')}`;
-    } else {
-        image = `${config.CURRENT_APP_URL}/images/brands/who-are-you_logo.png`;
+    } */ image = `${
+            config.CURRENT_APP_URL
+        }/images/brands/who-are-you_logo.png`;
     }
+
+    return image;
+};
+
+export const getPageTweetTag = (pathname, state) => {
+    const page = routeEntities.resolveRoute(pathname).page;
+    let card = 'summary_large_image';
+    let title = getPageTitle(pathname, state);
+    let description = getPageDescription(pathname, state);
+    let image = getPageImage(pathname);
 
     return {
         card,

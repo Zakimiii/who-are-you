@@ -3,6 +3,7 @@ import config from '@constants/config';
 import env from '@env/env.json';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import tt from 'counterpart';
+import { getPageImage } from '@infrastructure/RouteInitialize';
 
 export default class ServerHTML extends React.Component {
     constructor(props) {
@@ -122,21 +123,6 @@ export default class ServerHTML extends React.Component {
                         name="description"
                         content={tt('descriptions.Home')}
                     />
-                    <meta name="twitter:card" content={'summary_large_image'} />
-                    <meta
-                        name="twitter:title"
-                        content={tt('pages.Home') + ' | ' + config.APP_NAME}
-                    />
-                    <meta
-                        name="twitter:description"
-                        content={tt('descriptions.Home')}
-                    />
-                    <meta
-                        name="twitter:image"
-                        content={`${
-                            config.CURRENT_APP_URL
-                        }/images/brands/who-are-you_logo.png`}
-                    />
                 </head>
                 <body>
                     <div
@@ -151,3 +137,23 @@ export default class ServerHTML extends React.Component {
         );
     }
 }
+
+/*
+
+<meta name="twitter:card" content={'summary_large_image'} />
+                    <meta
+                        name="twitter:title"
+                        content={tt('pages.Home') + ' | ' + config.APP_NAME}
+                    />
+                    <meta
+                        name="twitter:description"
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta
+                        name="twitter:image"
+                        content={`${
+                            config.CURRENT_APP_URL
+                        }/images/brands/who-are-you_logo.png`}
+                    />
+
+*/
