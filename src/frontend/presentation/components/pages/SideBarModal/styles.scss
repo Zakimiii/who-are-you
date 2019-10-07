@@ -1,0 +1,25 @@
+.side-bar-modal {
+  width: 100vw;
+  height: calc(100vh - 62px);
+  max-height: calc(100vh - 62px);
+  padding-right: calc(100% - 240px);
+  margin-top: 62px;
+  @include themify($themes) {
+    background: themed('backgroundBlur');
+  }
+  @include mq-up(xl) {
+    display: none;
+  };
+  &__body {
+    transition: all 0.3s ease-in-out;
+    z-index: 10;
+    position: fixed;
+    overflow: scroll;
+    width: 240px;
+    height: calc(100vh - 62px);
+    float: left;
+    @include mq-up(xl) {
+      display: none;
+    };
+  }
+}
