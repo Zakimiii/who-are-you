@@ -58,6 +58,15 @@ class HeadingNewList extends React.Component {
         if (!!nextProps.screen_shot && !!this.state.submiting) {
             this.handleSubmit(nextProps.screen_shot);
         }
+        if (
+            !!nextProps.repository &&
+            !!nextProps.repository.UserId &&
+            !this.props.repository.UserId
+        ) {
+            this.setState({
+                repository: Map(nextProps.repository),
+            });
+        }
     }
 
     handleSubmit(screen_shot) {

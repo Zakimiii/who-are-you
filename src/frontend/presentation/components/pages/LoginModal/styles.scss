@@ -36,6 +36,9 @@
     margin: 0% auto;
     max-width: 600px;
     width: calc(100% - 44px);
+    @include mq-down(xs) {
+      width: calc(100%);
+    };
     // @include mq-down(lg) {
     //   width: 700px;
     // };

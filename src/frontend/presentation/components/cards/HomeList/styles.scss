@@ -5,17 +5,36 @@
     height: 800px;
     width: 100%;
     padding: 150px 0;
+    @include mq-down(md) {
+      padding: 44px 0;
+      height: 614px;
+    };
+    @include mq-down(md) {
+      height: 514px;
+    };
     &-logo {
-      // width: 374px;
-      // height: 79px;
       width: 473px;
       height: 87px;
       margin: 32px auto;
+      @include mq-down(xl) {
+        width: 374px;
+        height: 70px;
+      };
+      @include mq-down(md) {
+        width: 255px;
+        height: 51px;
+      };
       &-image {
-        // width: 374px;
-        // height: 70px;
         width: 473px;
         height: 87px;
+        @include mq-down(xl) {
+          width: 374px;
+          height: 70px;
+        };
+        @include mq-down(md) {
+          width: 255px;
+          height: 51px;
+        };
       }
     }
     &-desc {
@@ -31,6 +50,18 @@
       @include themify($themes) {
         color: themed('backgroundContrastLight');
       }
+      @include mq-down(xl) {
+        @include FS(FL);
+        @include LH(FL);
+      };
+      @include mq-down(md) {
+        @include FS(M);
+        @include LH(M);
+      };
+      @include mq-down(fm) {
+        @include FS(FM);
+        @include LH(FM);
+      };
     }
     &-button {
       max-width: 720px;
@@ -38,6 +69,16 @@
       margin: 44px auto;
       margin-bottom: 0;
       height: 54px;
+      @include mq-down(xl) {
+        max-width: 400px;
+      };
+      @include mq-down(md) {
+        margin: 24px auto;
+        max-width: 320px;
+      };
+      @include mq-down(fm) {
+        height: 44px;
+      };
     }
     &__back-logo {
       position: absolute;
@@ -47,6 +88,24 @@
       height: 800px;
       @include opacity(.2);
       z-index: -1;
+      @include mq-down(xl) {
+        top: calc(50% - 300px);
+        left: calc(50% - 300px);
+        width: 600px;
+        height: 600px;
+      };
+      @include mq-down(md) {
+        top: calc(50% - 250px);
+        left: calc(50% - 200px);
+        width: 400px;
+        height: 400px;
+      };
+      @include mq-down(fm) {
+        top: calc(50% - 200px);
+        left: calc(50% - 150px);
+        width: 300px;
+        height: 300px;
+      };
     }
   }
   &__ways {

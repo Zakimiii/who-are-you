@@ -55,6 +55,16 @@ class AnswerNewList extends React.Component {
         if (!!nextProps.screen_shot && !!this.state.submiting) {
             this.handleSubmit(nextProps.screen_shot);
         }
+
+        if (
+            !!nextProps.repository &&
+            !!nextProps.repository.HeadingId &&
+            !this.props.repository.HeadingId
+        ) {
+            this.setState({
+                repository: Map(nextProps.repository),
+            });
+        }
     }
 
     handleSubmit(screen_shot) {
@@ -97,6 +107,8 @@ class AnswerNewList extends React.Component {
         let { repository, submiting } = this.state;
 
         repository = repository.toJS();
+
+        if (!repository || !repository.Heading) return <div />;
 
         const user_section = (
             <div className="answer-new-list__user">

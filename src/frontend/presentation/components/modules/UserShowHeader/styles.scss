@@ -45,6 +45,12 @@
       box-shadow: 0px 0px 4px 4px themed('shadow');
       background: themed('background');
     }
+    @include mq-down(fm) {
+      width: 80px;
+      height: 80px;
+      margin: 12px auto;
+      border-radius: 40px;
+    };
   }
   &__name {
     white-space: normal;
@@ -59,6 +65,11 @@
       color: themed('background');
     }
     margin: 22px auto;
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+      margin: 12px auto;
+    };
   }
   &__detail {
     word-wrap: break-word;
@@ -74,5 +85,10 @@
       color: themed('background');
     }
     margin: 22px auto;
+    @include mq-down(fm) {
+      @include FS(FS);
+      @include LH(FS);
+      margin: 12px auto;
+    };
   }
 }

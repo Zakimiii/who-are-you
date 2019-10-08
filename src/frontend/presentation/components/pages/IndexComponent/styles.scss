@@ -116,7 +116,7 @@
     &-in {
       height: 100%;
       margin: 0 auto;
-      width: calc(100% - 24px);
+      width: calc(100%);
       padding-bottom: 45vh;
       @include themify($themes) {
         background: themed('backgroundLight');

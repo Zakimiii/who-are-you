@@ -31,23 +31,26 @@ export const headingShowRoute = new RouteEntity({
     path: '/heading/:id',
     page: 'HeadingShow',
     component: require('@components/pages/HeadingShow'),
+    validate: { id: /\d+/ },
 });
 
 export const answerShowRoute = new RouteEntity({
     path: '/answer/:id',
     page: 'AnswerShow',
     component: require('@components/pages/AnswerShow'),
+    validate: { id: /\d+/ },
 });
 
 export const headingNewRoute = new RouteEntity({
-    path: '/heading/new',
+    path: '/user/:username/heading/new',
     page: 'HeadingNew',
     component: require('@components/pages/HeadingNewAlias'),
 });
 
 export const answerNewRoute = new RouteEntity({
-    path: '/answer/new',
+    path: '/heading/:id/answer/new',
     page: 'AnswerNew',
+    validate: { id: /\d+/ },
     component: require('@components/pages/AnswerNewAlias'),
 });
 

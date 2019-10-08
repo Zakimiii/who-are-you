@@ -164,7 +164,7 @@ export default function reducer(state = defaultState, action) {
             window.open(
                 TwitterHandler.getShareUrl({
                     text: heading.body,
-                    pathname: `/headeing/${heading.id}`,
+                    pathname: `/heading/${heading.id}`,
                 })
             );
         }

@@ -47,7 +47,7 @@ class TwitterButton extends React.Component {
                                 ? '/auth/twitter'
                                 : `/auth/twitter/confirm?modal=${modalPath}`);
                 }}
-                value={'Twitterでカンタン登録'}
+                value={'Twitterで登録'}
             />
         );
     }

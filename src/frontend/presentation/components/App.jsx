@@ -38,7 +38,7 @@ class App extends Component {
             `http://${config.APP_DOMAIN}/` == url ||
             `http://${config.APP_DOMAIN}` == url
         ) {
-            window.location.replace('https://selfinity.me');
+            window.location.replace(`https://${config.APP_DOMAIN}`);
         }
     };
 

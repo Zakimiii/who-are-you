@@ -11,6 +11,9 @@ import AnswerNewList from '@cards/AnswerNewList';
 import { answerNewRoute } from '@infrastructure/RouteInitialize';
 import Responsible from '@modules/Responsible';
 import IconButton from '@elements/IconButton';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
 class AnswerNew extends React.Component {
     static propTypes = {
@@ -19,8 +22,17 @@ class AnswerNew extends React.Component {
 
     static defaultProps = {};
 
-    static pushURLState(title) {
-        if (window) window.history.pushState({}, title, answerNewRoute.path);
+    static pushURLState(title, id) {
+        if (window)
+            window.history.pushState(
+                {},
+                title,
+                answerNewRoute.getPath({
+                    params: {
+                        id,
+                    },
+                })
+            );
     }
 
     static state = {
@@ -37,14 +49,16 @@ class AnswerNew extends React.Component {
     componentWillMount() {
         this.setState({
             beforePathname:
-                browserHistory.getCurrentLocation().pathname !=
-                    answerNewRoute.path &&
-                browserHistory.getCurrentLocation().pathname,
+                !answerNewRoute.isValidPath(
+                    browserHistory.getCurrentLocation().pathname
+                ) && browserHistory.getCurrentLocation().pathname,
         });
     }
 
     componentDidMount() {
-        AnswerNew.pushURLState(tt('g.new_posts'));
+        const { repository } = this.props;
+        if (!!repository && !!repository.HeadingId)
+            AnswerNew.pushURLState(tt('g.new_posts'), repository.HeadingId);
         if (process.env.BROWSER)
             window.addEventListener(
                 'touchmove',
@@ -89,4 +103,13 @@ class AnswerNew extends React.Component {
     }
 }
 
-export default AnswerNew;
+export default connect(
+    (state, props) => {
+        return {
+            repository: answerActions.getNewAnswer(state),
+            current_user: authActions.getCurrentUser(state),
+        };
+    },
+
+    dispatch => ({})
+)(AnswerNew);
