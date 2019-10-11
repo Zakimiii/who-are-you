@@ -33,7 +33,7 @@ export default class AuthUseCase extends UseCaseImpl {
         localStorage.removeItem(cu2.save_place);
         Cookies.remove(cu2.save_place);
         // TODO: in sign up, access token will be remove.
-        // oauth.removeAccessToken(localStorage);
+        oauth.removeAccessToken(localStorage);
         yield put(authActions.syncCurrentUserEnd());
     }
 

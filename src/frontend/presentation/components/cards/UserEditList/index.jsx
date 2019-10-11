@@ -30,7 +30,7 @@ class UserEditList extends React.Component {
     onClickLogout(e) {
         const { logout } = this.props;
 
-        if (!logout) logout();
+        if (!!logout) logout();
     }
 
     render() {

@@ -26,6 +26,8 @@
   }
   &__user {
     @include flex-center();
+    border: none;
+    cursor: pointer;
     &-image {
       vertical-align: middle;
       position: relative;

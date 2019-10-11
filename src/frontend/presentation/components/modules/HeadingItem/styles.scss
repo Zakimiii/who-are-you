@@ -25,6 +25,8 @@
     min-height: 44px;
     clear: both;
     @include flex-center();
+    border: none;
+    cursor: pointer;
     &-image {
       vertical-align: middle;
       position: relative;

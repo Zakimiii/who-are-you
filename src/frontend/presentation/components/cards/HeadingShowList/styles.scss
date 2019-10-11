@@ -23,6 +23,11 @@
     }
     margin: 22px auto;
     margin-bottom: 12px;
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+      height: 34px;
+    };
   }
   &__answers {
     width: 100%;

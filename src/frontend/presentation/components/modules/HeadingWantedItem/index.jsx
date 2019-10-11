@@ -13,6 +13,11 @@ import models from '@network/client_models';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import AnswerNewButton from '@elements/AnswerNewButton';
+import {
+    headingShowRoute,
+    userShowRoute,
+} from '@infrastructure/RouteInitialize';
+import dummy from '@network/dummy';
 
 class HeadingWantedItem extends React.Component {
     static propTypes = {
@@ -48,7 +53,18 @@ class HeadingWantedItem extends React.Component {
                     backgroundImage: "url('/images/brands/eye-catch-back.png')",
                 }}
             >
-                <div className="heading-wanted-item__user">
+                <Link
+                    className="heading-wanted-item__user"
+                    to={
+                        _repository.User.username == dummy.User.username
+                            ? null
+                            : userShowRoute.getPath({
+                                  params: {
+                                      username: _repository.User.username,
+                                  },
+                              })
+                    }
+                >
                     <div className="heading-wanted-item__user-image">
                         <PictureItem
                             url={_repository.User.picture_small}
@@ -59,7 +75,7 @@ class HeadingWantedItem extends React.Component {
                     <div className="heading-wanted-item__user-title">
                         {`${_repository.User.nickname}さんの`}
                     </div>
-                </div>
+                </Link>
                 <div className="heading-wanted-item__title">
                     {`「${_repository.body}」`}
                 </div>

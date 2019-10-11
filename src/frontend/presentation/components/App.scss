@@ -4,6 +4,7 @@
 }
 
 .App.blur {
+  height: 100% !important;
   filter: blur(4px);
   overflow: hidden;
 }
