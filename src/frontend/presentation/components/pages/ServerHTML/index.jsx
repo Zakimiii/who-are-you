@@ -123,6 +123,16 @@ export default class ServerHTML extends React.Component {
                         name="description"
                         content={tt('descriptions.Home')}
                     />
+                    <meta name="twitter:title" content={tt('pages.Home')} />
+                    <meta
+                        name="twitter:description"
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta
+                        name="twitter:image"
+                        content={getPageImage(pathname)}
+                    />
+                    <meta name="twitter:card" content={'summary_large_image'} />
                 </head>
                 <body>
                     <div
