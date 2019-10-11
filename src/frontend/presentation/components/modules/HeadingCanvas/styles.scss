@@ -10,8 +10,10 @@
   }
   background-position: center center;
   background-size: contain;
-  &__container {
+  &__wrapper {
     margin-top: 100vh;
+  }
+  &__container {
     z-index: 2;
     position: absolute;
     top: 50%;
