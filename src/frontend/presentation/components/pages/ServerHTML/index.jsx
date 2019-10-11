@@ -12,7 +12,7 @@ export default class ServerHTML extends React.Component {
     }
 
     render() {
-        const { body, assets, locale, title, meta } = this.props;
+        const { body, assets, locale, title, meta, pathname } = this.props;
 
         //let page_title = title;
 
