@@ -64,8 +64,11 @@
     width: 1000px;
     margin: 0 auto;
     text-align: center;
-    word-wrap: break-word;
-    white-space: pre-wrap;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // word-wrap: break-word;
+    // white-space: pre-wrap;
     @include FS(XL);
     @include LH(L);
     @include FM(B);
@@ -80,11 +83,24 @@
     text-align: center;
     word-wrap: break-word;
     white-space: pre-wrap;
-    @include FS(M);
-    @include LH(XL);
+    @include FS(L);
+    @include LH(L);
     @include FM(B);
     @include themify($themes) {
       color: themed('backgroundContrastLight');
+    }
+    &.S {
+      margin-top: 44px;
+      @include FS(XXL);
+      @include LH(XXL);
+    }
+    &.M {
+      @include FS(XL);
+      @include LH(XL);
+    }
+    &.L {
+      @include FS(L);
+      @include LH(L);
     }
   }
   &__image {

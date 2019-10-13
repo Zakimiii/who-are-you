@@ -14,6 +14,8 @@ import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import { Map } from 'immutable';
 import models from '@network/client_models';
+import CharacterCounter from '@elements/CharacterCounter';
+import data_config from '@constants/data_config';
 
 class AnswerNewList extends React.Component {
     static propTypes = {};
@@ -136,12 +138,18 @@ class AnswerNewList extends React.Component {
                         onChange={this.onChange}
                         placeholder={
                             repository.Heading &&
-                            `${repository.Heading.User.nickname}さんの「${
+                            `${repository.Heading.User.nickname}の「${
                                 repository.Heading.body
                             }」を記入`
                         }
                         value={repository.body}
                         focus={true}
+                    />
+                </div>
+                <div className="answer-new-list__form-counter">
+                    <CharacterCounter
+                        max={data_config.answer_body_max_limit}
+                        value={repository.body.length}
                     />
                 </div>
                 <div className="answer-new-list__form-submit">

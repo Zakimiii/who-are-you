@@ -35,6 +35,10 @@
       @include themify($themes) {
         color: themed('subThick2');
       }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
     }
   }
   &__form {
@@ -48,6 +52,13 @@
       padding: 12px 8px;
       height: 100%;
       width: 100%;
+    }
+    &-counter {
+      width: 80px;
+      height: 24px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      margin-left: auto;
     }
     &-submit {
       margin: 22px auto;

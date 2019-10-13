@@ -12,6 +12,8 @@ import canvas from '@network/canvas';
 import { FileEntity, FileEntities } from '@entity';
 import { Map } from 'immutable';
 import Img from 'react-image';
+import classNames from 'classnames';
+import autobind from 'class-autobind';
 
 class AnswerCanvas extends React.Component {
     static propTypes = {
@@ -23,12 +25,18 @@ class AnswerCanvas extends React.Component {
         repository: models.Answer.build(),
     };
 
+    static Slimit = 62;
+    static Mlimit = 93;
+    static Llimit = 124;
+    static limit = 155;
+
     state = {
         mounted: false,
     };
 
     constructor(props) {
         super(props);
+        autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(
             this,
             'AnswerCanvas'
@@ -48,6 +56,30 @@ class AnswerCanvas extends React.Component {
             // img.src = dataUrl;
             // document.body.appendChild(img);
         });
+    }
+
+    getSize(text) {
+        const n = text.length;
+        if (n > 0 && n < AnswerCanvas.Slimit) {
+            return 'S';
+        } else if (n > AnswerCanvas.Slimit && n < AnswerCanvas.Mlimit) {
+            return 'M';
+        } else {
+            return 'L';
+        }
+    }
+
+    adjustTest(text) {
+        text = text.replace('\n', ' ');
+        const n = text.length;
+        if (n > 0 && n < AnswerCanvas.limit) {
+            return text;
+        } else {
+            return (
+                text.slice(0, AnswerCanvas.limit) +
+                '...\nつづきはWho are youで！'
+            );
+        }
     }
 
     render() {
@@ -81,11 +113,16 @@ class AnswerCanvas extends React.Component {
                         </div>
                     </div>
                     <div className="answer-canvas__title">
-                        {`「${repository.Heading.body}」`}
+                        {`${repository.Heading.body}`}
                     </div>
                     <div className="answer-canvas__border" />
-                    <div className="answer-canvas__text">
-                        {`${repository.body}`}
+                    <div
+                        className={classNames(
+                            'answer-canvas__text',
+                            this.getSize(repository.body)
+                        )}
+                    >
+                        {`${this.adjustTest(repository.body)}`}
                     </div>
                     <Img
                         className="answer-canvas__image"

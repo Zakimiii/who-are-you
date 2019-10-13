@@ -88,8 +88,11 @@ const detail_max_limit = 1000;
 const password_min_limit = 8;
 const password_max_limit = 125;
 const provider_limit = 3;
+
+const heading_body_min_limit = 0;
+const heading_body_max_limit = 50;
 const answer_body_min_limit = 0;
-const answer_body_max_limit = 50;
+const answer_body_max_limit = 1000;
 
 const max_decimal_range = 65;
 const min_decimal_range = 4;
@@ -132,4 +135,9 @@ module.exports = {
     shot_picture_ysize,
     picture_save_limit,
     post_template,
+    post_text,
+    heading_body_min_limit,
+    heading_body_max_limit,
+    answer_body_min_limit,
+    answer_body_max_limit,
 };

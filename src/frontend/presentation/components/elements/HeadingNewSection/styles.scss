@@ -37,6 +37,10 @@
       @include themify($themes) {
         color: themed('subThick2');
       }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
     }
   }
   &__body {

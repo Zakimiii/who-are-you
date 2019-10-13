@@ -17,6 +17,8 @@ import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import HeadingCanvas from '@modules/HeadingCanvas';
 import { FileEntity, FileEntities } from '@entity';
+import CharacterCounter from '@elements/CharacterCounter';
+import data_config from '@constants/data_config';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -132,13 +134,22 @@ class HeadingNewList extends React.Component {
                 <div className="heading-new-list__form-input">
                     <InputText
                         label={'紹介テーマ'}
+                        prelabel={
+                            repository.User && `${repository.User.nickname}の`
+                        }
                         onChange={this.onChange}
                         placeholder={
                             repository.User &&
-                            `${repository.User.nickname}さんの紹介テーマを追加`
+                            `${repository.User.nickname}の〇〇`
                         }
                         value={repository.body}
                         focus={true}
+                    />
+                </div>
+                <div className="heading-new-list__form-counter">
+                    <CharacterCounter
+                        max={data_config.heading_body_max_limit}
+                        value={repository.body.length}
                     />
                 </div>
                 <div className="heading-new-list__form-submit">

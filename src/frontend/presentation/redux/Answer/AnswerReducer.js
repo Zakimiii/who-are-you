@@ -4,6 +4,7 @@ import models from '@network/client_models';
 import { answerNewRoute } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
 import TwitterHandler from '@network/twitter';
+import { open } from '@network/window';
 
 // Action constants
 export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
@@ -140,12 +141,18 @@ export default function reducer(state = defaultState, action) {
             const answer = payload.answer;
             if (!answer) return state;
             if (!answer.id) return state;
-            window.open(
+            open(
                 TwitterHandler.getShareUrl({
                     text: answer.body,
                     pathname: `/answer/${answer.id}`,
                 })
             );
+            // window.open(
+            //     TwitterHandler.getShareUrl({
+            //         text: answer.body,
+            //         pathname: `/answer/${answer.id}`,
+            //     })
+            // );
         }
 
         default:

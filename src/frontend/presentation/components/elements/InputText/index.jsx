@@ -12,6 +12,7 @@ import classNames from 'classnames';
 class InputText extends React.Component {
     static propTypes = {
         label: PropTypes.string,
+        prelabel: PropTypes.string,
         value: PropTypes.string,
         placeholder: PropTypes.string,
         onChange: PropTypes.func,
@@ -24,8 +25,9 @@ class InputText extends React.Component {
 
     static defaultProps = {
         label: '',
+        prelabel: null,
         value: '',
-        placeholder: '&nbsp;',
+        placeholder: '',
         disabled: false,
         foucus: true,
     };
@@ -67,7 +69,7 @@ class InputText extends React.Component {
     }
 
     render() {
-        const { label, value, placeholder, disabled } = this.props;
+        const { label, prelabel, value, placeholder, disabled } = this.props;
 
         const { focused } = this.state;
 
@@ -92,7 +94,7 @@ class InputText extends React.Component {
                         focus: focused || (value && value != ''),
                     })}
                 >
-                    {label}
+                    {!!focused ? prelabel || label : label}
                 </span>
                 <span
                     className={classNames('input-text__border', {

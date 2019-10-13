@@ -54,14 +54,12 @@ class HeadingNewSection extends React.Component {
                         />
                     </div>
                     <div className="heading-new-section__user-title">
-                        {`${repository.nickname}さんの紹介テーマを追加`}
+                        {`紹介テーマを追加`}
                     </div>
                 </div>
                 <div className="heading-new-section__body">
                     <InputText
-                        label={`(例) ${
-                            repository.nickname
-                        }さんのチャームポイント`}
+                        label={`(例) 〇〇さんのチャームポイント`}
                         disabled={true}
                         onClick={this.onClick}
                     />

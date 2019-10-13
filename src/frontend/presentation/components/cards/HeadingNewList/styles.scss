@@ -35,6 +35,10 @@
       @include themify($themes) {
         color: themed('backgroundContrastLight');
       }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
     }
   }
   &__form {
@@ -46,8 +50,15 @@
     };
     &-input {
       padding: 12px 8px;
-      height: 84px;
+      height: 54px;
       width: 100%;
+    }
+    &-counter {
+      width: 64px;
+      height: 24px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      margin-left: auto;
     }
     &-submit {
       margin: 22px auto;

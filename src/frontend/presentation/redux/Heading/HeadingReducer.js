@@ -3,6 +3,7 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import { headingNewRoute } from '@infrastructure/RouteInitialize';
 import TwitterHandler from '@network/twitter';
+import { open } from '@network/window';
 
 // Action constants
 export const CREATE_HEADING = 'heading/CREATE_HEADING';
@@ -161,12 +162,19 @@ export default function reducer(state = defaultState, action) {
             const heading = payload.heading;
             if (!heading) return state;
             if (!heading.id) return state;
-            window.open(
+            open(
                 TwitterHandler.getShareUrl({
                     text: heading.body,
                     pathname: `/heading/${heading.id}`,
                 })
             );
+            // window.open(
+            //     TwitterHandler.getShareUrl({
+            //         text: heading.body,
+            //         pathname: `/heading/${heading.id}`,
+            //     })
+            // );
+            return state;
         }
 
         default:

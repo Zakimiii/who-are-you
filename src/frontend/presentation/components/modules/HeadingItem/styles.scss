@@ -49,6 +49,10 @@
       @include themify($themes) {
         color: themed('backgroundThick');
       }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
     }
   }
   &__title {
@@ -64,6 +68,10 @@
     @include themify($themes) {
       color: themed('backgroundContrastLight');
     }
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+    };
   }
   &__border {
     height: 4px;
@@ -95,6 +103,9 @@
     @include themify($themes) {
       color: themed('complementary');
     }
+    @include mq-down(fm) {
+      @include FS(FS);
+    };
   }
   &__button {
     height: 54px;
