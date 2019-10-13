@@ -141,18 +141,12 @@ export default function reducer(state = defaultState, action) {
             const answer = payload.answer;
             if (!answer) return state;
             if (!answer.id) return state;
-            open(
+            window.open(
                 TwitterHandler.getShareUrl({
                     text: answer.body,
                     pathname: `/answer/${answer.id}`,
                 })
             );
-            // window.open(
-            //     TwitterHandler.getShareUrl({
-            //         text: answer.body,
-            //         pathname: `/answer/${answer.id}`,
-            //     })
-            // );
         }
 
         default:

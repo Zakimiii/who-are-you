@@ -162,18 +162,12 @@ export default function reducer(state = defaultState, action) {
             const heading = payload.heading;
             if (!heading) return state;
             if (!heading.id) return state;
-            open(
+            window.open(
                 TwitterHandler.getShareUrl({
                     text: heading.body,
                     pathname: `/heading/${heading.id}`,
                 })
             );
-            // window.open(
-            //     TwitterHandler.getShareUrl({
-            //         text: heading.body,
-            //         pathname: `/heading/${heading.id}`,
-            //     })
-            // );
             return state;
         }
 
