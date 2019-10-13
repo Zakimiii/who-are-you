@@ -1,7 +1,10 @@
 import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
-import { answerNewRoute } from '@infrastructure/RouteInitialize';
+import {
+    answerNewRoute,
+    answerShowRoute,
+} from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
 import TwitterHandler from '@network/twitter';
 import { open } from '@network/window';
@@ -141,12 +144,26 @@ export default function reducer(state = defaultState, action) {
             const answer = payload.answer;
             if (!answer) return state;
             if (!answer.id) return state;
-            window.open(
+            window.location.replace(
                 TwitterHandler.getShareUrl({
                     text: answer.body,
-                    pathname: `/answer/${answer.id}`,
+                    pathname: answerShowRoute.getPath({
+                        params: {
+                            id: answer.id,
+                        },
+                    }),
                 })
             );
+            // window.open(
+            //     TwitterHandler.getShareUrl({
+            //         text: answer.body,
+            //         pathname: answerShowRoute.getPath({
+            //             params: {
+            //                 id: answer.id,
+            //             }
+            //         }),
+            //     })
+            // );
         }
 
         default:
