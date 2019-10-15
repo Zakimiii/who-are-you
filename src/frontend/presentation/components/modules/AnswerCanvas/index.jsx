@@ -44,18 +44,18 @@ class AnswerCanvas extends React.Component {
     }
 
     componentDidMount() {
-        const { repository } = this.props;
-        const { mounted } = this.state;
-        if (!repository || !repository.Heading) return;
-        canvas.get_shot_by_url('answer-canvas').then(data => {
-            this.setState({ mounted: !!data });
-            !!data &&
-                this.props.onShot &&
-                this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
-            // const img = new Image();
-            // img.src = dataUrl;
-            // document.body.appendChild(img);
-        });
+        // const { repository } = this.props;
+        // const { mounted } = this.state;
+        // if (!repository || !repository.Heading) return;
+        // canvas.get_shot_by_url('answer-canvas').then(data => {
+        //     this.setState({ mounted: !!data });
+        //     !!data &&
+        //         this.props.onShot &&
+        //         this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
+        //     // const img = new Image();
+        //     // img.src = dataUrl;
+        //     // document.body.appendChild(img);
+        // });
     }
 
     getSize(text) {
@@ -82,6 +82,22 @@ class AnswerCanvas extends React.Component {
         }
     }
 
+    onLoadProfile(e) {
+        // if (e) e.preventDefault();
+        const { repository, onShot } = this.props;
+        const { mounted } = this.state;
+        if (!repository || !repository.Heading) return;
+        canvas.get_shot_by_url('answer-canvas').then(data => {
+            this.setState({ mounted: !!data });
+            !!data &&
+                onShot &&
+                onShot(Map(new FileEntity({ file: data }).toJSON()));
+            // const img = new Image();
+            // img.src = dataUrl;
+            // document.body.appendChild(img);
+        });
+    }
+
     render() {
         const { repository } = this.props;
         const { mounted } = this.state;
@@ -93,19 +109,15 @@ class AnswerCanvas extends React.Component {
                 className="answer-canvas__wrapper"
                 style={{ display: mounted ? 'none' : 'block' }}
             >
-                <div
-                    className="answer-canvas"
-                    style={{
-                        backgroundImage:
-                            "url('/images/brands/eye-catch-back.png')",
-                    }}
-                >
+                <div className="answer-canvas">
                     <div className="answer-canvas__user">
                         <div className="answer-canvas__user-image">
                             <PictureItem
                                 url={repository.Heading.User.picture_small}
                                 width={64}
                                 redius={32}
+                                onLoad={this.onLoadProfile}
+                                onError={this.onLoadProfile}
                             />
                         </div>
                         <div className="answer-canvas__user-title">
@@ -124,10 +136,6 @@ class AnswerCanvas extends React.Component {
                     >
                         {`${this.adjustTest(repository.body)}`}
                     </div>
-                    <Img
-                        className="answer-canvas__image"
-                        src={'/images/brands/who_are_you.png'}
-                    />
                 </div>
             </div>
         );

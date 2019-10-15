@@ -5,8 +5,8 @@
   height: 630px;
   padding: 84px 0;
   @include themify($themes) {
-    background-color: themed('background');
-    border: solid 16px themed('sub');
+    // background-color: themed('background');
+    // border: solid 16px themed('sub');
   }
   background-position: center center;
   background-size: contain;

@@ -69,6 +69,15 @@ export class FileEntity extends Entity {
         });
     };
 
+    async bcomposite(lenna, bsrc, params = {}) {
+        const blenna = await Jimp.read(bsrc);
+        const { extension, url, xsize, ysize, type, name } = this;
+        blenna
+            .resize(params.xsize || xsize, params.ysize || ysize)
+            .composite(lenna, 0, 0);
+        return blenna;
+    }
+
     async upload(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
 
@@ -78,7 +87,6 @@ export class FileEntity extends Entity {
                 let src;
                 lenna
                     .resize(params.xsize || xsize, params.ysize || ysize)
-                    .quality(60)
                     .getBuffer(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
@@ -96,17 +104,24 @@ export class FileEntity extends Entity {
 
     async getBuffer(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
+
         switch (true) {
             case file_config.isImage(extension):
-                const lenna = await Jimp.read(url);
+                let lenna = await Jimp.read(url);
+                if (!!params.bcomposite_src) {
+                    lenna = await this.bcomposite(
+                        lenna,
+                        params.bcomposite_src,
+                        params
+                    );
+                }
                 let src;
                 lenna
                     .resize(params.xsize || xsize, params.ysize || ysize)
-                    .quality(60)
                     .getBase64(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
-                return src; //src.replace(/^data:image\/png;base64,/, "");
+                return src;
         }
     }
 

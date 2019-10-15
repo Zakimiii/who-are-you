@@ -12,6 +12,7 @@ import canvas from '@network/canvas';
 import { FileEntity, FileEntities } from '@entity';
 import { Map } from 'immutable';
 import Img from 'react-image';
+import autobind from 'class-autobind';
 
 class HeadingCanvas extends React.Component {
     static propTypes = {
@@ -29,6 +30,7 @@ class HeadingCanvas extends React.Component {
 
     constructor(props) {
         super(props);
+        autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(
             this,
             'HeadingCanvas'
@@ -36,15 +38,32 @@ class HeadingCanvas extends React.Component {
     }
 
     componentDidMount() {
-        const { repository } = this.props;
+        // const { repository } = this.props;
+        // const { mounted } = this.state;
+        // if (!process.env.BROWSER) return;
+        // if (!repository || !repository.User) return;
+        // canvas.get_shot_by_url('heading-canvas').then(data => {
+        //     this.setState({ mounted: !!data });
+        //     !!data &&
+        //         this.props.onShot &&
+        //         this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
+        //     // const img = new Image();
+        //     // img.src = dataUrl;
+        //     // document.body.appendChild(img);
+        // });
+    }
+
+    onLoadProfile(e) {
+        // if (e) e.preventDefault();
+        const { repository, onShot } = this.props;
         const { mounted } = this.state;
         if (!process.env.BROWSER) return;
         if (!repository || !repository.User) return;
         canvas.get_shot_by_url('heading-canvas').then(data => {
             this.setState({ mounted: !!data });
             !!data &&
-                this.props.onShot &&
-                this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
+                !!onShot &&
+                onShot(Map(new FileEntity({ file: data }).toJSON()));
             // const img = new Image();
             // img.src = dataUrl;
             // document.body.appendChild(img);
@@ -62,13 +81,7 @@ class HeadingCanvas extends React.Component {
                 className="heading-canvas__wrapper"
                 style={{ display: mounted ? 'none' : 'block' }}
             >
-                <div
-                    className="heading-canvas"
-                    style={{
-                        backgroundImage:
-                            "url('/images/brands/eye-catch-back.png')",
-                    }}
-                >
+                <div className="heading-canvas">
                     <div className="heading-canvas__container">
                         <div className="heading-canvas__user">
                             <div className="heading-canvas__user-image">
@@ -76,6 +89,8 @@ class HeadingCanvas extends React.Component {
                                     url={repository.User.picture_small}
                                     width={64}
                                     redius={32}
+                                    onLoad={this.onLoadProfile}
+                                    onError={this.onLoadProfile}
                                 />
                             </div>
                             <div className="heading-canvas__user-title">
@@ -91,10 +106,6 @@ class HeadingCanvas extends React.Component {
                             }さんをご存知の人はぜひご回答ください！`}
                         </div>
                     </div>
-                    <Img
-                        className="heading-canvas__image"
-                        src={'/images/brands/who_are_you.png'}
-                    />
                 </div>
             </div>
         );
