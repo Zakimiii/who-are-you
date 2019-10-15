@@ -26,6 +26,8 @@
   }
   &__user {
     @include flex-center();
+    border: none;
+    cursor: pointer;
     &-image {
       vertical-align: middle;
       position: relative;
@@ -48,6 +50,10 @@
       @include themify($themes) {
         color: themed('backgroundThick');
       }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
     }
   }
   &__border {
@@ -57,6 +63,9 @@
     @include themify($themes) {
       background: themed('subThick2');
     }
+    @include mq-down(fm) {
+      height: 2px;
+    };
   }
   &__text {
     width: calc(100% - 20px);
@@ -66,11 +75,15 @@
     word-wrap: break-word;
     white-space: pre-wrap;
     @include FS(M);
-    @include LH(L);
+    @include LH(M);
     @include FM(B);
     @include themify($themes) {
       color: themed('backgroundThick');
     }
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+    };
   }
   &__title {
     width: calc(100% - 20px);
@@ -85,6 +98,9 @@
     @include themify($themes) {
       color: themed('backgroundContrastLight');
     }
+    @include mq-down(fm) {
+      @include FS(FM);
+    };
   }
   &__image {
     position: absolute;

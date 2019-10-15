@@ -15,10 +15,16 @@
   &__link {
     cursor: pointer;
     @include default-link;
-    &:hover, [disabled] > .gradation-button {
+    &:hover > .gradation-button {
       @include themify($themes) {
-        transition: all 0.3s ease-in-out;
-        background: linear-gradient(135deg, lighten(themed('gradationThickL'), 20%), lighten(themed('gradationThickR'), 20%));
+        // transition: all 0.3s ease-in-out;
+        background: lighten(themed('subThick2'), 10%);//linear-gradient(135deg, lighten(themed('gradationThickL'), 20%), lighten(themed('gradationThickR'), 20%));
+      }
+    }
+    &:disabled > .gradation-button {
+      @include themify($themes) {
+        // transition: all 0.3s ease-in-out;
+        background: lighten(themed('subThick2'), 10%);//linear-gradient(135deg, lighten(themed('gradationThickL'), 20%), lighten(themed('gradationThickR'), 20%));
       }
     }
   }

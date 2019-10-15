@@ -13,6 +13,7 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import LoginModal from '@pages/LoginModal';
 import AnswerNew from '@pages/AnswerNew';
 import HeadingNew from '@pages/HeadingNew';
+import SideBarModal from '@pages/SideBarModal';
 
 class Modals extends React.Component {
     static defaultProps = {
@@ -20,6 +21,7 @@ class Modals extends React.Component {
         show_login_modal: false,
         show_new_heading_modal: false,
         show_new_answer_modal: false,
+        show_side_bar_modal: false,
     };
 
     static propTypes = {
@@ -27,9 +29,11 @@ class Modals extends React.Component {
         show_login_modal: PropTypes.bool,
         show_new_heading_modal: PropTypes.bool,
         show_new_answer_modal: PropTypes.bool,
+        show_side_bar_modal: PropTypes.bool,
         hideLogin: PropTypes.func.isRequired,
         hideNewHeading: PropTypes.func.isRequired,
         hideNewAnswer: PropTypes.func.isRequired,
+        hideSideBarModal: PropTypes.func.isRequired,
     };
 
     constructor() {
@@ -47,6 +51,8 @@ class Modals extends React.Component {
             hideNewAnswer,
             show_new_answer_modal,
             className,
+            show_side_bar_modal,
+            hideSideBarModal,
         } = this.props;
 
         const themeClass = nightmodeEnabled ? ' theme-dark' : ' theme-original';
@@ -71,6 +77,14 @@ class Modals extends React.Component {
                         <AnswerNew onCancel={hideNewAnswer} />
                     </Reveal>
                 )}
+                {show_side_bar_modal && (
+                    <Reveal
+                        onHide={hideSideBarModal}
+                        show={show_side_bar_modal}
+                    >
+                        <SideBarModal onCancel={hideSideBarModal} />
+                    </Reveal>
+                )}
             </div>
         );
     }
@@ -86,6 +100,7 @@ export default connect(
             show_login_modal: state.auth.get('show_login_modal'),
             show_new_heading_modal: state.heading.get('show_new_modal'),
             show_new_answer_modal: state.answer.get('show_new_modal'),
+            show_side_bar_modal: state.app.get('show_side_bar_modal'),
         };
     },
     dispatch => ({
@@ -100,6 +115,10 @@ export default connect(
         hideLogin: e => {
             if (e) e.preventDefault();
             dispatch(authActions.hideLogin());
+        },
+        hideSideBarModal: e => {
+            if (e) e.preventDefault();
+            dispatch(appActions.hideSideBarModal());
         },
     })
 )(Modals);

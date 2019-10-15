@@ -35,32 +35,42 @@ class IndexComponent extends React.Component {
     render() {
         const { style, showSide, children } = this.props;
 
+        // return showSide ? (
+        //     <div className="index-component" style={style}>
+        //         <div className="index-component__center">{children}</div>
+        //     </div>
+        // ) : (
+        //     <div className="index-component" style={style}>
+        //         {children}
+        //     </div>
+        // );
         return showSide ? (
             <div className="index-component" style={style}>
-                <div className="index-component__center">{children}</div>
+                <div className="index-component__left">
+                    <div className="index-component__left-in">
+                        <SideBar />
+                    </div>
+                </div>
+                <div className="index-component__wrapper">
+                    <div className="index-component__wrapper-in">
+                        <div className="index-component__center">
+                            <div className="index-component__center-in">
+                                {children}
+                            </div>
+                        </div>
+                        <div className="index-component__right">
+                            <div className="index-component__right-in">
+                                <FollowerBar />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         ) : (
             <div className="index-component" style={style}>
                 {children}
             </div>
         );
-        // return showSide ? (
-        //     <div className="index-component" style={style}>
-        //         <div className="index-component__left">
-        //             <SideBar/>
-        //         </div>
-        //         <div className="index-component__center">
-        //             {children}
-        //         </div>
-        //         <div className="index-component__right">
-        //             <FollowerBar/>
-        //         </div>
-        //     </div>
-        // ) : (
-        //     <div className="index-component" style={style}>
-        //         {children}
-        //     </div>
-        // )
     }
 }
 

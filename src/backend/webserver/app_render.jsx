@@ -58,7 +58,7 @@ async function appRender(ctx, locales = false, resolvedAssets = false) {
         } else {
             assets = resolvedAssets;
         }
-        const props = { body, assets, title, meta };
+        const props = { body, assets, title, meta, pathname: ctx.request.url };
         ctx.status = statusCode;
         ctx.body =
             '<!DOCTYPE html>' + renderToString(<ServerHTML {...props} />);

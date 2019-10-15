@@ -25,6 +25,9 @@ const models = [
     require('./search_history')(sequelize, Sequelize),
     require('./access_token')(sequelize, Sequelize),
     require('./developer')(sequelize, Sequelize),
+    require('./notification')(sequelize, Sequelize),
+    require('./follow')(sequelize, Sequelize),
+    require('./withdrawal')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {

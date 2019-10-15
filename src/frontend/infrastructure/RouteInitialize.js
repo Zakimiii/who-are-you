@@ -9,34 +9,61 @@ export const homeRoute = new RouteEntity({
     component: require('@components/pages/Home'),
 });
 
+export const homeAliasRoute = new RouteEntity({
+    path: '/home',
+    page: 'HomeAlias',
+    component: require('@components/pages/HomeAlias'),
+});
+
 export const userShowRoute = new RouteEntity({
     path: '/user/:username',
     page: 'UserShow',
     component: require('@components/pages/UserShow'),
 });
 
+export const userEditRoute = new RouteEntity({
+    path: '/settings',
+    page: 'UserEdit',
+    component: require('@components/pages/UserEdit'),
+});
+
 export const headingShowRoute = new RouteEntity({
     path: '/heading/:id',
     page: 'HeadingShow',
     component: require('@components/pages/HeadingShow'),
+    validate: { id: /\d+/ },
 });
 
 export const answerShowRoute = new RouteEntity({
     path: '/answer/:id',
     page: 'AnswerShow',
     component: require('@components/pages/AnswerShow'),
+    validate: { id: /\d+/ },
 });
 
 export const headingNewRoute = new RouteEntity({
-    path: '/heading/new',
+    path: '/user/:username/heading/new',
     page: 'HeadingNew',
     component: require('@components/pages/HeadingNewAlias'),
 });
 
 export const answerNewRoute = new RouteEntity({
-    path: '/answer/new',
+    path: '/heading/:id/answer/new',
     page: 'AnswerNew',
+    validate: { id: /\d+/ },
     component: require('@components/pages/AnswerNewAlias'),
+});
+
+export const notificationIndexRoute = new RouteEntity({
+    path: '/notifications',
+    page: 'NotificationIndex',
+    component: require('@components/pages/NotificationIndex'),
+});
+
+export const postIndexRoute = new RouteEntity({
+    path: '/posts',
+    page: 'PostIndex',
+    component: require('@components/pages/PostIndex'),
 });
 
 export const headingCanvasTestRoute = new RouteEntity({
@@ -97,11 +124,13 @@ export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
         userShowRoute,
+        userEditRoute,
         privacyRoute,
         faqRoute,
         termRoute,
         contactRoute,
         homeRoute,
+        homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
         loginRoute,
@@ -109,6 +138,8 @@ export const routeEntities = new RouteEntities({
         answerCanvasTestRoute,
         headingShowRoute,
         answerShowRoute,
+        notificationIndexRoute,
+        postIndexRoute,
         // homeIndexRoute,
     ],
     notfoundRoute,
@@ -181,39 +212,41 @@ export const getPageDescription = (pathname, state) => {
     return description;
 };
 
-export const getPageTweetTag = (pathname, state) => {
+export const getPageImage = pathname => {
     const page = routeEntities.resolveRoute(pathname).page;
-    let card = 'summary_large_image';
-    let title = getPageTitle(pathname, state);
-    let description = getPageDescription(pathname, state);
     let image;
     if (page == answerShowRoute.page) {
-        if (
-            !!state.answer.get('show_answer') &&
-            !!state.answer.get('show_answer').get('id')
-        )
-            image = `${
-                config.CURRENT_APP_URL
-            }/pictures/answer/${state.answer.get('show_answer').get('id')}.png`;
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/answer/${answerShowRoute.params_value('id', pathname)}.png`;
     } else if (page == headingShowRoute.page) {
-        if (
-            !!state.heading.get('show_heading') &&
-            !!state.heading.get('show_heading').get('id')
-        )
-            image = `${
-                config.CURRENT_APP_URL
-            }/pictures/heading/${state.heading
-                .get('show_heading')
-                .get('id')}.png`;
-    } else if (page == userShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/heading/${headingShowRoute.params_value(
+            'id',
+            pathname
+        )}.png`;
+    } else {
+        /*else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
             !!state.user.get('show_user').get('picture_small')
         )
             image = `${state.user.get('show_user').get('picture_small')}`;
-    } else {
-        image = `${config.CURRENT_APP_URL}/images/brands/who-are-you_logo.png`;
+    } */ image = `${
+            config.CURRENT_APP_URL
+        }/images/brands/who-are-you_logo.png`;
     }
+
+    return image;
+};
+
+export const getPageTweetTag = (pathname, state) => {
+    const page = routeEntities.resolveRoute(pathname).page;
+    let card = 'summary_large_image';
+    let title = getPageTitle(pathname, state);
+    let description = getPageDescription(pathname, state);
+    let image = getPageImage(pathname);
 
     return {
         card,

@@ -10,6 +10,7 @@ import PictureItem from '@elements/PictureItem';
 import * as userActions from '@redux/User/UserReducer';
 import models from '@network/client_models';
 import dummy from '@network/dummy';
+import Responsible from '@modules/Responsible';
 
 class UserShowHeader extends React.Component {
     static propTypes = {
@@ -54,13 +55,24 @@ class UserShowHeader extends React.Component {
                     <div className="user-show-header__background-filter" />
                 </div>
                 <div className="user-show-header__foreground">
-                    <div className="user-show-header__image">
-                        <PictureItem
-                            width={120}
-                            radius={60}
-                            url={_repository.picture_small}
-                        />
-                    </div>
+                    <Responsible
+                        className="user-show-header__image"
+                        defaultContent={
+                            <PictureItem
+                                width={120}
+                                radius={60}
+                                url={_repository.picture_small}
+                            />
+                        }
+                        breakingContent={
+                            <PictureItem
+                                width={80}
+                                radius={40}
+                                url={_repository.picture_small}
+                            />
+                        }
+                        breakFm={true}
+                    />
                     <div className="user-show-header__name">
                         {_repository.nickname}
                     </div>

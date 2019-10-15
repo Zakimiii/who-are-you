@@ -10,6 +10,7 @@ import { headingReducer } from '@redux/Heading';
 import { searchReducer } from '@redux/Search';
 import { sessionReducer } from '@redux/Session';
 import { userReducer } from '@redux/User';
+import { notificationReducer } from '@redux/Notification';
 
 function initReducer(reducer, type) {
     return (state, action) => {
@@ -53,6 +54,7 @@ export default combineReducers({
     search: initReducer(searchReducer),
     session: initReducer(sessionReducer),
     user: initReducer(userReducer),
+    notification: initReducer(notificationReducer),
     routing: initReducer(routerReducer),
     form: formReducer,
 });

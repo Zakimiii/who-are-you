@@ -10,16 +10,18 @@ import {
     userShowRoute,
     homeRoute,
     answerShowRoute,
+    answerNewRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import models from '@network/client_models';
 import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
-import { AnswerRepository } from '@repository';
+import { HeadingRepository, AnswerRepository } from '@repository';
 import { FileEntity, FileEntities } from '@entity';
 
 const answerRepository = new AnswerRepository();
+const headingRepository = new HeadingRepository();
 const appUsecase = new AppUseCase();
 const notification = new Notification();
 
@@ -40,6 +42,36 @@ export default class AnswerUseCase extends UseCaseImpl {
                 id,
             });
             yield put(answerActions.setShow({ answer }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *initNew({ payload: { pathname } }) {
+        if (!answerNewRoute.isValidPath(pathname)) return;
+        const repository = yield select(state =>
+            answerActions.getNewAnswer(state)
+        );
+        if (!!repository && !!repository.HeadingId) return;
+        try {
+            const id = answerNewRoute.params_value('id', pathname);
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const heading = yield headingRepository.getHeading({
+                id,
+            });
+            if (!heading) return;
+            yield put(
+                answerActions.setNew({
+                    answer: models.Answer.build({
+                        Heading: heading,
+                        HeadingId: heading.id,
+                    }),
+                })
+            );
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -78,9 +110,11 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
+                    bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield answerRepository.create(answer);
+            yield put(answerActions.createdAnswer({ answer: data }));
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
         } catch (e) {
@@ -103,9 +137,11 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
+                    bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield answerRepository.update(answer);
+            yield put(answerActions.createdAnswer({ answer: data }));
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
             yield put(answerActions.syncAnswer({ id: answer.id }));

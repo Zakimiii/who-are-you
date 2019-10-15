@@ -14,6 +14,8 @@ import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import { Map } from 'immutable';
 import models from '@network/client_models';
+import CharacterCounter from '@elements/CharacterCounter';
+import data_config from '@constants/data_config';
 
 class AnswerNewList extends React.Component {
     static propTypes = {};
@@ -54,6 +56,16 @@ class AnswerNewList extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!!nextProps.screen_shot && !!this.state.submiting) {
             this.handleSubmit(nextProps.screen_shot);
+        }
+
+        if (
+            !!nextProps.repository &&
+            !!nextProps.repository.HeadingId &&
+            !this.props.repository.HeadingId
+        ) {
+            this.setState({
+                repository: Map(nextProps.repository),
+            });
         }
     }
 
@@ -98,6 +110,8 @@ class AnswerNewList extends React.Component {
 
         repository = repository.toJS();
 
+        if (!repository || !repository.Heading) return <div />;
+
         const user_section = (
             <div className="answer-new-list__user">
                 <div className="answer-new-list__user-image">
@@ -120,24 +134,33 @@ class AnswerNewList extends React.Component {
             <form className="answer-new-list__form" onSubmit={this.onSubmit}>
                 <div className="answer-new-list__form-input">
                     <TextArea
-                        label={'回答'}
+                        label={tt('g.answer')}
                         onChange={this.onChange}
-                        placeholder={
-                            repository.Heading &&
-                            `${repository.Heading.User.nickname}さんの「${
-                                repository.Heading.body
-                            }」を記入`
-                        }
+                        placeholder={tt('g.enter', {
+                            data: repository.Heading.body,
+                        })}
                         value={repository.body}
                         focus={true}
+                    />
+                </div>
+                <div className="answer-new-list__form-counter">
+                    <CharacterCounter
+                        max={data_config.answer_body_max_limit}
+                        value={repository.body.length}
                     />
                 </div>
                 <div className="answer-new-list__form-submit">
                     <GradationButton
                         submit={true}
                         src={'plus'}
-                        value={'回答を追加'}
-                        disabled={submiting}
+                        value={tt('g.add_answer')}
+                        disabled={
+                            submiting ||
+                            repository.body.length <=
+                                data_config.answer_body_min_limit ||
+                            repository.body.length >=
+                                data_config.answer_body_max_limit
+                        }
                     />
                 </div>
             </form>

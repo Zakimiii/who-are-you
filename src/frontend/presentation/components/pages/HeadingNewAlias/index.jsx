@@ -26,7 +26,7 @@ class HeadingNewAlias extends React.Component {
 }
 
 module.exports = {
-    path: '/heading/new',
+    path: 'user/:username/heading/new',
     component: connect(
         (state, ownProps) => {
             return {};

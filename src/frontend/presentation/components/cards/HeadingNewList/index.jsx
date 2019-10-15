@@ -17,6 +17,8 @@ import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import HeadingCanvas from '@modules/HeadingCanvas';
 import { FileEntity, FileEntities } from '@entity';
+import CharacterCounter from '@elements/CharacterCounter';
+import data_config from '@constants/data_config';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -57,6 +59,15 @@ class HeadingNewList extends React.Component {
     componentWillReceiveProps(nextProps) {
         if (!!nextProps.screen_shot && !!this.state.submiting) {
             this.handleSubmit(nextProps.screen_shot);
+        }
+        if (
+            !!nextProps.repository &&
+            !!nextProps.repository.UserId &&
+            !this.props.repository.UserId
+        ) {
+            this.setState({
+                repository: Map(nextProps.repository),
+            });
         }
     }
 
@@ -112,8 +123,7 @@ class HeadingNewList extends React.Component {
                     />
                 </div>
                 <div className="heading-new-list__user-title">
-                    {repository.User &&
-                        `${repository.User.nickname}さんの紹介テーマを追加`}
+                    {tt('g.add_theme')}
                 </div>
             </div>
         );
@@ -122,22 +132,34 @@ class HeadingNewList extends React.Component {
             <form className="heading-new-list__form" onSubmit={this.onSubmit}>
                 <div className="heading-new-list__form-input">
                     <InputText
-                        label={'紹介テーマ'}
-                        onChange={this.onChange}
-                        placeholder={
-                            repository.User &&
-                            `${repository.User.nickname}さんの紹介テーマを追加`
+                        label={tt('g.theme')}
+                        prelabel={
+                            repository.User && `${repository.User.nickname}の`
                         }
+                        onChange={this.onChange}
+                        placeholder={tt('g.example_theme')}
                         value={repository.body}
                         focus={true}
+                    />
+                </div>
+                <div className="heading-new-list__form-counter">
+                    <CharacterCounter
+                        max={data_config.heading_body_max_limit}
+                        value={repository.body.length}
                     />
                 </div>
                 <div className="heading-new-list__form-submit">
                     <GradationButton
                         submit={true}
                         src={'plus'}
-                        value={'紹介テーマを追加'}
-                        disabled={submiting}
+                        value={tt('g.add_theme')}
+                        disabled={
+                            submiting ||
+                            repository.body.length <=
+                                data_config.heading_body_min_limit ||
+                            repository.body.length >=
+                                data_config.heading_body_max_limit
+                        }
                     />
                 </div>
             </form>

@@ -1,0 +1,44 @@
+.side-bar {
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  @include themify($themes) {
+    background: themed('sidebar');
+  }
+  &__items {
+    // height: 100%;
+    padding: 24px 0px;
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebar');
+    }
+  }
+  &__item {
+    height: 50px;
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebarItem');
+    }
+  }
+  &__user {
+    transition: all 0.3s ease-in-out;
+    @include themify($themes) {
+      background: themed('sidebarItem');
+    }
+  }
+  &__logo {
+    position: fixed;
+    bottom: 44px;
+    left: 0;
+    margin: 0 auto;
+    width: 300px;
+    @include mq-down(xl) {
+      width: 240px;
+    };
+    &-image {
+      display: block;
+      width: 159px;
+      height: 30px;
+      margin: 0 auto;
+    }
+  }
+}

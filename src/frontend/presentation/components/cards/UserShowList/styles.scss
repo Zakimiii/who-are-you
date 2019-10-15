@@ -1,6 +1,5 @@
 .user-show-list {
   width: 100%;
-  height: 100%;
   margin: 0 auto;
   &__header {
     width: 100%;
@@ -27,6 +26,11 @@
       }
       margin: 22px auto;
       margin-bottom: 12px;
+      @include mq-down(fm) {
+        @include FS(FM);
+        @include LH(FM);
+        height: 34px;
+      };
     }
     &__items {
       width: 100%;

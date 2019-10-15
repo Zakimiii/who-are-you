@@ -25,7 +25,7 @@ class AnswerNewAlias extends React.Component {
 }
 
 module.exports = {
-    path: '/answer/new',
+    path: 'heading/:id/answer/new',
     component: connect(
         (state, ownProps) => {
             const show_side_bar = state.app.get('show_side_bar');

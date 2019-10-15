@@ -54,8 +54,7 @@ class LoginModal extends React.Component {
     }
 
     componentWillUnmount() {
-        if (!!this.state.beforePathname)
-            browserHistory.push(this.state.beforePathname);
+        browserHistory.push(this.state.beforePathname);
         if (process.env.BROWSER)
             window.removeEventListener(
                 'touchmove',

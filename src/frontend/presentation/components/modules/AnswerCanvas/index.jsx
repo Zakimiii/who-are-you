@@ -12,6 +12,8 @@ import canvas from '@network/canvas';
 import { FileEntity, FileEntities } from '@entity';
 import { Map } from 'immutable';
 import Img from 'react-image';
+import classNames from 'classnames';
+import autobind from 'class-autobind';
 
 class AnswerCanvas extends React.Component {
     static propTypes = {
@@ -23,12 +25,18 @@ class AnswerCanvas extends React.Component {
         repository: models.Answer.build(),
     };
 
+    static Slimit = 62;
+    static Mlimit = 93;
+    static Llimit = 124;
+    static limit = 155;
+
     state = {
         mounted: false,
     };
 
     constructor(props) {
         super(props);
+        autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(
             this,
             'AnswerCanvas'
@@ -36,14 +44,54 @@ class AnswerCanvas extends React.Component {
     }
 
     componentDidMount() {
-        const { repository } = this.props;
+        // const { repository } = this.props;
+        // const { mounted } = this.state;
+        // if (!repository || !repository.Heading) return;
+        // canvas.get_shot_by_url('answer-canvas').then(data => {
+        //     this.setState({ mounted: !!data });
+        //     !!data &&
+        //         this.props.onShot &&
+        //         this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
+        //     // const img = new Image();
+        //     // img.src = dataUrl;
+        //     // document.body.appendChild(img);
+        // });
+    }
+
+    getSize(text) {
+        const n = text.length;
+        if (n > 0 && n < AnswerCanvas.Slimit) {
+            return 'S';
+        } else if (n > AnswerCanvas.Slimit && n < AnswerCanvas.Mlimit) {
+            return 'M';
+        } else {
+            return 'L';
+        }
+    }
+
+    adjustTest(text) {
+        text = text.replace('\n', ' ');
+        const n = text.length;
+        if (n > 0 && n < AnswerCanvas.limit) {
+            return text;
+        } else {
+            return (
+                text.slice(0, AnswerCanvas.limit) +
+                '...\nつづきはWho are youで！'
+            );
+        }
+    }
+
+    onLoadProfile(e) {
+        // if (e) e.preventDefault();
+        const { repository, onShot } = this.props;
         const { mounted } = this.state;
         if (!repository || !repository.Heading) return;
         canvas.get_shot_by_url('answer-canvas').then(data => {
             this.setState({ mounted: !!data });
             !!data &&
-                this.props.onShot &&
-                this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
+                onShot &&
+                onShot(Map(new FileEntity({ file: data }).toJSON()));
             // const img = new Image();
             // img.src = dataUrl;
             // document.body.appendChild(img);
@@ -61,19 +109,15 @@ class AnswerCanvas extends React.Component {
                 className="answer-canvas__wrapper"
                 style={{ display: mounted ? 'none' : 'block' }}
             >
-                <div
-                    className="answer-canvas"
-                    style={{
-                        backgroundImage:
-                            "url('/images/brands/eye-catch-back.png')",
-                    }}
-                >
+                <div className="answer-canvas">
                     <div className="answer-canvas__user">
                         <div className="answer-canvas__user-image">
                             <PictureItem
                                 url={repository.Heading.User.picture_small}
                                 width={64}
                                 redius={32}
+                                onLoad={this.onLoadProfile}
+                                onError={this.onLoadProfile}
                             />
                         </div>
                         <div className="answer-canvas__user-title">
@@ -81,16 +125,17 @@ class AnswerCanvas extends React.Component {
                         </div>
                     </div>
                     <div className="answer-canvas__title">
-                        {`「${repository.Heading.body}」`}
+                        {`${repository.Heading.body}`}
                     </div>
                     <div className="answer-canvas__border" />
-                    <div className="answer-canvas__text">
-                        {`${repository.body}`}
+                    <div
+                        className={classNames(
+                            'answer-canvas__text',
+                            this.getSize(repository.body)
+                        )}
+                    >
+                        {`${this.adjustTest(repository.body)}`}
                     </div>
-                    <Img
-                        className="answer-canvas__image"
-                        src={'/images/brands/who_are_you.png'}
-                    />
                 </div>
             </div>
         );

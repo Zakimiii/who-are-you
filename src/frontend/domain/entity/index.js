@@ -4,6 +4,7 @@ import { RouteEntity, RouteEntities } from '@entity/RouteEntity';
 import { ValidationEntity, ValidationEntities } from '@entity/ValidationEntity';
 import { NOTFOUND_TYPE } from '@entity/NotFoundEntity';
 import { FileEntity, FileEntities } from '@entity/FileEntity';
+import { SideBarSection } from '@entity/SideBarEntity';
 
 export {
     Entity,
@@ -15,4 +16,5 @@ export {
     NOTFOUND_TYPE,
     FileEntity,
     FileEntities,
+    SideBarSection,
 };

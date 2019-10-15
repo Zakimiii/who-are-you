@@ -1,0 +1,26 @@
+.user-side-item {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  display: block;
+  border: none;
+  @include themify($themes) {
+    // border-bottom: solid 1px themed('sidebarItem');
+  }
+  &__image {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  &__name {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    @include FM(B);
+    @include FS(FM);
+    @include themify($themes) {
+      color: themed('background');
+    }
+  }
+}

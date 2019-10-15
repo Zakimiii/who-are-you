@@ -11,6 +11,9 @@ import {
     UserDataStore,
     NotificationDataStore,
 } from '@datastore';
+import data_config from '@constants/data_config';
+import { ApiError } from '@extension/Error';
+import Promise from 'bluebird';
 
 const headingDataStore = new HeadingDataStore();
 const answerDataStore = new AnswerDataStore();
@@ -139,6 +142,86 @@ export default class UserHandler extends HandlerImpl {
         router.body = {
             success: true,
             answers,
+        };
+    }
+
+    async handleGetUserPostsRequest(router, ctx, next) {
+        const {
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        if (!user_id && !username)
+            throw new ApiError({
+                error: new Error('user_id or username is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'user_id or username' },
+            });
+
+        const headings1 = await headingDataStore.getUserPostHeadings({
+            user_id,
+            username,
+            offset,
+            limit,
+            isMyAccount,
+        });
+
+        const headings2 = await headingDataStore.getUserPostHeadingAnswers({
+            user_id,
+            username,
+            offset,
+            limit,
+            isMyAccount,
+        });
+
+        const results = headings1
+            .concat(headings2)
+            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+
+        router.body = {
+            success: true,
+            headings: results,
+        };
+    }
+
+    async handleGetUserNotificationsRequest(router, ctx, next) {
+        const {
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        const results = await models.Notification.findAll({
+            include: [
+                {
+                    model: models.User,
+                    where: {
+                        $or: [
+                            {
+                                id: Number(user_id) || 0,
+                            },
+                            {
+                                username,
+                            },
+                        ],
+                    },
+                    attributes: ['id'],
+                },
+            ],
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
+        });
+
+        router.body = {
+            success: true,
+            notifications: results,
         };
     }
 

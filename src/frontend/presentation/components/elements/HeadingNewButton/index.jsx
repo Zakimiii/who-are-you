@@ -41,7 +41,7 @@ class HeadingNewButton extends React.Component {
         return (
             <GradationButton
                 src={'plus'}
-                value={'紹介テーマを追加'}
+                value={tt('g.add_theme')}
                 onClick={this.onClick}
             />
         );

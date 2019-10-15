@@ -33,9 +33,9 @@ $searchBarHeight: 42px;
       height: 30px;
       margin: calc( ( 6rem - 30px ) / 2 ) 0px;
     }
-    @include mq-down(xs) {
-      display: none;
-    }
+    // @include mq-down(xs) {
+    //   display: none;
+    // }
     &__link {
       @include default-link;
       float: left;

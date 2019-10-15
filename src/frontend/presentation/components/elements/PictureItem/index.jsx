@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import Img from 'react-image';
 import classNames from 'classnames';
+import autobind from 'class-autobind';
 
 class PictureItem extends React.Component {
     static propTypes = {
@@ -13,6 +14,8 @@ class PictureItem extends React.Component {
         radius: PropTypes.number,
         alt: PropTypes.string,
         className: PropTypes.string,
+        onLoad: PropTypes.func,
+        onError: PropTypes.func,
     };
 
     static defaultProps = {
@@ -27,6 +30,7 @@ class PictureItem extends React.Component {
 
     constructor(props) {
         super(props);
+        autobind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -35,14 +39,24 @@ class PictureItem extends React.Component {
         return url !== n.url || width !== n.width || radius !== n.radius;
     }
 
-    componentWillMount() {}
+    onLoad(e) {
+        // if (e) e.preventDefault();
+        const { onLoad } = this.props;
 
-    componentDidMount() {}
+        if (onLoad) onLoad(e);
+    }
 
-    componentWillReceiveProps(nextProps) {}
+    onError(e) {
+        // if (e) e.preventDefault();
+        const { onError } = this.props;
+
+        if (onError) onError(e);
+    }
 
     render() {
         const { url, width, radius, alt, className } = this.props;
+
+        const { onLoad, onError } = this;
 
         const style = {
             width: `${width}px`,
@@ -67,6 +81,8 @@ class PictureItem extends React.Component {
                     style={image_style}
                     src={url}
                     alt={alt}
+                    onLoad={onLoad}
+                    onError={onError}
                 />
             </div>
         );

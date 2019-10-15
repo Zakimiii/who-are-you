@@ -1,0 +1,45 @@
+.character-counter {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  &__value {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+    @include FS(FS);
+    @include LH(FS);
+    @include FM(R);
+    @include themify($themes) {
+      color: themed('subThick2');
+    }
+    &.max {
+      @include themify($themes) {
+        color: themed('danger');
+      }
+    }
+  }
+  &__separate {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2px;
+    @include FS(FS);
+    @include LH(FS);
+    @include FM(R);
+    @include themify($themes) {
+      color: themed('subThick2');
+    }
+  }
+  &__limit {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    @include FS(FS);
+    @include LH(FS);
+    @include FM(R);
+    @include themify($themes) {
+      color: themed('subThick2');
+    }
+  }
+}

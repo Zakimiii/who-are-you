@@ -69,6 +69,13 @@ const post_template = (status, pathname) =>
     }
     \n\n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
 
+const post_text = status =>
+    `${
+        status.length > 40
+            ? status.slice(0, 40) + '...\n\n続きはwho are youへ?'
+            : status
+    }`;
+
 const username_min_limit = 0;
 const username_max_limit = 45;
 const small_picture_size = 256; //px
@@ -81,8 +88,11 @@ const detail_max_limit = 1000;
 const password_min_limit = 8;
 const password_max_limit = 125;
 const provider_limit = 3;
+
+const heading_body_min_limit = 0;
+const heading_body_max_limit = 50;
 const answer_body_min_limit = 0;
-const answer_body_max_limit = 50;
+const answer_body_max_limit = 1000;
 
 const max_decimal_range = 65;
 const min_decimal_range = 4;
@@ -97,6 +107,8 @@ const shot_picture_xsize = 1200;
 const shot_picture_ysize = 600;
 
 const picture_save_limit = 100;
+
+const default_user_image = '/images/default_profile_image.png';
 
 module.exports = {
     fetch_data_limit,
@@ -125,4 +137,10 @@ module.exports = {
     shot_picture_ysize,
     picture_save_limit,
     post_template,
+    post_text,
+    heading_body_min_limit,
+    heading_body_max_limit,
+    answer_body_min_limit,
+    answer_body_max_limit,
+    default_user_image,
 };

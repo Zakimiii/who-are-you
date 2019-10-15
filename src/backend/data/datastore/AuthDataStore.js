@@ -13,7 +13,6 @@ import env from '@env/env.json';
 import TwitterHandler from '@network/twitter';
 import mail from '@network/mail';
 import jwt from 'jsonwebtoken';
-import emojiStrip from 'emoji-strip';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
@@ -36,11 +35,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             verified: false,
             bot: false,
             isPrivate: false,
@@ -88,11 +87,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -115,10 +114,10 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
-                '/icons/noimage.svg',
+                data_config.default_user_image,
             verified: false,
             bot: false,
             isPrivate: false,
@@ -162,10 +161,10 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
-                '/icons/noimage.svg',
+                data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -212,11 +211,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             verified: true,
             bot: false,
             isPrivate: false,
@@ -264,11 +263,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -322,11 +321,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -502,6 +501,7 @@ export default class AuthDataStore extends DataStoreImpl {
             },
         });
 
+        if (!identity) return;
         if (!identity.twitter_username) return;
 
         const twitter_followers = await TwitterHandler.getFollows(
@@ -519,6 +519,33 @@ export default class AuthDataStore extends DataStoreImpl {
         const followers = await Promise.all(
             twitter_followers.users.map(profile =>
                 this.find_or_create_by_twitter_profile({ profile })
+            )
+        ).catch(async e => {
+            const users = await models.User.findAll({
+                include: [
+                    {
+                        model: models.Follow,
+                        as: 'Followers',
+                        where: {
+                            votered_id: identity.UserId,
+                        },
+                    },
+                ],
+                limit: 20,
+            });
+            return users.map(val => {
+                return { user: val };
+            });
+        });
+
+        await Promise.all(
+            followers.map(val =>
+                models.Follow.findOrCreate({
+                    where: {
+                        voter_id: val.user.id,
+                        votered_id: identity.UserId,
+                    },
+                })
             )
         );
 

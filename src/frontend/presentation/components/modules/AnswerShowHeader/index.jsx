@@ -51,7 +51,19 @@ class AnswerShowHeader extends React.Component {
                     backgroundImage: "url('/images/brands/eye-catch-back.png')",
                 }}
             >
-                <div className="answer-show-header__user">
+                <Link
+                    className="answer-show-header__user"
+                    to={
+                        _repository.Heading.User.username == dummy.User.username
+                            ? null
+                            : userShowRoute.getPath({
+                                  params: {
+                                      username:
+                                          _repository.Heading.User.username,
+                                  },
+                              })
+                    }
+                >
                     <div className="answer-show-header__user-image">
                         <PictureItem
                             url={_repository.Heading.User.picture_small}
@@ -62,7 +74,7 @@ class AnswerShowHeader extends React.Component {
                     <div className="answer-show-header__user-title">
                         {`${_repository.Heading.User.nickname}の`}
                     </div>
-                </div>
+                </Link>
                 <div className="answer-show-header__title">
                     {`「${_repository.Heading.body}」`}
                 </div>

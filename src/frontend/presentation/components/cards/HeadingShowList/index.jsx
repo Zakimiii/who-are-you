@@ -78,7 +78,9 @@ class HeadingShowList extends React.Component {
             <div className="heading-show-list">
                 {top}
                 {user}
-                <div className="heading-show-list__category">{'回答一覧'}</div>
+                <div className="heading-show-list__category">
+                    {tt('g.answers')}
+                </div>
                 <div className="heading-show-list__new">
                     <AnswerNewSection repository={repository} />
                 </div>

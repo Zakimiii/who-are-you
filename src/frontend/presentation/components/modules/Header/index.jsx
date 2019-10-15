@@ -34,7 +34,7 @@ class Header extends React.Component {
 
     state = {
         search_mode: false,
-        md: false,
+        lg: false,
     };
 
     constructor(props) {
@@ -51,13 +51,13 @@ class Header extends React.Component {
             });
         }
 
-        if (size.width > 1199) {
+        if (size.width > 999) {
             this.setState({
-                md: false,
+                lg: false,
             });
         } else {
             this.setState({
-                md: true,
+                lg: true,
             });
         }
     }
@@ -117,12 +117,19 @@ class Header extends React.Component {
 
     toggleSideBar = e => {
         const {
+            show_side_bar,
             show_side_bar_modal,
+            showSideBar,
+            hideSideBar,
             hideSideBarModal,
             showSideBarModal,
         } = this.props;
         if (e) e.preventDefault();
-        !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
+        if (this.state.lg) {
+            !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
+        } /* else {
+            !!show_side_bar ? hideSideBar() : showSideBar();
+        }*/
     };
 
     render() {
@@ -239,6 +246,14 @@ const mapDispatchToProps = dispatch => ({
     showLogin: e => {
         if (e) e.preventDefault();
         dispatch(authActions.showLogin());
+    },
+    hideSideBarModal: e => {
+        if (e) e.preventDefault();
+        dispatch(appActions.hideSideBarModal());
+    },
+    showSideBarModal: e => {
+        if (e) e.preventDefault();
+        dispatch(appActions.showSideBarModal());
     },
 });
 

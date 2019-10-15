@@ -22,7 +22,7 @@ export default class AnswerRepository extends RepositoryImpl {
             answer: safe2json(answer),
         });
 
-        return data;
+        return data.answer;
     }
 
     async update(answer) {
@@ -30,7 +30,7 @@ export default class AnswerRepository extends RepositoryImpl {
             answer: safe2json(answer),
         });
 
-        return data;
+        return data.answer;
     }
 
     async delete(answer) {
@@ -38,7 +38,7 @@ export default class AnswerRepository extends RepositoryImpl {
             answer: safe2json(answer),
         });
 
-        return data;
+        return data.answer;
     }
 
     async trash(answer) {

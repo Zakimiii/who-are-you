@@ -39,11 +39,7 @@ class HomeList extends React.Component {
                             src={'/images/brands/who_are_you.png'}
                         />
                     </div>
-                    <div className="home-list__top-desc">
-                        {
-                            'Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ'
-                        }
-                    </div>
+                    <div className="home-list__top-desc">{tt('apps.home')}</div>
                     <div className="home-list__top-button">
                         <TwitterButton />
                     </div>
@@ -55,37 +51,7 @@ class HomeList extends React.Component {
             </TipsBackground>
         );
 
-        const ways = (
-            <div className="home-list__ways">
-                <div className="home-list__ways-title">
-                    {'やり方はカンタン2ステップ'}
-                </div>
-                <div className="home-list__ways__heading-title">
-                    {'1.Twitterでフォローしている友達のお題を作成！'}
-                </div>
-                <div className="home-list__ways__heading-image">
-                    <Img
-                        className="home-list__ways__heading-image-img"
-                        src={'/images/brands/heading-way.png'}
-                    />
-                </div>
-                <div className="home-list__ways__answer-title">
-                    {'2. お題に答えて自分しかしらない友達の魅力を発信！'}
-                </div>
-                <div className="home-list__ways__answer-image">
-                    <Img
-                        className="home-list__ways__answer-image-img"
-                        src={'/images/brands/answer-way.png'}
-                    />
-                </div>
-            </div>
-        );
-        return (
-            <div className="home-list">
-                {top}
-                {ways}
-            </div>
-        );
+        return <div className="home-list">{top}</div>;
     }
 }
 

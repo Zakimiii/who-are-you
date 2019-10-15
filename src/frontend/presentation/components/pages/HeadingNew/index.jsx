@@ -11,6 +11,9 @@ import HeadingNewList from '@cards/HeadingNewList';
 import { headingNewRoute } from '@infrastructure/RouteInitialize';
 import Responsible from '@modules/Responsible';
 import IconButton from '@elements/IconButton';
+import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 
 class HeadingNew extends React.Component {
     static propTypes = {
@@ -19,8 +22,17 @@ class HeadingNew extends React.Component {
 
     static defaultProps = {};
 
-    static pushURLState(title) {
-        if (window) window.history.pushState({}, title, headingNewRoute.path);
+    static pushURLState(title, username) {
+        if (window)
+            window.history.pushState(
+                {},
+                title,
+                headingNewRoute.getPath({
+                    params: {
+                        username,
+                    },
+                })
+            );
     }
 
     static state = {
@@ -37,14 +49,16 @@ class HeadingNew extends React.Component {
     componentWillMount() {
         this.setState({
             beforePathname:
-                browserHistory.getCurrentLocation().pathname !=
-                    headingNewRoute.path &&
-                browserHistory.getCurrentLocation().pathname,
+                !headingNewRoute.isValidPath(
+                    browserHistory.getCurrentLocation().pathname
+                ) && browserHistory.getCurrentLocation().pathname,
         });
     }
 
     componentDidMount() {
-        HeadingNew.pushURLState(tt('g.new_posts'));
+        const { repository } = this.props;
+        if (!!repository && !!repository.UserId)
+            HeadingNew.pushURLState('', repository.User.username);
         if (process.env.BROWSER)
             window.addEventListener(
                 'touchmove',
@@ -89,4 +103,13 @@ class HeadingNew extends React.Component {
     }
 }
 
-export default HeadingNew;
+export default connect(
+    (state, props) => {
+        return {
+            repository: headingActions.getNewHeading(state),
+            current_user: authActions.getCurrentUser(state),
+        };
+    },
+
+    dispatch => ({})
+)(HeadingNew);

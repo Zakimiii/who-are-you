@@ -2,7 +2,7 @@ const Twitter = require('twitter-node-client').Twitter;
 const OAuth = require('oauth');
 const env = require('@env/env.json');
 const config = require('@constants/config');
-var passport = require('koa-passport'),
+var passport = require('@network/koa-passport'),
     TwitterStrategy = require('passport-twitter').Strategy;
 const data_config = require('@constants/data_config');
 
@@ -43,6 +43,10 @@ passport.use(
 
 export default class TwitterHandler {
     static passport = passport;
+
+    static getShareUrl = ({ text, pathname }) =>
+        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
+            pathname}&hashtags=whoareyou&text=${data_config.post_text(text)}`;
 
     static fix_image_name = str => str.replace('_normal.', '_400x400.');
 
@@ -114,8 +118,7 @@ export default class TwitterHandler {
                 accessToken,
                 accessTokenSecret,
                 {
-                    status:
-                        status + data_config.post_template(status, pathname),
+                    status: data_config.post_template(status, pathname),
                 },
                 '',
                 (err, data, res) => {

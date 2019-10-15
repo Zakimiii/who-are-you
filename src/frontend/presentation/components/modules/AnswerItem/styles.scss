@@ -36,6 +36,9 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       float: left;
+      @include mq-down(fm) {
+        @include FS(FS);
+      };
     }
   }
   &__body {
@@ -51,6 +54,10 @@
     @include themify($themes) {
       color: themed('backgroundContrastLight');
     }
+    @include mq-down(fm) {
+      @include FS(S);
+      @include LH(S);
+    };
   }
   &__more {
     cursor: pointer;

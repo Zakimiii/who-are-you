@@ -33,12 +33,12 @@ import ScreenShot from '@modules/ScreenShot';
 class App extends Component {
     static redirect = url => {
         if (
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com/' == url ||
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com' == url ||
-            'http://selfinity.me/' == url ||
-            'http://selfinity.me' == url
+            `${config.APP_PUBLIC_IP}/` == url ||
+            `${config.APP_PUBLIC_IP}` == url ||
+            `http://${config.APP_DOMAIN}/` == url ||
+            `http://${config.APP_DOMAIN}` == url
         ) {
-            window.location.replace('https://selfinity.me');
+            window.location.replace(`https://${config.APP_DOMAIN}`);
         }
     };
 
@@ -51,6 +51,8 @@ class App extends Component {
     componentWillMount() {
         this.props.syncCurrentUser();
         this.props.loginUser();
+
+        this.setTwitterMeta(this.props.tweet_tags);
     }
 
     componentDidMount() {
@@ -122,6 +124,15 @@ class App extends Component {
             this.setTwitterMeta(np.tweet_tags);
     }
 
+    // getMetaContents(mn){
+    //     var m = document.getElementsByTagName('meta');
+    //     for(var i in m){
+    //         if(m[i].name == mn){
+    //             return m[i].content;
+    //         }
+    //     }
+    // }
+
     setDescription(description) {
         if (!process.env.BROWSER) return;
 
@@ -133,21 +144,49 @@ class App extends Component {
     setTwitterMeta(obj) {
         if (!process.env.BROWSER || !obj) return;
 
-        document
-            .getElementsByName('twitter:card')[0]
-            .setAttribute('content', obj.card);
+        if (!document.getElementsByName('twitter:card')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:card');
+            meta.setAttribute('content', obj.card);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:card')[0]
+                .setAttribute('content', obj.card);
+        }
 
-        document
-            .getElementsByName('twitter:title')[0]
-            .setAttribute('content', obj.title);
+        if (!document.getElementsByName('twitter:title')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:title');
+            meta.setAttribute('content', obj.title);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:title')[0]
+                .setAttribute('content', obj.title);
+        }
 
-        document
-            .getElementsByName('twitter:description')[0]
-            .setAttribute('content', obj.description);
+        if (!document.getElementsByName('twitter:description')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:description');
+            meta.setAttribute('content', obj.description);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:description')[0]
+                .setAttribute('content', obj.description);
+        }
 
-        document
-            .getElementsByName('twitter:image')[0]
-            .setAttribute('content', obj.image);
+        if (!document.getElementsByName('twitter:image')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:image');
+            meta.setAttribute('content', obj.image);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:image')[0]
+                .setAttribute('content', obj.image);
+        }
     }
 
     render() {

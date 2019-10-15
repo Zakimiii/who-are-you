@@ -9,6 +9,7 @@ import AppUseCase from '@usecase/AppUseCase';
 import {
     userShowRoute,
     headingShowRoute,
+    headingNewRoute,
     homeRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
@@ -16,12 +17,14 @@ import models from '@network/client_models';
 import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
-import { HeadingRepository } from '@repository';
+import { HeadingRepository, UserRepository } from '@repository';
 import { FileEntity, FileEntities } from '@entity';
+import TwitterHandler from '@network/twitter';
 
 const headingRepository = new HeadingRepository();
 const appUsecase = new AppUseCase();
 const notification = new Notification();
+const userRepository = new UserRepository();
 
 export default class HeadingUseCase extends UseCaseImpl {
     constructor() {
@@ -40,6 +43,37 @@ export default class HeadingUseCase extends UseCaseImpl {
                 id,
             });
             yield put(headingActions.setShow({ heading }));
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *initNew({ payload: { pathname } }) {
+        if (!headingNewRoute.isValidPath(pathname)) return;
+        const repository = yield select(state =>
+            headingActions.getNewHeading(state)
+        );
+        if (!!repository && !!repository.HeadingId) return;
+        try {
+            const username = headingNewRoute.params_value('username', pathname);
+            yield put(appActions.fetchDataBegin());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const user = yield userRepository.getUser({
+                username,
+                isMyAccount: current_user && current_user.username == username,
+            });
+            if (!user) return;
+            yield put(
+                headingActions.setNew({
+                    heading: models.Heading.build({
+                        User: user,
+                        UserId: user.id,
+                    }),
+                })
+            );
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -128,9 +162,11 @@ export default class HeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
+                    bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield headingRepository.create(heading);
+            yield put(headingActions.createdHeading({ heading: data }));
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
         } catch (e) {
@@ -154,9 +190,11 @@ export default class HeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
+                    bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield headingRepository.update(heading);
+            yield put(headingActions.createdHeading({ heading: data }));
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
             yield put(headingActions.syncHeading({ id: heading.id }));
@@ -183,7 +221,6 @@ export default class HeadingUseCase extends UseCaseImpl {
             const data = yield headingRepository.trash(heading);
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());
@@ -196,7 +233,6 @@ export default class HeadingUseCase extends UseCaseImpl {
             const data = yield headingRepository.trash(heading);
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());

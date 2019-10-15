@@ -1,11 +1,17 @@
 import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
-import { answerNewRoute } from '@infrastructure/RouteInitialize';
+import {
+    answerNewRoute,
+    answerShowRoute,
+} from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
+import TwitterHandler from '@network/twitter';
+import { open } from '@network/window';
 
 // Action constants
 export const CREATE_ANSWER = 'answer/CREATE_ANSWER';
+export const CREATED_ANSWER = 'answer/CREATED_ANSWER';
 export const UPDATE_ANSWER = 'answer/UPDATE_ANSWER';
 export const DELETE_ANSWER = 'answer/DELETE_ANSWER';
 export const TRASH_ANSWER = 'answer/TRASH_ANSWER';
@@ -134,6 +140,32 @@ export default function reducer(state = defaultState, action) {
             });
         }
 
+        case CREATED_ANSWER: {
+            const answer = payload.answer;
+            if (!answer) return state;
+            if (!answer.id) return state;
+            window.location.replace(
+                TwitterHandler.getShareUrl({
+                    text: answer.body,
+                    pathname: answerShowRoute.getPath({
+                        params: {
+                            id: answer.id,
+                        },
+                    }),
+                })
+            );
+            // window.open(
+            //     TwitterHandler.getShareUrl({
+            //         text: answer.body,
+            //         pathname: answerShowRoute.getPath({
+            //             params: {
+            //                 id: answer.id,
+            //             }
+            //         }),
+            //     })
+            // );
+        }
+
         default:
             return state;
     }
@@ -198,6 +230,11 @@ export const resetDeletes = payload => ({
 
 export const createAnswer = payload => ({
     type: CREATE_ANSWER,
+    payload,
+});
+
+export const createdAnswer = payload => ({
+    type: CREATED_ANSWER,
     payload,
 });
 

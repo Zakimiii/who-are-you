@@ -13,6 +13,7 @@ module.exports = {
             answers_limit: 100,
             searchHistories_limit: 100,
             developers_limit: 1,
+            notifications_limit: 1,
         }).then(results => {
             return queryInterface
                 .bulkInsert('users', results['users'], {})
@@ -48,6 +49,13 @@ module.exports = {
                     return queryInterface.bulkInsert(
                         'developers',
                         results['developers'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'notifications',
+                        results['notifications'],
                         {}
                     );
                 });
