@@ -18,6 +18,15 @@ export default class UserRepository extends RepositoryImpl {
         return data && data.user;
     }
 
+    async getUserTwitterUsername({ id, username, isMyAccount = false }) {
+        const data = await super.apiCall('/api/v1/user/twitter/username', {
+            id,
+            username,
+            isMyAccount,
+        });
+        return data && data.twitter_username;
+    }
+
     async getUserFollower({ id, username }) {
         const data = await super.apiCall('/api/v1/user/followers', {
             id,

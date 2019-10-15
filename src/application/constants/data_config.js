@@ -69,12 +69,7 @@ const post_template = (status, pathname) =>
     }
     \n\n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
 
-const post_text = status =>
-    `${
-        status.length > 40
-            ? status.slice(0, 40) + '...\n\n続きはwho are youへ?'
-            : status
-    }`;
+const post_text = () => '詳しくはwho are you?で確認！';
 
 const username_min_limit = 0;
 const username_max_limit = 45;

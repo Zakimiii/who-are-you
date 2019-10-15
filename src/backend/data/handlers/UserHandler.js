@@ -54,6 +54,47 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleGetUserTwitterNameRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+        });
+
+        if (!user) {
+            router.body = {
+                success: true,
+            };
+        }
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: user.id,
+            },
+        });
+
+        router.body = {
+            success: true,
+            user: safe2json(user),
+            twitter_username: identity.twitter_username,
+        };
+    }
+
     async handleGetUserFollowerRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 

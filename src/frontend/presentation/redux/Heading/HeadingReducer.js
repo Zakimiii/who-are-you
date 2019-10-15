@@ -162,11 +162,12 @@ export default function reducer(state = defaultState, action) {
         }
 
         case CREATED_HEADING: {
-            const heading = payload.heading;
-            if (!heading) return state;
+            const { heading, twitter_username } = payload;
+            if (!heading || !twitter_username) return state;
             if (!heading.id) return state;
             window.location.replace(
                 TwitterHandler.getShareUrl({
+                    id: twitter_username,
                     text: heading.body,
                     pathname: headingShowRoute.getPath({
                         params: {
@@ -175,16 +176,6 @@ export default function reducer(state = defaultState, action) {
                     }),
                 })
             );
-            // window.open(
-            //     TwitterHandler.getShareUrl({
-            //         text: heading.body,
-            //         pathname: headingShowRoute.getPath({
-            //             params: {
-            //                 id: heading.id,
-            //             }
-            //         }),
-            //     })
-            // );
             return state;
         }
 

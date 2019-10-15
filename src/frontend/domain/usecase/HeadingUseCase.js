@@ -166,7 +166,17 @@ export default class HeadingUseCase extends UseCaseImpl {
                 });
             }
             const data = yield headingRepository.create(heading);
-            yield put(headingActions.createdHeading({ heading: data }));
+            const twitter_username = yield userRepository.getUserTwitterUsername(
+                {
+                    id: data.UserId,
+                }
+            );
+            yield put(
+                headingActions.createdHeading({
+                    heading: data,
+                    twitter_username,
+                })
+            );
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
         } catch (e) {
@@ -194,7 +204,17 @@ export default class HeadingUseCase extends UseCaseImpl {
                 });
             }
             const data = yield headingRepository.update(heading);
-            yield put(headingActions.createdHeading({ heading: data }));
+            const twitter_username = yield userRepository.getUserTwitterUsername(
+                {
+                    id: data.UserId,
+                }
+            );
+            yield put(
+                headingActions.createdHeading({
+                    heading: data,
+                    twitter_username,
+                })
+            );
             yield put(headingActions.hideNew());
             yield put(headingActions.resetNew());
             yield put(headingActions.syncHeading({ id: heading.id }));

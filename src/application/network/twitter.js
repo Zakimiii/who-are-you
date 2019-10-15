@@ -44,9 +44,11 @@ passport.use(
 export default class TwitterHandler {
     static passport = passport;
 
-    static getShareUrl = ({ text, pathname }) =>
+    static getShareUrl = ({ id, pathname }) =>
         `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
-            pathname}&hashtags=whoareyou&text=${data_config.post_text(text)}`;
+            pathname}&via=${
+            id
+        }&hashtags=whoareyou,自己紹介・友達紹介&text=${data_config.post_text()}`;
 
     static fix_image_name = str => str.replace('_normal.', '_400x400.');
 

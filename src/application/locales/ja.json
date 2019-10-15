@@ -4,10 +4,13 @@
         "answers": "回答一覧",
         "example_answer": "（例）〇〇さんはここが素敵！",
         "add_answer": "回答を追加",
+        "wanted_answer":
+            "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
         "login": "ログイン",
         "logout": "ログアウト",
+        "of": "%(data)sの",
         "password": "パスワード",
         "phishy_message":
             "リンクをプレーンテキストに拡張しました。潜在的なフィッシングに注意してください。",

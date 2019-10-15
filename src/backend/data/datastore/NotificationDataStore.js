@@ -148,6 +148,7 @@ export default class NotificationDataStore extends DataStoreImpl {
                 }です。\n新しい回答が届きました！回答をシェアして自分のことを多くの人に広めましょう！\n下記のボタンをクリックしてシェアしましょう！`,
                 button_text: 'シェアする',
                 button_url: TwitterHandler.getShareUrl({
+                    id: h_identity.twitter_username,
                     text: target.body,
                     pathname: `/answer/${target.id}`,
                 }),
@@ -170,6 +171,7 @@ export default class NotificationDataStore extends DataStoreImpl {
                     }です。\n新しい回答が届きました！回答をシェアして自分のことを多くの人に広めましょう！\n下記のボタンをクリックしてシェアしましょう！`,
                     button_text: 'シェアする',
                     button_url: TwitterHandler.getShareUrl({
+                        id: h_identity.twitter_username,
                         text: target.body,
                         pathname: `/answer/${target.id}`,
                     }),
@@ -269,6 +271,7 @@ export default class NotificationDataStore extends DataStoreImpl {
             }です。\n新しい紹介カードが届きました！カードをシェアして回答を募集しましょう！\n下記のボタンをクリックしてシェアしましょう！`,
             button_text: 'シェアする',
             button_url: TwitterHandler.getShareUrl({
+                id: h_identity.twitter_username,
                 text: target.body,
                 pathname: `/heading/${target.id}`,
             }),

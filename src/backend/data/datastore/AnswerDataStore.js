@@ -185,7 +185,7 @@ export default class AnswerDataStore extends DataStoreImpl {
                         ],
                     },
                     offset: Number(offset || 0),
-                    limit: Number(limit || data_config.fetch_data_limit('M')),
+                    limit: Number(limit || data_config.fetch_data_limit('S')),
                     raw: true,
                     // order: [['score', 'DESC']],
                 });
@@ -242,7 +242,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('L')),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
             subQuery: true,
         }).catch(e => {
             throw new ApiError({
@@ -262,7 +262,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('L')),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
             subQuery: true,
         }).catch(e => {
             throw new ApiError({

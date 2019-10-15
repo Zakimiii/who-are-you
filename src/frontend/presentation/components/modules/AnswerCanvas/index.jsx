@@ -14,6 +14,7 @@ import { Map } from 'immutable';
 import Img from 'react-image';
 import classNames from 'classnames';
 import autobind from 'class-autobind';
+import tt from 'counterpart';
 
 class AnswerCanvas extends React.Component {
     static propTypes = {
@@ -44,18 +45,18 @@ class AnswerCanvas extends React.Component {
     }
 
     componentDidMount() {
-        // const { repository } = this.props;
-        // const { mounted } = this.state;
-        // if (!repository || !repository.Heading) return;
-        // canvas.get_shot_by_url('answer-canvas').then(data => {
-        //     this.setState({ mounted: !!data });
-        //     !!data &&
-        //         this.props.onShot &&
-        //         this.props.onShot(Map(new FileEntity({ file: data }).toJSON()));
-        //     // const img = new Image();
-        //     // img.src = dataUrl;
-        //     // document.body.appendChild(img);
-        // });
+        const { repository, onShot } = this.props;
+        const { mounted } = this.state;
+        if (!repository || !repository.Heading) return;
+        canvas.get_shot_by_url('answer-canvas').then(data => {
+            this.setState({ mounted: !!data });
+            !!data &&
+                onShot &&
+                onShot(Map(new FileEntity({ file: data }).toJSON()));
+            // const img = new Image();
+            // img.src = dataUrl;
+            // document.body.appendChild(img);
+        });
     }
 
     getSize(text) {
@@ -84,18 +85,18 @@ class AnswerCanvas extends React.Component {
 
     onLoadProfile(e) {
         // if (e) e.preventDefault();
-        const { repository, onShot } = this.props;
-        const { mounted } = this.state;
-        if (!repository || !repository.Heading) return;
-        canvas.get_shot_by_url('answer-canvas').then(data => {
-            this.setState({ mounted: !!data });
-            !!data &&
-                onShot &&
-                onShot(Map(new FileEntity({ file: data }).toJSON()));
-            // const img = new Image();
-            // img.src = dataUrl;
-            // document.body.appendChild(img);
-        });
+        // const { repository, onShot } = this.props;
+        // const { mounted } = this.state;
+        // if (!repository || !repository.Heading) return;
+        // canvas.get_shot_by_url('answer-canvas').then(data => {
+        //     this.setState({ mounted: !!data });
+        //     !!data &&
+        //         onShot &&
+        //         onShot(Map(new FileEntity({ file: data }).toJSON()));
+        //     // const img = new Image();
+        //     // img.src = dataUrl;
+        //     // document.body.appendChild(img);
+        // });
     }
 
     render() {
@@ -111,17 +112,10 @@ class AnswerCanvas extends React.Component {
             >
                 <div className="answer-canvas">
                     <div className="answer-canvas__user">
-                        <div className="answer-canvas__user-image">
-                            <PictureItem
-                                url={repository.Heading.User.picture_small}
-                                width={64}
-                                redius={32}
-                                onLoad={this.onLoadProfile}
-                                onError={this.onLoadProfile}
-                            />
-                        </div>
                         <div className="answer-canvas__user-title">
-                            {`${repository.Heading.User.nickname}の`}
+                            {tt('g.of', {
+                                data: repository.Heading.User.nickname,
+                            })}
                         </div>
                     </div>
                     <div className="answer-canvas__title">

@@ -141,11 +141,12 @@ export default function reducer(state = defaultState, action) {
         }
 
         case CREATED_ANSWER: {
-            const answer = payload.answer;
-            if (!answer) return state;
+            const { answer, twitter_username } = payload;
+            if (!answer || !twitter_username) return state;
             if (!answer.id) return state;
             window.location.replace(
                 TwitterHandler.getShareUrl({
+                    id: twitter_username,
                     text: answer.body,
                     pathname: answerShowRoute.getPath({
                         params: {
