@@ -60,7 +60,7 @@ class AnswerShowList extends React.Component {
             <div className="answer-show-list">
                 {top}
                 <div className="heading-show-list__category">
-                    {'回答したテーマ'}
+                    {tt('g.answered_theme')}
                 </div>
                 {body}
             </div>

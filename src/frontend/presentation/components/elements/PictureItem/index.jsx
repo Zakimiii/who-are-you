@@ -76,7 +76,7 @@ class PictureItem extends React.Component {
                 className={classNames('circle-picture-item', className)}
                 style={style}
             >
-                <Img
+                <img
                     className="circle-picture-item__image"
                     style={image_style}
                     src={url}

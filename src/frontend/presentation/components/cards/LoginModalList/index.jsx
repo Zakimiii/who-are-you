@@ -36,9 +36,7 @@ class LoginModalList extends React.Component {
         );
 
         const desc = (
-            <div className="login-modal-list__desc">
-                {'Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ'}
-            </div>
+            <div className="login-modal-list__desc">{tt('apps.home')}</div>
         );
 
         const buttons = (

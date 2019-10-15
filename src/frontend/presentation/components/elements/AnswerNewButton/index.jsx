@@ -41,7 +41,7 @@ class AnswerNewButton extends React.Component {
         return (
             <GradationButton
                 src={'plus'}
-                value={'回答を追加'}
+                value={tt('g.add_answer')}
                 onClick={this.onClick}
             />
         );

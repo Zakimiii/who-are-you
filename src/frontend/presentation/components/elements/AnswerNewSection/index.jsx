@@ -56,12 +56,12 @@ class AnswerNewSection extends React.Component {
                         />
                     </div>
                     <div className="answer-new-section__user-title">
-                        {`回答を追加`}
+                        {tt('g.add_answer')}
                     </div>
                 </div>
                 <div className="answer-new-section__body">
                     <InputText
-                        label={`(例) 〇〇なところが素敵！`}
+                        label={tt('g.example_answer')}
                         disabled={true}
                         onClick={this.onClick}
                     />

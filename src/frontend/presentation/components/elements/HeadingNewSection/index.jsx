@@ -54,12 +54,12 @@ class HeadingNewSection extends React.Component {
                         />
                     </div>
                     <div className="heading-new-section__user-title">
-                        {`紹介テーマを追加`}
+                        {tt('g.add_theme')}
                     </div>
                 </div>
                 <div className="heading-new-section__body">
                     <InputText
-                        label={`(例) 〇〇さんのチャームポイント`}
+                        label={tt('g.example_theme')}
                         disabled={true}
                         onClick={this.onClick}
                     />

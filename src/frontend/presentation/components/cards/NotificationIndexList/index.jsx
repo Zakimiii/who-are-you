@@ -62,7 +62,7 @@ class NotificationIndexList extends React.Component {
         return (
             <div className="notification-index-list">
                 <div className="notification-index-list__category">
-                    {repository.nickname + 'さんへのお知らせ'}
+                    {tt('g.notification')}
                 </div>
                 <div className="notification-index-list__items">
                     {repositories &&

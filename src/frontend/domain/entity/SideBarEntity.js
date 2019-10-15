@@ -8,7 +8,7 @@ export const SideBarSection = defineEnum({
     MyPage: {
         rawValue: 0,
         value: 'MyPage',
-        string: () => 'マイページ',
+        string: () => tt('g.mypage'),
         image: 'noimage',
         link: '/',
         active: pathname =>
@@ -26,7 +26,7 @@ export const SideBarSection = defineEnum({
     Post: {
         rawValue: 0,
         value: 'Post',
-        string: () => '過去の投稿',
+        string: () => tt('g.posts'),
         image: 'tip',
         link: '/posts',
         active: pathname => false,
@@ -34,7 +34,7 @@ export const SideBarSection = defineEnum({
     Notification: {
         rawValue: 1,
         value: 'Notification',
-        string: () => 'お知らせ',
+        string: () => tt('g.notification'),
         image: 'notification',
         link: '/notifications',
         active: pathname => false,
@@ -42,7 +42,7 @@ export const SideBarSection = defineEnum({
     Setting: {
         rawValue: 1,
         value: 'Setting',
-        string: () => '設定',
+        string: () => tt('g.setting'),
         image: 'setting',
         link: '/settings',
         active: pathname => false,

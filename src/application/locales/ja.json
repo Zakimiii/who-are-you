@@ -1,5 +1,9 @@
 {
     "g": {
+        "answer": "回答",
+        "answers": "回答一覧",
+        "example_answer": "（例）〇〇さんはここが素敵！",
+        "add_answer": "回答を追加",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
         "login": "ログイン",
@@ -7,6 +11,7 @@
         "password": "パスワード",
         "phishy_message":
             "リンクをプレーンテキストに拡張しました。潜在的なフィッシングに注意してください。",
+        "posts": "過去の投稿",
         "phone": "電話番号",
         "phone_number": "電話番号",
         "phone_code": "認証コード",
@@ -14,13 +19,26 @@
         "send_code_not_reach": "認証コードを再発行する",
         "phone_verify": "電話番号認証",
         "please_enter": "%(data)sを入力してください",
+        "notification": "お知らせ",
+        "mypage": "マイページ",
         "search": "検索",
         "search_result": "検索結果",
+        "setting": "設定",
         "show_more": "もっと見る",
+        "theme": "紹介テーマ",
+        "themes": "紹介テーマ一覧",
+        "add_theme": "紹介テーマを追加",
+        "answered_theme": "回答したテーマ",
+        "example_theme": "（例）〇〇さんのチャームポイント",
+        "twitter_login": "Twitterで始める",
+        "relate_user": "関連ユーザー",
         "user": "ユーザー",
         "username": "ユーザー名",
         "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
         "user_edit": "ユーザー編集"
+    },
+    "apps": {
+        "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"
     },
     "notifications": {
         "on_create_heading": {

@@ -134,14 +134,11 @@ class AnswerNewList extends React.Component {
             <form className="answer-new-list__form" onSubmit={this.onSubmit}>
                 <div className="answer-new-list__form-input">
                     <TextArea
-                        label={'回答'}
+                        label={tt('g.answer')}
                         onChange={this.onChange}
-                        placeholder={
-                            repository.Heading &&
-                            `${repository.Heading.User.nickname}の「${
-                                repository.Heading.body
-                            }」を記入`
-                        }
+                        placeholder={tt('g.enter', {
+                            data: repository.Heading.body,
+                        })}
                         value={repository.body}
                         focus={true}
                     />
@@ -156,7 +153,7 @@ class AnswerNewList extends React.Component {
                     <GradationButton
                         submit={true}
                         src={'plus'}
-                        value={'回答を追加'}
+                        value={tt('g.add_answer')}
                         disabled={submiting}
                     />
                 </div>

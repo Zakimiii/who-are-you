@@ -35,11 +35,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             verified: false,
             bot: false,
             isPrivate: false,
@@ -87,11 +87,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -114,10 +114,10 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
-                '/icons/noimage.svg',
+                data_config.default_user_image,
             verified: false,
             bot: false,
             isPrivate: false,
@@ -161,10 +161,10 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(profile.profile_banner_url) ||
-                '/icons/noimage.svg',
+                data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -211,11 +211,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             verified: true,
             bot: false,
             isPrivate: false,
@@ -263,11 +263,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({
@@ -321,11 +321,11 @@ export default class AuthDataStore extends DataStoreImpl {
             picture_small:
                 TwitterHandler.fix_image_name(
                     profile._json.profile_image_url_https
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
             picture_large:
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
-                ) || '/icons/noimage.svg',
+                ) || data_config.default_user_image,
         });
 
         identity = await identity.update({

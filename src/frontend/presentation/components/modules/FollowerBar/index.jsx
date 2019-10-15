@@ -38,7 +38,9 @@ class FollowerBar extends React.Component {
             ));
         return (
             <div className="follower-bar">
-                <div className="follower-bar__category">{'友達'}</div>
+                <div className="follower-bar__category">
+                    {tt('g.relate_user')}
+                </div>
                 <div className="follower-bar__items">
                     {renderItem(repositories)}
                 </div>

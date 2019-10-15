@@ -72,7 +72,7 @@ class UserShowList extends React.Component {
                         <HeadingNewSection repository={repository} />
                     </div>
                     <div className="user-show-list__body__category">
-                        {repository.nickname + 'さんの紹介テーマ'}
+                        {tt('g.themes')}
                     </div>
                     <div className="user-show-list__body__items">
                         {repositories &&

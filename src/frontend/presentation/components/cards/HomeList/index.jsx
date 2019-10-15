@@ -39,11 +39,7 @@ class HomeList extends React.Component {
                             src={'/images/brands/who_are_you.png'}
                         />
                     </div>
-                    <div className="home-list__top-desc">
-                        {
-                            'Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ'
-                        }
-                    </div>
+                    <div className="home-list__top-desc">{tt('apps.home')}</div>
                     <div className="home-list__top-button">
                         <TwitterButton />
                     </div>

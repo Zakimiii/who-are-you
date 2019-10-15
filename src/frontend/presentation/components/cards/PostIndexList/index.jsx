@@ -67,7 +67,7 @@ class PostIndexList extends React.Component {
             <div className="user-show-list">
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__category">
-                        {repository.nickname + 'さんの過去の投稿'}
+                        {tt('g.posts')}
                     </div>
                     <div className="user-show-list__body__items">
                         {repositories &&

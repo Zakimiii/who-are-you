@@ -108,6 +108,8 @@ const shot_picture_ysize = 600;
 
 const picture_save_limit = 100;
 
+const default_user_image = '/images/default_profile_image.png';
+
 module.exports = {
     fetch_data_limit,
     fetch_data_raw_limit,
@@ -140,4 +142,5 @@ module.exports = {
     heading_body_max_limit,
     answer_body_min_limit,
     answer_body_max_limit,
+    default_user_image,
 };

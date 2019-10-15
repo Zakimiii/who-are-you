@@ -123,8 +123,7 @@ class HeadingNewList extends React.Component {
                     />
                 </div>
                 <div className="heading-new-list__user-title">
-                    {repository.User &&
-                        `${repository.User.nickname}さんの紹介テーマを追加`}
+                    {tt('g.add_theme')}
                 </div>
             </div>
         );
@@ -133,15 +132,12 @@ class HeadingNewList extends React.Component {
             <form className="heading-new-list__form" onSubmit={this.onSubmit}>
                 <div className="heading-new-list__form-input">
                     <InputText
-                        label={'紹介テーマ'}
+                        label={tt('g.theme')}
                         prelabel={
                             repository.User && `${repository.User.nickname}の`
                         }
                         onChange={this.onChange}
-                        placeholder={
-                            repository.User &&
-                            `${repository.User.nickname}の〇〇`
-                        }
+                        placeholder={tt('g.example_theme')}
                         value={repository.body}
                         focus={true}
                     />
@@ -156,7 +152,7 @@ class HeadingNewList extends React.Component {
                     <GradationButton
                         submit={true}
                         src={'plus'}
-                        value={'紹介テーマを追加'}
+                        value={tt('g.add_theme')}
                         disabled={submiting}
                     />
                 </div>
