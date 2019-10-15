@@ -56,14 +56,12 @@ class AnswerNewSection extends React.Component {
                         />
                     </div>
                     <div className="answer-new-section__user-title">
-                        {`${repository.body}の回答を追加`}
+                        {`回答を追加`}
                     </div>
                 </div>
                 <div className="answer-new-section__body">
                     <InputText
-                        label={`(例) ${
-                            repository.User.nickname
-                        }さんは〇〇なところが素敵！`}
+                        label={`(例) 〇〇なところが素敵！`}
                         disabled={true}
                         onClick={this.onClick}
                     />
