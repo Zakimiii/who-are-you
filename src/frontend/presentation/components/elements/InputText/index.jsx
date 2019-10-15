@@ -94,7 +94,9 @@ class InputText extends React.Component {
                         focus: focused || (value && value != ''),
                     })}
                 >
-                    {!!focused ? prelabel || label : label}
+                    {focused || (value && value != '')
+                        ? prelabel || label
+                        : label}
                 </span>
                 <span
                     className={classNames('input-text__border', {

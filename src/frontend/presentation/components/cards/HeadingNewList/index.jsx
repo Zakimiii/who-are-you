@@ -153,7 +153,13 @@ class HeadingNewList extends React.Component {
                         submit={true}
                         src={'plus'}
                         value={tt('g.add_theme')}
-                        disabled={submiting}
+                        disabled={
+                            submiting ||
+                            repository.body.length <=
+                                data_config.heading_body_min_limit ||
+                            repository.body.length >=
+                                data_config.heading_body_max_limit
+                        }
                     />
                 </div>
             </form>

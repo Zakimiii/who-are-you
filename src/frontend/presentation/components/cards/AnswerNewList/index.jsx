@@ -154,7 +154,13 @@ class AnswerNewList extends React.Component {
                         submit={true}
                         src={'plus'}
                         value={tt('g.add_answer')}
-                        disabled={submiting}
+                        disabled={
+                            submiting ||
+                            repository.body.length <=
+                                data_config.answer_body_min_limit ||
+                            repository.body.length >=
+                                data_config.answer_body_max_limit
+                        }
                     />
                 </div>
             </form>
