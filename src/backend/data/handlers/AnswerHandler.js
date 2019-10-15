@@ -27,6 +27,30 @@ export default class AnswerHandler extends HandlerImpl {
         super();
     }
 
+    async handleGetRequest(router, ctx, next) {
+        const { id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        let answer = await models.Answer.findOne({
+            where: {
+                id,
+            },
+            raw: true,
+        });
+
+        answer = await answerDataStore.getShowIncludes(answer);
+
+        router.body = {
+            success: true,
+            answer: safe2json(answer[0]),
+        };
+    }
+
     async handleCreateRequest(router, ctx, next) {
         const { answer, limit, offset } = router.request.body;
 
@@ -43,7 +67,7 @@ export default class AnswerHandler extends HandlerImpl {
 
         headingDataStore.updateCount({ id: result.HeadingId });
 
-        // notificationDataStore.onCreateAnswer(result);
+        notificationDataStore.onCreateAnswer(result);
 
         router.body = {
             success: true,

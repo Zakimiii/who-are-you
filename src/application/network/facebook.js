@@ -5,7 +5,7 @@ const facebook = new Facebook({
     appId: env.FACEBOOK.ID,
     secret: env.FACEBOOK.SECRET,
 });
-var passport = require('koa-passport'),
+var passport = require('@network/koa-passport'),
     FacebookStrategy = require('passport-facebook').Strategy;
 
 passport.use(

@@ -8,7 +8,7 @@ import UseCaseImpl from '@usecase/UseCaseImpl';
 import AuthRepository from '@repository/AuthRepository';
 import { browserHistory } from 'react-router';
 import * as cu2 from '@network/current_user';
-import { homeRoute } from '@infrastructure/RouteInitialize';
+import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
 import expo from '@extension/object2json';
 import safe2json from '@extension/safe2json';
 import { ClientError } from '@extension/Error';
@@ -33,7 +33,7 @@ export default class AuthUseCase extends UseCaseImpl {
         localStorage.removeItem(cu2.save_place);
         Cookies.remove(cu2.save_place);
         // TODO: in sign up, access token will be remove.
-        // oauth.removeAccessToken(localStorage);
+        oauth.removeAccessToken(localStorage);
         yield put(authActions.syncCurrentUserEnd());
     }
 
@@ -79,46 +79,46 @@ export default class AuthUseCase extends UseCaseImpl {
     //     yield put(appActions.fetchDataEnd());
     // }
 
-    // *twitterLogin({ payload: { pathname } }) {
-    //     try {
-    //         if (
-    //             browserHistory.getCurrentLocation().query.twitter_logined !=
-    //                 'true' ||
-    //             !homeRoute.isValidPath(pathname)
-    //         )
-    //             return;
-    //         yield put(appActions.fetchDataBegin());
+    *twitterLogin({ payload: { pathname } }) {
+        try {
+            if (
+                browserHistory.getCurrentLocation().query.twitter_logined !=
+                    'true' ||
+                !userShowRoute.isValidPath(pathname)
+            )
+                return;
+            yield put(appActions.fetchDataBegin());
 
-    //         const accessToken = browserHistory.getCurrentLocation().query
-    //             .accessToken;
+            const accessToken = browserHistory.getCurrentLocation().query
+                .accessToken;
 
-    //         yield put(
-    //             sessionActions.generateAccessToken({
-    //                 accessToken,
-    //                 isOneTime: true,
-    //             })
-    //         );
+            yield put(
+                sessionActions.generateAccessToken({
+                    accessToken,
+                    isOneTime: true,
+                })
+            );
 
-    //         const user = yield authRepository.twitter_authenticate(
-    //             accessToken,
-    //             ''
-    //         );
+            const user = yield authRepository.twitter_authenticate(
+                accessToken,
+                ''
+            );
 
-    //         yield put(appActions.fetchDataEnd());
+            yield put(appActions.fetchDataEnd());
 
-    //         if (!!user) {
-    //             yield put(
-    //                 authActions.setCurrentUser({
-    //                     user: safe2json(user),
-    //                 })
-    //             );
-    //             yield put(authActions.hideLogin());
-    //         }
-    //     } catch (e) {
-    //         yield put(appActions.addError({ error: e }));
-    //     }
-    //     yield put(appActions.fetchDataEnd());
-    // }
+            if (!!user) {
+                yield put(
+                    authActions.setCurrentUser({
+                        user: safe2json(user),
+                    })
+                );
+                yield put(authActions.hideLogin());
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
 
     // *twitterConfirmLoginForDelete({ payload: { pathname } }) {
     //     if (!confirmForDeleteRoute.isValidPath(pathname)) return;

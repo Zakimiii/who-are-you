@@ -22,6 +22,16 @@ module.exports = function(sequelize, DataTypes) {
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             },
+            VoterId: {
+                type: DataTypes.INTEGER,
+                references: {
+                    model: 'users',
+                    key: 'id',
+                },
+                field: 'voter_id',
+                onUpdate: 'cascade',
+                onDelete: 'cascade',
+            },
             body: {
                 type: DataTypes.TEXT('long'),
             },
@@ -29,6 +39,12 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
             },
             country_code: {
+                type: DataTypes.STRING(255),
+            },
+            picture: {
+                type: DataTypes.BLOB('long'),
+            },
+            tweet_url: {
                 type: DataTypes.STRING(255),
             },
             answer_count: {
@@ -59,16 +75,25 @@ module.exports = function(sequelize, DataTypes) {
             updatedAt: 'updated_at',
             timestamps: true,
             underscored: true,
-
+            charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
-                    Heading.belongsTo(models.Identity, {
+                    Heading.belongsTo(models.User, {
                         onDelete: 'CASCADE',
                         foreignKey: {
-                            name: 'identity_id',
+                            name: 'user_id',
                             allowNull: false,
                         },
                     });
+                    Heading.belongsTo(models.User, {
+                        onDelete: 'CASCADE',
+                        foreignKey: {
+                            name: 'voter_id',
+                            allowNull: true,
+                        },
+                        as: 'Voters',
+                    });
+                    Heading.hasMany(models.Answer);
                 },
             },
         }
@@ -78,8 +103,11 @@ module.exports = function(sequelize, DataTypes) {
         return {
             id: self.id,
             UserId: self.UserId,
+            VoterId: self.VoterId,
             body: self.body,
             locale: self.locale,
+            tweet_url: self.tweet_url,
+            picture: self.picture,
             country_code: self.country_code,
             answer_count: self.answer_count,
             isHide: self.isHide,

@@ -2,6 +2,7 @@ import { ClientError, ApiError } from '@extension/Error';
 import Entity from '@entity/Entity';
 import { Enum, defineEnum } from '@extension/Enum';
 import AWSHandler from '@network/aws';
+import TwitterHandler from '@network/twitter';
 import file_config from '@constants/file_config';
 import data_config from '@constants/data_config';
 const Jimp = require('jimp');
@@ -12,6 +13,11 @@ export class FileEntity extends Entity {
     static getExtension = str => {
         return /[.]/.exec(str) ? /[^.]+$/.exec(str) : '';
     };
+
+    static build = h => {
+        return new FileEntity(h);
+    };
+
     constructor({
         uid,
         file,
@@ -63,6 +69,15 @@ export class FileEntity extends Entity {
         });
     };
 
+    async bcomposite(lenna, bsrc, params = {}) {
+        const blenna = await Jimp.read(bsrc);
+        const { extension, url, xsize, ysize, type, name } = this;
+        blenna
+            .resize(params.xsize || xsize, params.ysize || ysize)
+            .composite(lenna, 0, 0);
+        return blenna;
+    }
+
     async upload(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
 
@@ -72,7 +87,6 @@ export class FileEntity extends Entity {
                 let src;
                 lenna
                     .resize(params.xsize || xsize, params.ysize || ysize)
-                    .quality(60)
                     .getBuffer(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
@@ -85,6 +99,50 @@ export class FileEntity extends Entity {
                 this.file = null;
                 URL.revokeObjectURL(url);
                 break;
+        }
+    }
+
+    async getBuffer(params = {}) {
+        const { extension, url, xsize, ysize, type, name } = this;
+
+        switch (true) {
+            case file_config.isImage(extension):
+                let lenna = await Jimp.read(url);
+                if (!!params.bcomposite_src) {
+                    lenna = await this.bcomposite(
+                        lenna,
+                        params.bcomposite_src,
+                        params
+                    );
+                }
+                let src;
+                lenna
+                    .resize(params.xsize || xsize, params.ysize || ysize)
+                    .getBase64(Jimp.AUTO, (e, d) => {
+                        src = d;
+                    });
+                return src;
+        }
+    }
+
+    async upload_twitter(params = {}) {
+        const { extension, url, xsize, ysize, type, name } = this;
+
+        switch (true) {
+            case file_config.isImage(extension):
+                const lenna = await Jimp.read(url);
+                let src;
+                lenna
+                    .resize(params.xsize || xsize, params.ysize || ysize)
+                    .quality(60)
+                    .getBase64(Jimp.AUTO, (e, d) => {
+                        src = d;
+                    });
+                const media_id = await TwitterHandler.postMedia({
+                    possibly_sensitive: true,
+                    media: src,
+                });
+                return media_id;
         }
     }
 

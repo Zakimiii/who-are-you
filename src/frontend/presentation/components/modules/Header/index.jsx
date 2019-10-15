@@ -10,6 +10,7 @@ import SearchInput from '@elements/SearchInput';
 import GradationButton from '@elements/GradationButton';
 import * as appActions from '@redux/App/AppReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import * as searchActions from '@redux/Search/SearchReducer';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import querystring from 'querystring';
 import { browserHistory } from 'react-router';
@@ -19,7 +20,12 @@ import Responsible from '@modules/Responsible';
 import GradationIconButton from '@elements/GradationIconButton';
 import Img from 'react-image';
 import autobind from 'class-autobind';
-import { homeRoute } from '@infrastructure/RouteInitialize';
+import {
+    homeRoute,
+    userShowRoute,
+    headingCanvasTestRoute,
+    answerCanvasTestRoute,
+} from '@infrastructure/RouteInitialize';
 
 class Header extends React.Component {
     static propTypes = {
@@ -28,7 +34,7 @@ class Header extends React.Component {
 
     state = {
         search_mode: false,
-        md: false,
+        lg: false,
     };
 
     constructor(props) {
@@ -45,13 +51,13 @@ class Header extends React.Component {
             });
         }
 
-        if (size.width > 1199) {
+        if (size.width > 999) {
             this.setState({
-                md: false,
+                lg: false,
             });
         } else {
             this.setState({
-                md: true,
+                lg: true,
             });
         }
     }
@@ -80,7 +86,7 @@ class Header extends React.Component {
         // browserHistory.push(
         //     routes.searchRoute.getPath({
         //         params: {
-        //             section: 'contents',
+        //             section: 'headings',
         //         },
         //         query: {
         //             q: e,
@@ -98,12 +104,11 @@ class Header extends React.Component {
 
     toggleHeader = props => {
         const { isHeaderVisible, route, showHeader, hideHeader } = props;
-
         switch (route) {
-            // case routes.loginRoute:
-            // case routes.signupRoute:
-            //     hideHeader();
-            //     break;
+            case routes.headingCanvasTestRoute:
+            case routes.answerCanvasTestRoute:
+                hideHeader();
+                break;
             default:
                 showHeader();
                 break;
@@ -112,12 +117,19 @@ class Header extends React.Component {
 
     toggleSideBar = e => {
         const {
+            show_side_bar,
             show_side_bar_modal,
+            showSideBar,
+            hideSideBar,
             hideSideBarModal,
             showSideBarModal,
         } = this.props;
         if (e) e.preventDefault();
-        !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
+        if (this.state.lg) {
+            !!show_side_bar_modal ? hideSideBarModal() : showSideBarModal();
+        } /* else {
+            !!show_side_bar ? hideSideBar() : showSideBar();
+        }*/
     };
 
     render() {
@@ -162,20 +174,29 @@ class Header extends React.Component {
                     />
                 </div>
                 <Link
-                    to={routes.homeRoute.getPath()}
+                    to={
+                        current_user
+                            ? userShowRoute.getPath({
+                                  params: { username: current_user.username },
+                              })
+                            : routes.homeRoute.getPath()
+                    }
                     className="Header__logo__link"
                 >
                     <Img
                         className="Header__logo"
-                        src="/images/brands/logo.png"
+                        src="/images/brands/who_are_you.png"
                         alt={tt('alts.default')}
                     />
                 </Link>
-                <div className="Header__search-bar">
-                    <SearchInput onRequestSearch={handleRequestSearch} />
-                </div>
             </div>
         );
+
+        /*
+        <div className="Header__search-bar">
+                    <SearchInput onRequestSearch={handleRequestSearch} />
+                </div>
+        */
 
         return (
             <div className={header_className}>
@@ -211,8 +232,8 @@ const mapDispatchToProps = dispatch => ({
     hideHeader: () => {
         dispatch(appActions.hideHeader());
     },
-    searchContent: keyword => {
-        // dispatch(searchActions.searchContent({ keyword }));
+    searchHeading: keyword => {
+        dispatch(searchActions.searchHeading({ keyword }));
     },
     hideSideBarModal: e => {
         if (e) e.preventDefault();
@@ -225,6 +246,14 @@ const mapDispatchToProps = dispatch => ({
     showLogin: e => {
         if (e) e.preventDefault();
         dispatch(authActions.showLogin());
+    },
+    hideSideBarModal: e => {
+        if (e) e.preventDefault();
+        dispatch(appActions.hideSideBarModal());
+    },
+    showSideBarModal: e => {
+        if (e) e.preventDefault();
+        dispatch(appActions.showSideBarModal());
     },
 });
 

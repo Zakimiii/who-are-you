@@ -11,6 +11,7 @@ $FS_FL: 28px;
 $FS_L: 32px;
 
 $FS_XL: 40px;
+$FS_XXL: 48px;
 
 
 @mixin FS($size) {
@@ -43,6 +44,9 @@ $FS_XL: 40px;
   }
   @else if $size == XL {
     font-size: $FS_XL;
+  }
+  @else if $size == XXL {
+    font-size: $FS_XXL;
   }
 }
 
@@ -87,6 +91,7 @@ $F_HIRAGINO: "Hiragino Sans";
 $W_THIN: 100;
 $W_LIGHT: 300;
 $W_REGULAR: 400;
+$W_FBOLD: 500;
 $W_BOLD: 700;
 //HelveticaNeue
 // @mixin FM($font-family) {
@@ -113,6 +118,9 @@ $W_BOLD: 700;
   }
   @else if $font-family == R {
    font-family: $F_HIRAGINO; font-weight: $W_REGULAR;
+  }
+  @else if $font-family == FB {
+    font-family: $F_HIRAGINO; font-weight: $W_FBOLD;
   }
   @else if $font-family == B {
     font-family: $F_HIRAGINO; font-weight: $W_BOLD;

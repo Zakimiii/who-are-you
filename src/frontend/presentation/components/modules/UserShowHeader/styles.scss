@@ -1,0 +1,94 @@
+.user-show-header {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+  }
+  z-index: 20;
+  overflow: hidden;
+  &__background {
+    z-index: 30;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    bottom: -10px;
+    left: -10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    // background-attachment: fixed;
+    content: '';
+    filter: blur(4px);
+    &-filter {
+      @include themify($themes) {
+        background: themed('backgroundBlur');
+      }
+      @include opacity(.7);
+      height: 100%;
+      width: 100%;
+    }
+  }
+  &__foreground {
+    z-index: 40;
+    position: relative;
+    padding: 44px 0;
+    height: 100%;
+    width: 100%;
+  }
+  &__image {
+    width: 120px;
+    height: 120px;
+    margin: 22px auto;
+    border-radius: 60px;
+    @include themify($themes) {
+      box-shadow: 0px 0px 4px 4px themed('shadow');
+      background: themed('background');
+    }
+    @include mq-down(fm) {
+      width: 80px;
+      height: 80px;
+      margin: 12px auto;
+      border-radius: 40px;
+    };
+  }
+  &__name {
+    white-space: normal;
+    max-width: 500px;
+    text-align: center;
+    min-height: 44px;
+    width: calc(100% - 20px);
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('background');
+    }
+    margin: 22px auto;
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+      margin: 12px auto;
+    };
+  }
+  &__detail {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 500px;
+    text-align: center;
+    min-height: 44px;
+    width: calc(100% - 20px);
+    @include FS(S);
+    @include LH(S);
+    @include FM(R);
+    @include themify($themes) {
+      color: themed('background');
+    }
+    margin: 22px auto;
+    @include mq-down(fm) {
+      @include FS(FS);
+      @include LH(FS);
+      margin: 12px auto;
+    };
+  }
+}

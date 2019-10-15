@@ -26,5 +26,7 @@ env.json
 
 jupyter
 
+src/assets/pictures/*
+
 docker-compose.yml
 docker-server-entrypoint.sh

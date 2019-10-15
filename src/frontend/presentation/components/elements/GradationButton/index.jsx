@@ -74,6 +74,7 @@ class GradationButton extends Component {
                             <Icon
                                 className="gradation-button__items-image"
                                 src={src}
+                                size={'2x'}
                             />
                         )}
                         <div className="gradation-button__items-text">

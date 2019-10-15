@@ -32,7 +32,11 @@ const answerHandler = new AnswerHandler();
 export default function ApiMiddleware(app) {
     const router = koa_router({ prefix: '/api/v1' });
     app.use(router.routes());
-    const koaBody = koa_body();
+    const koaBody = koa_body({
+        formLimit: '5mb',
+        jsonLimit: '5mb',
+        textLimit: '5mb',
+    });
 
     // router.get('/confirm_email', koaBody, function*(ctx, next) {
     //     yield sessionHandler
@@ -80,6 +84,30 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/notification/check', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield notificationHandler
+            .handleCheckRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/access_token/create', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -97,6 +125,54 @@ export default function ApiMiddleware(app) {
                 results.ctx,
                 results.next
             )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield answerHandler
+            .handleGetRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/heading', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield headingHandler
+            .handleGetRequest(results.router, results.ctx, results.next)
             .catch(
                 async e =>
                     await handleApiError(
@@ -441,6 +517,90 @@ export default function ApiMiddleware(app) {
         }
         yield userHandler
             .handleGetUserRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/followers', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserFollowerRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/posts', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserPostsRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/notifications', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserNotificationsRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(

@@ -9,34 +9,43 @@ export default class UserRepository extends RepositoryImpl {
         super();
     }
 
-    async getUser({ id, username }) {
+    async getUser({ id, username, isMyAccount = false }) {
         const data = await super.apiCall('/api/v1/user', {
             id,
             username,
+            isMyAccount,
         });
         return data && data.user;
     }
 
-    // async updateUser(user) {
-    //     const data = await super.apiCall('/api/v1/user/update', {
-    //         user,
-    //     });
-    //     return data;
-    // }
+    async getUserFollower({ id, username }) {
+        const data = await super.apiCall('/api/v1/user/followers', {
+            id,
+            username,
+        });
+        return data && data.users;
+    }
 
-    // async deleteUser(user) {
-    //     const data = await super.apiCall('/api/v1/user/delete', {
-    //         user,
-    //     });
-    //     return data;
-    // }
+    async updateUser(user) {
+        // const data = await super.apiCall('/api/v1/user/update', {
+        //     user,
+        // });
+        // return data;
+    }
+
+    async deleteUser(user) {
+        // const data = await super.apiCall('/api/v1/user/delete', {
+        //     user,
+        // });
+        // return data;
+    }
 
     async getHeadings({ id, username, offset, limit, isMyAccount = false }) {
         const data = await super.apiCall('/api/v1/user/headings', {
             user_id: id,
             username,
             offset: Number(offset || 0),
-            limit: limit || data_config.fetch_data_limit('L'),
+            limit: limit || data_config.fetch_data_limit('S'),
             isMyAccount,
         });
 
@@ -48,11 +57,41 @@ export default class UserRepository extends RepositoryImpl {
             user_id: id,
             username,
             offset: Number(offset || 0),
-            limit: limit || data_config.fetch_data_limit('L'),
+            limit: limit || data_config.fetch_data_limit('S'),
             isMyAccount,
         });
 
         return data && data.answers;
+    }
+
+    async getPosts({ id, username, offset, limit, isMyAccount = false }) {
+        const data = await super.apiCall('/api/v1/user/posts', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+            isMyAccount,
+        });
+
+        return data && data.headings;
+    }
+
+    async getNotifications({
+        id,
+        username,
+        offset,
+        limit,
+        isMyAccount = false,
+    }) {
+        const data = await super.apiCall('/api/v1/user/notifications', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+            isMyAccount,
+        });
+
+        return data && data.notifications;
     }
 
     async syncNotificationId({ notification_id, current_user }) {

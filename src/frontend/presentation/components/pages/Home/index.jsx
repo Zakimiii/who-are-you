@@ -7,8 +7,11 @@ import tt from 'counterpart';
 import { List } from 'immutable';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import HomeList from '@cards/HomeList';
+import UserShowList from '@cards/UserShowList';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import * as appActions from '@redux/App/AppReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
+import IndexComponent from '@pages/IndexComponent';
 
 class Home extends React.Component {
     static pushURLState(title) {
@@ -30,10 +33,16 @@ class Home extends React.Component {
     }
 
     render() {
-        return (
-            <div className="home-index">
+        const { current_user } = this.props;
+
+        return !!current_user ? (
+            <IndexComponent>
+                <UserShowList username={current_user.username} />
+            </IndexComponent>
+        ) : (
+            <IndexComponent style={{ background: '#ffffff' }} showSide={false}>
                 <HomeList />
-            </div>
+            </IndexComponent>
         );
     }
 }
@@ -42,7 +51,9 @@ module.exports = {
     path: '',
     component: connect(
         (state, ownProps) => {
-            return {}
+            return {
+                current_user: authActions.getCurrentUser(state),
+            };
         },
         dispatch => {
             return {

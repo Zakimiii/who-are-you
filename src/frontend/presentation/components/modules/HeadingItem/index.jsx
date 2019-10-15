@@ -6,9 +6,24 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
+import PictureItem from '@elements/PictureItem';
+import AnswerNewButton from '@elements/AnswerNewButton';
+import AnswerItem from '@modules/AnswerItem';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
+import dummy from '@network/dummy';
+import * as userActions from '@redux/User/UserReducer';
+import HeadingWantedItem from '@modules/HeadingWantedItem';
+import {
+    headingShowRoute,
+    userShowRoute,
+} from '@infrastructure/RouteInitialize';
 
 class HeadingItem extends React.Component {
-    static propTypes = {};
+    static propTypes = {
+        repository: AppPropTypes.Heading,
+        _repository: AppPropTypes.Heading,
+    };
 
     static defaultProps = {};
 
@@ -20,21 +35,110 @@ class HeadingItem extends React.Component {
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'HeadingItem');
     }
 
-    componentWillMount() {}
-
-    componentDidMount() {}
-
-    componentWillReceiveProps(nextProps) {}
+    onClickLoadMore(e) {
+        if (e) e.preventDefault();
+        const { getMore, _repository } = this.props;
+        getMore(_repository);
+    }
 
     render() {
-        return <div className="heading-item" />;
+        const { _repository } = this.props;
+
+        if (!_repository) return <div />;
+
+        if (!_repository.User) {
+            _repository.User = dummy.User;
+        }
+
+        const renderItems = items =>
+            items.map((item, key) => (
+                <div className="heading-item__item" key={key}>
+                    <AnswerItem repository={item} />
+                </div>
+            ));
+
+        if (!_repository.Answers || _repository.Answers.length == 0)
+            return <HeadingWantedItem repository={_repository} />;
+
+        return (
+            <div className="heading-item">
+                <div
+                    className="heading-item__container"
+                    style={{
+                        backgroundImage:
+                            "url('/images/brands/eye-catch-back.png')",
+                    }}
+                >
+                    <div className="heading-item__head">
+                        <Link
+                            className="heading-item__head-image"
+                            to={
+                                _repository.User.username == dummy.User.username
+                                    ? null
+                                    : userShowRoute.getPath({
+                                          params: {
+                                              username:
+                                                  _repository.User.username,
+                                          },
+                                      })
+                            }
+                        >
+                            <PictureItem
+                                url={
+                                    _repository.User &&
+                                    _repository.User.picture_small
+                                }
+                                width={32}
+                                redius={16}
+                                alt={
+                                    _repository.User &&
+                                    _repository.User.nickname
+                                }
+                            />
+                        </Link>
+                        <div className="heading-item__head-title">
+                            {`${_repository.User.nickname}さんの`}
+                        </div>
+                    </div>
+                    <div className="heading-item__title">
+                        {`「${_repository.body}」`}
+                    </div>
+                    <div className="heading-item__border" />
+                </div>
+                <div className="heading-item__items">
+                    {_repository.Answers && renderItems(_repository.Answers)}
+                </div>
+                {_repository.answer_count > _repository.Answers.length && (
+                    <Link
+                        className="heading-item__link"
+                        to={headingShowRoute.getPath({
+                            params: {
+                                id: _repository.id,
+                            },
+                        })}
+                    >
+                        {tt('g.show_more')}
+                    </Link>
+                )}
+                <div className="heading-item__button">
+                    <AnswerNewButton repository={_repository} />
+                </div>
+            </div>
+        );
     }
 }
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            current_user: authActions.getCurrentUser(state),
+            _repository: headingActions.bind(props.repository, state),
+        };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        getMore: heading => {
+            dispatch(userActions.getMoreUserHeadingAnswer({ heading }));
+        },
+    })
 )(HeadingItem);

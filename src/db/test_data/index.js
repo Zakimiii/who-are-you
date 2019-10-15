@@ -4,6 +4,7 @@ const headings = require('./heading');
 const answers = require('./answer');
 const searchHistories = require('./search_history');
 const developers = require('./developer');
+const notifications = require('./notification');
 
 async function data({
     users_limit,
@@ -11,6 +12,7 @@ async function data({
     answers_limit,
     searchHistories_limit,
     developers_limit,
+    notifications_limit,
 }) {
     const datum = await Promise.all([
         users(users_limit),
@@ -19,6 +21,7 @@ async function data({
         answers(answers_limit, users_limit, headings_limit),
         searchHistories(searchHistories_limit, users_limit),
         developers(developers_limit),
+        notifications(notifications_limit),
     ]);
 
     let users_data = datum[0],
@@ -26,7 +29,8 @@ async function data({
         headings_data = datum[2],
         answers_data = datum[3],
         searchHistories_data = datum[4],
-        developers_data = datum[5];
+        developers_data = datum[5],
+        notifications_data = datum[6];
 
     return {
         users: users_data,
@@ -35,6 +39,7 @@ async function data({
         answers: answers_data,
         searchHistories: searchHistories_data,
         developers: developers_data,
+        notifications: notifications_data,
     };
 }
 

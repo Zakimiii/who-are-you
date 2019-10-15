@@ -164,6 +164,12 @@ module.exports = {
                             type: Sequelize.STRING(126),
                             unique: true,
                         },
+                        twitter_token: {
+                            type: Sequelize.STRING(255),
+                        },
+                        twitter_secret: {
+                            type: Sequelize.STRING(255),
+                        },
                         verified: {
                             type: Sequelize.BOOLEAN,
                         },
@@ -215,6 +221,16 @@ module.exports = {
                             },
                             onUpdate: 'cascade',
                             onDelete: 'cascade',
+                            allowNull: false,
+                        },
+                        voter_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
                             allowNull: true,
                         },
                         body: {
@@ -224,6 +240,12 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         country_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        picture: {
+                            type: Sequelize.BLOB('long'),
+                        },
+                        tweet_url: {
                             type: Sequelize.STRING(255),
                         },
                         answer_count: {
@@ -302,6 +324,12 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         country_code: {
+                            type: Sequelize.STRING(255),
+                        },
+                        picture: {
+                            type: Sequelize.BLOB('long'),
+                        },
+                        tweet_url: {
                             type: Sequelize.STRING(255),
                         },
                         //global colomn
@@ -579,6 +607,158 @@ module.exports = {
             .then(function() {
                 return queryInterface.sequelize.query(
                     'ALTER TABLE `developers` ROW_FORMAT=DYNAMIC;'
+                );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'notifications',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        user_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'set null',
+                        },
+                        template: {
+                            type: Sequelize.STRING(255),
+                        },
+                        target_table: {
+                            type: Sequelize.STRING(255),
+                        },
+                        target_id: {
+                            type: Sequelize.INTEGER,
+                        },
+                        url: {
+                            type: Sequelize.STRING(255),
+                        },
+                        isChecked: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `notifications` ROW_FORMAT=DYNAMIC;'
+                );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'follows',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        voter_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
+                        },
+                        votered_id: {
+                            type: Sequelize.INTEGER,
+                            references: {
+                                model: 'users',
+                                key: 'id',
+                            },
+                            onUpdate: 'cascade',
+                            onDelete: 'cascade',
+                        },
+                        isPrivate: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        valid: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        permission: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `follows` ROW_FORMAT=DYNAMIC;'
+                );
+            })
+            .then(function() {
+                return queryInterface.createTable(
+                    'withdrawals',
+                    {
+                        id: {
+                            allowNull: false,
+                            autoIncrement: true,
+                            primaryKey: true,
+                            type: Sequelize.INTEGER,
+                        },
+                        twitter_username: {
+                            type: Sequelize.STRING(255),
+                        },
+                        twitter_id: {
+                            type: Sequelize.STRING(255),
+                        },
+                        valid: {
+                            type: Sequelize.BOOLEAN,
+                            defaultValue: false,
+                        },
+                        created_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                        updated_at: {
+                            allowNull: false,
+                            type: Sequelize.DATE,
+                        },
+                    },
+                    {
+                        engine: 'InnoDB ROW_FORMAT=DYNAMIC',
+                    }
+                );
+            })
+            .then(function() {
+                return queryInterface.sequelize.query(
+                    'ALTER TABLE `follows` ROW_FORMAT=DYNAMIC;'
                 );
             });
     },

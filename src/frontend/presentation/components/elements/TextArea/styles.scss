@@ -1,0 +1,63 @@
+.text-area {
+  width: 100%;
+  min-height: 48px;
+  position: relative;
+  &__label {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    font-size: 16px;
+    color: #9098A9;
+    font-weight: 500;
+    transform-origin: 0 0;
+    transition: all .2s ease;
+    &.focus {
+      color: #0077FF;
+      transform: translateY(-26px) scale(.75);
+      transition: all .2s ease;
+    }
+  }
+  & textarea {
+    overflow: hidden;
+    -webkit-appearance: none;
+    width: 100%;
+    border: 0;
+    font-family: inherit;
+    padding: 12px 0;
+    height: 48px;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 2px solid #C8CCD4;
+    background: none;
+    border-radius: 0;
+    color: #223254;
+    transition: all .15s ease;
+    &:hover {
+      background: rgba(#223254,.03);
+    }
+    // &:not(:placeholder-shown) {
+    //   ~ span {
+    //     color: #5A667F;
+    //     transform: translateY(-26px) scale(.75);
+    //   }
+    // }
+    &:focus {
+      background: none;
+      outline: none;
+    }
+  }
+  &__border {
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: #0077FF;
+    transform: scaleX(0);
+    transform-origin: 0 0;
+    transition: all .15s ease;
+    &.focus {
+      transform: scaleX(1);
+    }
+  }
+}

@@ -3,7 +3,11 @@
   // padding-top: 62px;
 }
 
-
+.App.blur {
+  height: 100% !important;
+  filter: blur(4px);
+  overflow: hidden;
+}
 
 .header-hidden {
   height: 100vh !important;

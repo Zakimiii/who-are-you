@@ -34,7 +34,11 @@ export default function AuthMiddleware(app) {
     app.use(InstagramHandler.passport.session());
     const router = koa_router({ prefix: '/auth' });
     app.use(router.routes());
-    const koaBody = koa_body();
+    const koaBody = koa_body({
+        formLimit: '5mb',
+        jsonLimit: '5mb',
+        textLimit: '5mb',
+    });
 
     router.get('/twitter', koaBody, function*(ctx, next) {
         yield TwitterHandler.authenticate();

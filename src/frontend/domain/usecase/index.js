@@ -6,6 +6,7 @@ import HeadingUseCase from '@usecase/HeadingUseCase';
 import AnswerUseCase from '@usecase/AnswerUseCase';
 import SessionUseCase from '@usecase/SessionUseCase';
 import SearchUseCase from '@usecase/SearchUseCase';
+import NotificationUseCase from '@usecase/NotificationUseCase';
 
 export {
     UseCaseImpl,
@@ -16,4 +17,5 @@ export {
     AnswerUseCase,
     SessionUseCase,
     SearchUseCase,
+    NotificationUseCase,
 };

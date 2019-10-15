@@ -1,0 +1,116 @@
+.heading-item {
+  width: 100%;
+  // cursor: pointer;
+  height: 100%;
+  position: relative;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  padding: 12px;
+  @include themify($themes) {
+    background: themed('background');
+    box-shadow: 0px 0px 3px 3px themed('shadow');
+  }
+  // &:hover {
+  //   @include themify($themes) {
+  //     transition: all 0.3s ease-in-out;
+  //     background: darken(themed('background'), 3%) !important;
+  //   }
+  // }
+  &__container {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+  &__head {
+    min-height: 44px;
+    clear: both;
+    @include flex-center();
+    border: none;
+    cursor: pointer;
+    &-image {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 44px;
+      padding: 6px;
+    }
+    &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      padding: 4px;
+      text-align: left;
+      @include FS(FM);
+      @include LH(FM);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('backgroundThick');
+      }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
+    }
+  }
+  &__title {
+    width: 100%;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    padding: 6px;
+    padding-bottom: 12px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+    };
+  }
+  &__border {
+    height: 4px;
+    width: calc(100% - 12px);
+    margin: 0px auto;
+    @include themify($themes) {
+      background: themed('subThick2');
+    }
+  }
+  &__items {
+    width: calc(100% - 16px);
+    margin: 12px auto;
+  }
+  &__item {
+  }
+  &__link {
+    margin-top: 22px;
+    margin-bottom: 22px;
+    cursor: pointer;
+    @include default-link;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    text-align: center;
+    text-decoration: underline !important;
+    display: block;
+    cursor: pointer;
+    @include FM(R);
+    @include FS(S);
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    @include mq-down(fm) {
+      @include FS(FS);
+    };
+  }
+  &__button {
+    height: 54px;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    padding-bottom: 10px;
+  }
+}

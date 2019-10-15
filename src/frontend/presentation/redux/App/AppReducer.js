@@ -51,7 +51,13 @@ export const defaultState = Map({
 export default function reducer(state = defaultState, action = {}) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
-            return state.set('location', { pathname: action.payload.pathname });
+            return state.set('location', {
+                pathname: action.payload.pathname,
+                loading: false,
+                sending: false,
+                more_loading: false,
+                screen_loading: false,
+            });
         case ADD_ERROR: {
             if (action.payload.error) {
                 let { error } = action.payload;
@@ -126,7 +132,7 @@ export default function reducer(state = defaultState, action = {}) {
 
         case HIDE_HEADER: {
             return state.merge({
-                show_header: true,
+                show_header: false,
             });
         }
 
@@ -300,5 +306,13 @@ export const removeErrorsFromError = (state, error) => {
             e.key != key &&
             e.tt_key != error.tt_key &&
             e.message != error.message
+    );
+};
+
+export const enableModal = state => {
+    return (
+        state.auth.get('show_login_modal') ||
+        state.heading.get('show_new_modal') ||
+        state.answer.get('show_new_modal')
     );
 };

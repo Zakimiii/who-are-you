@@ -35,6 +35,12 @@ module.exports = function(sequelize, DataTypes) {
             body: {
                 type: DataTypes.TEXT('long'),
             },
+            picture: {
+                type: DataTypes.BLOB('long'),
+            },
+            tweet_url: {
+                type: DataTypes.STRING(255),
+            },
             locale: {
                 type: DataTypes.STRING(255),
             },
@@ -69,13 +75,20 @@ module.exports = function(sequelize, DataTypes) {
             updatedAt: 'updated_at',
             timestamps: true,
             underscored: true,
-
+            charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
-                    Answer.belongsTo(models.Identity, {
+                    Answer.belongsTo(models.User, {
                         onDelete: 'CASCADE',
                         foreignKey: {
-                            name: 'identity_id',
+                            name: 'user_id',
+                            allowNull: true,
+                        },
+                    });
+                    Answer.belongsTo(models.Heading, {
+                        onDelete: 'CASCADE',
+                        foreignKey: {
+                            name: 'heading_id',
                             allowNull: false,
                         },
                     });
@@ -90,6 +103,8 @@ module.exports = function(sequelize, DataTypes) {
             UserId: self.UserId,
             HeadingId: self.HeadingId,
             body: self.body,
+            picture: self.picture,
+            tweet_url: self.tweet_url,
             locale: self.locale,
             country_code: self.country_code,
             isMyAnswer: self.isMyAnswer,

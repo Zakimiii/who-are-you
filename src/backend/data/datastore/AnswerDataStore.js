@@ -67,7 +67,21 @@ export default class AnswerDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (params.user) val.User = includes[index][0];
-                if (params.heading) val.Heading = includes[index][1];
+                if (params.heading) {
+                    val.Heading = includes[index][1];
+                    val.Heading.User = await models.User.findOne({
+                        where: {
+                            id: val.Heading.UserId,
+                        },
+                        raw: true,
+                    });
+                    val.Heading.Voter = await models.User.findOne({
+                        where: {
+                            id: val.Heading.VoterId,
+                        },
+                        raw: true,
+                    });
+                }
                 if (params.siblings) val.Sibilings = includes[index][2];
                 return val;
             })
@@ -78,6 +92,14 @@ export default class AnswerDataStore extends DataStoreImpl {
         return await this.getIncludes(datum, {
             user: true,
             heading: false,
+            siblings: false,
+        });
+    }
+
+    async getShowIncludes(datum) {
+        return await this.getIncludes(datum, {
+            user: true,
+            heading: true,
             siblings: false,
         });
     }
@@ -194,7 +216,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             ? {
                   $or: [
                       {
-                          user_id: Number(user_id),
+                          user_id: Number(user_id) || 0,
                       },
                       {
                           username,
@@ -205,7 +227,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             : {
                   $or: [
                       {
-                          user_id: Number(user_id),
+                          user_id: Number(user_id) || 0,
                       },
                       {
                           username,

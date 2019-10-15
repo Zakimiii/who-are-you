@@ -6,48 +6,59 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
+import TipsBackground from '@modules/TipsBackground';
+import TwitterButton from '@elements/TwitterButton';
+import Img from 'react-image';
 
 class HomeList extends React.Component {
+    static propTypes = {};
 
-    static propTypes = {
-    };
+    static defaultProps = {};
 
-    static defaultProps = {
-    };
-
-    state = {
-    }
+    state = {};
 
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'HomeList')
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'HomeList');
     }
 
-    componentWillMount() {
-    }
+    componentWillMount() {}
 
-    componentDidMount() {
-    }
+    componentDidMount() {}
 
-    componentWillReceiveProps(nextProps) {
-    }
+    componentWillReceiveProps(nextProps) {}
 
     render() {
-        return (
-            <div className="home-list" >
+        const top = (
+            <TipsBackground>
+                <div className="home-list__top">
+                    <div className="home-list__top-logo">
+                        <Img
+                            className="home-list__top-logo-image"
+                            src={'/images/brands/who_are_you.png'}
+                        />
+                    </div>
+                    <div className="home-list__top-desc">{tt('apps.home')}</div>
+                    <div className="home-list__top-button">
+                        <TwitterButton />
+                    </div>
+                    <Img
+                        className="home-list__top__back-logo"
+                        src={'/images/brands/who-are-you_logo.png'}
+                    />
+                </div>
+            </TipsBackground>
+        );
 
-            </div>
-        )
+        return <div className="home-list">{top}</div>;
     }
 }
 
 export default connect(
     (state, props) => {
-        return {
-        };
+        return {};
     },
 
-    dispatch => ({
-    })
+    dispatch => ({})
 )(HomeList);

@@ -1,0 +1,126 @@
+.index-component {
+  width: 100%;
+  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+  padding-top: 62px;
+  clear: both;
+  position: relative;
+  @include themify($themes) {
+    background: themed('backgroundLight');
+  }
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  &__left {
+    z-index: 10;
+    overflow: scroll;
+    height: calc(100vh - 62px);
+    top: 62px;
+    left: 0;
+    width: 350px;
+    position: fixed;
+    @include themify($themes) {
+      background: themed('backgroundLight');
+    }
+    @include mq-down(xl) {
+      width: 280px;
+    };
+    @include mq-down(lg) {
+      display: none;
+    };
+    &-in {
+      max-width: 300px;
+      margin-right: auto;
+      height: 100%;
+      @include mq-down(xl) {
+        width: 240px;
+      };
+    }
+  }
+  &__wrapper {
+    display: block;
+    width: calc(100% - 350px);
+    flex: 1;
+    min-height: 100vh;
+    position: absolute;
+    align-items: stretch;
+    top: 62px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-left: auto;
+    @include themify($themes) {
+      background: themed('backgroundLight');
+    }
+    @include mq-down(xl) {
+      width: calc(100% - 280px);
+    };
+    @include mq-down(lg) {
+      width: calc(100% - 24px);
+    };
+    @include mq-down(md) {
+      width: calc(100%);
+    };
+    &-in {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: 100%;
+      min-height: 100vh;
+      padding-bottom: 45vh;
+      position: relative;
+      align-items: stretch;
+      @include themify($themes) {
+        background: themed('backgroundLight');
+      }
+    }
+  }
+  &__right {
+    order: 3;
+    z-index: 10;
+    min-height: calc(100vh - 62px);
+    width: 100%;
+    padding-left: 44px;
+    padding-right: 10px;
+    width: 40%;
+    flex: 1 0 40%;
+    @include mq-down(md) {
+      display: none;
+    };
+    &-in {
+      max-width: 300px;
+      margin-right: auto;
+      height: 100%;
+      @include themify($themes) {
+        background: themed('backgroundLight');
+      }
+    }
+    // min-width: 250px;
+    // flex: 0 0 300px;
+    // position: fixed;
+    // top: 62px;
+    // right: 32px;
+  }
+  &__center {
+    order: 2;
+    width: 60%;
+    flex: 1 0 60%;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 800px;
+    @include mq-down(md) {
+      flex: 1 0 100%;
+      width: 100%;
+    };
+    &-in {
+      height: 100%;
+      margin: 0 auto;
+      width: calc(100%);
+      padding-bottom: 45vh;
+      @include themify($themes) {
+        background: themed('backgroundLight');
+      }
+    }
+  }
+}

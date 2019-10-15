@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import AppPropTypes from '@extension/AppPropTypes';
 import Header from '@modules/Header';
 import * as appActions from '@redux/App/AppReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
 import classNames from 'classnames';
 import tt from 'counterpart';
 import { Component } from 'react';
@@ -23,55 +25,38 @@ import {
     routeEntities,
     getPageTitle,
     getPageDescription,
+    getPageTweetTag,
 } from '@infrastructure/RouteInitialize';
 import config from '@constants/config';
-
-const pageRequiresEntropy = path => {
-    const { page } = resolveRoute(path);
-
-    const entropyPages = [
-        'ChangePassword',
-        'RecoverAccountStep1',
-        'RecoverAccountStep2',
-        'UserProfile',
-        'CreateAccount',
-    ];
-    /* Returns true if that page requires the entropy collection listener */
-    return entropyPages.indexOf(page) !== -1;
-};
+import ScreenShot from '@modules/ScreenShot';
 
 class App extends Component {
     static redirect = url => {
         if (
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com/' == url ||
-            'http://ec2-50-17-10-109.compute-1.amazonaws.com' == url ||
-            'http://selfinity.me/' == url ||
-            'http://selfinity.me' == url
+            `${config.APP_PUBLIC_IP}/` == url ||
+            `${config.APP_PUBLIC_IP}` == url ||
+            `http://${config.APP_DOMAIN}/` == url ||
+            `http://${config.APP_DOMAIN}` == url
         ) {
-            window.location.replace('https://selfinity.me');
+            window.location.replace(`https://${config.APP_DOMAIN}`);
         }
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            showCallout: true,
-            showBanner: true,
-        };
         autobind(this);
-        this.listenerActive = null;
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'App');
     }
 
     componentWillMount() {
         this.props.syncCurrentUser();
         this.props.loginUser();
+
+        this.setTwitterMeta(this.props.tweet_tags);
     }
 
     componentDidMount() {
         process.env.BROWSER && App.redirect(window.location.href);
-        if (pageRequiresEntropy(this.props.pathname)) {
-            this._addEntropyCollector();
-        }
 
         if (window && document && process.env.NODE_ENV == 'production') {
             try {
@@ -122,15 +107,6 @@ class App extends Component {
     componentWillReceiveProps(np) {
         // Add listener if the next page requires entropy and the current page didn't
         window.previousLocation = this.props.location;
-        if (
-            pageRequiresEntropy(np.pathname) &&
-            !pageRequiresEntropy(this.props.pathname)
-        ) {
-            this._addEntropyCollector();
-        } else if (!pageRequiresEntropy(np.pathname)) {
-            // Remove if next page does not require entropy
-            this._removeEntropyCollector();
-        }
 
         if (
             np.pathname != this.props.pathname &&
@@ -140,59 +116,22 @@ class App extends Component {
                 page_path: np.location.pathname,
             });
         }
+
+        if (this.props.description !== np.description)
+            this.setDescription(np.description);
+
+        if (this.props.tweet_tags !== np.tweet_tags)
+            this.setTwitterMeta(np.tweet_tags);
     }
 
-    _addEntropyCollector() {
-        if (!this.listenerActive && this.refs.App_root) {
-            this.refs.App_root.addEventListener(
-                'mousemove',
-                this.onEntropyEvent,
-                { capture: false, passive: true }
-            );
-            this.listenerActive = true;
-        }
-    }
-
-    _removeEntropyCollector() {
-        if (this.listenerActive && this.refs.App_root) {
-            this.refs.App_root.removeEventListener(
-                'mousemove',
-                this.onEntropyEvent
-            );
-            this.listenerActive = null;
-        }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        const {
-            pathname,
-            new_visitor,
-            nightmodeEnabled,
-            showAnnouncement,
-            isHeaderVisible,
-            title,
-            description,
-        } = this.props;
-        const n = nextProps;
-
-        if (description !== n.description) this.setDescription(n.description);
-
-        return (
-            pathname !== n.pathname ||
-            new_visitor !== n.new_visitor ||
-            this.state.showBanner !== nextState.showBanner ||
-            this.state.showCallout !== nextState.showCallout ||
-            nightmodeEnabled !== n.nightmodeEnabled ||
-            showAnnouncement !== n.showAnnouncement ||
-            isHeaderVisible !== n.isHeaderVisible ||
-            title !== n.title ||
-            description !== n.description
-        );
-    }
-
-    setShowBannerFalse = () => {
-        this.setState({ showBanner: false });
-    };
+    // getMetaContents(mn){
+    //     var m = document.getElementsByTagName('meta');
+    //     for(var i in m){
+    //         if(m[i].name == mn){
+    //             return m[i].content;
+    //         }
+    //     }
+    // }
 
     setDescription(description) {
         if (!process.env.BROWSER) return;
@@ -202,7 +141,53 @@ class App extends Component {
             .setAttribute('content', description);
     }
 
-    onEntropyEvent = e => {};
+    setTwitterMeta(obj) {
+        if (!process.env.BROWSER || !obj) return;
+
+        if (!document.getElementsByName('twitter:card')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:card');
+            meta.setAttribute('content', obj.card);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:card')[0]
+                .setAttribute('content', obj.card);
+        }
+
+        if (!document.getElementsByName('twitter:title')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:title');
+            meta.setAttribute('content', obj.title);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:title')[0]
+                .setAttribute('content', obj.title);
+        }
+
+        if (!document.getElementsByName('twitter:description')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:description');
+            meta.setAttribute('content', obj.description);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:description')[0]
+                .setAttribute('content', obj.description);
+        }
+
+        if (!document.getElementsByName('twitter:image')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'twitter:image');
+            meta.setAttribute('content', obj.image);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('twitter:image')[0]
+                .setAttribute('content', obj.image);
+        }
+    }
 
     render() {
         const {
@@ -217,6 +202,8 @@ class App extends Component {
             order,
             title,
             description,
+            enableModal,
+            screen_loading,
         } = this.props;
 
         if (!process.env.BROWSER)
@@ -246,17 +233,17 @@ class App extends Component {
                             pathname === '/login' ||
                             pathname === '/signup',
                         withAnnouncement: false,
+                        blur: enableModal && !screen_loading,
                     })}
                     ref="App_root"
                 >
-                    <Header
-                        pathname={pathname}
-                    />
+                    <Header pathname={pathname} />
                     {children}
                     <Modals />
                     <AlertContainer />
                     <FlashContainer />
                     <ScreenLoadingIndicator />
+                    <ScreenShot />
                 </div>
             </DocumentTitle>
         );
@@ -275,20 +262,13 @@ App.propTypes = {
 export default connect(
     (state, ownProps) => {
         const isHeaderVisible = state.app.get('show_header');
+        const show_heading_screen_shot = state.heading.get('show_screen_shot');
         // const current_user = state.user.get('current');
         // const current_account_name = current_user
         //     ? current_user.get('username')
         //     : state.offchain.get('account');
 
         return {
-            // viewMode: state.app.get('viewMode'),
-            // error: state.app.get('error'),
-            // new_visitor:
-            //     !state.user.get('current') &&
-            //     !state.offchain.get('user') &&
-            //     !state.offchain.get('account') &&
-            //     state.offchain.get('new_visit'),
-
             nightmodeEnabled: state.app.getIn([
                 'user_preferences',
                 'nightmode',
@@ -299,6 +279,11 @@ export default connect(
             category: ownProps.params.category,
             title: getPageTitle(ownProps.location.pathname, state),
             description: getPageDescription(ownProps.location.pathname, state),
+            tweet_tags: getPageTweetTag(ownProps.location.pathname, state),
+            enableModal: appActions.enableModal(state),
+            show_heading_screen_shot,
+            screen_shot_heading: headingActions.getScreenShotHeading(state),
+            screen_loading: state.app.get('screen_loading'),
             // showAnnouncemenzt: state.user.get('showAnnouncement'),
         };
     },

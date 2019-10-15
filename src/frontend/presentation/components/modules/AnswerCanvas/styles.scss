@@ -1,0 +1,121 @@
+.answer-canvas {
+  position: relative;
+  width: 1200px;
+  height: 630px;
+  padding: 84px 0;
+  @include themify($themes) {
+    // background-color: themed('background');
+    // border: solid 16px themed('sub');
+  }
+  background-position: center center;
+  background-size: contain;
+  &__wrapper {
+    // margin-top: 100vh;
+  }
+  &__container {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    @include themify($themes) {
+      background: themed('transparent');
+    }
+  }
+  &__user {
+    margin-bottom: 12px;
+    min-height: 64px;
+    @include flex-center();
+    &-image {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      width: 64px;
+      height: 64px;
+      padding: 6px;
+    }
+    &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 64px;
+      padding-left: 24px;
+      text-align: left;
+      @include FS(L);
+      @include LH(L);
+      @include FM(FB);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+    }
+  }
+  &__border {
+    width: 1000px;
+    margin: 0 auto;
+    height: 4px;
+    @include themify($themes) {
+      background: themed('subThick2');
+    }
+  }
+  &__title {
+    width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    // word-wrap: break-word;
+    // white-space: pre-wrap;
+    @include FS(XL);
+    @include LH(L);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('subThick2');
+    }
+  }
+  &__text {
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 4px;
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(L);
+    @include LH(L);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+    &.S {
+      margin-top: 44px;
+      @include FS(XXL);
+      @include LH(XXL);
+    }
+    &.M {
+      @include FS(XL);
+      @include LH(XL);
+    }
+    &.L {
+      @include FS(L);
+      @include LH(L);
+    }
+  }
+  &__image {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 200px;
+    height: 40px;
+  }
+  &__back-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 400px;
+    @include opacity(.4);
+  }
+}

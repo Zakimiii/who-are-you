@@ -1,0 +1,73 @@
+.heading-new-list {
+  width: 100%;
+  height: 100%;
+  padding: 44px;
+  @include themify($themes) {
+    background: themed('background');
+  }
+  @include mq-down(fm) {
+    padding: 12px;
+  };
+  &__user {
+    min-height: 44px;
+    clear: both;
+    &-image {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 44px;
+      padding: 6px;
+    }
+    &-title {
+      vertical-align: middle;
+      position: relative;
+      display: inline-block;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      min-height: 32px;
+      width: calc(100% - 44px);
+      padding: 6px;
+      text-align: left;
+      @include FS(FM);
+      @include LH(FM);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+      @include mq-down(fm) {
+        @include FS(S);
+        @include LH(S);
+      };
+    }
+  }
+  &__form {
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    @include mq-down(fm) {
+      padding: 12px 0;
+    };
+    &-input {
+      padding: 12px 8px;
+      height: 54px;
+      width: 100%;
+    }
+    &-counter {
+      width: 64px;
+      height: 24px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      margin-left: auto;
+    }
+    &-submit {
+      margin: 22px auto;
+      height: 54px;
+      width: 100%;
+      @include mq-down(fm) {
+        margin: 12px auto;
+        height: 44px;
+      };
+    }
+  }
+}

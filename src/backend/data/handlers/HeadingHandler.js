@@ -27,6 +27,30 @@ export default class HeadingHandler extends HandlerImpl {
         super();
     }
 
+    async handleGetRequest(router, ctx, next) {
+        const { id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        let heading = await models.Heading.findOne({
+            where: {
+                id,
+            },
+            raw: true,
+        });
+
+        heading = await headingDataStore.getShowIncludes(heading);
+
+        router.body = {
+            success: true,
+            heading: safe2json(heading[0]),
+        };
+    }
+
     async handleCreateRequest(router, ctx, next) {
         const { heading, limit, offset } = router.request.body;
 
@@ -41,7 +65,7 @@ export default class HeadingHandler extends HandlerImpl {
             });
         });
 
-        // notificationDataStore.onCreateHeading(result);
+        notificationDataStore.onCreateHeading(result);
 
         router.body = {
             success: true,

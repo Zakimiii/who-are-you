@@ -9,6 +9,7 @@ import { List } from 'immutable';
 import classnames from 'classnames';
 import UserShowList from '@cards/UserShowList';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
+import IndexComponent from '@pages/IndexComponent';
 
 class UserShow extends React.Component {
     static propTypes = {
@@ -27,11 +28,9 @@ class UserShow extends React.Component {
         var { username } = this.props.routeParams;
 
         return (
-            <IndexComponentImpl>
-                <div className="user-show">
-                    <UserShowList username={username} />
-                </div>
-            </IndexComponentImpl>
+            <IndexComponent>
+                <UserShowList username={username} />
+            </IndexComponent>
         );
     }
 }

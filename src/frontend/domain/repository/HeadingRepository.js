@@ -9,12 +9,20 @@ export default class HeadingRepository extends RepositoryImpl {
         super();
     }
 
+    async getHeading({ id, offset, limit }) {
+        const data = await super.apiCall('/api/v1/heading', {
+            id: Number(id),
+        });
+
+        return data && data.heading;
+    }
+
     async create(heading) {
         const data = await super.apiCall('/api/v1/heading/create', {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async update(heading) {
@@ -22,7 +30,7 @@ export default class HeadingRepository extends RepositoryImpl {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async delete(heading) {
@@ -30,7 +38,7 @@ export default class HeadingRepository extends RepositoryImpl {
             heading: safe2json(heading),
         });
 
-        return data;
+        return data.heading;
     }
 
     async trash(heading) {

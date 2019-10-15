@@ -14,7 +14,7 @@ class ServerError extends Component {
                 <Img
                     width="64px"
                     height="64px"
-                    src="/images/brands/mini-logo.png"
+                    src="/images/brands/who-are-you_logo.png"
                 />
                 <div
                     style={{

@@ -23,3 +23,11 @@ export const breakpointMd = 768;
 export const breakpointLg = 1000;
 export const breakpointXl = 1200;
 export const breakpointXxl = 1380;
+
+export const open = url => {
+    if (!process.env.BROWSER) return;
+    var w = window.open('', 'WhoAreYouWindow');
+    setTimeout(() => {
+        w.location.replace(url);
+    }, 1);
+};
