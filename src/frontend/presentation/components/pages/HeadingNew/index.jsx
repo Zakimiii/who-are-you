@@ -58,10 +58,7 @@ class HeadingNew extends React.Component {
     componentDidMount() {
         const { repository } = this.props;
         if (!!repository && !!repository.UserId)
-            HeadingNew.pushURLState(
-                tt('g.new_posts'),
-                repository.User.username
-            );
+            HeadingNew.pushURLState('', repository.User.username);
         if (process.env.BROWSER)
             window.addEventListener(
                 'touchmove',

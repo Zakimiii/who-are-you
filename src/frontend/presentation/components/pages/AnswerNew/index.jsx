@@ -58,7 +58,7 @@ class AnswerNew extends React.Component {
     componentDidMount() {
         const { repository } = this.props;
         if (!!repository && !!repository.HeadingId)
-            AnswerNew.pushURLState(tt('g.new_posts'), repository.HeadingId);
+            AnswerNew.pushURLState('', repository.HeadingId);
         if (process.env.BROWSER)
             window.addEventListener(
                 'touchmove',
