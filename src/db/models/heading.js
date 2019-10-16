@@ -56,6 +56,10 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
+            isBot: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             isPrivate: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
