@@ -115,6 +115,7 @@ module.exports = function(sequelize, DataTypes) {
             country_code: self.country_code,
             answer_count: self.answer_count,
             isHide: self.isHide,
+            isBot: self.isBot,
             isPrivate: self.isPrivate,
             valid: self.valid,
             permission: self.permission,

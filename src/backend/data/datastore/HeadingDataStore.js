@@ -9,6 +9,10 @@ import {
     generateOrQuery,
     generateOrQueries,
 } from '@extension/query';
+import tt from 'counterpart';
+
+const count = tt('headings', { fallback: 'ja' }).length;
+console.log(count, tt('headings', { fallback: 'ja' }));
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
@@ -378,5 +382,45 @@ export default class HeadingDataStore extends DataStoreImpl {
             voter: true,
             answers: false,
         });
+    }
+
+    async createBot(user) {
+        if (!user) return;
+        if (!user.id) return;
+
+        const count = tt('headings', { fallback: 'ja' }).length;
+        const finish = await models.Heading.findAll({
+            where: {
+                user_id: Number(user.id),
+                isBot: true,
+            },
+        });
+
+        if (count == finish.length) return;
+
+        let next = true;
+        let n;
+
+        while (next) {
+            n = Number.prototype.getRandomInt(count);
+
+            const exist = await models.Heading.findOne({
+                where: {
+                    user_id: Number(user.id),
+                    isBot: true,
+                    body: `${n}`,
+                },
+            });
+
+            next = !!exist;
+        }
+
+        const result = await models.Heading.create({
+            UserId: Number(user.id),
+            isBot: true,
+            body: `${n}`,
+        });
+
+        return result;
     }
 }

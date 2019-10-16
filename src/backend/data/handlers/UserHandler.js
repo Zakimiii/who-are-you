@@ -14,6 +14,7 @@ import {
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
 import Promise from 'bluebird';
+import tt from 'counterpart';
 
 const headingDataStore = new HeadingDataStore();
 const answerDataStore = new AnswerDataStore();
