@@ -13,6 +13,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
 import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
+import models from '@network/client_models';
 
 class AnswerShowHeader extends React.Component {
     static propTypes = {

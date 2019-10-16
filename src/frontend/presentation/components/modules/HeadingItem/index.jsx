@@ -18,6 +18,7 @@ import {
     headingShowRoute,
     userShowRoute,
 } from '@infrastructure/RouteInitialize';
+import models from '@network/client_models';
 
 class HeadingItem extends React.Component {
     static propTypes = {
