@@ -22,6 +22,13 @@ const User = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj &&
+        'username' in obj &&
+        'nickname' in obj &&
+        'detail' in obj &&
+        'picture_small' in obj &&
+        'picture_large' in obj,
 };
 
 const Heading = {
@@ -44,6 +51,8 @@ const Heading = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj && 'UserId' in obj && 'VoterId' in obj && 'body' in obj,
 };
 
 const Answer = {
@@ -66,6 +75,8 @@ const Answer = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj && 'UserId' in obj && 'HeadingId' in obj && 'body' in obj,
 };
 
 module.exports = {
