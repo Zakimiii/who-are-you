@@ -10,9 +10,7 @@ import {
     generateOrQueries,
 } from '@extension/query';
 import tt from 'counterpart';
-
-const count = tt('headings', { fallback: 'ja' }).length;
-console.log(count, tt('headings', { fallback: 'ja' }));
+import prototype_data from '@locales/prototype/ja.json';
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
@@ -388,7 +386,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (!user) return;
         if (!user.id) return;
 
-        const count = tt('headings', { fallback: 'ja' }).length;
+        const count = prototype_data.headings.length;
         const finish = await models.Heading.findAll({
             where: {
                 user_id: Number(user.id),

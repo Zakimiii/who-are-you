@@ -13,6 +13,8 @@ import env from '@env/env.json';
 import TwitterHandler from '@network/twitter';
 import mail from '@network/mail';
 import jwt from 'jsonwebtoken';
+import tt from 'counterpart';
+import prototype_data from '@locales/prototype/ja.json';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
