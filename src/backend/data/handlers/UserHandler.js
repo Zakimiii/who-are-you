@@ -96,6 +96,37 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleCreateBotRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+        });
+
+        const heading = await headingDataStore.createBot(user);
+
+        router.body = {
+            success: true,
+            user: safe2json(user),
+            heading: safe2json(heading),
+        };
+    }
+
     async handleGetUserFollowerRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 

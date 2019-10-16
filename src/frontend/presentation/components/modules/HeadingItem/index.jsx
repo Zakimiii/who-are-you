@@ -101,7 +101,7 @@ class HeadingItem extends React.Component {
                         </div>
                     </div>
                     <div className="heading-item__title">
-                        {`「${_repository.body}」`}
+                        {`「${models.Heading.getBody(_repository)}」`}
                     </div>
                     <div className="heading-item__border" />
                 </div>

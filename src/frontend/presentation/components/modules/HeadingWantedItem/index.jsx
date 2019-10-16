@@ -77,7 +77,7 @@ class HeadingWantedItem extends React.Component {
                     </div>
                 </Link>
                 <div className="heading-wanted-item__title">
-                    {`「${_repository.body}」`}
+                    {`「${models.Heading.getBody(_repository)}」`}
                 </div>
                 <div className="heading-wanted-item__border" />
                 <div className="heading-wanted-item__text">

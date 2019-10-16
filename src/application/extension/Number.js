@@ -22,8 +22,4 @@ Number.prototype.castBool = self => {
     return self == 1 || self == true;
 };
 
-Number.prototype.getRandomInt = max => {
-    return Math.floor(Math.random() * Math.floor(max));
-};
-
 module.exports = 0;

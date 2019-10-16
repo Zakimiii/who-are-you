@@ -2,6 +2,7 @@ import { RouteEntity, RouteEntities } from '@entity/RouteEntity';
 import data_config from '@constants/data_config';
 import config from '@constants/config';
 import tt from 'counterpart';
+import models from '@network/client_models';
 
 export const homeRoute = new RouteEntity({
     path: '/',
@@ -186,7 +187,7 @@ export const getPageDescription = (pathname, state) => {
         const answer = !!val ? val.toJS() : null;
         if (!!answer && !!answer.Heading)
             description = tt(`descriptions.${answerShowRoute.page}`, {
-                heading: `${answer.Heading.body}`,
+                heading: `${models.Heading.getBody(answer.Heading)}`,
             });
     } else if (page == headingShowRoute.page) {
         let val = state.heading.get('show_heading');

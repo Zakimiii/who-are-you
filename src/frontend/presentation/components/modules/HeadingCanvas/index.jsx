@@ -90,7 +90,7 @@ class HeadingCanvas extends React.Component {
                             </div>
                         </div>
                         <div className="heading-canvas__title">
-                            {`「${repository.body}」`}
+                            {`「${models.Heading.getBody(repository)}」`}
                         </div>
                         <div className="heading-canvas__text">
                             {tt('g.wanted_answer', {

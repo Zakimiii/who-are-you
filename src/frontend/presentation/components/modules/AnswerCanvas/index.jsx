@@ -119,7 +119,7 @@ class AnswerCanvas extends React.Component {
                         </div>
                     </div>
                     <div className="answer-canvas__title">
-                        {`${repository.Heading.body}`}
+                        {`${models.Heading.getBody(repository.Heading)}`}
                     </div>
                     <div className="answer-canvas__border" />
                     <div

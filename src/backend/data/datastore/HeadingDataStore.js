@@ -11,6 +11,7 @@ import {
 } from '@extension/query';
 import tt from 'counterpart';
 import prototype_data from '@locales/prototype/ja.json';
+const casual = require('casual');
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
@@ -386,7 +387,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (!user) return;
         if (!user.id) return;
 
-        const count = prototype_data.headings.length;
+        const count = Object.keys(prototype_data.headings).length;
         const finish = await models.Heading.findAll({
             where: {
                 user_id: Number(user.id),
@@ -397,10 +398,10 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (count == finish.length) return;
 
         let next = true;
-        let n;
+        let n = casual.integer(0, count - 1);
 
         while (next) {
-            n = Number.prototype.getRandomInt(count);
+            n = casual.integer(0, count - 1);
 
             const exist = await models.Heading.findOne({
                 where: {

@@ -76,7 +76,7 @@ class AnswerShowHeader extends React.Component {
                     </div>
                 </Link>
                 <div className="answer-show-header__title">
-                    {`「${_repository.Heading.body}」`}
+                    {`「${models.Heading.getBody(_repository.Heading)}」`}
                 </div>
                 <div className="answer-show-header__border" />
                 <div className="answer-show-header__text">
