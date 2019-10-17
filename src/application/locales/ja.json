@@ -36,7 +36,7 @@
         "themes": "紹介テーマ一覧",
         "add_theme": "紹介テーマを追加",
         "answered_theme": "回答したテーマ",
-        "example_theme": "（例）〇〇さんのチャームポイント",
+        "example_theme": "（例）%(data)s",
         "twitter_login": "Twitterで始める",
         "relate_user": "関連ユーザー",
         "user": "ユーザー",

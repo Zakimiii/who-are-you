@@ -11,7 +11,7 @@ import {
 } from '@extension/query';
 import tt from 'counterpart';
 import prototype_data from '@locales/prototype/ja.json';
-const casual = require('casual');
+import casual from 'casual';
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
