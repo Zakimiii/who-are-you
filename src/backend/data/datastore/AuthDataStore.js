@@ -328,12 +328,14 @@ export default class AuthDataStore extends DataStoreImpl {
                 TwitterHandler.fix_banner_name(
                     profile._json.profile_banner_url
                 ) || data_config.default_user_image,
+            verified: true,
         });
 
         identity = await identity.update({
             twitter_id: profile.id,
             twitter_token: token,
             twitter_secret: tokenSecret,
+            verified: true,
         });
 
         //TODO: make verified
