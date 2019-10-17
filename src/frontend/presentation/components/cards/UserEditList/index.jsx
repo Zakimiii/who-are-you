@@ -66,7 +66,9 @@ class UserEditList extends React.Component {
 
         return (
             <div className="user-edit-list">
-                <div className="user-edit-list__category">{tt('g.themes')}</div>
+                <div className="user-edit-list__category">
+                    {tt('g.setting')}
+                </div>
                 <div className="user-edit-list__setting-menus">
                     {renderItem}
                 </div>
