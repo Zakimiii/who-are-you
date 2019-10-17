@@ -70,6 +70,7 @@ class HeadingWantedItem extends React.Component {
             >
                 <Link
                     className="heading-wanted-item__user"
+                    onClick={e => e.stopPropagation()}
                     to={
                         _repository.User.username == dummy.User.username
                             ? null

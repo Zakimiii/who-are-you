@@ -43,6 +43,7 @@ class HeadingNewButton extends React.Component {
                 src={'plus'}
                 value={tt('g.add_theme')}
                 onClick={this.onClick}
+                stop={true}
             />
         );
     }

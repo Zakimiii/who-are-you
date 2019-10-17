@@ -39,12 +39,25 @@ class AnswerItem extends React.Component {
     }
 
     onClickUser(e) {
-        if (e) e.preventDefault();
+        const { _repository } = this.props;
+
+        if (e) e.stopPropagation();
+
+        const path =
+            _repository.User.username == dummy.User.username
+                ? null
+                : userShowRoute.getPath({
+                      params: {
+                          username: _repository.User.username,
+                      },
+                  });
+
+        if (path) browserHistory.push(path);
     }
 
     onClick(e) {
         const { _repository } = this.props;
-        if (e) e.preventDefault();
+        if (e) e.stopPropagation();
         browserHistory.push(
             answerShowRoute.getPath({
                 params: {
@@ -88,18 +101,7 @@ class AnswerItem extends React.Component {
 
         return (
             <div className="answer-item" onClick={onClick}>
-                <Link
-                    className="answer-item__user"
-                    to={
-                        _repository.User.username == dummy.User.username
-                            ? null
-                            : userShowRoute.getPath({
-                                  params: {
-                                      username: _repository.User.username,
-                                  },
-                              })
-                    }
-                >
+                <Link className="answer-item__user" onClick={onClickUser}>
                     <div className="answer-item__user-image">
                         <PictureItem
                             width={22}

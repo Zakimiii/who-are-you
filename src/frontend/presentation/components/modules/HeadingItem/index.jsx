@@ -87,6 +87,7 @@ class HeadingItem extends React.Component {
                     <div className="heading-item__head">
                         <Link
                             className="heading-item__head-image"
+                            onClick={e => e.stopPropagation()}
                             to={
                                 _repository.User.username == dummy.User.username
                                     ? null

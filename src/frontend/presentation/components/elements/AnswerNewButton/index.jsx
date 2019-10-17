@@ -43,6 +43,7 @@ class AnswerNewButton extends React.Component {
                 src={'plus'}
                 value={tt('g.add_answer')}
                 onClick={this.onClick}
+                stop={true}
             />
         );
     }
