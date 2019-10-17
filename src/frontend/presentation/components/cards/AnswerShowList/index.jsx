@@ -59,6 +59,7 @@ class AnswerShowList extends React.Component {
         return (
             <div className="answer-show-list">
                 {top}
+                {user}
                 <div className="heading-show-list__category">
                     {tt('g.answered_theme')}
                 </div>
