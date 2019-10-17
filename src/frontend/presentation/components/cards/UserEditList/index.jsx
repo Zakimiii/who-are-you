@@ -10,6 +10,9 @@ import * as userActions from '@redux/User/UserReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import GradationButton from '@elements/GradationButton';
+import { SETTING_MENU } from '@entity';
+import SettingMenuItem from '@elements/SettingMenuItem';
+import oauth from '@network/oauth';
 
 class UserEditList extends React.Component {
     static propTypes = {};
@@ -33,17 +36,39 @@ class UserEditList extends React.Component {
         if (!!logout) logout();
     }
 
+    onClickSettingMenu(e, item) {
+        if (e) e.prevendDefault();
+        if (item == SETTING_MENU.Logout) {
+            oauth.removeAccessToken(localStorage);
+            this.props.logout();
+            return;
+        }
+        // if (item == SETTING_MENU.Delete)
+        //     this.props.showConfirmLoginForDeleteModal();
+    }
+
     render() {
         const { current_user } = this.props;
 
+        const { onClickSettingMenu } = this;
+
         if (!current_user) return <div />;
+
+        const renderItem = SETTING_MENU._enums.map((item, index) => (
+            <div className="user-edit-list__setting-menu" key={index}>
+                <SettingMenuItem
+                    title={item.value()}
+                    url={item.url}
+                    onClick={e => onClickSettingMenu(e, item)}
+                />
+            </div>
+        ));
+
         return (
             <div className="user-edit-list">
-                <div className="user-edit-list__button">
-                    <GradationButton
-                        value={tt('g.logout')}
-                        onClick={this.onClickLogout}
-                    />
+                <div className="user-edit-list__category">{tt('g.themes')}</div>
+                <div className="user-edit-list__setting-menus">
+                    {renderItem}
                 </div>
             </div>
         );

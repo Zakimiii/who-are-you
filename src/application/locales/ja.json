@@ -6,6 +6,7 @@
         "add_answer": "回答を追加",
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
+        "contact": "お問い合わせ",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
         "login": "ログイン",
@@ -20,14 +21,17 @@
         "phone_code": "認証コード",
         "phone_code_with_notif": "認証コード(メッセンジャーを確認してください)",
         "send_code_not_reach": "認証コードを再発行する",
+        "privacy_policy": "プライバシーポリシー",
         "phone_verify": "電話番号認証",
         "please_enter": "%(data)sを入力してください",
+        "quit": "退会する",
         "notification": "お知らせ",
         "mypage": "マイページ",
         "search": "検索",
         "search_result": "検索結果",
         "setting": "設定",
         "show_more": "もっと見る",
+        "terms": "利用規約",
         "theme": "お題",
         "themes": "お題一覧",
         "add_theme": "お題を追加",
@@ -38,7 +42,8 @@
         "user": "ユーザー",
         "username": "ユーザー名",
         "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
-        "user_edit": "ユーザー編集"
+        "user_edit": "ユーザー編集",
+        "what_whoareyou": "who are you?とは"
     },
     "apps": {
         "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"

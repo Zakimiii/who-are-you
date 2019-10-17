@@ -5,6 +5,7 @@ import { ValidationEntity, ValidationEntities } from '@entity/ValidationEntity';
 import { NOTFOUND_TYPE } from '@entity/NotFoundEntity';
 import { FileEntity, FileEntities } from '@entity/FileEntity';
 import { SideBarSection } from '@entity/SideBarEntity';
+import { SETTING_MENU } from '@entity/SettingMenuEntity';
 
 export {
     Entity,
@@ -17,4 +18,5 @@ export {
     FileEntity,
     FileEntities,
     SideBarSection,
+    SETTING_MENU,
 };

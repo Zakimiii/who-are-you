@@ -1,0 +1,78 @@
+.setting-menu-item {
+  @include init_wh();
+  padding: 20px 25px;
+  text-align: center;
+  clear: both;
+  display: block;
+  border: none;
+  @include themify($themes) {
+    background: themed('background');
+  }
+  @include mq-down(fm) {
+    padding: 20px 12px;
+  };
+  &__title {
+    float: left;
+    display: inline;
+    margin-right: 24px;
+    margin-left: 48px;
+    @include FS(FM);
+    @include FM(M);
+    text-decoration: none !important;
+    @include themify($themes) {
+        color: themed('backgroundThick');
+    }
+    @include mq-down(fm) {
+      @include FS(S);
+      margin-left: 20px;
+    };
+  }
+  &__image {
+    display: inline;
+    float: right;
+    margin-left: 24px;
+    margin-right: 48px;
+    @include mq-down(fm) {
+      margin-right: 20px;
+    };
+    & svg g polygon {
+      @include themify($themes) {
+        stroke: themed('backgroundThick') !important;
+        fill: themed('backgroundThick')!important;
+      }
+    }
+    & svg g path {
+      @include themify($themes) {
+        stroke: themed('backgroundThick') !important;
+        fill: themed('backgroundThick')!important;
+      }
+    }
+  }
+  &__link {
+    cursor: pointer;
+    @include default-link;
+    &:hover > .setting-menu-item {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('base');
+      }
+      & > .setting-menu-item__image svg g polygon {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+      & > .setting-menu-item__image svg g path {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+      & > .setting-menu-item__title {
+        @include themify($themes) {
+          color: themed('background');
+        }
+      }
+    }
+  }
+}
