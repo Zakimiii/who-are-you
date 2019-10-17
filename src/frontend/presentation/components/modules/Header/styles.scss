@@ -18,6 +18,9 @@ $searchBarHeight: 42px;
     float: left;
     margin: calc( ( 6rem - #{ $headerListSize } ) / 2 ) 24px;
     &-image {
+      @include mq-up(xl) {
+        display: none !important;
+      };
     }
   }
   &-hidden {
