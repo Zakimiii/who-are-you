@@ -93,7 +93,6 @@ export default class HeadingUseCase extends UseCaseImpl {
             });
             yield put(headingActions.setHeadingAnswer({ answers }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());

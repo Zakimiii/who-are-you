@@ -107,6 +107,9 @@ export default class UserUseCase extends UseCaseImpl {
                         current_user && current_user.username == username,
                 });
                 if (headings.length == 0) {
+                    //FIXME: dry
+                    yield userRepository.createBot({ username });
+                    yield userRepository.createBot({ username });
                     yield userRepository.createBot({ username });
                     headings = yield userRepository.getHeadings({
                         username,
@@ -127,6 +130,13 @@ export default class UserUseCase extends UseCaseImpl {
                     isMyAccount: true,
                 });
                 if (headings.length == 0) {
+                    //FIXME: dry
+                    yield userRepository.createBot({
+                        username: current_user.username,
+                    });
+                    yield userRepository.createBot({
+                        username: current_user.username,
+                    });
                     yield userRepository.createBot({
                         username: current_user.username,
                     });
