@@ -32,9 +32,9 @@
         "setting": "設定",
         "show_more": "もっと見る",
         "terms": "利用規約",
-        "theme": "お題",
-        "themes": "お題一覧",
-        "add_theme": "お題を追加",
+        "theme": "紹介テーマ",
+        "themes": "紹介テーマ一覧",
+        "add_theme": "紹介テーマを追加",
         "answered_theme": "回答したテーマ",
         "example_theme": "（例）〇〇さんのチャームポイント",
         "twitter_login": "Twitterで始める",
@@ -50,7 +50,7 @@
     },
     "notifications": {
         "on_create_heading": {
-            "title": "新しいお題が届きました！",
+            "title": "新しい紹介テーマが届きました！",
             "body": "カードをシェアして回答を募集しましょう！"
         },
         "on_create_answer": {
