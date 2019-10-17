@@ -4,6 +4,7 @@
   height: 100%;
   transition: all 0.3s ease-in-out;
   padding: 12px 0;
+  cursor: pointer;
   @include themify($themes) {
     transition: all 0.3s ease-in-out;
     border-bottom: 1px solid themed('border');

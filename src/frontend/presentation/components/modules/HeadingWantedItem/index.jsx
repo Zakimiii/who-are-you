@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
@@ -41,8 +41,22 @@ class HeadingWantedItem extends React.Component {
         );
     }
 
+    onClick(e) {
+        const { _repository } = this.props;
+        if (e) e.preventDefault();
+        browserHistory.push(
+            headingShowRoute.getPath({
+                params: {
+                    id: _repository.id,
+                },
+            })
+        );
+    }
+
     render() {
         const { _repository } = this.props;
+
+        const { onClick } = this;
 
         if (!_repository || !_repository.User) return <div />;
 
@@ -52,6 +66,7 @@ class HeadingWantedItem extends React.Component {
                 style={{
                     backgroundImage: "url('/images/brands/eye-catch-back.png')",
                 }}
+                onClick={onClick}
             >
                 <Link
                     className="heading-wanted-item__user"

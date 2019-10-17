@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
@@ -42,8 +42,22 @@ class HeadingItem extends React.Component {
         getMore(_repository);
     }
 
+    onClick(e) {
+        const { _repository } = this.props;
+        if (e) e.preventDefault();
+        browserHistory.push(
+            headingShowRoute.getPath({
+                params: {
+                    id: _repository.id,
+                },
+            })
+        );
+    }
+
     render() {
         const { _repository } = this.props;
+
+        const { onClick } = this;
 
         if (!_repository) return <div />;
 
@@ -62,7 +76,7 @@ class HeadingItem extends React.Component {
             return <HeadingWantedItem repository={_repository} />;
 
         return (
-            <div className="heading-item">
+            <div className="heading-item" onClick={onClick}>
                 <div
                     className="heading-item__container"
                     style={{
