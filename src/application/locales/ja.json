@@ -62,9 +62,9 @@
     },
     "descriptions": {
         "Home":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです",
+            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "NotFound":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです",
+            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "HeadingShow": "%(user)sの紹介はこちら",
         "AnswerShow": "「%(heading)s」の回答はこちら！",
         "UserShow": "%(user)sの紹介はこちら"
