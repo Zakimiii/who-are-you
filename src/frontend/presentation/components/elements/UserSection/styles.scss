@@ -20,6 +20,10 @@
   }
   &__title {
     padding: 8px;
+    width: calc(100% - 68px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     @include FS(S);
     @include FM(FB);
     @include themify($themes) {

@@ -9,6 +9,9 @@ import {
     generateOrQuery,
     generateOrQueries,
 } from '@extension/query';
+import tt from 'counterpart';
+import prototype_data from '@locales/prototype/ja.json';
+import casual from 'casual';
 
 export default class HeadingDataStore extends DataStoreImpl {
     constructor() {
@@ -200,7 +203,7 @@ export default class HeadingDataStore extends DataStoreImpl {
                         ],
                     },
                     offset: Number(offset || 0),
-                    limit: Number(limit || data_config.fetch_data_limit('M')),
+                    limit: Number(limit || data_config.fetch_data_limit('S')),
                     raw: true,
                     // order: [['score', 'DESC']],
                 });
@@ -257,7 +260,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('L')),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
         }).catch(e => {
             throw new ApiError({
                 error: e,
@@ -299,7 +302,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('L')),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
         }).catch(e => {
             throw new ApiError({
                 error: e,
@@ -340,7 +343,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('L')),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
         }).catch(e => {
             throw new ApiError({
                 error: e,
@@ -378,5 +381,45 @@ export default class HeadingDataStore extends DataStoreImpl {
             voter: true,
             answers: false,
         });
+    }
+
+    async createBot(user) {
+        if (!user) return;
+        if (!user.id) return;
+
+        const count = Object.keys(prototype_data.headings).length;
+        const finish = await models.Heading.findAll({
+            where: {
+                user_id: Number(user.id),
+                isBot: true,
+            },
+        });
+
+        if (count == finish.length) return;
+
+        let next = true;
+        let n = casual.integer(0, count - 1);
+
+        while (next) {
+            n = casual.integer(0, count - 1);
+
+            const exist = await models.Heading.findOne({
+                where: {
+                    user_id: Number(user.id),
+                    isBot: true,
+                    body: `${n}`,
+                },
+            });
+
+            next = !!exist;
+        }
+
+        const result = await models.Heading.create({
+            UserId: Number(user.id),
+            isBot: true,
+            body: `${n}`,
+        });
+
+        return result;
     }
 }

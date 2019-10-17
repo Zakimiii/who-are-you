@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
@@ -12,7 +12,11 @@ import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
-import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
+import {
+    answerShowRoute,
+    userShowRoute,
+    homeRoute,
+} from '@infrastructure/RouteInitialize';
 
 class AnswerItem extends React.Component {
     static propTypes = {
@@ -35,7 +39,32 @@ class AnswerItem extends React.Component {
     }
 
     onClickUser(e) {
-        if (e) e.preventDefault();
+        const { _repository } = this.props;
+
+        if (e) e.stopPropagation();
+
+        const path =
+            _repository.User.username == dummy.User.username
+                ? null
+                : userShowRoute.getPath({
+                      params: {
+                          username: _repository.User.username,
+                      },
+                  });
+
+        if (path) browserHistory.push(path);
+    }
+
+    onClick(e) {
+        const { _repository } = this.props;
+        if (e) e.stopPropagation();
+        browserHistory.push(
+            answerShowRoute.getPath({
+                params: {
+                    id: _repository.id,
+                },
+            })
+        );
     }
 
     toggleShow(e) {
@@ -46,7 +75,7 @@ class AnswerItem extends React.Component {
     }
 
     render() {
-        const { onClickUser } = this;
+        const { onClickUser, onClick } = this;
 
         const { _repository } = this.props;
 
@@ -71,19 +100,8 @@ class AnswerItem extends React.Component {
                       : '');
 
         return (
-            <div className="answer-item">
-                <Link
-                    className="answer-item__user"
-                    to={
-                        _repository.User.username == dummy.User.username
-                            ? null
-                            : userShowRoute.getPath({
-                                  params: {
-                                      username: _repository.User.username,
-                                  },
-                              })
-                    }
-                >
+            <div className="answer-item" onClick={onClick}>
+                <Link className="answer-item__user" onClick={onClickUser}>
                     <div className="answer-item__user-image">
                         <PictureItem
                             width={22}

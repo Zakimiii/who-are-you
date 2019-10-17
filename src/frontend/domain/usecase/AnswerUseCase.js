@@ -17,11 +17,16 @@ import models from '@network/client_models';
 import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
-import { HeadingRepository, AnswerRepository } from '@repository';
+import {
+    HeadingRepository,
+    AnswerRepository,
+    UserRepository,
+} from '@repository';
 import { FileEntity, FileEntities } from '@entity';
 
 const answerRepository = new AnswerRepository();
 const headingRepository = new HeadingRepository();
+const userRepository = new UserRepository();
 const appUsecase = new AppUseCase();
 const notification = new Notification();
 
@@ -114,7 +119,17 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.create(answer);
-            yield put(answerActions.createdAnswer({ answer: data }));
+            const twitter_username = yield userRepository.getUserTwitterUsername(
+                {
+                    id: answer.Heading.UserId,
+                }
+            );
+            yield put(
+                answerActions.createdAnswer({
+                    answer: data,
+                    twitter_username,
+                })
+            );
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
         } catch (e) {
@@ -141,7 +156,17 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.update(answer);
-            yield put(answerActions.createdAnswer({ answer: data }));
+            const twitter_username = yield userRepository.getUserTwitterUsername(
+                {
+                    id: answer.Heading.UserId,
+                }
+            );
+            yield put(
+                answerActions.createdAnswer({
+                    answer: data,
+                    twitter_username,
+                })
+            );
             yield put(answerActions.hideNew());
             yield put(answerActions.resetNew());
             yield put(answerActions.syncAnswer({ id: answer.id }));

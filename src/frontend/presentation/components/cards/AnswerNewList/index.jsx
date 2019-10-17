@@ -123,9 +123,11 @@ class AnswerNewList extends React.Component {
                 </div>
                 <div className="answer-new-list__user-title">
                     {repository.Heading &&
-                        `${repository.Heading.User.nickname}さんの「${
-                            repository.Heading.body
-                        }」とは...?`}
+                        `${
+                            repository.Heading.User.nickname
+                        }さんの「${models.Heading.getBody(
+                            repository.Heading
+                        )}」とは...?`}
                 </div>
             </div>
         );
@@ -137,7 +139,7 @@ class AnswerNewList extends React.Component {
                         label={tt('g.answer')}
                         onChange={this.onChange}
                         placeholder={tt('g.enter', {
-                            data: repository.Heading.body,
+                            data: models.Heading.getBody(repository.Heading),
                         })}
                         value={repository.body}
                         focus={true}

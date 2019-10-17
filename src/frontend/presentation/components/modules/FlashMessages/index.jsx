@@ -31,6 +31,9 @@ class FlashMessages extends React.Component {
             React.Children.map(vals, (child, key) => {
                 const { children: itemChildren, ...otherProps } = child.props;
 
+                if (!child.props.message || child.props.message == '')
+                    return <div key={key} />;
+
                 return (
                     <div className="flash-messages__item" key={key}>
                         <Flash

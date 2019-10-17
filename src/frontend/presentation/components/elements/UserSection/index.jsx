@@ -12,6 +12,7 @@ import { browserHistory } from 'react-router';
 import { userShowRoute } from '@infrastructure/RouteInitialize';
 import tt from 'counterpart';
 import Responsible from '@modules/Responsible';
+import dummy from '@network/dummy';
 
 class UserSection extends React.Component {
     static propTypes = {
@@ -34,20 +35,23 @@ class UserSection extends React.Component {
     }
 
     render() {
-        const { repository, image_width, image_height } = this.props;
+        let { repository, image_width, image_height } = this.props;
 
-        if (!repository) return <div />;
+        if (!repository) {
+            repository = dummy.User;
+        }
 
         return (
             <Link
                 className="user-section"
                 to={
-                    repository &&
-                    userShowRoute.getPath({
-                        params: {
-                            username: repository.username,
-                        },
-                    })
+                    repository.username == dummy.User.username
+                        ? null
+                        : userShowRoute.getPath({
+                              params: {
+                                  username: repository.username,
+                              },
+                          })
                 }
             >
                 <div className="user-section__image">

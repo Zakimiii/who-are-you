@@ -110,12 +110,19 @@ export default class ServerHTML extends React.Component {
                         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
                     />
                     <script
+                        data-ad-client={`${env.GOOGLE.AD_CLIENT}`}
+                        async
+                        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+                    />
+                    <script
                         src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
                         async
                     />
                     <script
                         async
-                        src="https://www.googletagmanager.com/gtag/js?id=UA-145144621-1"
+                        src={`https://www.googletagmanager.com/gtag/js?id=${
+                            env.GOOGLE.ANALYSTICS_CLIENT
+                        }`}
                     />
 
                     <title>{tt('pages.Home') + ' | ' + config.APP_NAME}</title>

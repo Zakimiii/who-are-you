@@ -14,6 +14,7 @@ import {
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
 import Promise from 'bluebird';
+import tt from 'counterpart';
 
 const headingDataStore = new HeadingDataStore();
 const answerDataStore = new AnswerDataStore();
@@ -51,6 +52,78 @@ export default class UserHandler extends HandlerImpl {
         router.body = {
             success: true,
             user: safe2json(user),
+        };
+    }
+
+    async handleGetUserTwitterNameRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+        });
+
+        if (!user) {
+            router.body = {
+                success: true,
+            };
+        }
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: user.id,
+            },
+        });
+
+        router.body = {
+            success: true,
+            user: safe2json(user),
+            twitter_username: identity.twitter_username,
+        };
+    }
+
+    async handleCreateBotRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+        });
+
+        const heading = await headingDataStore.createBot(user);
+
+        router.body = {
+            success: true,
+            user: safe2json(user),
+            heading: safe2json(heading),
         };
     }
 

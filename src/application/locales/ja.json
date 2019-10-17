@@ -4,10 +4,14 @@
         "answers": "回答一覧",
         "example_answer": "（例）〇〇さんはここが素敵！",
         "add_answer": "回答を追加",
+        "wanted_answer":
+            "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
+        "contact": "お問い合わせ",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
         "login": "ログイン",
         "logout": "ログアウト",
+        "of": "%(data)sの",
         "password": "パスワード",
         "phishy_message":
             "リンクをプレーンテキストに拡張しました。潜在的なフィッシングに注意してください。",
@@ -17,32 +21,36 @@
         "phone_code": "認証コード",
         "phone_code_with_notif": "認証コード(メッセンジャーを確認してください)",
         "send_code_not_reach": "認証コードを再発行する",
+        "privacy_policy": "プライバシーポリシー",
         "phone_verify": "電話番号認証",
         "please_enter": "%(data)sを入力してください",
+        "quit": "退会する",
         "notification": "お知らせ",
         "mypage": "マイページ",
         "search": "検索",
         "search_result": "検索結果",
         "setting": "設定",
         "show_more": "もっと見る",
+        "terms": "利用規約",
         "theme": "紹介テーマ",
         "themes": "紹介テーマ一覧",
         "add_theme": "紹介テーマを追加",
         "answered_theme": "回答したテーマ",
-        "example_theme": "（例）〇〇さんのチャームポイント",
+        "example_theme": "（例）%(data)s",
         "twitter_login": "Twitterで始める",
         "relate_user": "関連ユーザー",
         "user": "ユーザー",
         "username": "ユーザー名",
         "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
-        "user_edit": "ユーザー編集"
+        "user_edit": "ユーザー編集",
+        "what_whoareyou": "who are you?とは"
     },
     "apps": {
         "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"
     },
     "notifications": {
         "on_create_heading": {
-            "title": "新しい紹介カードが届きました！",
+            "title": "新しい紹介テーマが届きました！",
             "body": "カードをシェアして回答を募集しましょう！"
         },
         "on_create_answer": {
@@ -59,9 +67,9 @@
     },
     "descriptions": {
         "Home":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです",
+            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "NotFound":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです",
+            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "HeadingShow": "%(user)sの紹介はこちら",
         "AnswerShow": "「%(heading)s」の回答はこちら！",
         "UserShow": "%(user)sの紹介はこちら"

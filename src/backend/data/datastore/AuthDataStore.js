@@ -13,6 +13,8 @@ import env from '@env/env.json';
 import TwitterHandler from '@network/twitter';
 import mail from '@network/mail';
 import jwt from 'jsonwebtoken';
+import tt from 'counterpart';
+import prototype_data from '@locales/prototype/ja.json';
 
 export default class AuthDataStore extends DataStoreImpl {
     constructor() {
@@ -356,6 +358,7 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!twitter_username) return;
 
         let identity;
+        let created;
         let user = await models.User.findOne({
             include: [
                 {
@@ -373,6 +376,7 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = true;
         } else {
             identity = await models.Identity.findOne({
                 where: {
@@ -386,11 +390,13 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = false;
         }
 
         return {
             identity,
             user,
+            created,
         };
     }
 
@@ -398,6 +404,7 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!profile) return;
 
         let identity;
+        let created;
         let user = await models.User.findOne({
             include: [
                 {
@@ -415,6 +422,7 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = true;
         } else {
             identity = await models.Identity.findOne({
                 where: {
@@ -428,11 +436,13 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = false;
         }
 
         return {
             identity,
             user,
+            created,
         };
     }
 
@@ -444,6 +454,7 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!profile) return;
 
         let identity;
+        let created;
         let user = await models.User.findOne({
             include: [
                 {
@@ -463,6 +474,7 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = true;
         } else {
             identity = await models.Identity.findOne({
                 where: {
@@ -478,11 +490,13 @@ export default class AuthDataStore extends DataStoreImpl {
             });
             identity = results.identity;
             user = results.user;
+            created = false;
         }
 
         return {
             identity,
             user,
+            created,
         };
     }
 

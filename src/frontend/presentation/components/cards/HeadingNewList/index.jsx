@@ -19,6 +19,7 @@ import HeadingCanvas from '@modules/HeadingCanvas';
 import { FileEntity, FileEntities } from '@entity';
 import CharacterCounter from '@elements/CharacterCounter';
 import data_config from '@constants/data_config';
+import prototype_data from '@locales/prototype/ja.json';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -28,6 +29,7 @@ class HeadingNewList extends React.Component {
     state = {
         repository: Map(models.Heading.build()),
         submiting: false,
+        n: 0,
     };
 
     constructor(props) {
@@ -40,8 +42,10 @@ class HeadingNewList extends React.Component {
     }
 
     componentWillMount() {
+        const count = Object.keys(prototype_data.headings).length;
         this.setState({
             repository: Map(this.props.repository),
+            n: Number.prototype.getRandomInt(0, count - 1),
         });
     }
 
@@ -108,7 +112,7 @@ class HeadingNewList extends React.Component {
     }
 
     render() {
-        let { repository, submiting } = this.state;
+        let { repository, submiting, n } = this.state;
 
         repository = repository.toJS();
 
@@ -137,7 +141,9 @@ class HeadingNewList extends React.Component {
                             repository.User && `${repository.User.nickname}の`
                         }
                         onChange={this.onChange}
-                        placeholder={tt('g.example_theme')}
+                        placeholder={tt('g.example_theme', {
+                            data: tt(`headings.${n}`),
+                        })}
                         value={repository.body}
                         focus={true}
                     />

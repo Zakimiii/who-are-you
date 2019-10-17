@@ -101,12 +101,19 @@ export default class UserUseCase extends UseCaseImpl {
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
                 );
-                const headings = yield userRepository.getHeadings({
+                let headings = yield userRepository.getHeadings({
                     username,
                     isMyAccount:
                         current_user && current_user.username == username,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield userRepository.createBot({ username });
+                    headings = yield userRepository.getHeadings({
+                        username,
+                        isMyAccount:
+                            current_user && current_user.username == username,
+                    });
+                }
                 yield put(userActions.setUserHeading({ headings }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
@@ -115,11 +122,19 @@ export default class UserUseCase extends UseCaseImpl {
                     authActions.getCurrentUser(state)
                 );
                 if (!current_user) return;
-                const headings = yield userRepository.getHeadings({
+                let headings = yield userRepository.getHeadings({
                     username: current_user.username,
                     isMyAccount: true,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield userRepository.createBot({
+                        username: current_user.username,
+                    });
+                    headings = yield userRepository.getHeadings({
+                        username: current_user.username,
+                        isMyAccount: true,
+                    });
+                }
                 yield put(userActions.setUserHeading({ headings }));
             }
         } catch (e) {

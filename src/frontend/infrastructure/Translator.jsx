@@ -20,6 +20,7 @@ addLocaleData([
 
 // tt.registerTranslations('en', require('counterpart/locales/en'));
 // tt.registerTranslations('en', require('@locales/en.json'));
+// tt.registerTranslations('en', require('@locales/prototype/en.json'));
 
 // tt.registerTranslations('es', require('@locales/counterpart/es'));
 // tt.registerTranslations('es', require('@locales/es.json'));
@@ -44,6 +45,7 @@ addLocaleData([
 
 tt.registerTranslations('ja', require('@locales/counterpart/ja'));
 tt.registerTranslations('ja', require('@locales/ja.json'));
+tt.registerTranslations('ja', require('@locales/prototype/ja.json'));
 
 if (
     process.env.NODE_ENV === 'production' ||

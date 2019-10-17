@@ -1,4 +1,5 @@
 const safe2json = require('@extension/safe2json');
+const tt = require('counterpart');
 
 const User = {
     build: init => {
@@ -22,6 +23,13 @@ const User = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj &&
+        'username' in obj &&
+        'nickname' in obj &&
+        'detail' in obj &&
+        'picture_small' in obj &&
+        'picture_large' in obj,
 };
 
 const Heading = {
@@ -35,6 +43,7 @@ const Heading = {
             country_code: 'JP',
             answer_count: 0,
             isHide: false,
+            isBot: false,
             isPrivate: false,
             valid: false,
             permission: true,
@@ -44,6 +53,18 @@ const Heading = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj &&
+        'UserId' in obj &&
+        'VoterId' in obj &&
+        'body' in obj &&
+        'isBot' in obj,
+    getBody: obj => {
+        if (!obj) return;
+        return Number.prototype.castBool(obj.isBot)
+            ? tt(`headings.${obj.body}`)
+            : obj.body;
+    },
 };
 
 const Answer = {
@@ -66,6 +87,8 @@ const Answer = {
         };
     },
     toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj && 'UserId' in obj && 'HeadingId' in obj && 'body' in obj,
 };
 
 module.exports = {

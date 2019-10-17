@@ -43,7 +43,7 @@
       word-wrap: break-word;
       white-space: pre-wrap;
       min-height: 64px;
-      padding-left: 24px;
+      // padding-left: 24px;
       text-align: left;
       @include FS(L);
       @include LH(L);
@@ -70,7 +70,7 @@
     white-space: pre-wrap;
     @include FS(M);
     @include LH(L);
-    @include FM(FB);
+    @include FM(B);
     @include themify($themes) {
       color: themed('subThick2');
     }
@@ -78,7 +78,7 @@
   &__title {
     width: 1100px;
     margin: 0 auto;
-    padding-top: 32px;
+    // padding-top: 32px;
     text-align: center;
     word-wrap: break-word;
     white-space: pre-wrap;

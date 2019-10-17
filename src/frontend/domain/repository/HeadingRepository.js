@@ -60,7 +60,7 @@ export default class HeadingRepository extends RepositoryImpl {
     async getAnswers({ heading, offset, limit }) {
         const data = await super.apiCall('/api/v1/heading/answers', {
             heading_id: heading && heading.id,
-            limit: limit || data_config.fetch_data_limit('M'),
+            limit: limit || data_config.fetch_data_limit('S'),
             offset: Number(offset || 0),
         });
 
