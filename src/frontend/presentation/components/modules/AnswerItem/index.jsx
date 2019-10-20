@@ -17,6 +17,7 @@ import {
     userShowRoute,
     homeRoute,
 } from '@infrastructure/RouteInitialize';
+import StatsBar from '@modules/StatsBar';
 
 class AnswerItem extends React.Component {
     static propTypes = {
@@ -127,6 +128,9 @@ class AnswerItem extends React.Component {
                         {isShow ? '少なく表示' : '全て表示'}
                     </div>
                 )}
+                <div className="answer-item__bar">
+                    <StatsBar repository={_repository} />
+                </div>
             </div>
         );
     }

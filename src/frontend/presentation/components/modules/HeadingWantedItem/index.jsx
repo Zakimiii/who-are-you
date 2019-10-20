@@ -18,6 +18,7 @@ import {
     userShowRoute,
 } from '@infrastructure/RouteInitialize';
 import dummy from '@network/dummy';
+import StatsBar from '@modules/StatsBar';
 
 class HeadingWantedItem extends React.Component {
     static propTypes = {
@@ -101,6 +102,9 @@ class HeadingWantedItem extends React.Component {
                 </div>
                 <div className="heading-wanted-item__button">
                     <AnswerNewButton repository={_repository} />
+                </div>
+                <div className="heading-wanted-item__bar">
+                    <StatsBar repository={_repository} />
                 </div>
             </div>
         );

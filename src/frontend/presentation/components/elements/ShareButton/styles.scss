@@ -2,5 +2,12 @@
   display: block;
   border: none;
   &__icon {
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('subThick2') !important;
+        fill: themed('subThick2')!important;
+      }
+    }
   }
 }

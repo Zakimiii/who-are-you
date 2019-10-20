@@ -129,6 +129,7 @@
         "not_change_password_with_oauth":
             "SNSで会員登録しているユーザーはパスワードを設定する必要はないです。",
         "not_number_country_code": "国番号は数字で入力してください",
-        "not_number_phone": "電話番号は数字で入力してください"
+        "not_number_phone": "電話番号は数字で入力してください",
+        "cannot_trash": "投稿者・被紹介者のみゴミ箱にできます"
     }
 }

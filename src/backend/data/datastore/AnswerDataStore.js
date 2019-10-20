@@ -28,7 +28,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             datum = [datum];
         }
         let contents = datum.filter(
-            data => !!data && !!Number.prototype.castBool(data.isHide)
+            data => !!data && !Number.prototype.castBool(data.isHide)
         );
 
         const includes = await Promise.map(
@@ -45,6 +45,7 @@ export default class AnswerDataStore extends DataStoreImpl {
                     params.heading &&
                         models.Heading.findOne({
                             where: {
+                                isHide: false,
                                 id: val.HeadingId,
                             },
                             raw: true,
@@ -94,7 +95,7 @@ export default class AnswerDataStore extends DataStoreImpl {
     async getIndexIncludes(datum) {
         return await this.getIncludes(datum, {
             user: true,
-            heading: false,
+            heading: true,
             siblings: false,
         });
     }

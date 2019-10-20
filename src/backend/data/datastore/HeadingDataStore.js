@@ -31,7 +31,9 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (!(datum instanceof Array)) {
             datum = [datum];
         }
-        let contents = datum.filter(data => !!data);
+        let contents = datum.filter(
+            data => !!data && !Number.prototype.castBool(data.isHide)
+        );
 
         const includes = await Promise.map(
             contents,
