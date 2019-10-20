@@ -155,7 +155,9 @@ export default class AuthHandler extends HandlerImpl {
         const identities = await Promise.all(
             results.map(result =>
                 models.Identity.findOne({
-                    user_id: result.id,
+                    where: {
+                        user_id: result.id,
+                    },
                 })
             )
         );
@@ -166,6 +168,7 @@ export default class AuthHandler extends HandlerImpl {
         const datum = await Promise.map(
             results,
             (result, i) =>
+                identities[i] &&
                 result.update({
                     twitter_username: identities[i].twitter_username,
                     twitter_id: identities[i].twitter_id,

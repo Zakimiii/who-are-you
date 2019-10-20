@@ -22,6 +22,8 @@ const identity = users_limit => {
         password_hash:
             '$2a$10$IsGkaweZ1CkqelMLjkMfJuEM9y8asagt74Y1ES8zXqzbhVFFA4lXO',
         password: '',
+        twitter_username: casual.name,
+        twitter_id: casual.building_number,
         verified: true,
         bot: false,
         permission: true,
