@@ -5,12 +5,12 @@ export const APP_NAME_LATIN = 'Who are you?';
 export const APP_NAME_UPPERCASE = 'WHO ARE YOU?';
 export const APP_ICON = 'who are you';
 export const HOST_NAME = 'who are you';
-export const APP_DOMAIN = 'whoareyou.me';
-export const APP_URL = 'https://whoareyou.me';
+export const APP_DOMAIN = 'whoareyou-jp.com';
+export const APP_URL = 'https://whoareyou-jp.com';
 export const LOCAL_APP_URL = 'http://localhost:8080';
 export const CURRENT_APP_URL =
     process.env.NODE_ENV == 'production' ? APP_URL : LOCAL_APP_URL;
-export const APP_HOST = 'whoareyou.me';
+export const APP_HOST = 'whoareyou-jp.com';
 export const APP_IP = 'http://13.114.65.196';
 export const TOKEN_NAME = 'Self';
 export const LIQUID_TOKEN = 'who are you';
@@ -20,7 +20,7 @@ export const img_proxy_prefix = 'https://selfinity.s3.amazonaws.com';
 export const img_host = 'https://selfinity.s3.ap-northeast-1.amazonaws.com';
 export const INC_ADDRESS = env.ADDRESS;
 export const APP_PUBLIC_IP =
-    'https://ec2-54-196-92-235.compute-1.amazonaws.com';
+    'http://ec2-54-196-92-235.compute-1.amazonaws.com/';
 
 module.exports = {
     APP_NAME,
