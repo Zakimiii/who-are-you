@@ -46,7 +46,7 @@ class TrashButton extends React.Component {
     render() {
         return (
             <div className="trash-button" onClick={this.onClick}>
-                <Icon src="share" size="2_4x" />
+                <Icon src="trash" size="2_4x" className="trash-button__icon" />
             </div>
         );
     }

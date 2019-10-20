@@ -54,6 +54,7 @@ export default class HeadingDataStore extends DataStoreImpl {
                     params.answers &&
                         models.Answer.findAll({
                             where: {
+                                isHide: false,
                                 heading_id: val.id,
                             },
                             limit:
@@ -167,9 +168,25 @@ export default class HeadingDataStore extends DataStoreImpl {
             raw: false,
         });
 
-        const result = await data.update({
-            isHide: false,
+        const answers = await models.Answer.findAll({
+            where: {
+                heading_id: Number(heading.id),
+            },
+            raw: false,
         });
+
+        const result = await data.update({
+            isHide: true,
+        });
+
+        const results = await Promise.all(
+            answers.map(answer =>
+                answer.update({
+                    isHide: true,
+                })
+            )
+        );
+
         return result;
     }
 
@@ -183,9 +200,25 @@ export default class HeadingDataStore extends DataStoreImpl {
             raw: false,
         });
 
-        const result = await data.update({
-            isHide: true,
+        const answers = await models.Answer.findAll({
+            where: {
+                heading_id: Number(heading.id),
+            },
+            raw: false,
         });
+
+        const result = await data.update({
+            isHide: false,
+        });
+
+        const results = await Promise.all(
+            answers.map(answer =>
+                answer.update({
+                    isHide: false,
+                })
+            )
+        );
+
         return result;
     }
 
@@ -194,6 +227,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             generateLikeQuery(keyword).map(val => {
                 return models.Heading.findAll({
                     where: {
+                        isHide: false,
                         $or: [
                             {
                                 body: {

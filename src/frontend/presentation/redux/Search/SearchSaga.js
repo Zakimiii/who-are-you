@@ -17,19 +17,9 @@ import * as searchActions from './SearchReducer';
 const searchUseCase = new SearchUseCase();
 
 export const searchWatches = [
-    // takeEvery(searchActions.SEARCH_CONTENT, searchUseCase.searchContent),
-    // takeEvery(
-    //     searchActions.GET_MORE_SEARCH_CONTENT,
-    //     searchUseCase.getMoreSearchContent
-    // ),
-    // takeEvery(searchActions.SEARCH_USER, searchUseCase.searchUser),
-    // takeEvery(
-    //     searchActions.GET_MORE_SEARCH_USER,
-    //     searchUseCase.getMoreSearchUser
-    // ),
-    // takeEvery(searchActions.SEARCH_LABEL, searchUseCase.searchLabel),
-    // takeEvery(
-    //     searchActions.GET_MORE_SEARCH_LABEL,
-    //     searchUseCase.getMoreSearchLabel
-    // ),
+    takeEvery(searchActions.SEARCH_USER, searchUseCase.searchUser),
+    takeEvery(
+        searchActions.GET_MORE_SEARCH_USER,
+        searchUseCase.getMoreSearchUser
+    ),
 ];

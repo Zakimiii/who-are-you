@@ -67,6 +67,15 @@ export const postIndexRoute = new RouteEntity({
     component: require('@components/pages/PostIndex'),
 });
 
+export const searchRoute = new RouteEntity({
+    path: '/search/:section?',
+    page: 'Search',
+    validate: {
+        section: /(headings|users|answers)/,
+    },
+    component: require('@components/pages/SearchIndex'),
+});
+
 export const headingCanvasTestRoute = new RouteEntity({
     path: '/heading/canvas/test',
     page: 'HeadingCanvasTest',
@@ -141,7 +150,7 @@ export const routeEntities = new RouteEntities({
         answerShowRoute,
         notificationIndexRoute,
         postIndexRoute,
-        // homeIndexRoute,
+        searchRoute,
     ],
     notfoundRoute,
 });

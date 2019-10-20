@@ -100,6 +100,11 @@ export default class UserDataStore extends DataStoreImpl {
                                     $like: val,
                                 },
                             },
+                            {
+                                twitter_username: {
+                                    $like: val,
+                                },
+                            },
                         ],
                     },
                     offset: Number(offset || 0),

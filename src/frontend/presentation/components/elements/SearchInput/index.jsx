@@ -114,7 +114,7 @@ class SearchInput extends Component {
                     <input
                         className="search-input__inner"
                         type="search"
-                        placeholder={tt('g.search')}
+                        placeholder={tt('g.search_user')}
                         onChange={this.handleInput}
                         onKeyUp={this.handleKeyUp}
                         onFocus={this.handleFocus}

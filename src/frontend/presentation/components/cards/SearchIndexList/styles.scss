@@ -1,0 +1,56 @@
+.search-index-list {
+  width: calc(100% - 20px);
+  margin: 0 auto;
+  padding-top: 8px;
+  &__top {
+    width: 100%;
+    margin: 12px auto;
+  }
+  &__user {
+    width: 100%;
+    height: 64px;
+  }
+  &__category {
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    height: 44px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    margin: 22px auto;
+    margin-bottom: 12px;
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+      height: 34px;
+    };
+  }
+  &__answers {
+    width: 100%;
+    height: 100%;
+    margin: 12px auto;
+  }
+  &__answer {
+    width: 100%;
+    height: 100%;
+    margin: 8px 0;
+    position: relative;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    padding: 12px;
+    @include themify($themes) {
+      background-color: themed('background');
+      box-shadow: 0px 0px 3px 3px themed('shadow');
+    }
+  }
+  &__new {
+    width: 100%;
+    height: 152px;
+    margin: 22px auto;
+  }
+}

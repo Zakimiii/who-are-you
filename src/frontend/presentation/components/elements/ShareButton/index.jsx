@@ -28,9 +28,7 @@ class ShareButton extends React.Component {
         repository: null,
     };
 
-    static url = pathname =>
-        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
-            pathname}&hashtags=whoareyou,自己紹介・友達紹介&text=${data_config.post_text()}`;
+    static url = (pathname, id) => TwitterHandler.getShareUrl({ pathname, id });
 
     state = {};
 
@@ -45,24 +43,27 @@ class ShareButton extends React.Component {
 
         if (!repository) return <div />;
 
+        const link = models.Heading.isInstance(repository)
+            ? ShareButton.url(
+                  headingShowRoute.getPath({
+                      params: {
+                          id: repository.id,
+                      },
+                  }),
+                  repository.User.twitter_username
+              )
+            : ShareButton.url(
+                  answerShowRoute.getPath({
+                      params: {
+                          id: repository.id,
+                      },
+                  }),
+                  repository.Heading.User.twitter_username
+              );
+
         return (
-            <Link
-                className="share-button"
-                to={ShareButton.url(
-                    models.Heading.isInstance(repository)
-                        ? headingShowRoute.getPath({
-                              params: {
-                                  id: repository.id,
-                              },
-                          })
-                        : answerShowRoute.getPath({
-                              params: {
-                                  id: repository.id,
-                              },
-                          })
-                )}
-            >
-                <Icon src="share" size="2_4x" />
+            <Link className="share-button" to={link} target={'_blank'}>
+                <Icon src="share" size="2_4x" className="share-button__icon" />
             </Link>
         );
     }

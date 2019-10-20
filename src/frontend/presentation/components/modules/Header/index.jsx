@@ -83,16 +83,16 @@ class Header extends React.Component {
         this.setState({
             search_mode: false,
         });
-        // browserHistory.push(
-        //     routes.searchRoute.getPath({
-        //         params: {
-        //             section: 'headings',
-        //         },
-        //         query: {
-        //             q: e,
-        //         },
-        //     })
-        // );
+        browserHistory.push(
+            routes.searchRoute.getPath({
+                params: {
+                    section: 'users',
+                },
+                query: {
+                    q: e,
+                },
+            })
+        );
     };
 
     toggleSearchMode = e => {
@@ -189,14 +189,25 @@ class Header extends React.Component {
                         alt={tt('alts.default')}
                     />
                 </Link>
-            </div>
-        );
-
-        /*
-        <div className="Header__search-bar">
+                <div className="Header__search-bar">
                     <SearchInput onRequestSearch={handleRequestSearch} />
                 </div>
-        */
+                <div className="Header__buttons">
+                    <Responsible
+                        className="Header__button"
+                        breakMd={true}
+                        breakingContent={
+                            <div
+                                className="Header__button-icon"
+                                onClick={toggleSearchMode}
+                            >
+                                <IconButton src="search" size="2x" />
+                            </div>
+                        }
+                    />
+                </div>
+            </div>
+        );
 
         return (
             <div className={header_className}>
@@ -232,8 +243,8 @@ const mapDispatchToProps = dispatch => ({
     hideHeader: () => {
         dispatch(appActions.hideHeader());
     },
-    searchHeading: keyword => {
-        dispatch(searchActions.searchHeading({ keyword }));
+    search: keyword => {
+        dispatch(searchActions.searchUser({ keyword }));
     },
     hideSideBarModal: e => {
         if (e) e.preventDefault();

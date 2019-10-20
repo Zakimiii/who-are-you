@@ -27,7 +27,9 @@ export default class AnswerDataStore extends DataStoreImpl {
         if (!(datum instanceof Array)) {
             datum = [datum];
         }
-        let contents = datum.filter(data => !!data);
+        let contents = datum.filter(
+            data => !!data && !!Number.prototype.castBool(data.isHide)
+        );
 
         const includes = await Promise.map(
             contents,
@@ -50,6 +52,7 @@ export default class AnswerDataStore extends DataStoreImpl {
                     params.siblings &&
                         models.Answer.findAll({
                             where: {
+                                isHide: false,
                                 heading_id: val.HeadingId,
                             },
                             raw: true,
@@ -150,8 +153,9 @@ export default class AnswerDataStore extends DataStoreImpl {
         });
 
         const result = await data.update({
-            isHide: false,
+            isHide: true,
         });
+
         return result;
     }
 
@@ -166,7 +170,7 @@ export default class AnswerDataStore extends DataStoreImpl {
         });
 
         const result = await data.update({
-            isHide: true,
+            isHide: false,
         });
         return result;
     }
