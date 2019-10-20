@@ -10,7 +10,8 @@
     &__heading-new {
       width: 100%;
       min-height: 152px;
-      margin: 44px auto;
+      margin: 12px auto;
+      margin-top: 24px;
     }
     &__category {
       white-space: normal;
@@ -24,8 +25,7 @@
       @include themify($themes) {
         color: themed('complementary');
       }
-      margin: 22px auto;
-      margin-bottom: 12px;
+      margin: 12px auto;
       @include mq-down(fm) {
         @include FS(FM);
         @include LH(FM);

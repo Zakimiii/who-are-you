@@ -47,7 +47,7 @@ class AnswerShowList extends React.Component {
         const voter = (
             <div className="answer-show-list__user">
                 <UserSection
-                    title={tt('g.responder')}
+                    title={tt('g.respondent')}
                     repository={repository.User}
                 />
             </div>

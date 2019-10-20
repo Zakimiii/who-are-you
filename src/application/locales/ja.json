@@ -9,6 +9,7 @@
         "contact": "お問い合わせ",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
+        "go_twitter": "twitterで確認する",
         "login": "ログイン",
         "logout": "ログアウト",
         "of": "%(data)sの",
@@ -45,7 +46,7 @@
         "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
         "user_edit": "ユーザー編集",
         "voter": "投稿者",
-        "votered": "紹介してもらった人",
+        "votered": "被紹介者",
         "what_whoareyou": "who are you?とは"
     },
     "apps": {

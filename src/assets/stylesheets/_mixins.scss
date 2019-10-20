@@ -68,6 +68,9 @@
   & svg g path {
     @content;
   }
+  & svg g g {
+    @content;
+  }
   & svg g line {
     @content;
   }

@@ -11,6 +11,7 @@ import * as userActions from '@redux/User/UserReducer';
 import models from '@network/client_models';
 import dummy from '@network/dummy';
 import Responsible from '@modules/Responsible';
+import TwitterBar from '@elements/TwitterBar';
 
 class UserShowHeader extends React.Component {
     static propTypes = {
@@ -78,6 +79,9 @@ class UserShowHeader extends React.Component {
                     </div>
                     <div className="user-show-header__detail">
                         {_repository.detail}
+                    </div>
+                    <div className="user-show-header__bar">
+                        <TwitterBar repository={_repository} />
                     </div>
                 </div>
             </div>

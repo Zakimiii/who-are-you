@@ -1,0 +1,31 @@
+.twitter-bar {
+  @include flex-center();
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: none;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: themed('sub');
+  }
+  &__text {
+    @include FS(FM);
+    @include FM(B);
+    text-decoration: none !important;
+    @include themify($themes) {
+      color: themed('complementaryString');
+    }
+    margin-left: 8px;
+  }
+  &__image {
+    text-decoration: none !important;
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('complementaryString') !important;
+        fill: themed('complementaryString')!important;
+      }
+    }
+  }
+}
