@@ -274,7 +274,9 @@ class PrivacyItem extends React.Component {
                                 </li>
                                 <li>
                                     目的:
-                                    マシュマロを利用している友達を表示するため
+                                    {`${
+                                        config.APP_NAME
+                                    }を利用している友達を表示するため`}
                                 </li>
                             </ol>
                         </li>
