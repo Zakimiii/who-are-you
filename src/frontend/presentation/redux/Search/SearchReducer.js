@@ -68,42 +68,42 @@ export default function reducer(state = defaultState, action) {
         case SET_HEADING_RESULT: {
             return state.set(
                 'search_heading',
-                List(action.payload.contents.map(val => Map(val)))
+                List(action.payload.headings.map(val => Map(val)))
             );
         }
 
         case ADD_HEADING_RESULT: {
             let before = state.get('search_heading');
             before = before.toJS();
-            before.concat(payload.contents);
+            before.concat(payload.headings);
             return state.set('search_heading', List(before));
         }
 
         case SET_USER_RESULT: {
             return state.set(
                 'search_user',
-                List(action.payload.contents.map(val => Map(val)))
+                List(action.payload.users.map(val => Map(val)))
             );
         }
 
         case SET_ANSWER_RESULT: {
             return state.set(
                 'search_answer',
-                List(action.payload.contents.map(val => Map(val)))
+                List(action.payload.answers.map(val => Map(val)))
             );
         }
 
         case ADD_USER_RESULT: {
             let before = state.get('search_user');
             before = before.toJS();
-            before.concat(payload.contents);
+            before.concat(payload.users);
             return state.set('search_user', List(before));
         }
 
         case ADD_ANSWER_RESULT: {
             let before = state.get('search_answer');
             before = before.toJS();
-            before.concat(payload.contents);
+            before.concat(payload.answers);
             return state.set('search_answer', List(before));
         }
 

@@ -14,6 +14,7 @@ import { ApiError } from '@extension/Error';
 import data_config from '@constants/data_config';
 import uuidv4 from 'uuid/v4';
 import env from '@env/env.json';
+import Promise from 'bluebird';
 
 const sessionDataStore = new SessionDataStore();
 const authDataStore = new AuthDataStore();
@@ -119,5 +120,70 @@ export default class AuthHandler extends HandlerImpl {
         };
 
         router.redirect(`/user/${identity.username}?${params}`);
+    }
+
+    async handleInitializeTwitterDataRequest(router, ctx, next) {
+        // if (process.env.NODE_ENV != 'development') {
+        //     router.body = JSON.stringify({ status: 'ok' });
+        //     router.redirect('/');
+        // }
+
+        const { from_id, to_id } = router.query;
+
+        const id_range =
+            from_id && to_id
+                ? {
+                      id: {
+                          $between: [
+                              parseInt(from_id, 10),
+                              parseInt(to_id, 10),
+                          ],
+                      },
+                  }
+                : null;
+
+        const results = await models.User.findAll({
+            where: id_range,
+        });
+
+        if (!results)
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+
+        const identities = await Promise.all(
+            results.map(result =>
+                models.Identity.findOne({
+                    where: {
+                        user_id: result.id,
+                    },
+                })
+            )
+        );
+
+        /*
+        10 of concurrency is very confortable to do tasks smoothly.
+        */
+        const datum = await Promise.map(
+            results,
+            (result, i) =>
+                identities[i] &&
+                result.update({
+                    twitter_username: identities[i].twitter_username,
+                    twitter_id: identities[i].twitter_id,
+                }),
+            { concurrency: 10 }
+        ).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        router.body = {
+            users: datum.map(data => safe2json(data)),
+            success: true,
+        };
     }
 }

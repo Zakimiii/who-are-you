@@ -11,26 +11,21 @@ import {
     answerShowRoute,
     headingShowRoute,
 } from '@infrastructure/RouteInitialize';
-import models from '@network/client_model';
+import models from '@network/client_models';
 import TwitterHandler from '@network/twitter';
 import config from '@constants/config';
 import data_config from '@constants/data_config';
 
 class ShareButton extends React.Component {
     static propTypes = {
-        repository: PropTypes.oneOf([
-            AppPropTypes.Heading,
-            AppPropTypes.Answer,
-        ]),
+        repository: PropTypes.object,
     };
 
     static defaultProps = {
         repository: null,
     };
 
-    static url = pathname =>
-        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
-            pathname}&hashtags=whoareyou,自己紹介・友達紹介&text=${data_config.post_text()}`;
+    static url = (pathname, id) => TwitterHandler.getShareUrl({ pathname, id });
 
     state = {};
 
@@ -45,24 +40,35 @@ class ShareButton extends React.Component {
 
         if (!repository) return <div />;
 
+        if (!models.Heading.isInstance(repository) && !repository.Heading)
+            return <div />;
+
+        const link = models.Heading.isInstance(repository)
+            ? ShareButton.url(
+                  headingShowRoute.getPath({
+                      params: {
+                          id: repository.id,
+                      },
+                  }),
+                  repository.User.twitter_username
+              )
+            : ShareButton.url(
+                  answerShowRoute.getPath({
+                      params: {
+                          id: repository.id,
+                      },
+                  }),
+                  repository.Heading.User.twitter_username
+              );
+
         return (
             <Link
                 className="share-button"
-                to={ShareButton.url(
-                    models.Heading.isInstance(repository)
-                        ? headingShowRoute.getPath({
-                              params: {
-                                  id: repository.id,
-                              },
-                          })
-                        : answerShowRoute.getPath({
-                              params: {
-                                  id: repository.id,
-                              },
-                          })
-                )}
+                to={link}
+                target={'_blank'}
+                onClick={e => e.stopPropagation()}
             >
-                <Icon src="share" size="2_4x" />
+                <Icon src="share" size="2_4x" className="share-button__icon" />
             </Link>
         );
     }

@@ -36,7 +36,7 @@ class AnswerShowList extends React.Component {
     render() {
         const { repository } = this.props;
 
-        if (!repository) return <div />;
+        if (!repository || !repository.Heading) return <div />;
 
         const top = (
             <div className="answer-show-list__top">
@@ -44,9 +44,21 @@ class AnswerShowList extends React.Component {
             </div>
         );
 
+        const voter = (
+            <div className="answer-show-list__user">
+                <UserSection
+                    title={tt('g.respondent')}
+                    repository={repository.User}
+                />
+            </div>
+        );
+
         const user = (
             <div className="answer-show-list__user">
-                <UserSection repository={repository.User} />
+                <UserSection
+                    title={tt('g.votered')}
+                    repository={repository.Heading.User}
+                />
             </div>
         );
 
@@ -58,6 +70,7 @@ class AnswerShowList extends React.Component {
 
         return (
             <div className="answer-show-list">
+                {repository.UserId != repository.Heading.UserId && voter}
                 {top}
                 {user}
                 <div className="heading-show-list__category">

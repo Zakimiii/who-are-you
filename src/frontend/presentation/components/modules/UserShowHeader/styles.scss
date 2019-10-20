@@ -33,6 +33,7 @@
     z-index: 40;
     position: relative;
     padding: 44px 0;
+    padding-bottom: 0;
     height: 100%;
     width: 100%;
   }
@@ -90,5 +91,10 @@
       @include LH(FS);
       margin: 12px auto;
     };
+  }
+  &__bar {
+    height: 44px;
+    width: 100%;
+    margin-top: 44px;
   }
 }

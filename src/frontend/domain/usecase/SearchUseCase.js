@@ -98,7 +98,7 @@ export default class SearchUseCase extends UseCaseImpl {
                     throw new Error(e);
                 });
             if (!data) return;
-            yield put(searchActions.setUserResult({ headings: data }));
+            yield put(searchActions.setUserResult({ users: data }));
             yield put(searchActions.setUserKeyword({ keyword }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -123,7 +123,7 @@ export default class SearchUseCase extends UseCaseImpl {
                     throw new Error(e);
                 });
             if (!data) return;
-            yield put(searchActions.addUserResult({ headings: data }));
+            yield put(searchActions.addUserResult({ users: data }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -155,7 +155,7 @@ export default class SearchUseCase extends UseCaseImpl {
                     throw new Error(e);
                 });
             if (!data) return;
-            yield put(searchActions.setAnswerResult({ headings: data }));
+            yield put(searchActions.setAnswerResult({ answers: data }));
             yield put(searchActions.setAnswerKeyword({ keyword }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -180,7 +180,7 @@ export default class SearchUseCase extends UseCaseImpl {
                     throw new Error(e);
                 });
             if (!data) return;
-            yield put(searchActions.addAnswerResult({ headings: data }));
+            yield put(searchActions.addAnswerResult({ answers: data }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }

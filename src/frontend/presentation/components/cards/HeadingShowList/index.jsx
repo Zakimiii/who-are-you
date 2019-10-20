@@ -63,7 +63,19 @@ class HeadingShowList extends React.Component {
 
         const user = (
             <div className="heading-show-list__user">
-                <UserSection repository={repository.User} />
+                <UserSection
+                    title={tt('g.votered')}
+                    repository={repository.User}
+                />
+            </div>
+        );
+
+        const voter = (
+            <div className="heading-show-list__user">
+                <UserSection
+                    title={tt('g.voter')}
+                    repository={repository.Voter}
+                />
             </div>
         );
 
@@ -76,6 +88,7 @@ class HeadingShowList extends React.Component {
 
         return (
             <div className="heading-show-list">
+                {repository.UserId != repository.VoterId && voter}
                 {top}
                 {user}
                 <div className="heading-show-list__category">

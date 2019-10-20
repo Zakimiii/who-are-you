@@ -14,6 +14,7 @@ import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
 import { userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
+import StatsBar from '@modules/StatsBar';
 
 class AnswerShowHeader extends React.Component {
     static propTypes = {
@@ -82,6 +83,9 @@ class AnswerShowHeader extends React.Component {
                 <div className="answer-show-header__border" />
                 <div className="answer-show-header__text">
                     {`${_repository.body}`}
+                </div>
+                <div className="answer-show-header__bar">
+                    <StatsBar repository={_repository} />
                 </div>
             </div>
         );

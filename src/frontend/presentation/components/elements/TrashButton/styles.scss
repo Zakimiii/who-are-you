@@ -1,0 +1,11 @@
+.trash-button {
+  &__icon {
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('danger') !important;
+        fill: themed('danger')!important;
+      }
+    }
+  }
+}

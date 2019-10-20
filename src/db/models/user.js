@@ -46,6 +46,12 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
+            twitter_id: {
+                type: DataTypes.STRING(255),
+            },
+            twitter_username: {
+                type: DataTypes.STRING(255),
+            },
             isPrivate: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
@@ -121,6 +127,8 @@ module.exports = function(sequelize, DataTypes) {
             isPrivate: self.isPrivate,
             permission: self.permission,
             notification_id: self.notification_id,
+            twitter_id: self.twitter_id,
+            twitter_username: self.twitter_username,
             created_at: self.created_at,
             updated_at: self.updated_at,
         };

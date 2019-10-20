@@ -1,7 +1,7 @@
 .side-bar-modal {
   width: 100vw;
-  height: calc(100vh - 62px);
-  max-height: calc(100vh - 62px);
+  height: calc(100vh - 65px);
+  max-height: calc(100vh - 65px);
   padding-right: calc(100% - 240px);
   margin-top: 62px;
   @include themify($themes) {
@@ -16,7 +16,7 @@
     position: fixed;
     overflow: scroll;
     width: 240px;
-    height: calc(100vh - 62px);
+    height: calc(100vh - 65px);
     float: left;
     @include mq-up(xl) {
       display: none;
