@@ -42,6 +42,7 @@ export default class HeadingUseCase extends UseCaseImpl {
             const heading = yield headingRepository.getHeading({
                 id,
             });
+            if (!heading) return;
             yield put(headingActions.setShow({ heading }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

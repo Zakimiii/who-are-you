@@ -46,6 +46,7 @@ export default class UserUseCase extends UseCaseImpl {
                     isMyAccount:
                         current_user && current_user.username == username,
                 });
+                if (!user) return;
                 yield put(userActions.setShow({ user }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(appActions.fetchDataBegin());
@@ -58,6 +59,7 @@ export default class UserUseCase extends UseCaseImpl {
                     username: current_user.username,
                     isMyAccount: true,
                 });
+                if (!user) return;
                 yield put(userActions.setShow({ user }));
             }
         } catch (e) {
