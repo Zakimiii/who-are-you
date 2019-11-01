@@ -42,7 +42,7 @@
         "answered_theme": "回答したテーマ",
         "example_theme": "（例）%(data)s",
         "twitter_login": "Twitterで始める",
-        "relate_user": "関連ユーザー",
+        "relate_user": "おすすめユーザー",
         "user": "ユーザー",
         "username": "ユーザー名",
         "username_not_display": "ユーザー名(アプリ内の表示名ではないです)",
