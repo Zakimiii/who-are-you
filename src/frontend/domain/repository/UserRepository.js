@@ -43,6 +43,24 @@ export default class UserRepository extends RepositoryImpl {
         return data && data.users;
     }
 
+    async getUserRecommend({ id, username, offset, limit }) {
+        const data = await super.apiCall('/api/v1/user/recommends', {
+            id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('M'),
+        });
+        return data && data.users;
+    }
+
+    async getStaticUserRecommend({ offset, limit }) {
+        const data = await super.apiCall('/api/v1/user/static/recommends', {
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('M'),
+        });
+        return data && data.users;
+    }
+
     async updateUser(user) {
         // const data = await super.apiCall('/api/v1/user/update', {
         //     user,

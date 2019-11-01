@@ -452,6 +452,34 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/users/init/counts', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleInitializeCountsRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/heading/search', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -545,6 +573,62 @@ export default function ApiMiddleware(app) {
         }
         yield userHandler
             .handleGetUserRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/recommends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserRecommendRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/user/static/recommends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetStaticUserRecommendRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(

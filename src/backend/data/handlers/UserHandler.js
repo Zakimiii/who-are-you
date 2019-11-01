@@ -55,6 +55,62 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleGetUserRecommendsRequest(router, ctx, next) {
+        const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        // const user = await models.User.findOne({
+        //     where: {
+        //         $or: [
+        //             {
+        //                 id: Number(id) || 0,
+        //             },
+        //             {
+        //                 username,
+        //             },
+        //         ],
+        //     },
+        // });
+
+        router.body = {
+            success: true,
+            // user: safe2json(user),
+        };
+    }
+
+    async handleGetStaticUserRecommendsRequest(router, ctx, next) {
+        // const { username, id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        // const user = await models.User.findOne({
+        //     where: {
+        //         $or: [
+        //             {
+        //                 id: Number(id) || 0,
+        //             },
+        //             {
+        //                 username,
+        //             },
+        //         ],
+        //     },
+        // });
+
+        router.body = {
+            success: true,
+            // user: safe2json(user),
+        };
+    }
+
     async handleGetUserTwitterNameRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 
@@ -395,6 +451,56 @@ export default class UserHandler extends HandlerImpl {
             success: true,
             user: safe2json(synced_user),
             exist: !!safe2json(synced_user),
+        };
+    }
+
+    async handleInitializeCountsRequest(router, ctx, next) {
+        // if (process.env.NODE_ENV != 'development') {
+        //     router.body = JSON.stringify({ status: 'ok' });
+        //     router.redirect('/');
+        // }
+
+        const { from_id, to_id } = router.query;
+
+        const id_range =
+            from_id && to_id
+                ? {
+                      id: {
+                          $between: [
+                              parseInt(from_id, 10),
+                              parseInt(to_id, 10),
+                          ],
+                      },
+                  }
+                : null;
+
+        const results = await models.User.findAll({
+            where: id_range,
+        });
+
+        if (!results)
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+
+        /*
+        10 of concurrency is very confortable to do tasks smoothly.
+        */
+        const datum = await Promise.map(
+            results,
+            result => userDataStore.updateCount(result),
+            { concurrency: 10 }
+        ).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        router.body = {
+            users: datum.map(data => safe2json(data)),
+            success: true,
         };
     }
 }

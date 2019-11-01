@@ -5,6 +5,7 @@ import {
     HeadingDataStore,
     AnswerDataStore,
     NotificationDataStore,
+    UserDataStore,
 } from '@datastore';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
@@ -21,6 +22,7 @@ import { ApiError } from '@extension/Error';
 const answerDataStore = new AnswerDataStore();
 const notificationDataStore = new NotificationDataStore();
 const headingDataStore = new HeadingDataStore();
+const userDataStore = new UserDataStore();
 
 export default class AnswerHandler extends HandlerImpl {
     constructor() {
@@ -66,6 +68,7 @@ export default class AnswerHandler extends HandlerImpl {
         });
 
         headingDataStore.updateCount({ id: result.HeadingId });
+        userDataStore.updateCountFromAnswer(result);
 
         notificationDataStore.onCreateAnswer(result);
 
@@ -89,7 +92,8 @@ export default class AnswerHandler extends HandlerImpl {
             });
         });
 
-        headingDataStore.updateCount({ id: result.HeadingId });
+        // headingDataStore.updateCount({ id: result.HeadingId });
+        // userDataStore.updateCountFromAnswer(result);
 
         router.body = {
             success: true,
@@ -112,6 +116,7 @@ export default class AnswerHandler extends HandlerImpl {
         });
 
         headingDataStore.updateCount({ id: result.HeadingId });
+        userDataStore.updateCountFromAnswer(answer);
 
         router.body = {
             success: true,

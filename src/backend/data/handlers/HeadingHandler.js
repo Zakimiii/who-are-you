@@ -5,6 +5,7 @@ import {
     AnswerDataStore,
     HeadingDataStore,
     NotificationDataStore,
+    UserDataStore,
 } from '@datastore';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
@@ -21,6 +22,7 @@ import { ApiError } from '@extension/Error';
 const answerDataStore = new AnswerDataStore();
 const headingDataStore = new HeadingDataStore();
 const notificationDataStore = new NotificationDataStore();
+const userDataStore = new UserDataStore();
 
 export default class HeadingHandler extends HandlerImpl {
     constructor() {
@@ -66,6 +68,7 @@ export default class HeadingHandler extends HandlerImpl {
         });
 
         notificationDataStore.onCreateHeading(result);
+        userDataStore.updateCount({ id: result.UserId });
 
         router.body = {
             success: true,
@@ -87,6 +90,8 @@ export default class HeadingHandler extends HandlerImpl {
             });
         });
 
+        // userDataStore.updateCount({ id: result.UserId });
+
         router.body = {
             success: true,
             heading: safe2json(result),
@@ -106,6 +111,8 @@ export default class HeadingHandler extends HandlerImpl {
                 tt_key: 'errors.invalid_response_from_server',
             });
         });
+
+        userDataStore.updateCount({ id: heading.UserId });
 
         router.body = {
             success: true,

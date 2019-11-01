@@ -84,6 +84,48 @@ export default class UserDataStore extends DataStoreImpl {
         );
     }
 
+    async updateCount(value) {
+        if (!value) return;
+        const user = await models.User.findOne({
+            where: {
+                id: Number(value.id),
+            },
+        });
+        if (!user) return;
+
+        const headings = await models.Heading.findAll({
+            where: {
+                user_id: Number(user.id),
+            },
+            attributes: ['id'],
+        });
+
+        const result = await user.update({
+            heading_count: headings.length,
+            answer_count:
+                headings.length > 0
+                    ? headings
+                          .map(val => val.answer_count)
+                          .reduce((p, c) => p + c)
+                    : 0,
+        });
+
+        return result;
+    }
+
+    async updateCountFromAnswer(answer) {
+        if (!answer || !answer.HeadingId) return;
+        const heading = await models.Heading.findOne({
+            where: {
+                id: Number(answer.HeadingId),
+            },
+        });
+        const result = await this.updateCount({
+            id: heading.UserId,
+        });
+        return result;
+    }
+
     async search({ keyword, limit, offset }) {
         let like_results = await Promise.all(
             generateLikeQuery(keyword).map(val => {
