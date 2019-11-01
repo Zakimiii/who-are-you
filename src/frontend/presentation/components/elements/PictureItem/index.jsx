@@ -6,10 +6,12 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import Img from 'react-image';
 import classNames from 'classnames';
 import autobind from 'class-autobind';
+import data_config from '@constants/data_config';
 
 class PictureItem extends React.Component {
     static propTypes = {
         url: PropTypes.string,
+        rollback_url: PropTypes.string,
         width: PropTypes.number,
         radius: PropTypes.number,
         alt: PropTypes.string,
@@ -20,13 +22,16 @@ class PictureItem extends React.Component {
 
     static defaultProps = {
         url: '',
+        rollback_url: data_config.default_user_image,
         width: 120,
         radius: 60,
         alt: '',
         className: '',
     };
 
-    state = {};
+    state = {
+        isError: false,
+    };
 
     constructor(props) {
         super(props);
@@ -42,19 +47,19 @@ class PictureItem extends React.Component {
     onLoad(e) {
         // if (e) e.preventDefault();
         const { onLoad } = this.props;
-
         if (onLoad) onLoad(e);
     }
 
     onError(e) {
         // if (e) e.preventDefault();
         const { onError } = this.props;
-
+        this.setState({ isError: true });
         if (onError) onError(e);
     }
 
     render() {
-        const { url, width, radius, alt, className } = this.props;
+        const { url, rollback_url, width, radius, alt, className } = this.props;
+        const { isError } = this.state;
 
         const { onLoad, onError } = this;
 
@@ -79,7 +84,7 @@ class PictureItem extends React.Component {
                 <img
                     className="circle-picture-item__image"
                     style={image_style}
-                    src={url}
+                    src={!isError ? url : rollback_url}
                     alt={alt}
                     onLoad={onLoad}
                     onError={onError}
