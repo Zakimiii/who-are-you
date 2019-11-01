@@ -7,6 +7,7 @@ import Img from 'react-image';
 import classNames from 'classnames';
 import autobind from 'class-autobind';
 import data_config from '@constants/data_config';
+import LoadingIndicator from '@elements/LoadingIndicator';
 
 class PictureItem extends React.Component {
     static propTypes = {
@@ -21,7 +22,7 @@ class PictureItem extends React.Component {
     };
 
     static defaultProps = {
-        url: '',
+        url: data_config.default_user_image,
         rollback_url: data_config.default_user_image,
         width: 120,
         radius: 60,
@@ -35,25 +36,17 @@ class PictureItem extends React.Component {
 
     constructor(props) {
         super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'PictureItem');
         autobind(this);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const { url, width, radius } = this.props;
-        const n = nextProps;
-        return url !== n.url || width !== n.width || radius !== n.radius;
-    }
-
     onLoad(e) {
-        // if (e) e.preventDefault();
         const { onLoad } = this.props;
         if (onLoad) onLoad(e);
     }
 
     onError(e) {
-        // if (e) e.preventDefault();
         const { onError } = this.props;
-        this.setState({ isError: true });
         if (onError) onError(e);
     }
 
@@ -81,13 +74,22 @@ class PictureItem extends React.Component {
                 className={classNames('circle-picture-item', className)}
                 style={style}
             >
-                <img
+                <Img
                     className="circle-picture-item__image"
                     style={image_style}
-                    src={!isError ? url : rollback_url}
+                    src={isError ? rollback_url : url}
                     alt={alt}
                     onLoad={onLoad}
                     onError={onError}
+                    loader={<LoadingIndicator type={'circle'} />}
+                    unloader={
+                        <img
+                            className="circle-picture-item__image"
+                            style={image_style}
+                            src={rollback_url}
+                            alt={alt}
+                        />
+                    }
                 />
             </div>
         );
