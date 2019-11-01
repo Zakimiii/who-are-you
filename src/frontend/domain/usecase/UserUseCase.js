@@ -80,14 +80,15 @@ export default class UserUseCase extends UseCaseImpl {
             const recommends = yield select(state =>
                 userActions.getRecommend(state)
             );
-            if (recommends.length > 0) return;
+            // if (recommends.length > 0) return;
             const users = !!current_user
                 ? yield userRepository.getUserRecommend({
                       username: current_user.username,
                   })
-                : yield userRepository.getStaticUserRecommend();
+                : yield userRepository.getStaticUserRecommend({});
             yield put(userActions.setRecommend({ users }));
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());

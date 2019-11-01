@@ -178,4 +178,20 @@ export default class UserDataStore extends DataStoreImpl {
 
         return results;
     }
+
+    async getStaticRecommendUsers({ limit, offset }) {
+        const users = await models.User.findAll({
+            order: [['answer_count', 'DESC']],
+            limit: Number(limit) || data_config.fetch_data_limit('M'),
+            offset: Number(offset || 0),
+            raw: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return users;
+    }
 }

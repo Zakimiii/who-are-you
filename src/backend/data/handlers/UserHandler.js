@@ -55,8 +55,8 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
-    async handleGetUserRecommendsRequest(router, ctx, next) {
-        const { username, id } = router.request.body;
+    async handleGetUserRecommendRequest(router, ctx, next) {
+        const { username, id, limit, offset } = router.request.body;
 
         // await apiFindUserValidates.isValid({
         //     username,
@@ -64,50 +64,33 @@ export default class UserHandler extends HandlerImpl {
         //     user: { id, username },
         // });
 
-        // const user = await models.User.findOne({
-        //     where: {
-        //         $or: [
-        //             {
-        //                 id: Number(id) || 0,
-        //             },
-        //             {
-        //                 username,
-        //             },
-        //         ],
-        //     },
-        // });
+        const users = await userDataStore.getStaticRecommendUsers({
+            limit,
+            offset,
+        });
+
+        authDataStore.find_or_create_by_twitter_followers({
+            username,
+            user_id: Number(id),
+        });
 
         router.body = {
             success: true,
-            // user: safe2json(user),
+            users,
         };
     }
 
-    async handleGetStaticUserRecommendsRequest(router, ctx, next) {
-        // const { username, id } = router.request.body;
+    async handleGetStaticUserRecommendRequest(router, ctx, next) {
+        const { limit, offset } = router.request.body;
 
-        // await apiFindUserValidates.isValid({
-        //     username,
-        //     id,
-        //     user: { id, username },
-        // });
-
-        // const user = await models.User.findOne({
-        //     where: {
-        //         $or: [
-        //             {
-        //                 id: Number(id) || 0,
-        //             },
-        //             {
-        //                 username,
-        //             },
-        //         ],
-        //     },
-        // });
+        const users = await userDataStore.getStaticRecommendUsers({
+            limit,
+            offset,
+        });
 
         router.body = {
             success: true,
-            // user: safe2json(user),
+            users,
         };
     }
 
