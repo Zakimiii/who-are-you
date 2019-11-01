@@ -16,6 +16,7 @@ import { Map } from 'immutable';
 import models from '@network/client_models';
 import CharacterCounter from '@elements/CharacterCounter';
 import data_config from '@constants/data_config';
+import Responsible from '@modules/Responsible';
 
 class AnswerNewList extends React.Component {
     static propTypes = {};
@@ -142,7 +143,7 @@ class AnswerNewList extends React.Component {
                             data: models.Heading.getBody(repository.Heading),
                         })}
                         value={repository.body}
-                        focus={true}
+                        focus={false}
                     />
                 </div>
                 <div className="answer-new-list__form-counter">
