@@ -97,7 +97,7 @@ export default class UserDataStore extends DataStoreImpl {
             where: {
                 user_id: Number(user.id),
             },
-            attributes: ['id'],
+            attributes: ['id', 'answer_count'],
         });
 
         const result = await user.update({
@@ -119,6 +119,7 @@ export default class UserDataStore extends DataStoreImpl {
             where: {
                 id: Number(answer.HeadingId),
             },
+            attributes: ['id', 'UserId'],
         });
         const result = await this.updateCount({
             id: heading.UserId,
