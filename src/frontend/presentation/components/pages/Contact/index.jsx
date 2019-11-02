@@ -40,18 +40,14 @@ class Contact extends React.Component {
                     <h2>メールアドレス</h2>
                     <p>selfinity018@gmail.com</p>
                     <h2>Twitter</h2>
+                    <p>企業アカウント: {'https://twitter.com/selfinity1'}</p>
                     <p>
-                        企業アカウント: {'https://twitter.com/selfinity1'}
-                    </p>
-                    <p>
-                        経営者アカウント: {'https://twitter.com/Zakk227056'}
+                        経営者アカウント: {'https://twitter.com/zakimiii_shota'}
                     </p>
                     <h2>Facebook</h2>
                     <p>
                         企業アカウント:{' '}
-                        {
-                            'https://www.facebook.com/Selfinity-108639923826680/'
-                        }
+                        {'https://www.facebook.com/Selfinity-108639923826680/'}
                     </p>
                     <p>
                         経営者アカウント:{' '}
