@@ -13,6 +13,8 @@ import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as appActions from '@redux/App/AppReducer';
+import LoadingIndicator from '@elements/LoadingIndicator';
 import HeadingNewSection from '@elements/HeadingNewSection';
 
 class PostIndexList extends React.Component {
@@ -54,7 +56,7 @@ class PostIndexList extends React.Component {
     }
 
     render() {
-        const { repository, repositories } = this.props;
+        const { repository, repositories, loading } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -70,9 +72,15 @@ class PostIndexList extends React.Component {
                         {tt('g.posts')}
                     </div>
                     <div className="user-show-list__body__items">
-                        {repositories &&
+                        {loading ? (
+                            <center>
+                                <LoadingIndicator type={'circle'} />
+                            </center>
+                        ) : (
+                            repositories &&
                             repositories.length > 0 &&
-                            renderItems(repositories)}
+                            renderItems(repositories)
+                        )}
                     </div>
                 </div>
             </div>
@@ -85,6 +93,7 @@ export default connect(
         return {
             repository: authActions.getCurrentUser(state),
             repositories: userActions.getUserPost(state),
+            loading: appActions.postIndexPageLoading(state),
         };
     },
 

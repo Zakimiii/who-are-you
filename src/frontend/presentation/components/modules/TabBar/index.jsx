@@ -6,12 +6,11 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
-import SideBarItem from '@elements/SideBarItem';
-import UserSideItem from '@modules/UserSideItem';
+import TabBarItem from '@elements/TabBarItem';
 import { SideBarSection } from '@entity';
 import Img from 'react-image';
 
-class SideBar extends React.Component {
+class TabBar extends React.Component {
     static propTypes = {
         section: PropTypes.object,
         pathname: PropTypes.string,
@@ -29,8 +28,14 @@ class SideBar extends React.Component {
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'SideBar');
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'TabBar');
     }
+
+    componentWillMount() {}
+
+    componentDidMount() {}
+
+    componentWillReceiveProps(nextProps) {}
 
     render() {
         const { section, pathname } = this.props;
@@ -40,31 +45,22 @@ class SideBar extends React.Component {
                 switch (item.value) {
                     default:
                         return (
-                            <li key={index} className="side-bar__item">
-                                <SideBarItem
+                            <div key={index} className="tab-bar__item">
+                                <TabBarItem
                                     value={item.string()}
                                     image={item.image}
                                     link={item.link}
                                     active={item.active(pathname)}
                                 />
-                            </li>
+                            </div>
                         );
                 }
             });
 
         return (
-            <div className="side-bar">
-                <div className="side-bar__user">
-                    <UserSideItem />
-                </div>
-                <ul className="side-bar__items">
+            <div className="tab-bar">
+                <div className="tab-bar__items">
                     {section && renderItem(section)}
-                </ul>
-                <div className="side-bar__logo">
-                    <Img
-                        className="side-bar__logo-image"
-                        src={'/images/brands/gray-logo.png'}
-                    />
                 </div>
             </div>
         );
@@ -81,4 +77,4 @@ export default connect(
     },
 
     dispatch => ({})
-)(SideBar);
+)(TabBar);

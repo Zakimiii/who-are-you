@@ -33,6 +33,7 @@
 @import "./elements/IconButton/styles";
 @import "./elements/LoadingIndicator/styles";
 @import "./elements/PrivacyItem/styles";
+@import "./elements/TabBarItem/styles";
 @import "./elements/InputText/styles";
 @import "./elements/UserSection/styles";
 @import "./elements/Reveal/styles";
@@ -72,6 +73,7 @@
 @import "./modules/TipsBackground/styles";
 @import "./modules/Modals/styles";
 @import "./modules/ScreenLoadingIndicator/styles";
+@import "./modules/TabBar/styles";
 
 // pages
 @import "./pages/Privacy/styles";
@@ -90,3 +92,4 @@
 @import "./pages/HeadingShow/styles";
 @import "./pages/AnswerNew/styles";
 @import "./pages/AnswerShow/styles";
+@import "./pages/Welcome/styles";

@@ -11,6 +11,8 @@ import models from '@network/client_models';
 import UserSection from '@elements/UserSection';
 import AnswerShowHeader from '@modules/AnswerShowHeader';
 import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as appActions from '@redux/App/AppReducer';
+import LoadingIndicator from '@elements/LoadingIndicator';
 import { isScrollEndByClass } from '@extension/scroll';
 
 class AnswerShowList extends React.Component {
@@ -34,9 +36,20 @@ class AnswerShowList extends React.Component {
     }
 
     render() {
-        const { repository } = this.props;
+        const { repository, loading } = this.props;
 
         if (!repository || !repository.Heading) return <div />;
+
+        if (loading) {
+            return (
+                <center>
+                    <LoadingIndicator
+                        style={{ marginTop: '2rem' }}
+                        type={'circle'}
+                    />
+                </center>
+            );
+        }
 
         const top = (
             <div className="answer-show-list__top">
@@ -86,6 +99,7 @@ export default connect(
     (state, props) => {
         return {
             repository: answerActions.getShowAnswer(state),
+            loading: appActions.answerShowPageLoading(state),
         };
     },
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppPropTypes from '@extension/AppPropTypes';
 import Header from '@modules/Header';
+import TabBar from '@modules/TabBar';
 import * as appActions from '@redux/App/AppReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
@@ -29,6 +30,7 @@ import {
 } from '@infrastructure/RouteInitialize';
 import config from '@constants/config';
 import ScreenShot from '@modules/ScreenShot';
+import Responsible from '@modules/Responsible';
 
 class App extends Component {
     static redirect = url => {
@@ -239,6 +241,7 @@ class App extends Component {
                 >
                     <Header pathname={pathname} />
                     {children}
+                    <Responsible breakingContent={<TabBar />} breakLg={true} />
                     <Modals />
                     <AlertContainer />
                     <FlashContainer />

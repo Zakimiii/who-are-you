@@ -12,6 +12,8 @@ import HeadingItem from '@modules/HeadingItem';
 import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as appActions from '@redux/App/AppReducer';
+import LoadingIndicator from '@elements/LoadingIndicator';
 import HeadingNewSection from '@elements/HeadingNewSection';
 
 class UserShowList extends React.Component {
@@ -53,7 +55,12 @@ class UserShowList extends React.Component {
     }
 
     render() {
-        const { repository, repositories } = this.props;
+        const {
+            repository,
+            repositories,
+            loading,
+            contents_loading,
+        } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -75,10 +82,21 @@ class UserShowList extends React.Component {
                         {tt('g.themes')}
                     </div>
                     <div className="user-show-list__body__items">
-                        {repositories &&
+                        {contents_loading ? (
+                            <center>
+                                <LoadingIndicator type={'circle'} />
+                            </center>
+                        ) : (
+                            repositories &&
                             repositories.length > 0 &&
-                            renderItems(repositories)}
+                            renderItems(repositories)
+                        )}
                     </div>
+                    {/*{loading && (
+                        <center>
+                            <LoadingIndicator style={{ marginBottom: '2rem' }} />
+                        </center>
+                    )}*/}
                 </div>
             </div>
         );
@@ -90,6 +108,8 @@ export default connect(
         return {
             repository: userActions.getShowUser(state),
             repositories: userActions.getUserHeading(state),
+            loading: appActions.userShowPageLoading(state),
+            contents_loading: appActions.userShowContentsLoading(state),
         };
     },
 

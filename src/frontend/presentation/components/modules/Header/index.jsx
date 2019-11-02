@@ -166,13 +166,6 @@ class Header extends React.Component {
 
         const nomal_body = (
             <div>
-                <div className="Header__list" onClick={toggleSideBar}>
-                    <Icon
-                        className="Header__list-image"
-                        size={'3x'}
-                        src={'list'}
-                    />
-                </div>
                 <Link
                     to={
                         current_user
