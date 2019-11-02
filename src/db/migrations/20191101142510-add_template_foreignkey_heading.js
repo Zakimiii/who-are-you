@@ -11,7 +11,7 @@ module.exports = {
             queryInterface.addColumn('headings', 'template_id', {
                 type: Sequelize.INTEGER,
                 references: {
-                    model: 'teplates',
+                    model: 'templates',
                     key: 'id',
                 },
                 onUpdate: 'cascade',
