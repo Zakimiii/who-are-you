@@ -77,5 +77,20 @@ export default class TemplateUseCase extends UseCaseImpl {
         yield put(appActions.fetchMoreDataEnd());
     }
 
-    *answer({ payload: { user, answer, template } }) {}
+    *answer({ payload: { user, answer, template } }) {
+        if (!answer || !user || !template) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            const data = yield templateRepository.answer({
+                user,
+                answer,
+                template,
+            });
+            yield put(templateActions.hideNew());
+            yield put(templateActions.resetNew());
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
 }

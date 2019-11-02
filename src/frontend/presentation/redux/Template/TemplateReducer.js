@@ -13,9 +13,14 @@ export const SET_CACHES = 'template/SET_CACHES';
 export const RESET_CACHES = 'template/SET_CACHES';
 export const SET_DELETES = 'template/SET_DELETES';
 export const RESET_DELETES = 'template/SET_DELETES';
+export const HIDE_NEW = 'template/HIDE_NEW';
+export const RESET_NEW = 'template/RESET_NEW';
+export const SET_NEW = 'template/SET_NEW';
 
 const defaultState = Map({
     home_template: List(),
+    show_new_modal: false,
+    new_template: Map(models.Template.build()),
     caches: List([]),
     deletes: List([]),
 });
@@ -87,6 +92,30 @@ export default function reducer(state = defaultState, action = {}) {
             return state.set('deletes', List([]));
         }
 
+        case SET_NEW: {
+            if (!payload.template) return state;
+            return state.set('new_template', Map(action.payload.template));
+        }
+
+        case RESET_NEW: {
+            return state.merge({
+                new_template: Map(models.Heading.build()),
+            });
+        }
+
+        case SHOW_NEW: {
+            return state.merge({
+                show_new_modal: true,
+            });
+        }
+
+        case HIDE_NEW: {
+            return state.merge({
+                show_new_modal: false,
+                new_template: Map(models.Template.build()),
+            });
+        }
+
         default:
             return state;
     }
@@ -134,6 +163,26 @@ export const setDeletes = payload => ({
 
 export const resetDeletes = payload => ({
     type: RESET_DELETES,
+    payload,
+});
+
+export const showNew = payload => ({
+    type: SHOW_NEW,
+    payload,
+});
+
+export const hideNew = payload => ({
+    type: HIDE_NEW,
+    payload,
+});
+
+export const setNew = payload => ({
+    type: SET_NEW,
+    payload,
+});
+
+export const resetNew = payload => ({
+    type: RESET_NEW,
     payload,
 });
 
