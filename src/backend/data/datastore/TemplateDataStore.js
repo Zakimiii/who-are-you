@@ -15,6 +15,30 @@ export default class TemplateDataStore extends DataStoreImpl {
         super();
     }
 
+    async updateCount(value) {
+        if (!value) return;
+        const template = await models.Template.findOne({
+            where: {
+                id: Number(value.id),
+            },
+        });
+        if (!template) return;
+
+        const headings = await models.Heading.findAll({
+            where: {
+                template_id: Number(template.id),
+                body: template.body,
+            },
+            attributes: ['id'],
+        });
+
+        const result = await template.update({
+            count: headings.length,
+        });
+
+        return result;
+    }
+
     async find_or_create_from_heading(heading) {
         if (!heading) return;
         if (
@@ -41,6 +65,8 @@ export default class TemplateDataStore extends DataStoreImpl {
             template_id: template.id,
         });
 
+        this.updateCount(template);
+
         return template;
     }
 
@@ -48,30 +74,7 @@ export default class TemplateDataStore extends DataStoreImpl {
         const templates = await Promise.all(
             headings.map(heading => this.find_or_create_from_heading(heading))
         );
-    }
-
-    async updateCount(value) {
-        if (!value) return;
-        const template = await models.Template.findOne({
-            where: {
-                id: Number(value.id),
-            },
-        });
-        if (!template) return;
-
-        const headings = await models.Heading.findAll({
-            where: {
-                template_id: Number(template.id),
-                body: template.body,
-            },
-            attributes: ['id'],
-        });
-
-        const result = await template.update({
-            count: headings.length,
-        });
-
-        return result;
+        return templates;
     }
 
     async getStaticTrendTemplate({ limit, offset }) {

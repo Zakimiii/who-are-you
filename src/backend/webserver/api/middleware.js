@@ -13,6 +13,7 @@ import {
     BatchHandler,
     HeadingHandler,
     AnswerHandler,
+    TemplateHandler,
 } from '@handlers';
 import { handleApiError } from '@extension/Error';
 import Gateway from '@network/gateway';
@@ -28,6 +29,7 @@ const notificationHandler = new NotificationHandler();
 const batchHandler = new BatchHandler();
 const headingHandler = new HeadingHandler();
 const answerHandler = new AnswerHandler();
+const templateHandler = new TemplateHandler();
 
 export default function ApiMiddleware(app) {
     const router = koa_router({ prefix: '/api/v1' });
@@ -897,6 +899,114 @@ export default function ApiMiddleware(app) {
         }
         yield userHandler
             .handleSyncNotificationIdRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/templates/static/trends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield templateHandler
+            .handleGetStaticTrendTemplateRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/templates/trends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield templateHandler
+            .handleGetTrendTemplateRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/template/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield templateHandler
+            .handleAnswerRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/template/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield templateHandler
+            .handleInitializeTemplateRequest(
                 results.router,
                 results.ctx,
                 results.next

@@ -14,11 +14,104 @@ import jwt from 'jsonwebtoken';
 import env from '@env/env.json';
 import validator from 'validator';
 import badDomains from '@constants/bad-domains';
+import data_config from '@constants/data_config';
+import Promise from 'bluebird';
 
 const templateDataStore = new TemplateDataStore();
 
 export default class TemplateHandler extends HandlerImpl {
     constructor() {
         super();
+    }
+
+    async handleAnswerRequest(router, ctx, next) {
+        const { template, user, answer } = router.request.body;
+
+        const result = await templateDataStore.answer({
+            template,
+            user,
+            answer,
+        });
+
+        router.body = {
+            answer: safe2json(result),
+            success: true,
+        };
+    }
+
+    async handleGetStaticTrendTemplateRequest(router, ctx, next) {
+        const { limit, offset } = router.request.body;
+
+        const templates = await templateDataStore.getStaticTrendTemplate({
+            limit,
+            offset,
+        });
+
+        router.body = {
+            templates,
+            success: true,
+        };
+    }
+
+    async handleGetTrendTemplateRequest(router, ctx, next) {
+        const { limit, offset, user } = router.request.body;
+
+        const templates = await templateDataStore.getStaticTrendTemplate({
+            limit,
+            offset,
+        });
+
+        router.body = {
+            templates,
+            success: true,
+        };
+    }
+
+    async handleInitializeTemplateRequest(router, ctx, next) {
+        // if (process.env.NODE_ENV != 'development') {
+        //     router.body = JSON.stringify({ status: 'ok' });
+        //     router.redirect('/');
+        // }
+
+        const { from_id, to_id } = router.query;
+
+        const id_range =
+            from_id && to_id
+                ? {
+                      id: {
+                          $between: [
+                              parseInt(from_id, 10),
+                              parseInt(to_id, 10),
+                          ],
+                      },
+                  }
+                : null;
+
+        const results = await models.Heading.findAll({
+            where: id_range,
+        });
+
+        if (!results)
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+
+        /*
+        10 of concurrency is very confortable to do tasks smoothly.
+        */
+        const datum = await templateDataStore
+            .fix_template_relation(results)
+            .catch(e => {
+                throw new ApiError({
+                    error: e,
+                    tt_key: 'errors.invalid_response_from_server',
+                });
+            });
+
+        router.body = {
+            templates: datum.map(data => safe2json(data)),
+            success: true,
+        };
     }
 }

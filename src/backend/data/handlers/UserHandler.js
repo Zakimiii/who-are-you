@@ -438,10 +438,10 @@ export default class UserHandler extends HandlerImpl {
     }
 
     async handleInitializeCountsRequest(router, ctx, next) {
-        // if (process.env.NODE_ENV != 'development') {
-        //     router.body = JSON.stringify({ status: 'ok' });
-        //     router.redirect('/');
-        // }
+        if (process.env.NODE_ENV != 'development') {
+            router.body = JSON.stringify({ status: 'ok' });
+            router.redirect('/');
+        }
 
         const { from_id, to_id } = router.query;
 
