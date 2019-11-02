@@ -7,6 +7,7 @@ import { searchWatches } from '@redux/Search';
 import { sessionWatches } from '@redux/Session';
 import { userWatches } from '@redux/User';
 import { notificationWatches } from '@redux/Notification';
+import { templateWatches } from '@redux/Template';
 
 export default function* rootSaga() {
     yield all([
@@ -18,5 +19,6 @@ export default function* rootSaga() {
         ...sessionWatches,
         ...userWatches,
         ...notificationWatches,
+        ...templateWatches,
     ]);
 }

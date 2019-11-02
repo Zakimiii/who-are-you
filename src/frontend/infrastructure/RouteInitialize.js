@@ -55,6 +55,12 @@ export const answerNewRoute = new RouteEntity({
     component: require('@components/pages/AnswerNewAlias'),
 });
 
+export const templateIndexRoute = new RouteEntity({
+    path: '/templates',
+    page: 'TemplateIndex',
+    component: require('@components/pages/TemplateIndex'),
+});
+
 export const notificationIndexRoute = new RouteEntity({
     path: '/notifications',
     page: 'NotificationIndex',
@@ -151,6 +157,7 @@ export const routeEntities = new RouteEntities({
         notificationIndexRoute,
         postIndexRoute,
         searchRoute,
+        templateIndexRoute,
     ],
     notfoundRoute,
 });
@@ -245,7 +252,7 @@ export const getPageImage = pathname => {
             image = `${state.user.get('show_user').get('picture_small')}`;
     } */ image = `${
             config.CURRENT_APP_URL
-        }/images/brands/who-are-you_logo.png`;
+        }/images/brands/ogp-logo.png`;
     }
 
     return image;
