@@ -57,6 +57,8 @@ export default class TemplateDataStore extends DataStoreImpl {
 
         const [template, created] = await models.Template.findOrCreate({
             where: {
+                valid: true,
+                permission: true,
                 body: heading.body,
             },
         });

@@ -320,7 +320,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             },
             include: [
                 {
-                    as: 'Voters',
+                    as: 'Voter',
                     model: models.User,
                     where: {
                         $or: [

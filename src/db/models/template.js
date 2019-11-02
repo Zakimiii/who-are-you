@@ -12,16 +12,6 @@ module.exports = function(sequelize, DataTypes) {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            HeadingId: {
-                type: DataTypes.INTEGER,
-                references: {
-                    model: 'headings',
-                    key: 'id',
-                },
-                field: 'heading_id',
-                onUpdate: 'cascade',
-                onDelete: 'cascade',
-            },
             body: {
                 type: DataTypes.TEXT('long'),
             },

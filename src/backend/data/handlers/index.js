@@ -19,4 +19,5 @@ export {
     BatchHandler,
     HeadingHandler,
     AnswerHandler,
+    TemplateHandler,
 };
