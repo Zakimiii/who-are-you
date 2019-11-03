@@ -56,9 +56,10 @@ class UserShowList extends React.Component {
     }
 
     onWindowScroll() {
-        const { getMore, username } = this.props;
+        const { getMore, username, section, getMoreTemplate } = this.props;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
-        if (isEnd && getMore) getMore();
+        if (isEnd && getMore)
+            section == 'templates' ? getMoreTemplate() : getMore();
     }
 
     render() {
@@ -213,6 +214,9 @@ export default connect(
     dispatch => ({
         getMore: () => {
             dispatch(userActions.getMoreUserHeading());
+        },
+        getMoreTemplate: () => {
+            dispatch(templateActions.getMoreHome());
         },
     })
 )(UserShowList);

@@ -55,13 +55,27 @@ export default class TemplateDataStore extends DataStoreImpl {
             },
         });
 
-        const [template, created] = await models.Template.findOrCreate({
+        // const [template, created] = await models.Template.findOrCreate({
+        //     where: {
+        //         valid: true,
+        //         permission: true,
+        //         body: heading.body,
+        //     },
+        // });
+
+        let template = await models.Template.findOne({
             where: {
-                valid: true,
-                permission: true,
                 body: heading.body,
             },
         });
+
+        if (!template) {
+            template = await models.Template.create({
+                valid: true,
+                permission: true,
+                body: heading.body,
+            });
+        }
 
         const updated = await heading.update({
             template_id: template.id,
