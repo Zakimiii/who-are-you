@@ -19,6 +19,7 @@ const templateUseCase = new TemplateUseCase();
 
 export const templateWatches = [
     takeEvery(LOCATION_CHANGE, templateUseCase.initTrend),
+    takeEvery(templateActions.ADD_HEADING, templateUseCase.addHeading),
     takeEvery(templateActions.GET_MORE_HOME, templateUseCase.getMoreTrend),
     takeLatest(templateActions.ANSWER_TEMPLATE, templateUseCase.answer),
 ];

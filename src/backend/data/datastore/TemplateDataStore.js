@@ -95,6 +95,20 @@ export default class TemplateDataStore extends DataStoreImpl {
         return templates;
     }
 
+    async add_heading({ user, voter, template }) {
+        if (!user || !template) return;
+        const heading = await models.Heading.create({
+            body: template.body,
+            user_id: Number(user.id),
+            voter_id: !!voter ? Number(voter.id) : null,
+            template_id: Number(template.id),
+        });
+
+        this.updateCount(template);
+
+        return heading;
+    }
+
     async answer({ user, answer, template }) {
         if (!user || !answer || !template) return;
         const heading = await models.Heading.create({

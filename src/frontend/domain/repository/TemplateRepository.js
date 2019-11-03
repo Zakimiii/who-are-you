@@ -9,6 +9,13 @@ export default class TemplateRepository extends RepositoryImpl {
         super();
     }
 
+    async getTemplate({ id }) {
+        const data = await super.apiCall('/api/v1/template', {
+            id,
+        });
+        return data && data.template;
+    }
+
     async getTrend({ id, username, offset, limit }) {
         const data = await super.apiCall('/api/v1/templates/trends', {
             user_id: id,
@@ -36,5 +43,13 @@ export default class TemplateRepository extends RepositoryImpl {
             answer,
         });
         return data && data.answer;
+    }
+
+    async addHeading({ template, heading }) {
+        const data = await super.apiCall('/api/v1/template/heading/create', {
+            heading,
+            template,
+        });
+        return data && data.heading;
     }
 }

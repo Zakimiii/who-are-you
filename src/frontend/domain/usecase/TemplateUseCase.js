@@ -4,6 +4,8 @@ import { call, put, select, takeEvery } from 'redux-saga/effects';
 import * as appActions from '@redux/App/AppReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import * as templateActions from '@redux/Template/TemplateReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as answerActions from '@redux/Answer/AnswerReducer';
 import AppUseCase from '@usecase/AppUseCase';
 import { templateIndexRoute } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
@@ -11,10 +13,11 @@ import models from '@network/client_models';
 import Notification from '@network/notification';
 import tt from 'counterpart';
 import data_config from '@constants/data_config';
-import { TemplateRepository } from '@repository';
+import { TemplateRepository, UserRepository } from '@repository';
 import { FileEntity, FileEntities } from '@entity';
 import TwitterHandler from '@network/twitter';
 
+const userRepository = new UserRepository();
 const templateRepository = new TemplateRepository();
 const notification = new Notification();
 
@@ -75,6 +78,44 @@ export default class TemplateUseCase extends UseCaseImpl {
             }
         }
         yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *addHeading({ payload: { template, heading } }) {
+        if (!heading || !template) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            if (heading.picture instanceof Map) {
+                let model = FileEntity.build(heading.picture.toJS());
+                // heading.picture = yield model.upload({
+                //     xsize: data_config.shot_picture_xsize,
+                //     ysize: data_config.shot_picture_ysize,
+                // });
+                // heading.picture = model.url;
+                heading.picture = yield model.getBuffer({
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                    bcomposite_src: '/images/brands/eye_catch.png',
+                });
+            }
+            const data = yield templateRepository.addHeading({
+                template,
+                heading,
+            });
+            const twitter_username = yield userRepository.getUserTwitterUsername(
+                {
+                    id: data.UserId,
+                }
+            );
+            yield put(
+                headingActions.createdHeading({
+                    heading: data,
+                    twitter_username,
+                })
+            );
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
     }
 
     *answer({ payload: { user, answer, template } }) {

@@ -24,6 +24,44 @@ export default class TemplateHandler extends HandlerImpl {
         super();
     }
 
+    async handleGetTemplateRequest(router, ctx, next) {
+        const { id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        if (!id) return;
+
+        const template = await models.Template.findOne({
+            where: {
+                id: Number(id),
+            },
+        });
+
+        router.body = {
+            success: true,
+            template: safe2json(template),
+        };
+    }
+
+    async handleAddHeadingRequest(router, ctx, next) {
+        const { template, user, voter } = router.request.body;
+
+        const result = await templateDataStore.add_heading({
+            template,
+            user,
+            voter,
+        });
+
+        router.body = {
+            heading: safe2json(result),
+            success: true,
+        };
+    }
+
     async handleAnswerRequest(router, ctx, next) {
         const { template, user, answer } = router.request.body;
 

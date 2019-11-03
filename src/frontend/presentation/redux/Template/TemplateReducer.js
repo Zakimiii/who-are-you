@@ -4,6 +4,7 @@ import { templateIndexRoute } from '@infrastructure/RouteInitialize';
 import uuidv4 from 'uuid/v4';
 
 export const ANSWER_TEMPLATE = 'template/ANSWER_TEMPLATE';
+export const ADD_HEADING = 'template/ADD_HEADING';
 export const SET_HOME = 'template/SET_HOME';
 export const RESET_HOME = 'template/RESET_HOME';
 export const ADD_HOME = 'template/ADD_HOME';
@@ -13,6 +14,7 @@ export const SET_CACHES = 'template/SET_CACHES';
 export const RESET_CACHES = 'template/SET_CACHES';
 export const SET_DELETES = 'template/SET_DELETES';
 export const RESET_DELETES = 'template/SET_DELETES';
+export const SHOW_NEW = 'template/SHOW_NEW';
 export const HIDE_NEW = 'template/HIDE_NEW';
 export const RESET_NEW = 'template/RESET_NEW';
 export const SET_NEW = 'template/SET_NEW';
@@ -188,6 +190,11 @@ export const resetNew = payload => ({
 
 export const answerTemplate = payload => ({
     type: ANSWER_TEMPLATE,
+    payload,
+});
+
+export const addHeading = payload => ({
+    type: ADD_HEADING,
     payload,
 });
 
