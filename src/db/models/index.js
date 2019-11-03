@@ -20,6 +20,7 @@ if (config.use_env_variable) {
 const models = [
     require('./user')(sequelize, Sequelize),
     require('./identity')(sequelize, Sequelize),
+    require('./template')(sequelize, Sequelize),
     require('./heading')(sequelize, Sequelize),
     require('./answer')(sequelize, Sequelize),
     require('./search_history')(sequelize, Sequelize),

@@ -13,13 +13,20 @@ import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as appActions from '@redux/App/AppReducer';
+import * as templateActions from '@redux/Template/TemplateReducer';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import HeadingNewSection from '@elements/HeadingNewSection';
+import TabPager from '@modules/TabPager';
+import SectionHeader from '@elements/SectionHeader';
+import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
+import TemplateItem from '@modules/TemplateItem';
+import Gallery from '@modules/Gallery';
 
 class UserShowList extends React.Component {
     static propTypes = {
         username: PropTypes.string,
         repository: AppPropTypes.User,
+        pages: PropTypes.array,
     };
 
     static defaultProps = {
@@ -60,7 +67,13 @@ class UserShowList extends React.Component {
             repositories,
             loading,
             contents_loading,
+            templates_loading,
+            section,
+            pages,
+            templates,
         } = this.props;
+
+        let body = <div />;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -69,35 +82,86 @@ class UserShowList extends React.Component {
                 </div>
             ));
 
+        const renderTemplateItems = items =>
+            items.map((item, key) => (
+                <div className="user-show-list__body__template" key={key}>
+                    <TemplateItem repository={item} />
+                </div>
+            ));
+
+        switch (section) {
+            case 'templates':
+                body = (
+                    <div className="user-show-list__body">
+                        <div className="user-show-list__body__category">
+                            {tt('g.themes')}
+                        </div>
+                        <Gallery className="user-show-list__body__items">
+                            {templates_loading ? (
+                                <center>
+                                    <LoadingIndicator type={'circle'} />
+                                </center>
+                            ) : (
+                                templates &&
+                                templates.length > 0 &&
+                                renderTemplateItems(templates)
+                            )}
+                        </Gallery>
+                        {/*{loading && (
+                            <center>
+                                <LoadingIndicator style={{ marginBottom: '2rem' }} />
+                            </center>
+                        )}*/}
+                    </div>
+                );
+                break;
+
+            default:
+            case 'headings':
+                body = (
+                    <div className="user-show-list__body">
+                        <div className="user-show-list__body__category">
+                            {tt('g.themes')}
+                        </div>
+                        <div className="user-show-list__body__items">
+                            {contents_loading ? (
+                                <center>
+                                    <LoadingIndicator type={'circle'} />
+                                </center>
+                            ) : (
+                                repositories &&
+                                repositories.length > 0 &&
+                                renderItems(repositories)
+                            )}
+                        </div>
+                        {/*{loading && (
+                            <center>
+                                <LoadingIndicator style={{ marginBottom: '2rem' }} />
+                            </center>
+                        )}*/}
+                    </div>
+                );
+                break;
+        }
+
         return (
             <div className="user-show-list">
                 <div className="user-show-list__header">
                     <UserShowHeader repository={repository} />
                 </div>
-                <div className="user-show-list__body">
-                    <div className="user-show-list__body__heading-new">
-                        <HeadingNewSection repository={repository} />
-                    </div>
-                    <div className="user-show-list__body__category">
-                        {tt('g.themes')}
-                    </div>
-                    <div className="user-show-list__body__items">
-                        {contents_loading ? (
-                            <center>
-                                <LoadingIndicator type={'circle'} />
-                            </center>
-                        ) : (
-                            repositories &&
-                            repositories.length > 0 &&
-                            renderItems(repositories)
-                        )}
-                    </div>
-                    {/*{loading && (
-                        <center>
-                            <LoadingIndicator style={{ marginBottom: '2rem' }} />
-                        </center>
-                    )}*/}
+                <div className="user-show-list__heading-new">
+                    <HeadingNewSection repository={repository} />
                 </div>
+                {repository && (
+                    <SectionHeader>
+                        <div className="user-show-list__pager">
+                            <div className="user-show-list__pager-body">
+                                <TabPager repositories={pages} />
+                            </div>
+                        </div>
+                    </SectionHeader>
+                )}
+                {body}
             </div>
         );
     }
@@ -105,11 +169,34 @@ class UserShowList extends React.Component {
 
 export default connect(
     (state, props) => {
+        const repository = userActions.getShowUser(state);
         return {
-            repository: userActions.getShowUser(state),
+            repository,
             repositories: userActions.getUserHeading(state),
+            templates: templateActions.getHomeTemplate(state),
             loading: appActions.userShowPageLoading(state),
             contents_loading: appActions.userShowContentsLoading(state),
+            templates_loading: appActions.userShowTemplatesLoading(state),
+            pages: [
+                {
+                    title: tt('g.themes'),
+                    url: userShowRoute.getPath({
+                        params: {
+                            username: repository && repository.username,
+                            section: 'headings',
+                        },
+                    }),
+                },
+                {
+                    title: tt('g.find_themes'),
+                    url: userShowRoute.getPath({
+                        params: {
+                            username: repository && repository.username,
+                            section: 'templates',
+                        },
+                    }),
+                },
+            ],
         };
     },
 

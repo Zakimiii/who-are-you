@@ -6,6 +6,7 @@ import {
     HeadingDataStore,
     NotificationDataStore,
     UserDataStore,
+    TemplateDataStore,
 } from '@datastore';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
@@ -23,6 +24,7 @@ const answerDataStore = new AnswerDataStore();
 const headingDataStore = new HeadingDataStore();
 const notificationDataStore = new NotificationDataStore();
 const userDataStore = new UserDataStore();
+const templateDataStore = new TemplateDataStore();
 
 export default class HeadingHandler extends HandlerImpl {
     constructor() {
@@ -69,6 +71,7 @@ export default class HeadingHandler extends HandlerImpl {
 
         notificationDataStore.onCreateHeading(result);
         userDataStore.updateCount({ id: result.UserId });
+        templateDataStore.find_or_create_from_heading(result);
 
         router.body = {
             success: true,
@@ -91,6 +94,7 @@ export default class HeadingHandler extends HandlerImpl {
         });
 
         // userDataStore.updateCount({ id: result.UserId });
+        templateDataStore.find_or_create_from_heading(result);
 
         router.body = {
             success: true,

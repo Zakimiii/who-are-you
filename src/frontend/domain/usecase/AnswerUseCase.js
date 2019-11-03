@@ -130,8 +130,8 @@ export default class AnswerUseCase extends UseCaseImpl {
                     twitter_username,
                 })
             );
-            yield put(answerActions.hideNew());
-            yield put(answerActions.resetNew());
+            // yield put(answerActions.hideNew());
+            // yield put(answerActions.resetNew());
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -167,8 +167,8 @@ export default class AnswerUseCase extends UseCaseImpl {
                     twitter_username,
                 })
             );
-            yield put(answerActions.hideNew());
-            yield put(answerActions.resetNew());
+            // yield put(answerActions.hideNew());
+            // yield put(answerActions.resetNew());
             yield put(answerActions.syncAnswer({ id: answer.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

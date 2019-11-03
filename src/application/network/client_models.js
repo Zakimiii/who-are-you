@@ -38,6 +38,7 @@ const Heading = {
             id: null,
             UserId: null,
             VoterId: null,
+            TemplateId: null,
             body: '',
             locale: 'ja',
             country_code: 'JP',
@@ -91,8 +92,34 @@ const Answer = {
         !!obj && 'UserId' in obj && 'HeadingId' in obj && 'body' in obj,
 };
 
+const Template = {
+    build: init => {
+        return {
+            id: null,
+            body: '',
+            locale: 'ja',
+            country_code: 'JP',
+            isHide: false,
+            isPrivate: false,
+            valid: false,
+            permission: true,
+            created_at: new Date(),
+            updated_at: new Date(),
+            ...init,
+        };
+    },
+    toJSON: arg => safe2json(arg),
+    isInstance: obj =>
+        !!obj &&
+        !('UserId' in obj) &&
+        !('HeadingId' in obj) &&
+        'body' in obj &&
+        'count' in obj,
+};
+
 module.exports = {
     User,
     Heading,
     Answer,
+    Template,
 };

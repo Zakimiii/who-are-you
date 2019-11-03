@@ -124,6 +124,8 @@ export default class UserUseCase extends UseCaseImpl {
                     'username',
                     pathname
                 );
+                const section = userShowRoute.params_value('section', pathname);
+                if (section !== 'headings' && !!section) return;
                 yield put(authActions.syncCurrentUser());
                 yield put(appActions.fetchDataBegin());
                 const current_user = yield select(state =>

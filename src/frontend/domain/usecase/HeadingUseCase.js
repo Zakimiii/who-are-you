@@ -177,8 +177,8 @@ export default class HeadingUseCase extends UseCaseImpl {
                     twitter_username,
                 })
             );
-            yield put(headingActions.hideNew());
-            yield put(headingActions.resetNew());
+            // yield put(headingActions.hideNew());
+            // yield put(headingActions.resetNew());
         } catch (e) {
             console.log(e);
             yield put(appActions.addError({ error: e }));
@@ -215,8 +215,8 @@ export default class HeadingUseCase extends UseCaseImpl {
                     twitter_username,
                 })
             );
-            yield put(headingActions.hideNew());
-            yield put(headingActions.resetNew());
+            // yield put(headingActions.hideNew());
+            // yield put(headingActions.resetNew());
             yield put(headingActions.syncHeading({ id: heading.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

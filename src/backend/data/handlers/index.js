@@ -7,6 +7,7 @@ import NotificationHandler from './NotificationHandler';
 import BatchHandler from './BatchHandler';
 import HeadingHandler from './HeadingHandler';
 import AnswerHandler from './AnswerHandler';
+import TemplateHandler from './TemplateHandler';
 
 export {
     HandlerImpl,
@@ -18,4 +19,5 @@ export {
     BatchHandler,
     HeadingHandler,
     AnswerHandler,
+    TemplateHandler,
 };

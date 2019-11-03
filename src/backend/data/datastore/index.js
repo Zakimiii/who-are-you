@@ -6,6 +6,7 @@ import SessionDataStore from '@datastore/SessionDataStore';
 import IdentityDataStore from '@datastore/IdentityDataStore';
 import AnswerDataStore from '@datastore/AnswerDataStore';
 import NotificationDataStore from '@datastore/NotificationDataStore';
+import TemplateDataStore from '@datastore/TemplateDataStore';
 
 export {
     DataStoreImpl,
@@ -16,4 +17,5 @@ export {
     IdentityDataStore,
     AnswerDataStore,
     NotificationDataStore,
+    TemplateDataStore,
 };

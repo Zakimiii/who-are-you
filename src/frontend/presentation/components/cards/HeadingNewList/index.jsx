@@ -20,6 +20,7 @@ import { FileEntity, FileEntities } from '@entity';
 import CharacterCounter from '@elements/CharacterCounter';
 import data_config from '@constants/data_config';
 import prototype_data from '@locales/prototype/ja.json';
+import Responsible from '@modules/Responsible';
 
 class HeadingNewList extends React.Component {
     static propTypes = {};
@@ -145,7 +146,7 @@ class HeadingNewList extends React.Component {
                             data: tt(`headings.${n}`),
                         })}
                         value={repository.body}
-                        focus={true}
+                        focus={false}
                     />
                 </div>
                 <div className="heading-new-list__form-counter">

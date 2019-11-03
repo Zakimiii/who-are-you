@@ -26,6 +26,13 @@ module.exports = {
                 })
                 .then(() => {
                     return queryInterface.bulkInsert(
+                        'templates',
+                        results['templates'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
                         'headings',
                         results['headings'],
                         {}
