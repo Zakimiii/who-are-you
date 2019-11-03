@@ -17,9 +17,12 @@ export const homeAliasRoute = new RouteEntity({
 });
 
 export const userShowRoute = new RouteEntity({
-    path: '/user/:username',
+    path: '/user/:username/:section?',
     page: 'UserShow',
     component: require('@components/pages/UserShow'),
+    validate: {
+        section: /(headings|templates)/,
+    },
 });
 
 export const userEditRoute = new RouteEntity({

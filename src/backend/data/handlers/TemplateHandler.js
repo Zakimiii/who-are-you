@@ -48,12 +48,11 @@ export default class TemplateHandler extends HandlerImpl {
     }
 
     async handleAddHeadingRequest(router, ctx, next) {
-        const { template, user, voter } = router.request.body;
+        const { template, heading } = router.request.body;
 
         const result = await templateDataStore.add_heading({
             template,
-            user,
-            voter,
+            heading,
         });
 
         router.body = {

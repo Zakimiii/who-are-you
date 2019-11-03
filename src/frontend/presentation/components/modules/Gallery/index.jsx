@@ -9,10 +9,13 @@ import autobind from 'class-autobind';
 
 class Gallery extends React.Component {
     static propTypes = {
+        className: PropTypes.string,
         children: AppPropTypes.Children,
     };
 
-    static defaultProps = {};
+    static defaultProps = {
+        className: '',
+    };
 
     state = {};
 
@@ -31,14 +34,14 @@ class Gallery extends React.Component {
     handleClick() {}
 
     render() {
-        const { children } = this.props;
+        const { children, className } = this.props;
 
         const masonryOptions = {
             transitionDuration: 1,
         };
 
         return (
-            <div className="gallery">
+            <div className={`gallery ${className}`}>
                 <Masonry
                     className={'gallery__body'}
                     elementType={'div'}

@@ -352,6 +352,21 @@ export const userShowContentsLoading = state => {
     return loading && model[0].User.username != username;
 };
 
+export const userShowTemplatesLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!userShowRoute.isValidPath(pathname)) return false;
+    const username = userShowRoute.params_value('username', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.template.get('home_template');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
 export const postIndexPageLoading = state => {
     if (!browserHistory) return true;
     const pathname = browserHistory.getCurrentLocation().pathname;

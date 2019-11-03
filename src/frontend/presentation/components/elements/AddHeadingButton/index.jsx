@@ -52,13 +52,13 @@ class AddHeadingButton extends React.Component {
     handleSubmit(screen_shot) {
         this.setState({ submiting: false });
 
-        const { addHeading, current_user, screenShot, template } = this.props;
+        const { addHeading, current_user, screenShot, repository } = this.props;
         let { heading } = this.state;
 
         heading = heading.toJS();
         heading.picture = screen_shot;
 
-        addHeading({ heading, template });
+        addHeading({ heading, template: repository });
     }
 
     onClick() {
@@ -73,7 +73,7 @@ class AddHeadingButton extends React.Component {
             Voter: current_user,
             Template: repository,
             TemplateId: repository.id,
-            body: template.body,
+            body: repository.body,
         });
 
         this.setState({
@@ -111,12 +111,6 @@ export default connect(
             dispatch(
                 templateActions.addHeading({
                     heading,
-                    // heading: models.Heading.build({
-                    //     UserId: user.id,
-                    //     TemplateId: template.id,
-                    //     VoterId: !!voter ? voter.id : null,
-                    //     body: template.body,
-                    // }),
                     template,
                 })
             );

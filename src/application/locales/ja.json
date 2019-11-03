@@ -39,7 +39,7 @@
         "theme": "紹介テーマ",
         "themes": "紹介テーマ一覧",
         "count_theme": "%(data)s人がこの紹介テーマを追加しています",
-        "find_themes": "紹介テーマを追加探す",
+        "find_themes": "紹介テーマを探す",
         "add_theme": "紹介テーマを追加",
         "answered_theme": "回答したテーマ",
         "example_theme": "（例）%(data)s",

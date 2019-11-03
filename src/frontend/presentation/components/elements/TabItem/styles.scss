@@ -2,9 +2,9 @@
   .active & {
     @include themify($themes) {
       transition: all 0.3s ease-in-out;
-      box-shadow: 0px 0px 0px 1px themed('base') !important;
+      box-shadow: 0px 0px 0px 1px themed('subThick2') !important;
       color: themed('background') !important;
-      background: themed('base') !important;
+      background: themed('subThick2') !important;
     }
   }
 }
@@ -29,8 +29,8 @@
   &__text {
     @include themify($themes) {
       transition: all 0.3s ease-in-out;
-      box-shadow: 0px 0px 0px 1px themed('base');
-      color: themed('base');
+      box-shadow: 0px 0px 0px 1px themed('subThick2');
+      color: themed('subThick2');
       background: themed('background');
     }
     text-align: center;
@@ -45,7 +45,7 @@
       &:hover > .tab-item__text {
         @include themify($themes) {
           transition: all 0.3s ease-in-out;
-          background: themed('base');
+          background: themed('subThick2');
       }
     }
   }

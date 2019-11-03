@@ -7,7 +7,10 @@ import * as templateActions from '@redux/Template/TemplateReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import AppUseCase from '@usecase/AppUseCase';
-import { templateIndexRoute } from '@infrastructure/RouteInitialize';
+import {
+    templateIndexRoute,
+    userShowRoute,
+} from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import models from '@network/client_models';
 import Notification from '@network/notification';
@@ -27,7 +30,9 @@ export default class TemplateUseCase extends UseCaseImpl {
     }
 
     *initTrend({ payload: { pathname } }) {
-        if (!templateIndexRoute.isValidPath(pathname)) return;
+        if (!userShowRoute.isValidPath(pathname)) return;
+        const section = userShowRoute.params_value('section', pathname);
+        if (section !== 'templates') return;
         try {
             yield put(appActions.fetchDataBegin());
             const current_user = yield select(state =>
@@ -113,6 +118,7 @@ export default class TemplateUseCase extends UseCaseImpl {
                 })
             );
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());

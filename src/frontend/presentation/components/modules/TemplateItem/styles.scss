@@ -7,7 +7,7 @@
   transition: all 0.3s ease-in-out;
   padding: 12px;
   @include themify($themes) {
-    background: themed('background');
+    background-color: themed('background');
     box-shadow: 0px 0px 3px 3px themed('shadow');
   }
   background-position: center center;
