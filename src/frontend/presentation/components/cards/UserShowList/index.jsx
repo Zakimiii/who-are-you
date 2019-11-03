@@ -166,7 +166,10 @@ class UserShowList extends React.Component {
                 {repository && (
                     <SectionHeader>
                         <div className="user-show-list__pager">
-                            <div className="user-show-list__pager-body">
+                            <div
+                                className="user-show-list__pager-body"
+                                id="#pager"
+                            >
                                 <TabPager repositories={pages} />
                             </div>
                         </div>
@@ -191,21 +194,23 @@ export default connect(
             pages: [
                 {
                     title: tt('g.themes'),
-                    url: userShowRoute.getPath({
-                        params: {
-                            username: repository && repository.username,
-                            section: 'headings',
-                        },
-                    }),
+                    url:
+                        userShowRoute.getPath({
+                            params: {
+                                username: repository && repository.username,
+                                section: 'headings',
+                            },
+                        }) + '#pages',
                 },
                 {
                     title: tt('g.find_themes'),
-                    url: userShowRoute.getPath({
-                        params: {
-                            username: repository && repository.username,
-                            section: 'templates',
-                        },
-                    }),
+                    url:
+                        userShowRoute.getPath({
+                            params: {
+                                username: repository && repository.username,
+                                section: 'templates',
+                            },
+                        }) + '#pages',
                 },
             ],
         };
