@@ -98,9 +98,14 @@ class UserShowList extends React.Component {
                         </div>
                         <Gallery className="user-show-list__body__items">
                             {templates_loading ? (
-                                <center>
+                                <div
+                                    style={{
+                                        marginLeft: '48%',
+                                        marginRight: '48%',
+                                    }}
+                                >
                                     <LoadingIndicator type={'circle'} />
-                                </center>
+                                </div>
                             ) : (
                                 templates &&
                                 templates.length > 0 &&
@@ -125,9 +130,14 @@ class UserShowList extends React.Component {
                         </div>
                         <div className="user-show-list__body__items">
                             {contents_loading ? (
-                                <center>
+                                <div
+                                    style={{
+                                        marginLeft: '48%',
+                                        marginRight: '48%',
+                                    }}
+                                >
                                     <LoadingIndicator type={'circle'} />
-                                </center>
+                                </div>
                             ) : (
                                 repositories &&
                                 repositories.length > 0 &&

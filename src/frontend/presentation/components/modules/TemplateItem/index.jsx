@@ -46,10 +46,10 @@ class TemplateItem extends React.Component {
                 }}
             >
                 <div className="template-item__head">
-                    <div className="template-item__head__text">
+                    {/*<div className="template-item__head-text">
                         {tt('g.your')}
-                    </div>
-                    <div className="template-item__head__count">
+                    </div>*/}
+                    <div className="template-item__head-count">
                         {tt('g.count_theme', {
                             data: _repository.count,
                         })}
