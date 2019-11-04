@@ -10,7 +10,7 @@
     border-top: themed('border');
   }
   clear: both;
-  height: 72px;
+  height: 64px;
   &__items {
     height: 100%;
     transition: all 0.3s ease-in-out;
@@ -19,7 +19,7 @@
     align-items: center;
     margin: 0 10%;
     @include mq-down(fm) {
-      margin: 0 10px;
+      margin: 0 8px;
     };
   }
   &__item {

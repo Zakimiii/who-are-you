@@ -30,23 +30,40 @@ export default class TemplateUseCase extends UseCaseImpl {
     }
 
     *initTrend({ payload: { pathname } }) {
-        if (!userShowRoute.isValidPath(pathname)) return;
-        const section = userShowRoute.params_value('section', pathname);
-        if (section !== 'templates') return;
-        try {
-            yield put(appActions.fetchDataBegin());
-            const current_user = yield select(state =>
-                authActions.getCurrentUser(state)
-            );
-            const templates = !!current_user
-                ? yield templateRepository.getTrend({
-                      username: current_user.username,
-                  })
-                : yield templateRepository.getStaticTrend({});
-            if (!templates || templates.length == 0) return;
-            yield put(templateActions.setHome({ templates }));
-        } catch (e) {
-            yield put(appActions.addError({ error: e }));
+        if (userShowRoute.isValidPath(pathname)) {
+            const section = userShowRoute.params_value('section', pathname);
+            if (section !== 'templates') return;
+            try {
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const templates = !!current_user
+                    ? yield templateRepository.getTrend({
+                          username: current_user.username,
+                      })
+                    : yield templateRepository.getStaticTrend({});
+                if (!templates || templates.length == 0) return;
+                yield put(templateActions.setHome({ templates }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
+        } else if (templateIndexRoute.isValidPath(pathname)) {
+            try {
+                yield put(appActions.fetchDataBegin());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const templates = !!current_user
+                    ? yield templateRepository.getTrend({
+                          username: current_user.username,
+                      })
+                    : yield templateRepository.getStaticTrend({});
+                if (!templates || templates.length == 0) return;
+                yield put(templateActions.setHome({ templates }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
         }
         yield put(appActions.fetchDataEnd());
     }

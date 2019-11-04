@@ -86,7 +86,7 @@ class UserShowList extends React.Component {
         const renderTemplateItems = items =>
             items.map((item, key) => (
                 <div className="user-show-list__body__template" key={key}>
-                    <TemplateItem repository={item} />
+                    <TemplateItem repository={item} show_user={repository} />
                 </div>
             ));
 
@@ -95,7 +95,7 @@ class UserShowList extends React.Component {
                 body = (
                     <div className="user-show-list__body">
                         <div className="user-show-list__body__category">
-                            {tt('g.themes')}
+                            {tt('g.find_themes')}
                         </div>
                         <Gallery className="user-show-list__body__items">
                             {templates_loading ? (
@@ -163,13 +163,11 @@ class UserShowList extends React.Component {
                 <div className="user-show-list__heading-new">
                     <HeadingNewSection repository={repository} />
                 </div>
+                <div id="#pager" />
                 {repository && (
                     <SectionHeader>
                         <div className="user-show-list__pager">
-                            <div
-                                className="user-show-list__pager-body"
-                                id="#pager"
-                            >
+                            <div className="user-show-list__pager-body">
                                 <TabPager repositories={pages} />
                             </div>
                         </div>
@@ -200,7 +198,7 @@ export default connect(
                                 username: repository && repository.username,
                                 section: 'headings',
                             },
-                        }) + '#pages',
+                        }) + '#pager',
                 },
                 {
                     title: tt('g.find_themes'),
@@ -210,7 +208,7 @@ export default connect(
                                 username: repository && repository.username,
                                 section: 'templates',
                             },
-                        }) + '#pages',
+                        }) + '#pager',
                 },
             ],
         };
