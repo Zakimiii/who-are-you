@@ -149,6 +149,7 @@ export default class HeadingUseCase extends UseCaseImpl {
     }
 
     *createHeading({ payload: { heading } }) {
+        console.log('create', new Date());
         if (!heading) return;
         yield put(appActions.screenLoadingBegin());
         try {
@@ -184,6 +185,7 @@ export default class HeadingUseCase extends UseCaseImpl {
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());
+        console.log('created', new Date());
     }
 
     *updateHeading({ payload: { heading } }) {

@@ -77,6 +77,8 @@ class HeadingNewList extends React.Component {
     }
 
     handleSubmit(screen_shot) {
+        //TETEST:
+        console.log('handleSubmit', new Date());
         this.setState({ submiting: false });
 
         const { create, current_user, screenShot } = this.props;
@@ -94,6 +96,8 @@ class HeadingNewList extends React.Component {
     }
 
     onSubmit(e) {
+        //TETEST:
+        console.log('onSubmit', new Date());
         if (e.preventDefault) e.preventDefault();
 
         let { repository } = this.state;
