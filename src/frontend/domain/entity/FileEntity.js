@@ -104,10 +104,10 @@ export class FileEntity extends Entity {
 
     async getBuffer(params = {}) {
         const { extension, url, xsize, ysize, type, name } = this;
-
         switch (true) {
             case file_config.isImage(extension):
                 let lenna = await Jimp.read(url);
+                //TODO: this method is very slow !!!!
                 if (!!params.bcomposite_src) {
                     lenna = await this.bcomposite(
                         lenna,

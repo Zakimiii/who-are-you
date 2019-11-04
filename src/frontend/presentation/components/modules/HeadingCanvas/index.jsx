@@ -39,15 +39,11 @@ class HeadingCanvas extends React.Component {
     }
 
     componentDidMount() {
-        //TETEST:
-        console.log('componentDidMount', new Date());
         const { repository, onShot } = this.props;
         const { mounted } = this.state;
         if (!process.env.BROWSER) return;
         if (!repository || !repository.User) return;
         canvas.get_shot_by_url('heading-canvas').then(data => {
-            //get_shot_by_url:
-            console.log('componentDidMount', new Date());
             this.setState({ mounted: !!data });
             !!data &&
                 !!onShot &&
