@@ -139,12 +139,33 @@ export default class HeadingDataStore extends DataStoreImpl {
 
     async create(heading) {
         if (!heading) return;
+        if (heading.picture) {
+            heading.picture = await this.bcomposite_from_base64({
+                base64: heading.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
         const result = await models.Heading.create(heading);
         return result;
     }
 
     async update(heading) {
         if (!heading) return;
+
+        if (heading.picture) {
+            heading.picture = await this.bcomposite_from_base64({
+                base64: heading.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
 
         const data = await models.Heading.findOne({
             where: {

@@ -5,8 +5,9 @@ import AWSHandler from '@network/aws';
 import TwitterHandler from '@network/twitter';
 import file_config from '@constants/file_config';
 import data_config from '@constants/data_config';
-const Jimp = require('jimp');
-const uuidv4 = require('uuid/v4');
+import Jimp from 'jimp';
+import uuidv4 from 'uuid/v4';
+
 const awsHandler = new AWSHandler();
 
 export class FileEntity extends Entity {
@@ -107,7 +108,7 @@ export class FileEntity extends Entity {
         switch (true) {
             case file_config.isImage(extension):
                 let lenna = await Jimp.read(url);
-                //TODO: this method is very slow !!!!
+                //MEMO: this method is very slow in frontend!
                 if (!!params.bcomposite_src) {
                     lenna = await this.bcomposite(
                         lenna,

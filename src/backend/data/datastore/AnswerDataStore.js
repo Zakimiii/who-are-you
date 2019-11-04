@@ -123,12 +123,35 @@ export default class AnswerDataStore extends DataStoreImpl {
 
     async create(answer) {
         if (!answer) return;
+
+        if (answer.picture) {
+            answer.picture = await this.bcomposite_from_base64({
+                base64: answer.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
+
         const result = await models.Answer.create(answer);
         return result;
     }
 
     async update(answer) {
         if (!answer) return;
+
+        if (answer.picture) {
+            answer.picture = await this.bcomposite_from_base64({
+                base64: answer.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
 
         const data = await models.Answer.findOne({
             where: {
