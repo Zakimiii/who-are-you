@@ -53,8 +53,7 @@ class TabPager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { repositories } = this.props;
-        const { pathname, search } = browserHistory.getCurrentLocation();
+        const { repositories, pathname, search } = this.props;
         const url = pathname + (search || '');
         if (repositories.filter(val => val.url == url).length > 0) {
             let { selected_list } = this.state;
@@ -112,7 +111,11 @@ class TabPager extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        const { pathname, search } = browserHistory.getCurrentLocation();
+        return {
+            pathname,
+            search,
+        };
     },
 
     dispatch => ({})
