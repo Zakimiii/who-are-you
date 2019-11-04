@@ -25,6 +25,7 @@ export default class UserDataStore extends DataStoreImpl {
             voter_headings: false,
             answers: true,
             search_histories: true,
+            picture: false,
         }
     ) {
         if (!datum) return;
@@ -75,10 +76,35 @@ export default class UserDataStore extends DataStoreImpl {
 
         return await Promise.all(
             users.map(async (val, index) => {
-                if (params.headings) val.Headings = includes[index][0];
-                if (params.answers) val.Answers = includes[index][1];
-                if (params.voter_headings)
+                if (params.headings) {
+                    val.Headings = includes[index][0];
+                    if (!params.picture) {
+                        val.Headings = val.Headings.map(heading => {
+                            heading.picture = '';
+                            return heading;
+                        });
+                    }
+                }
+                if (params.answers) {
+                    val.Answers = includes[index][1];
+                    if (!params.picture) {
+                        val.Answers = val.Answers.map(answer => {
+                            answer.picture = '';
+                            return answer;
+                        });
+                    }
+                }
+                if (params.voter_headings) {
                     val.VoterHeadings = includes[index][2];
+                    if (!params.picture) {
+                        val.VoterHeadings = val.VoterHeadings.map(
+                            voterHeading => {
+                                voterHeading.picture = '';
+                                return voterHeading;
+                            }
+                        );
+                    }
+                }
                 return val;
             })
         );
