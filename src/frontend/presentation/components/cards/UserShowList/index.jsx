@@ -21,12 +21,13 @@ import SectionHeader from '@elements/SectionHeader';
 import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
 import TemplateItem from '@modules/TemplateItem';
 import Gallery from '@modules/Gallery';
+import { List } from 'immutable';
 
 class UserShowList extends React.Component {
     static propTypes = {
         username: PropTypes.string,
         repository: AppPropTypes.User,
-        pages: PropTypes.array,
+        pages: PropTypes.object,
     };
 
     static defaultProps = {
@@ -189,7 +190,7 @@ export default connect(
             loading: appActions.userShowPageLoading(state),
             contents_loading: appActions.userShowContentsLoading(state),
             templates_loading: appActions.userShowTemplatesLoading(state),
-            pages: [
+            pages: List([
                 {
                     title: tt('g.themes'),
                     url:
@@ -210,7 +211,7 @@ export default connect(
                             },
                         }) + '#pager',
                 },
-            ],
+            ]),
         };
     },
 

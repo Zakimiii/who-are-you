@@ -4,15 +4,16 @@ import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import TabItem from '@elements/TabItem';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
+import { List } from 'immutable';
 
 class TabPager extends React.Component {
     static propTypes = {
-        repositories: PropTypes.array,
+        repositories: PropTypes.object,
         onClick: PropTypes.func,
     };
 
     static defaultProps = {
-        repositories: [],
+        repositories: List([]),
         onClick: () => {},
     };
 
@@ -26,7 +27,9 @@ class TabPager extends React.Component {
         this.onClickItem = (e, key) => {
             const { onClick } = props;
             let { selected_list } = this.state;
-            const { repositories } = this.props;
+            let { repositories } = this.props;
+
+            repositories = repositories.toJS();
 
             if (e) e.preventDefault();
             selected_list = selected_list.map(val => false);
@@ -42,7 +45,8 @@ class TabPager extends React.Component {
     }
 
     componentWillMount() {
-        const { repositories } = this.props;
+        let { repositories } = this.props;
+        repositories = repositories.toJS();
         const { getMode } = this;
 
         this.setState({
@@ -53,8 +57,10 @@ class TabPager extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { repositories, pathname, search } = this.props;
-        const url = pathname + (search || '');
+        const { pathname, search, hash } = this.props;
+        let { repositories } = this.props;
+        repositories = repositories.toJS();
+        const url = pathname + (search || '') + (hash || '');
         if (repositories.filter(val => val.url == url).length > 0) {
             let { selected_list } = this.state;
             selected_list = selected_list.map(val => false);
@@ -67,7 +73,6 @@ class TabPager extends React.Component {
                 selected_list,
             });
         }
-        // url == repositories[key].url
     }
 
     getMode = (items, index) => {
@@ -82,7 +87,8 @@ class TabPager extends React.Component {
     };
 
     render() {
-        const { repositories } = this.props;
+        let { repositories } = this.props;
+        repositories = repositories.toJS();
 
         const { onClickItem } = this;
 
@@ -111,10 +117,11 @@ class TabPager extends React.Component {
 
 export default connect(
     (state, props) => {
-        const { pathname, search } = browserHistory.getCurrentLocation();
+        const { pathname, search, hash } = browserHistory.getCurrentLocation();
         return {
             pathname,
             search,
+            hash,
         };
     },
 
