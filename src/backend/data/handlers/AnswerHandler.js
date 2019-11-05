@@ -33,9 +33,17 @@ export default class AnswerHandler extends HandlerImpl {
     async postTweet(answer) {
         if (!answer) return false;
 
+        const heading = await models.Heading.findOne({
+            where: {
+                id: Number(answer.HeadingId),
+            },
+        });
+
+        if (!heading) return false;
+
         const user = await models.User.findOne({
             where: {
-                id: Number(answer.UserId),
+                id: Number(heading.UserId),
             },
         });
 

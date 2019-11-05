@@ -37,7 +37,7 @@ export default class HeadingHandler extends HandlerImpl {
 
         const user = await models.User.findOne({
             where: {
-                id: Number(heading.VoterId),
+                id: Number(heading.UserId),
             },
         });
 
