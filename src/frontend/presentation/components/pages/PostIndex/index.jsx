@@ -7,6 +7,8 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import * as appActions from '@redux/App/AppReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
+import HomeList from '@cards/HomeList';
 import IndexComponent from '@pages/IndexComponent';
 import PostIndexList from '@cards/PostIndexList';
 
@@ -30,9 +32,15 @@ class PostIndex extends React.Component {
     componentWillReceiveProps(nextProps) {}
 
     render() {
-        return (
+        const { current_user } = this.props;
+
+        return !!current_user ? (
             <IndexComponent>
                 <PostIndexList />
+            </IndexComponent>
+        ) : (
+            <IndexComponent style={{ background: '#ffffff' }} showSide={false}>
+                <HomeList />
             </IndexComponent>
         );
     }
@@ -42,7 +50,9 @@ module.exports = {
     path: '/posts',
     component: connect(
         (state, ownProps) => {
-            return {};
+            return {
+                current_user: authActions.getCurrentUser(state),
+            };
         },
         dispatch => {
             return {

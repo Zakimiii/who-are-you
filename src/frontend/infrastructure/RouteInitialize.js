@@ -133,6 +133,12 @@ export const notfoundRoute = new RouteEntity({
     component: require('@components/pages/NotFound'),
 });
 
+export const cmpTestRoute = new RouteEntity({
+    path: '/test/components',
+    page: 'CmpTest',
+    component: require('@components/pages/CmpTest'),
+});
+
 // export const xssRoute = new RouteEntity({
 //     path: '/xss/test',
 //     page: 'XSSTest',
@@ -161,6 +167,7 @@ export const routeEntities = new RouteEntities({
         postIndexRoute,
         searchRoute,
         templateIndexRoute,
+        cmpTestRoute,
     ],
     notfoundRoute,
 });

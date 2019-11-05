@@ -99,7 +99,6 @@ class AddHeadingButton extends React.Component {
 export default connect(
     (state, props) => {
         return {
-            show_user: userActions.getShowUser(state),
             show_screen_shot: state.heading.get('show_screen_shot'),
             screen_shot: headingActions.getScreenShot(state),
             current_user: authActions.getCurrentUser(state),

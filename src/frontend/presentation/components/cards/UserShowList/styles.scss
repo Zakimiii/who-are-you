@@ -73,6 +73,18 @@
       width: calc(48% - 2px);
       max-height: 400px;
       margin: 4px;
+      @include mq-down(xl) {
+        width: calc(100%);
+      };
+      @include mq-down(lg) {
+        width: calc(48% - 2px);
+      };
+      @include mq-down(md) {
+        width: calc(49% - 2px);
+      };
+      @include mq-down(fm) {
+        width: calc(100%);
+      };
     }
   }
 }

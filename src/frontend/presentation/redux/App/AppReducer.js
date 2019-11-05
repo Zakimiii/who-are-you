@@ -11,6 +11,7 @@ import {
     headingShowRoute,
     answerShowRoute,
     notificationIndexRoute,
+    templateIndexRoute,
 } from '@infrastructure/RouteInitialize';
 
 export const FETCH_DATA_BEGIN = 'app/FETCH_DATA_BEGIN';
@@ -362,6 +363,22 @@ export const userShowTemplatesLoading = state => {
     const list_model = state.template.get('home_template');
     const model = list_model.toJS();
     if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const templateIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!templateIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.template.get('home_template');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
     if (model.length == 0 && loading) return true;
     if (!model[0]) return true;
     return loading;

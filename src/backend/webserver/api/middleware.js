@@ -994,7 +994,7 @@ export default function ApiMiddleware(app) {
             );
     });
 
-    router.post('/template/answer', koaBody, function*(ctx, next) {
+    router.post('/templates/init', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
             yield handleApiError(

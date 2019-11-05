@@ -6,6 +6,7 @@ import {
     userEditRoute,
     notificationIndexRoute,
     postIndexRoute,
+    templateIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import tt from 'counterpart';
@@ -19,16 +20,20 @@ export const SideBarSection = defineEnum({
         link: '/',
         active: pathname =>
             !!homeRoute ? homeRoute.isValidPath(pathname) : false,
+        loginRequire: false,
     },
-    // Recommend: {
-    //     rawValue: 0,
-    //     value: 'Recommend',
-    //     string: () => 'トレンド',
-    //     image: 'recommend',
-    //     link: '/recommend',
-    //     active: pathname =>
-    //         !!userShowRoute ? userShowRoute.isValidPath(pathname) : false,
-    // },
+    Templates: {
+        rawValue: 0,
+        value: 'Templates',
+        string: () => tt('g.trend_themes'),
+        image: 'mini-logo-icon',
+        link: '/templates',
+        active: pathname =>
+            !!templateIndexRoute
+                ? templateIndexRoute.isValidPath(pathname)
+                : false,
+        loginRequire: true,
+    },
     Post: {
         rawValue: 0,
         value: 'Post',
@@ -37,6 +42,7 @@ export const SideBarSection = defineEnum({
         link: '/posts',
         active: pathname =>
             !!postIndexRoute ? postIndexRoute.isValidPath(pathname) : false,
+        loginRequire: true,
     },
     Notification: {
         rawValue: 1,
@@ -48,6 +54,7 @@ export const SideBarSection = defineEnum({
             !!notificationIndexRoute
                 ? notificationIndexRoute.isValidPath(pathname)
                 : false,
+        loginRequire: true,
     },
     Setting: {
         rawValue: 1,
@@ -57,5 +64,6 @@ export const SideBarSection = defineEnum({
         link: '/settings',
         active: pathname =>
             !!userEditRoute ? userEditRoute.isValidPath(pathname) : false,
+        loginRequire: true,
     },
 });

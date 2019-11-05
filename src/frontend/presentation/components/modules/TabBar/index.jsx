@@ -51,6 +51,7 @@ class TabBar extends React.Component {
                                     image={item.image}
                                     link={item.link}
                                     active={item.active(pathname)}
+                                    loginRequire={item.loginRequire}
                                 />
                             </div>
                         );

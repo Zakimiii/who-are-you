@@ -27,6 +27,12 @@
           fill: themed('background')!important;
         }
       }
+      & > .tab-bar-item__image svg path {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
       & > .tab-bar-item__value {
         @include themify($themes) {
           color: themed('background');
@@ -45,6 +51,12 @@
         }
       }
       & > .tab-bar-item__image svg g path {
+        @include themify($themes) {
+          stroke: themed('base') !important;
+          fill: themed('base')!important;
+        }
+      }
+      & > .tab-bar-item__image svg path {
         @include themify($themes) {
           stroke: themed('base') !important;
           fill: themed('base')!important;

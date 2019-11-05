@@ -6,9 +6,11 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
+import HomeList from '@cards/HomeList';
 import UserEditList from '@cards/UserEditList';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import * as appActions from '@redux/App/AppReducer';
+import * as authActions from '@redux/Auth/AuthReducer';
 import IndexComponent from '@pages/IndexComponent';
 
 class UserEdit extends React.Component {
@@ -25,9 +27,15 @@ class UserEdit extends React.Component {
     }
 
     render() {
-        return (
+        const { current_user } = this.props;
+
+        return !!current_user ? (
             <IndexComponent>
                 <UserEditList />
+            </IndexComponent>
+        ) : (
+            <IndexComponent style={{ background: '#ffffff' }} showSide={false}>
+                <HomeList />
             </IndexComponent>
         );
     }
@@ -37,10 +45,19 @@ module.exports = {
     path: '/settings',
     component: connect(
         (state, ownProps) => {
-            return {};
+            return {
+                current_user: authActions.getCurrentUser(state),
+            };
         },
         dispatch => {
-            return {};
+            return {
+                addSuccess: success =>
+                    dispatch(
+                        appActions.addSuccess({
+                            success,
+                        })
+                    ),
+            };
         }
     )(UserEdit),
 };

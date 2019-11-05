@@ -55,13 +55,27 @@ export default class TemplateDataStore extends DataStoreImpl {
             },
         });
 
-        const [template, created] = await models.Template.findOrCreate({
+        // const [template, created] = await models.Template.findOrCreate({
+        //     where: {
+        //         valid: true,
+        //         permission: true,
+        //         body: heading.body,
+        //     },
+        // });
+
+        let template = await models.Template.findOne({
             where: {
-                valid: true,
-                permission: true,
                 body: heading.body,
             },
         });
+
+        if (!template) {
+            template = await models.Template.create({
+                valid: true,
+                permission: true,
+                body: heading.body,
+            });
+        }
 
         const updated = await heading.update({
             template_id: template.id,
@@ -97,6 +111,18 @@ export default class TemplateDataStore extends DataStoreImpl {
 
     async add_heading({ heading, template }) {
         if (!heading || !template) return;
+
+        if (heading.picture) {
+            heading.picture = await this.bcomposite_from_base64({
+                base64: heading.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
+
         const created_heading = await models.Heading.create(heading);
 
         this.updateCount(template);

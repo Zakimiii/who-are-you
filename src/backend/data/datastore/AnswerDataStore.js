@@ -21,6 +21,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             user: true,
             heading: true,
             siblings: false,
+            picture: false,
         }
     ) {
         if (!datum) return;
@@ -70,6 +71,7 @@ export default class AnswerDataStore extends DataStoreImpl {
 
         return await Promise.all(
             contents.map(async (val, index) => {
+                if (!params.picture) val.picture = '';
                 if (params.user) val.User = includes[index][0];
                 if (params.heading) {
                     val.Heading = includes[index][1];
@@ -85,8 +87,17 @@ export default class AnswerDataStore extends DataStoreImpl {
                         },
                         raw: true,
                     });
+                    if (!params.picture) val.Heading.picture = '';
                 }
-                if (params.siblings) val.Sibilings = includes[index][2];
+                if (params.siblings) {
+                    val.Sibilings = includes[index][2];
+                    if (!params.picture) {
+                        val.Sibilings = val.Sibilings.map(sibiling => {
+                            sibiling.picture = '';
+                            return sibiling;
+                        });
+                    }
+                }
                 return val;
             })
         );
@@ -97,6 +108,7 @@ export default class AnswerDataStore extends DataStoreImpl {
             user: true,
             heading: true,
             siblings: false,
+            picture: false,
         });
     }
 
@@ -105,17 +117,41 @@ export default class AnswerDataStore extends DataStoreImpl {
             user: true,
             heading: true,
             siblings: false,
+            picture: false,
         });
     }
 
     async create(answer) {
         if (!answer) return;
+
+        if (answer.picture) {
+            answer.picture = await this.bcomposite_from_base64({
+                base64: answer.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
+
         const result = await models.Answer.create(answer);
         return result;
     }
 
     async update(answer) {
         if (!answer) return;
+
+        if (answer.picture) {
+            answer.picture = await this.bcomposite_from_base64({
+                base64: answer.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
 
         const data = await models.Answer.findOne({
             where: {

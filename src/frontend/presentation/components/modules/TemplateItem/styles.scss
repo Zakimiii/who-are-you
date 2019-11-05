@@ -20,10 +20,9 @@
   //   }
   // }
   &__head {
-    min-height: 14px;
+    min-height: 24px;
     clear: both;
     border: none;
-    cursor: pointer;
     &-text {
       float: left;
       text-align: left;
@@ -35,8 +34,8 @@
       }
     }
     &-count {
-      float: right;
-      text-align: right;
+      float: left;
+      text-align: left;
       @include FS(FS);
       @include LH(FS);
       @include FM(R);

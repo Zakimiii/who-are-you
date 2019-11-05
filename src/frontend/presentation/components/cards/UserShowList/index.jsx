@@ -56,9 +56,10 @@ class UserShowList extends React.Component {
     }
 
     onWindowScroll() {
-        const { getMore, username } = this.props;
+        const { getMore, username, section, getMoreTemplate } = this.props;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
-        if (isEnd && getMore) getMore();
+        if (isEnd && getMore)
+            section == 'templates' ? getMoreTemplate() : getMore();
     }
 
     render() {
@@ -85,7 +86,7 @@ class UserShowList extends React.Component {
         const renderTemplateItems = items =>
             items.map((item, key) => (
                 <div className="user-show-list__body__template" key={key}>
-                    <TemplateItem repository={item} />
+                    <TemplateItem repository={item} show_user={repository} />
                 </div>
             ));
 
@@ -94,13 +95,18 @@ class UserShowList extends React.Component {
                 body = (
                     <div className="user-show-list__body">
                         <div className="user-show-list__body__category">
-                            {tt('g.themes')}
+                            {tt('g.find_themes')}
                         </div>
                         <Gallery className="user-show-list__body__items">
                             {templates_loading ? (
-                                <center>
+                                <div
+                                    style={{
+                                        marginLeft: '48%',
+                                        marginRight: '48%',
+                                    }}
+                                >
                                     <LoadingIndicator type={'circle'} />
-                                </center>
+                                </div>
                             ) : (
                                 templates &&
                                 templates.length > 0 &&
@@ -125,9 +131,14 @@ class UserShowList extends React.Component {
                         </div>
                         <div className="user-show-list__body__items">
                             {contents_loading ? (
-                                <center>
+                                <div
+                                    style={{
+                                        marginLeft: '48%',
+                                        marginRight: '48%',
+                                    }}
+                                >
                                     <LoadingIndicator type={'circle'} />
-                                </center>
+                                </div>
                             ) : (
                                 repositories &&
                                 repositories.length > 0 &&
@@ -152,6 +163,7 @@ class UserShowList extends React.Component {
                 <div className="user-show-list__heading-new">
                     <HeadingNewSection repository={repository} />
                 </div>
+                <div id="#pager" />
                 {repository && (
                     <SectionHeader>
                         <div className="user-show-list__pager">
@@ -180,21 +192,23 @@ export default connect(
             pages: [
                 {
                     title: tt('g.themes'),
-                    url: userShowRoute.getPath({
-                        params: {
-                            username: repository && repository.username,
-                            section: 'headings',
-                        },
-                    }),
+                    url:
+                        userShowRoute.getPath({
+                            params: {
+                                username: repository && repository.username,
+                                section: 'headings',
+                            },
+                        }) + '#pager',
                 },
                 {
                     title: tt('g.find_themes'),
-                    url: userShowRoute.getPath({
-                        params: {
-                            username: repository && repository.username,
-                            section: 'templates',
-                        },
-                    }),
+                    url:
+                        userShowRoute.getPath({
+                            params: {
+                                username: repository && repository.username,
+                                section: 'templates',
+                            },
+                        }) + '#pager',
                 },
             ],
         };
@@ -203,6 +217,9 @@ export default connect(
     dispatch => ({
         getMore: () => {
             dispatch(userActions.getMoreUserHeading());
+        },
+        getMoreTemplate: () => {
+            dispatch(templateActions.getMoreHome());
         },
     })
 )(UserShowList);

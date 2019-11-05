@@ -10,6 +10,7 @@ import models from '@network/client_models';
 import * as answerActions from '@redux/Answer/AnswerReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import * as userActions from '@redux/User/UserReducer';
 import * as templateActions from '@redux/Template/TemplateReducer';
 import AddHeadingButton from '@elements/AddHeadingButton';
 
@@ -17,11 +18,13 @@ class TemplateItem extends React.Component {
     static propTypes = {
         repository: AppPropTypes.Template,
         _repository: AppPropTypes.Template,
+        show_user: AppPropTypes.User,
     };
 
     static defaultProps = {
         repository: models.Template.build,
         _repository: models.Template.build,
+        show_user: null,
     };
 
     state = {};
@@ -36,7 +39,7 @@ class TemplateItem extends React.Component {
     }
 
     render() {
-        const { _repository } = this.props;
+        const { _repository, show_user } = this.props;
 
         return (
             <div
@@ -46,10 +49,10 @@ class TemplateItem extends React.Component {
                 }}
             >
                 <div className="template-item__head">
-                    <div className="template-item__head__text">
+                    {/*<div className="template-item__head-text">
                         {tt('g.your')}
-                    </div>
-                    <div className="template-item__head__count">
+                    </div>*/}
+                    <div className="template-item__head-count">
                         {tt('g.count_theme', {
                             data: _repository.count,
                         })}
@@ -59,7 +62,10 @@ class TemplateItem extends React.Component {
                     {`「${_repository.body}」`}
                 </div>
                 <div className="template-item__button">
-                    <AddHeadingButton repository={_repository} />
+                    <AddHeadingButton
+                        show_user={show_user}
+                        repository={_repository}
+                    />
                 </div>
             </div>
         );
