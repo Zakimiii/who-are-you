@@ -10,6 +10,7 @@ import AppUseCase from '@usecase/AppUseCase';
 import {
     templateIndexRoute,
     userShowRoute,
+    headingShowRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import models from '@network/client_models';
@@ -123,19 +124,28 @@ export default class TemplateUseCase extends UseCaseImpl {
                 template,
                 heading,
             });
-            const twitter_username = yield userRepository.getUserTwitterUsername(
-                {
-                    id: data.UserId,
-                }
-            );
-            yield put(
-                headingActions.createdHeading({
-                    heading: data,
-                    twitter_username,
-                })
-            );
+            if (!data.posted && !!data.heading) {
+                const twitter_username = yield userRepository.getUserTwitterUsername(
+                    {
+                        id: data.heading.UserId,
+                    }
+                );
+                yield put(
+                    headingActions.createdHeading({
+                        heading: data.heading,
+                        twitter_username,
+                    })
+                );
+            } else if (!!data.posted && !!data.heading) {
+                browserHistory.push(
+                    headingShowRoute.getPath({
+                        params: {
+                            id: data.heading.id,
+                        },
+                    })
+                );
+            }
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());

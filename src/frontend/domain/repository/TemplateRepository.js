@@ -50,6 +50,6 @@ export default class TemplateRepository extends RepositoryImpl {
             heading,
             template,
         });
-        return data && data.heading;
+        return data;
     }
 }

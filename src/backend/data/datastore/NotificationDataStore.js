@@ -183,13 +183,6 @@ export default class NotificationDataStore extends DataStoreImpl {
                     contact: '会社住所・お問い合わせ',
                 }),
         ]);
-
-        // await TwitterHandler.postTweet(
-        //     answer.body,
-        //     `/answer/${target.id}`,
-        //     identity.twitter_token,
-        //     identity.twitter_secret
-        // );
     }
 
     async onCreateHeading(heading) {

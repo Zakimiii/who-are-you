@@ -119,19 +119,30 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.create(answer);
-            const twitter_username = yield userRepository.getUserTwitterUsername(
-                {
-                    id: answer.Heading.UserId,
-                }
-            );
-            yield put(
-                answerActions.createdAnswer({
-                    answer: data,
-                    twitter_username,
-                })
-            );
-            // yield put(answerActions.hideNew());
-            // yield put(answerActions.resetNew());
+
+            if (!data.posted && !!data.answer) {
+                const twitter_username = yield userRepository.getUserTwitterUsername(
+                    {
+                        id: answer.Heading.UserId,
+                    }
+                );
+                yield put(
+                    answerActions.createdAnswer({
+                        answer: data.answer,
+                        twitter_username,
+                    })
+                );
+            } else if (!!data.posted && !!data.answer) {
+                yield put(answerActions.hideNew());
+                yield put(answerActions.resetNew());
+                browserHistory.push(
+                    answerShowRoute.getPath({
+                        params: {
+                            id: data.answer.id,
+                        },
+                    })
+                );
+            }
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -156,19 +167,29 @@ export default class AnswerUseCase extends UseCaseImpl {
                 });
             }
             const data = yield answerRepository.update(answer);
-            const twitter_username = yield userRepository.getUserTwitterUsername(
-                {
-                    id: answer.Heading.UserId,
-                }
-            );
-            yield put(
-                answerActions.createdAnswer({
-                    answer: data,
-                    twitter_username,
-                })
-            );
-            // yield put(answerActions.hideNew());
-            // yield put(answerActions.resetNew());
+            if (!data.posted && !!data.answer) {
+                const twitter_username = yield userRepository.getUserTwitterUsername(
+                    {
+                        id: answer.Heading.UserId,
+                    }
+                );
+                yield put(
+                    answerActions.createdAnswer({
+                        answer: data.answer,
+                        twitter_username,
+                    })
+                );
+            } else if (!!data.posted && !!data.answer) {
+                yield put(answerActions.hideNew());
+                yield put(answerActions.resetNew());
+                browserHistory.push(
+                    answerShowRoute.getPath({
+                        params: {
+                            id: data.answer.id,
+                        },
+                    })
+                );
+            }
             yield put(answerActions.syncAnswer({ id: answer.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

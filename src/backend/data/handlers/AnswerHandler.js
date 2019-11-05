@@ -18,6 +18,7 @@ import {
     apiUnTrashAnswerValidates,
 } from '@validations/answer';
 import { ApiError } from '@extension/Error';
+import TwitterHandler from '@network/twitter';
 
 const answerDataStore = new AnswerDataStore();
 const notificationDataStore = new NotificationDataStore();
@@ -27,6 +28,35 @@ const userDataStore = new UserDataStore();
 export default class AnswerHandler extends HandlerImpl {
     constructor() {
         super();
+    }
+
+    async postTweet(answer) {
+        if (!answer) return false;
+
+        const user = await models.User.findOne({
+            where: {
+                id: Number(answer.UserId),
+            },
+        });
+
+        if (!user) return false;
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: Number(answer.UserId),
+            },
+        });
+
+        await TwitterHandler.postTweet(
+            user.twitter_username,
+            `/answer/${answer.id}`,
+            identity.twitter_token,
+            identity.twitter_secret
+        ).catch(e => {
+            return false;
+        });
+
+        return true;
     }
 
     async handleGetRequest(router, ctx, next) {
@@ -72,9 +102,12 @@ export default class AnswerHandler extends HandlerImpl {
 
         notificationDataStore.onCreateAnswer(result);
 
+        const posted = await this.postTweet(result);
+
         router.body = {
             success: true,
             answer: safe2json(result),
+            posted,
         };
     }
 
@@ -95,9 +128,12 @@ export default class AnswerHandler extends HandlerImpl {
         // headingDataStore.updateCount({ id: result.HeadingId });
         // userDataStore.updateCountFromAnswer(result);
 
+        const posted = await this.postTweet(result);
+
         router.body = {
             success: true,
             answer: safe2json(result),
+            posted,
         };
     }
 

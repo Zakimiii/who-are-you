@@ -108,19 +108,14 @@ export default class TwitterHandler {
         });
     };
 
-    static postTweet = async (
-        status,
-        pathname,
-        accessToken,
-        accessTokenSecret
-    ) => {
+    static postTweet = async (id, pathname, accessToken, accessTokenSecret) => {
         return new Promise((resolve, reject) => {
             oauth.post(
                 'https://api.twitter.com/1.1/statuses/update.json',
                 accessToken,
                 accessTokenSecret,
                 {
-                    status: data_config.post_template(status, pathname),
+                    status: data_config.post_template(id, pathname),
                 },
                 '',
                 (err, data, res) => {
