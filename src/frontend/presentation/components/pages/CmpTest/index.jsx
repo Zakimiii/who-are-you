@@ -23,7 +23,7 @@ class CmpTest extends React.Component {
         return (
             <div
                 className="cmp-test"
-                style={{ width: '420px', height: '420px' }}
+                style={{ width: '420px', height: '420px', marginTop: '67px' }}
             >
                 <AdsCard force={true} />
             </div>
