@@ -18,12 +18,27 @@ const request_base = {
     },
 };
 
-export default class DataStoreImpl {
-    constructor() {}
+let blenna;
 
+Jimp.read(
+    path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'assets',
+        'images/brands/eye_catch.png'
+    )
+).then(val => {
+    blenna = val;
+});
+
+export default class DataStoreImpl {
     resolveAssetsPath(...rest) {
         return path.join(__dirname, '..', '..', '..', 'assets', ...rest);
     }
+
+    constructor() {}
 
     async bcomposite_from_base64({
         base64,
@@ -32,7 +47,10 @@ export default class DataStoreImpl {
     }) {
         if (!base64) return;
         const lennas = await Promise.all([
-            Jimp.read(bsrc),
+            Jimp.read(blenna) ||
+                Jimp.read(
+                    this.resolveAssetsPath('images/brands/eye_catch.png')
+                ),
             Jimp.read(
                 Buffer.from(
                     base64.replace(/^data:image\/png;base64,/, ''),
@@ -51,6 +69,7 @@ export default class DataStoreImpl {
             .getBase64(Jimp.AUTO, (e, d) => {
                 src = d;
             });
+
         return src;
     }
 
