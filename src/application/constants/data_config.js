@@ -70,7 +70,7 @@ const post_template = (status, pathname) =>
     \n\n#whoareyou ${config.CURRENT_APP_URL + pathname} `;
 
 const post_text = id =>
-    `@${id}%20さんの紹介%0a詳しくはwho are you?で確認！%0a%0a`;
+    `【@${id}%20さんの紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
 
 const username_min_limit = 0;
 const username_max_limit = 45;
