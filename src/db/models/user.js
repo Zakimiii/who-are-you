@@ -46,6 +46,14 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
+            heading_count: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            answer_count: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
             twitter_id: {
                 type: DataTypes.STRING(255),
             },
@@ -129,6 +137,8 @@ module.exports = function(sequelize, DataTypes) {
             notification_id: self.notification_id,
             twitter_id: self.twitter_id,
             twitter_username: self.twitter_username,
+            heading_count: self.heading_count,
+            answer_count: self.answer_count,
             created_at: self.created_at,
             updated_at: self.updated_at,
         };

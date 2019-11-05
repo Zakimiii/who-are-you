@@ -5,6 +5,14 @@ import safe2json from '@extension/safe2json';
 import { ClientError } from '@extension/Error';
 import * as detection from '@network/detection';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
+import {
+    userShowRoute,
+    postIndexRoute,
+    headingShowRoute,
+    answerShowRoute,
+    notificationIndexRoute,
+    templateIndexRoute,
+} from '@infrastructure/RouteInitialize';
 
 export const FETCH_DATA_BEGIN = 'app/FETCH_DATA_BEGIN';
 export const FETCH_DATA_END = 'app/FETCH_DATA_END';
@@ -315,4 +323,119 @@ export const enableModal = state => {
         state.heading.get('show_new_modal') ||
         state.answer.get('show_new_modal')
     );
+};
+
+//MEMO: loading check actions
+export const userShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!userShowRoute.isValidPath(pathname)) return false;
+    const username = userShowRoute.params_value('username', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.user.get('show_user');
+    const model = list_model.toJS();
+    if (!model) return true;
+    return loading && model.username != username;
+};
+
+export const userShowContentsLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!userShowRoute.isValidPath(pathname)) return false;
+    const username = userShowRoute.params_value('username', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.user.get('user_heading');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading && model[0].User.username != username;
+};
+
+export const userShowTemplatesLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!userShowRoute.isValidPath(pathname)) return false;
+    const username = userShowRoute.params_value('username', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.template.get('home_template');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const templateIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!templateIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.template.get('home_template');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const postIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!postIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.user.get('user_post');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading || model[0].User.username != current_user.username;
+};
+
+export const notificationIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!notificationIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.user.get('user_notification');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading || model[0].UserId != current_user.id;
+};
+
+export const headingShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!headingShowRoute.isValidPath(pathname)) return false;
+    const id = headingShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.heading.get('show_heading');
+    const model = list_model.toJS();
+    if (!model || Object.keys(model).length == 0) return true;
+    return loading || model.id != id;
+};
+
+export const answerShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!answerShowRoute.isValidPath(pathname)) return false;
+    const id = answerShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.answer.get('show_answer');
+    const model = list_model.toJS();
+    if (!model || Object.keys(model).length == 0) return true;
+    return loading || model.id != id;
 };

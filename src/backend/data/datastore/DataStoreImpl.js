@@ -2,6 +2,10 @@ import { bindActionCreators } from 'redux';
 import fetch from 'isomorphic-fetch';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
+import file_config from '@constants/file_config';
+import Jimp from 'jimp';
+import uuidv4 from 'uuid/v4';
+import path from 'path';
 
 // let last_call;
 const request_base = {
@@ -14,8 +18,60 @@ const request_base = {
     },
 };
 
+let blenna;
+
+Jimp.read(
+    path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'assets',
+        'images/brands/eye_catch.png'
+    )
+).then(val => {
+    blenna = val;
+});
+
 export default class DataStoreImpl {
+    resolveAssetsPath(...rest) {
+        return path.join(__dirname, '..', '..', '..', 'assets', ...rest);
+    }
+
     constructor() {}
+
+    async bcomposite_from_base64({
+        base64,
+        bsrc = this.resolveAssetsPath('images/brands/eye_catch.png'),
+        params = {},
+    }) {
+        if (!base64) return;
+        const lennas = await Promise.all([
+            Jimp.read(blenna) ||
+                Jimp.read(
+                    this.resolveAssetsPath('images/brands/eye_catch.png')
+                ),
+            Jimp.read(
+                Buffer.from(
+                    base64.replace(/^data:image\/png;base64,/, ''),
+                    'base64'
+                )
+            ),
+        ]);
+
+        let src;
+        lennas[0]
+            .resize(
+                params.xsize || data_config.shot_picture_xsize,
+                params.ysize || data_config.shot_picture_ysize
+            )
+            .composite(lennas[1], 0, 0)
+            .getBase64(Jimp.AUTO, (e, d) => {
+                src = d;
+            });
+
+        return src;
+    }
 
     async apiCall(path, payload, reqType = 'POST') {
         const reqObjs = {
@@ -61,14 +117,5 @@ export default class DataStoreImpl {
             throw error;
         }
         return responseData;
-    }
-
-    setUserPreferences(payload) {
-        if (!process.env.BROWSER || window.$STM_ServerBusy)
-            return Promise.resolve();
-        const request = Object.assign({}, request_base, {
-            body: JSON.stringify({ csrf: window.$STM_csrf, payload }),
-        });
-        return fetch('/api/v1/setUserPreferences', request);
     }
 }

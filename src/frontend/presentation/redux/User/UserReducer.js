@@ -15,6 +15,10 @@ export const ADD_USER_HEADING = 'user/ADD_USER_HEADING';
 export const ADD_USER_HEADING_ANSWER = 'user/ADD_USER_HEADING_ANSWER';
 export const GET_MORE_USER_HEADING = 'user/GET_MORE_USER_HEADING';
 export const GET_MORE_USER_HEADING_ANSWER = 'user/GET_MORE_USER_HEADING_ANSWER';
+export const SET_RECOMMEND = 'user/SET_RECOMMEND';
+export const ADD_RECOMMEND = 'user/ADD_RECOMMEND';
+export const GET_MORE_RECOMMEND = 'user/GET_MORE_RECOMMEND';
+export const RESET_RECOMMEND = 'user/RESET_RECOMMEND';
 
 export const SET_USER_POST = 'user/SET_USER_POST';
 export const ADD_USER_POST = 'user/ADD_USER_POST';
@@ -35,6 +39,7 @@ const defaultState = fromJS({
     user_post: List([]),
     user_notification: List([]),
     user_follower: List([]),
+    user_recommend: List([]),
     caches: List([]),
     deletes: List([]),
 });
@@ -176,6 +181,27 @@ export default function reducer(state = defaultState, action) {
             return state.set('user_heading', List(befores));
         }
 
+        case SET_RECOMMEND: {
+            if (!payload.users) return state;
+            return state.set(
+                'user_recommend',
+                List(action.payload.users.map(val => Map(val)))
+            );
+        }
+
+        case RESET_RECOMMEND: {
+            return state.set('user_recommend', List([]));
+        }
+
+        case ADD_RECOMMEND: {
+            if (!payload.users) return state;
+            let before = state.get('user_recommend');
+            return state.set(
+                'user_recommend',
+                before.concat(List(action.payload.users.map(val => Map(val))))
+            );
+        }
+
         default:
             return state;
     }
@@ -296,6 +322,26 @@ export const setShow = payload => ({
     payload,
 });
 
+export const setRecommend = payload => ({
+    type: SET_RECOMMEND,
+    payload,
+});
+
+export const resetRecommend = payload => ({
+    type: RESET_RECOMMEND,
+    payload,
+});
+
+export const addRecommend = payload => ({
+    type: ADD_RECOMMEND,
+    payload,
+});
+
+export const getMoreRecommend = payload => ({
+    type: GET_MORE_RECOMMEND,
+    payload,
+});
+
 export const getDelete = (id, state) => {
     if (!id) return;
     const val = state.user.get('deletes');
@@ -359,6 +405,21 @@ export const getFollower = state => {
 
 export const getFollowerLength = state => {
     const val = state.user.get('user_follower');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getRecommend = state => {
+    const val = state.user.get('user_recommend');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getRecommendLength = state => {
+    const val = state.user.get('user_recommend');
     if (!val) return 0;
     let home_models = val.toJS();
     if (!home_models) return 0;

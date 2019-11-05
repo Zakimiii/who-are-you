@@ -132,38 +132,34 @@ export default class NotificationDataStore extends DataStoreImpl {
                 }),
         ]);
 
-        if (
-            !validator.isEmail(h_identity.email) ||
-            !Number.prototype.castBool(h_identity.isMailNotification) ||
-            !validator.isEmail(v_identity.email) ||
-            !Number.prototype.castBool(v_identity.isMailNotification)
-        )
-            return;
-
         await Promise.all([
-            mail.send(h_identity.email, 'on_create_answer', {
-                title: `新しい回答が届きました！`,
-                text: `${
-                    config.APP_NAME
-                }です。\n新しい回答が届きました！回答をシェアして自分のことを多くの人に広めましょう！\n下記のボタンをクリックしてシェアしましょう！`,
-                button_text: 'シェアする',
-                button_url: TwitterHandler.getShareUrl({
-                    id: h_identity.twitter_username,
-                    text: target.body,
-                    pathname: `/answer/${target.id}`,
+            validator.isEmail(h_identity.email) &&
+                Number.prototype.castBool(h_identity.isMailNotification) &&
+                mail.send(h_identity.email, 'on_create_answer', {
+                    title: `新しい回答が届きました！`,
+                    text: `${
+                        config.APP_NAME
+                    }です。\n新しい回答が届きました！回答をシェアして自分のことを多くの人に広めましょう！\n下記のボタンをクリックしてシェアしましょう！`,
+                    button_text: 'シェアする',
+                    button_url: TwitterHandler.getShareUrl({
+                        id: h_identity.twitter_username,
+                        text: target.body,
+                        pathname: `/answer/${target.id}`,
+                    }),
+                    foot_text: '',
+                    end_text: '',
+                    inc_name: config.INC_FULL_NAME,
+                    unsubscribe_text: 'メールの通知を解除したい場合は',
+                    unsubscribe_url:
+                        config.CURRENT_APP_URL +
+                        '/api/v1/notification/email/stop?token=' +
+                        h_identity.mail_notification_token,
+                    unsubscribe: 'こちらから',
+                    contact: '会社住所・お問い合わせ',
                 }),
-                foot_text: '',
-                end_text: '',
-                inc_name: config.INC_FULL_NAME,
-                unsubscribe_text: 'メールの通知を解除したい場合は',
-                unsubscribe_url:
-                    config.CURRENT_APP_URL +
-                    '/api/v1/notification/email/stop?token=' +
-                    h_identity.mail_notification_token,
-                unsubscribe: 'こちらから',
-                contact: '会社住所・お問い合わせ',
-            }),
             v_identity &&
+                validator.isEmail(v_identity.email) &&
+                Number.prototype.castBool(v_identity.isMailNotification) &&
                 mail.send(v_identity.email, 'on_create_answer', {
                     title: `新しい回答が届きました！`,
                     text: `${
@@ -187,13 +183,6 @@ export default class NotificationDataStore extends DataStoreImpl {
                     contact: '会社住所・お問い合わせ',
                 }),
         ]);
-
-        // await TwitterHandler.postTweet(
-        //     answer.body,
-        //     `/answer/${target.id}`,
-        //     identity.twitter_token,
-        //     identity.twitter_secret
-        // );
     }
 
     async onCreateHeading(heading) {

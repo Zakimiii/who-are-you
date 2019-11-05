@@ -25,6 +25,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             answers: false,
             voter: false,
             answer_limit: data_config.answer_index_limit,
+            picture: false,
         }
     ) {
         if (!datum) return;
@@ -76,9 +77,18 @@ export default class HeadingDataStore extends DataStoreImpl {
 
         return await Promise.all(
             contents.map(async (val, index) => {
+                if (!params.picture) val.picture = '';
                 if (params.user) val.User = includes[index][0];
                 if (params.voter) val.Voter = includes[index][1];
-                if (params.answers) val.Answers = includes[index][2];
+                if (params.answers) {
+                    val.Answers = includes[index][2];
+                    if (!params.picture) {
+                        val.Answers = val.Answers.map(answer => {
+                            answer.picture = '';
+                            return answer;
+                        });
+                    }
+                }
                 return val;
             })
         );
@@ -89,6 +99,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             user: true,
             voter: true,
             answers: true,
+            picture: false,
             answer_limit: data_config.answer_index_limit,
         });
     }
@@ -98,6 +109,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             user: true,
             voter: true,
             answers: false,
+            picture: false,
             answer_limit: data_config.answer_index_limit,
         });
     }
@@ -127,12 +139,33 @@ export default class HeadingDataStore extends DataStoreImpl {
 
     async create(heading) {
         if (!heading) return;
+        if (heading.picture) {
+            heading.picture = await this.bcomposite_from_base64({
+                base64: heading.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
         const result = await models.Heading.create(heading);
         return result;
     }
 
     async update(heading) {
         if (!heading) return;
+
+        if (heading.picture) {
+            heading.picture = await this.bcomposite_from_base64({
+                base64: heading.picture,
+                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                params: {
+                    xsize: data_config.shot_picture_xsize,
+                    ysize: data_config.shot_picture_ysize,
+                },
+            });
+        }
 
         const data = await models.Heading.findOne({
             where: {
@@ -320,7 +353,7 @@ export default class HeadingDataStore extends DataStoreImpl {
             },
             include: [
                 {
-                    as: 'Voters',
+                    as: 'Voter',
                     model: models.User,
                     where: {
                         $or: [

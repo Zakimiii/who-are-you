@@ -46,6 +46,7 @@ class SideBar extends React.Component {
                                     image={item.image}
                                     link={item.link}
                                     active={item.active(pathname)}
+                                    loginRequire={item.loginRequire}
                                 />
                             </li>
                         );
@@ -73,7 +74,11 @@ class SideBar extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        return {
+            pathname: browserHistory
+                ? browserHistory.getCurrentLocation().pathname
+                : null,
+        };
     },
 
     dispatch => ({})

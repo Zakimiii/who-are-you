@@ -25,18 +25,22 @@ class UserShow extends React.Component {
     }
 
     render() {
-        var { username } = this.props.routeParams;
+        var { username, section } = this.props.routeParams;
+
+        if (!section) {
+            section = 'headings';
+        }
 
         return (
             <IndexComponent>
-                <UserShowList username={username} />
+                <UserShowList username={username} section={section} />
             </IndexComponent>
         );
     }
 }
 
 module.exports = {
-    path: 'user/:username',
+    path: 'user/:username(/:section)',
     component: connect(
         (state, ownProps) => {
             return {};

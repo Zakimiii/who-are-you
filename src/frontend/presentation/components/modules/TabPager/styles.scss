@@ -1,0 +1,11 @@
+.tab-pager {
+  @include init_wh();
+  clear: both;
+  @for $i from 1 through 10 {
+    &__item-#{$i} {
+      float: left;
+      width: calc( 100% / #{$i} );
+      height: 100%;
+    }
+  }
+}

@@ -55,6 +55,45 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleGetUserRecommendRequest(router, ctx, next) {
+        const { username, id, limit, offset } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const users = await userDataStore.getStaticRecommendUsers({
+            limit,
+            offset,
+        });
+
+        authDataStore.find_or_create_by_twitter_followers({
+            username,
+            user_id: Number(id),
+        });
+
+        router.body = {
+            success: true,
+            users,
+        };
+    }
+
+    async handleGetStaticUserRecommendRequest(router, ctx, next) {
+        const { limit, offset } = router.request.body;
+
+        const users = await userDataStore.getStaticRecommendUsers({
+            limit,
+            offset,
+        });
+
+        router.body = {
+            success: true,
+            users,
+        };
+    }
+
     async handleGetUserTwitterNameRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 
@@ -395,6 +434,56 @@ export default class UserHandler extends HandlerImpl {
             success: true,
             user: safe2json(synced_user),
             exist: !!safe2json(synced_user),
+        };
+    }
+
+    async handleInitializeCountsRequest(router, ctx, next) {
+        if (process.env.NODE_ENV != 'development') {
+            router.body = JSON.stringify({ status: 'ok' });
+            router.redirect('/');
+        }
+
+        const { from_id, to_id } = router.query;
+
+        const id_range =
+            from_id && to_id
+                ? {
+                      id: {
+                          $between: [
+                              parseInt(from_id, 10),
+                              parseInt(to_id, 10),
+                          ],
+                      },
+                  }
+                : null;
+
+        const results = await models.User.findAll({
+            where: id_range,
+        });
+
+        if (!results)
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+
+        /*
+        10 of concurrency is very confortable to do tasks smoothly.
+        */
+        const datum = await Promise.map(
+            results,
+            result => userDataStore.updateCount(result),
+            { concurrency: 10 }
+        ).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        router.body = {
+            users: datum.map(data => safe2json(data)),
+            success: true,
         };
     }
 }

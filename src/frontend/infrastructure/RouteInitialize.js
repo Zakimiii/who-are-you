@@ -17,9 +17,12 @@ export const homeAliasRoute = new RouteEntity({
 });
 
 export const userShowRoute = new RouteEntity({
-    path: '/user/:username',
+    path: '/user/:username/:section?',
     page: 'UserShow',
     component: require('@components/pages/UserShow'),
+    validate: {
+        section: /(headings|templates)/,
+    },
 });
 
 export const userEditRoute = new RouteEntity({
@@ -53,6 +56,12 @@ export const answerNewRoute = new RouteEntity({
     page: 'AnswerNew',
     validate: { id: /\d+/ },
     component: require('@components/pages/AnswerNewAlias'),
+});
+
+export const templateIndexRoute = new RouteEntity({
+    path: '/templates',
+    page: 'TemplateIndex',
+    component: require('@components/pages/TemplateIndex'),
 });
 
 export const notificationIndexRoute = new RouteEntity({
@@ -124,6 +133,12 @@ export const notfoundRoute = new RouteEntity({
     component: require('@components/pages/NotFound'),
 });
 
+export const cmpTestRoute = new RouteEntity({
+    path: '/test/components',
+    page: 'CmpTest',
+    component: require('@components/pages/CmpTest'),
+});
+
 // export const xssRoute = new RouteEntity({
 //     path: '/xss/test',
 //     page: 'XSSTest',
@@ -151,6 +166,8 @@ export const routeEntities = new RouteEntities({
         notificationIndexRoute,
         postIndexRoute,
         searchRoute,
+        templateIndexRoute,
+        cmpTestRoute,
     ],
     notfoundRoute,
 });
@@ -245,7 +262,7 @@ export const getPageImage = pathname => {
             image = `${state.user.get('show_user').get('picture_small')}`;
     } */ image = `${
             config.CURRENT_APP_URL
-        }/images/brands/who-are-you_logo.png`;
+        }/images/brands/ogp-logo.png`;
     }
 
     return image;

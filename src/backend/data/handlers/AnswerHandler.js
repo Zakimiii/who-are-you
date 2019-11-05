@@ -5,6 +5,7 @@ import {
     HeadingDataStore,
     AnswerDataStore,
     NotificationDataStore,
+    UserDataStore,
 } from '@datastore';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
@@ -17,14 +18,53 @@ import {
     apiUnTrashAnswerValidates,
 } from '@validations/answer';
 import { ApiError } from '@extension/Error';
+import TwitterHandler from '@network/twitter';
 
 const answerDataStore = new AnswerDataStore();
 const notificationDataStore = new NotificationDataStore();
 const headingDataStore = new HeadingDataStore();
+const userDataStore = new UserDataStore();
 
 export default class AnswerHandler extends HandlerImpl {
     constructor() {
         super();
+    }
+
+    async postTweet(answer) {
+        if (!answer) return false;
+
+        const heading = await models.Heading.findOne({
+            where: {
+                id: Number(answer.HeadingId),
+            },
+        });
+
+        if (!heading) return false;
+
+        const user = await models.User.findOne({
+            where: {
+                id: Number(heading.UserId),
+            },
+        });
+
+        if (!user) return false;
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: Number(answer.UserId),
+            },
+        });
+
+        await TwitterHandler.postTweet(
+            user.twitter_username,
+            `/answer/${answer.id}`,
+            identity.twitter_token,
+            identity.twitter_secret
+        ).catch(e => {
+            return false;
+        });
+
+        return true;
     }
 
     async handleGetRequest(router, ctx, next) {
@@ -66,12 +106,16 @@ export default class AnswerHandler extends HandlerImpl {
         });
 
         headingDataStore.updateCount({ id: result.HeadingId });
+        userDataStore.updateCountFromAnswer(result);
 
         notificationDataStore.onCreateAnswer(result);
+
+        const posted = await this.postTweet(result);
 
         router.body = {
             success: true,
             answer: safe2json(result),
+            posted,
         };
     }
 
@@ -89,11 +133,15 @@ export default class AnswerHandler extends HandlerImpl {
             });
         });
 
-        headingDataStore.updateCount({ id: result.HeadingId });
+        // headingDataStore.updateCount({ id: result.HeadingId });
+        // userDataStore.updateCountFromAnswer(result);
+
+        const posted = await this.postTweet(result);
 
         router.body = {
             success: true,
             answer: safe2json(result),
+            posted,
         };
     }
 
@@ -112,6 +160,7 @@ export default class AnswerHandler extends HandlerImpl {
         });
 
         headingDataStore.updateCount({ id: result.HeadingId });
+        userDataStore.updateCountFromAnswer(answer);
 
         router.body = {
             success: true,

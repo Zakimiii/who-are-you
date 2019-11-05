@@ -6,10 +6,13 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import Img from 'react-image';
 import classNames from 'classnames';
 import autobind from 'class-autobind';
+import data_config from '@constants/data_config';
+import LoadingIndicator from '@elements/LoadingIndicator';
 
 class PictureItem extends React.Component {
     static propTypes = {
         url: PropTypes.string,
+        rollback_url: PropTypes.string,
         width: PropTypes.number,
         radius: PropTypes.number,
         alt: PropTypes.string,
@@ -19,42 +22,37 @@ class PictureItem extends React.Component {
     };
 
     static defaultProps = {
-        url: '',
+        url: data_config.default_user_image,
+        rollback_url: data_config.default_user_image,
         width: 120,
         radius: 60,
         alt: '',
         className: '',
     };
 
-    state = {};
+    state = {
+        isError: false,
+    };
 
     constructor(props) {
         super(props);
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'PictureItem');
         autobind(this);
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        const { url, width, radius } = this.props;
-        const n = nextProps;
-        return url !== n.url || width !== n.width || radius !== n.radius;
-    }
-
     onLoad(e) {
-        // if (e) e.preventDefault();
         const { onLoad } = this.props;
-
         if (onLoad) onLoad(e);
     }
 
     onError(e) {
-        // if (e) e.preventDefault();
         const { onError } = this.props;
-
         if (onError) onError(e);
     }
 
     render() {
-        const { url, width, radius, alt, className } = this.props;
+        const { url, rollback_url, width, radius, alt, className } = this.props;
+        const { isError } = this.state;
 
         const { onLoad, onError } = this;
 
@@ -76,13 +74,22 @@ class PictureItem extends React.Component {
                 className={classNames('circle-picture-item', className)}
                 style={style}
             >
-                <img
+                <Img
                     className="circle-picture-item__image"
                     style={image_style}
-                    src={url}
+                    src={isError ? rollback_url : url}
                     alt={alt}
                     onLoad={onLoad}
                     onError={onError}
+                    loader={<LoadingIndicator type={'circle'} />}
+                    unloader={
+                        <img
+                            className="circle-picture-item__image"
+                            style={image_style}
+                            src={rollback_url}
+                            alt={alt}
+                        />
+                    }
                 />
             </div>
         );

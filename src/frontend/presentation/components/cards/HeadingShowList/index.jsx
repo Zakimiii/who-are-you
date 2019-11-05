@@ -11,6 +11,8 @@ import models from '@network/client_models';
 import UserSection from '@elements/UserSection';
 import AnswerItem from '@modules/AnswerItem';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import * as appActions from '@redux/App/AppReducer';
+import LoadingIndicator from '@elements/LoadingIndicator';
 import { isScrollEndByClass } from '@extension/scroll';
 import AnswerNewSection from '@elements/AnswerNewSection';
 
@@ -53,7 +55,18 @@ class HeadingShowList extends React.Component {
     }
 
     render() {
-        const { repository, repositories } = this.props;
+        const { repository, repositories, loading } = this.props;
+
+        if (loading) {
+            return (
+                <center>
+                    <LoadingIndicator
+                        style={{ marginTop: '2rem' }}
+                        type={'circle'}
+                    />
+                </center>
+            );
+        }
 
         const top = (
             <div className="heading-show-list__top">
@@ -110,6 +123,7 @@ export default connect(
         return {
             repository: headingActions.getShowHeading(state),
             repositories: headingActions.getHeadingAnswer(state),
+            loading: appActions.headingShowPageLoading(state),
         };
     },
 

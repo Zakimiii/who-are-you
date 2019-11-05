@@ -115,23 +115,34 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    bcomposite_src: '/images/brands/eye_catch.png',
+                    // bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield answerRepository.create(answer);
-            const twitter_username = yield userRepository.getUserTwitterUsername(
-                {
-                    id: answer.Heading.UserId,
-                }
-            );
-            yield put(
-                answerActions.createdAnswer({
-                    answer: data,
-                    twitter_username,
-                })
-            );
-            yield put(answerActions.hideNew());
-            yield put(answerActions.resetNew());
+
+            if (!data.posted && !!data.answer) {
+                const twitter_username = yield userRepository.getUserTwitterUsername(
+                    {
+                        id: answer.Heading.UserId,
+                    }
+                );
+                yield put(
+                    answerActions.createdAnswer({
+                        answer: data.answer,
+                        twitter_username,
+                    })
+                );
+            } else if (!!data.posted && !!data.answer) {
+                yield put(answerActions.hideNew());
+                yield put(answerActions.resetNew());
+                browserHistory.push(
+                    answerShowRoute.getPath({
+                        params: {
+                            id: data.answer.id,
+                        },
+                    })
+                );
+            }
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -152,23 +163,33 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    bcomposite_src: '/images/brands/eye_catch.png',
+                    // bcomposite_src: '/images/brands/eye_catch.png',
                 });
             }
             const data = yield answerRepository.update(answer);
-            const twitter_username = yield userRepository.getUserTwitterUsername(
-                {
-                    id: answer.Heading.UserId,
-                }
-            );
-            yield put(
-                answerActions.createdAnswer({
-                    answer: data,
-                    twitter_username,
-                })
-            );
-            yield put(answerActions.hideNew());
-            yield put(answerActions.resetNew());
+            if (!data.posted && !!data.answer) {
+                const twitter_username = yield userRepository.getUserTwitterUsername(
+                    {
+                        id: answer.Heading.UserId,
+                    }
+                );
+                yield put(
+                    answerActions.createdAnswer({
+                        answer: data.answer,
+                        twitter_username,
+                    })
+                );
+            } else if (!!data.posted && !!data.answer) {
+                yield put(answerActions.hideNew());
+                yield put(answerActions.resetNew());
+                browserHistory.push(
+                    answerShowRoute.getPath({
+                        params: {
+                            id: data.answer.id,
+                        },
+                    })
+                );
+            }
             yield put(answerActions.syncAnswer({ id: answer.id }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

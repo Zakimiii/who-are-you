@@ -6,6 +6,7 @@ import SessionRepository from '@repository/SessionRepository';
 import AnswerRepository from '@repository/AnswerRepository';
 import UserRepository from '@repository/UserRepository';
 import NotificationRepository from '@repository/NotificationRepository';
+import TemplateRepository from '@repository/TemplateRepository';
 
 export {
     RepositoryImpl,
@@ -16,4 +17,5 @@ export {
     AnswerRepository,
     UserRepository,
     NotificationRepository,
+    TemplateRepository,
 };

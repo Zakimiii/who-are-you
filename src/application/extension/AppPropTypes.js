@@ -24,9 +24,16 @@ const Answer = PropTypes.shape({
     body: PropTypes.string,
 });
 
+const Template = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+    count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+});
+
 module.exports = {
     Children,
     User,
     Heading,
     Answer,
+    Template,
 };

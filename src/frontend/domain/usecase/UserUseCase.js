@@ -68,6 +68,32 @@ export default class UserUseCase extends UseCaseImpl {
         yield put(appActions.fetchDataEnd());
     }
 
+    *initRecommend({ payload: { pathname } }) {
+        if (homeAliasRoute.isValidPath(pathname)) return;
+        try {
+            // const username = userShowRoute.params_value('username', pathname);
+            yield put(appActions.fetchDataBegin());
+            yield put(authActions.syncCurrentUser());
+            const current_user = yield select(state =>
+                authActions.getCurrentUser(state)
+            );
+            const recommends = yield select(state =>
+                userActions.getRecommend(state)
+            );
+            // if (recommends.length > 0) return;
+            const users = !!current_user
+                ? yield userRepository.getUserRecommend({
+                      username: current_user.username,
+                  })
+                : yield userRepository.getStaticUserRecommend({});
+            yield put(userActions.setRecommend({ users }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
     *initFollower({ payload: { pathname } }) {
         if (homeAliasRoute.isValidPath(pathname)) return;
         try {
@@ -98,6 +124,8 @@ export default class UserUseCase extends UseCaseImpl {
                     'username',
                     pathname
                 );
+                const section = userShowRoute.params_value('section', pathname);
+                if (section !== 'headings' && !!section) return;
                 yield put(authActions.syncCurrentUser());
                 yield put(appActions.fetchDataBegin());
                 const current_user = yield select(state =>

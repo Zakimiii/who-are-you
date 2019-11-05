@@ -1,0 +1,96 @@
+
+.tab-bar-item {
+  position: relative;
+  text-align: center;
+  border-radius: 30px;
+  padding: 12px 0;
+  @include themify($themes) {
+    // background: themed('sidebarItem');
+  }
+  &__link {
+    @include default-link;
+    border-radius: 16px;
+    &:hover > .tab-bar-item {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('base');
+      }
+      & > .tab-bar-item__image svg g polygon {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+      & > .tab-bar-item__image svg g path {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+      & > .tab-bar-item__image svg path {
+        @include themify($themes) {
+          stroke: themed('background') !important;
+          fill: themed('background')!important;
+        }
+      }
+      & > .tab-bar-item__value {
+        @include themify($themes) {
+          color: themed('background');
+        }
+      }
+    }
+    &.active > .tab-bar-item {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: themed('sidebarHighlight');
+      }
+      & > .tab-bar-item__image svg g polygon {
+        @include themify($themes) {
+          stroke: themed('base') !important;
+          fill: themed('base')!important;
+        }
+      }
+      & > .tab-bar-item__image svg g path {
+        @include themify($themes) {
+          stroke: themed('base') !important;
+          fill: themed('base')!important;
+        }
+      }
+      & > .tab-bar-item__image svg path {
+        @include themify($themes) {
+          stroke: themed('base') !important;
+          fill: themed('base')!important;
+        }
+      }
+      & > .tab-bar-item__value {
+        @include themify($themes) {
+          color: themed('base');
+        }
+      }
+    }
+  }
+  &__image {
+    display: block !important;
+    position: relative;
+    text-decoration: none !important;
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    @include svg-set() {
+      @include themify($themes) {
+        stroke: themed('sidebarString') !important;
+        fill: themed('sidebarString') !important;
+      }
+    }
+  }
+  &__value {
+    margin-top: 2px;
+    text-align: center;
+    @include FS(FXS);
+    @include FM(R);
+    text-decoration: none !important;
+    @include themify($themes) {
+        color: themed('sidebarString');
+    }
+  }
+}

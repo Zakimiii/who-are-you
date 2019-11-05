@@ -5,6 +5,8 @@ import {
     AnswerDataStore,
     HeadingDataStore,
     NotificationDataStore,
+    UserDataStore,
+    TemplateDataStore,
 } from '@datastore';
 import Promise from 'bluebird';
 import data_config from '@constants/data_config';
@@ -17,14 +19,46 @@ import {
     apiUnTrashHeadingValidates,
 } from '@validations/heading';
 import { ApiError } from '@extension/Error';
+import TwitterHandler from '@network/twitter';
 
 const answerDataStore = new AnswerDataStore();
 const headingDataStore = new HeadingDataStore();
 const notificationDataStore = new NotificationDataStore();
+const userDataStore = new UserDataStore();
+const templateDataStore = new TemplateDataStore();
 
 export default class HeadingHandler extends HandlerImpl {
     constructor() {
         super();
+    }
+
+    async postTweet(heading) {
+        if (!heading) return false;
+
+        const user = await models.User.findOne({
+            where: {
+                id: Number(heading.UserId),
+            },
+        });
+
+        if (!user) return false;
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: Number(heading.VoterId),
+            },
+        });
+
+        await TwitterHandler.postTweet(
+            user.twitter_username,
+            `/heading/${heading.id}`,
+            identity.twitter_token,
+            identity.twitter_secret
+        ).catch(e => {
+            return false;
+        });
+
+        return true;
     }
 
     async handleGetRequest(router, ctx, next) {
@@ -66,10 +100,15 @@ export default class HeadingHandler extends HandlerImpl {
         });
 
         notificationDataStore.onCreateHeading(result);
+        userDataStore.updateCount({ id: result.UserId });
+        templateDataStore.find_or_create_from_heading(result);
+
+        const posted = await this.postTweet(result);
 
         router.body = {
             success: true,
             heading: safe2json(result),
+            posted,
         };
     }
 
@@ -87,9 +126,15 @@ export default class HeadingHandler extends HandlerImpl {
             });
         });
 
+        // userDataStore.updateCount({ id: result.UserId });
+        templateDataStore.find_or_create_from_heading(result);
+
+        const posted = await this.postTweet(result);
+
         router.body = {
             success: true,
             heading: safe2json(result),
+            posted,
         };
     }
 
@@ -106,6 +151,8 @@ export default class HeadingHandler extends HandlerImpl {
                 tt_key: 'errors.invalid_response_from_server',
             });
         });
+
+        userDataStore.updateCount({ id: heading.UserId });
 
         router.body = {
             success: true,

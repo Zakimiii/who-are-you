@@ -52,7 +52,7 @@ class FollowerBar extends React.Component {
 export default connect(
     (state, props) => {
         return {
-            repositories: userActions.getFollower(state),
+            repositories: userActions.getRecommend(state),
         };
     },
 

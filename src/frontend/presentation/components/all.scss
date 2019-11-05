@@ -21,6 +21,7 @@
 @import "./cards/HeadingShowList/styles";
 @import "./cards/PostIndexList/styles";
 @import "./cards/SearchIndexList/styles";
+@import "./cards/TemplateIndexList/styles";
 @import "./cards/NotificationIndexList/styles";
 
 // elements
@@ -33,6 +34,7 @@
 @import "./elements/IconButton/styles";
 @import "./elements/LoadingIndicator/styles";
 @import "./elements/PrivacyItem/styles";
+@import "./elements/TabBarItem/styles";
 @import "./elements/InputText/styles";
 @import "./elements/UserSection/styles";
 @import "./elements/Reveal/styles";
@@ -44,6 +46,7 @@
 @import "./elements/TermItem/styles";
 @import "./elements/TrashButton/styles";
 @import "./elements/ShareButton/styles";
+@import "./elements/SectionHeader/styles";
 @import "./elements/Tooltip/styles";
 @import "./elements/PictureItem/styles";
 @import "./elements/HeadingNewSection/styles";
@@ -52,6 +55,7 @@
 @import "./elements/SideBarItem/styles";
 @import "./elements/SettingMenuItem/styles";
 @import "./elements/TwitterBar/styles";
+@import "./elements/TabItem/styles";
 
 // modules
 @import "./modules/Modals/styles";
@@ -72,6 +76,9 @@
 @import "./modules/TipsBackground/styles";
 @import "./modules/Modals/styles";
 @import "./modules/ScreenLoadingIndicator/styles";
+@import "./modules/TabBar/styles";
+@import "./modules/TabPager/styles";
+@import "./modules/TemplateItem/styles";
 
 // pages
 @import "./pages/Privacy/styles";
@@ -90,3 +97,4 @@
 @import "./pages/HeadingShow/styles";
 @import "./pages/AnswerNew/styles";
 @import "./pages/AnswerShow/styles";
+@import "./pages/Welcome/styles";

@@ -9,6 +9,8 @@ import tt from 'counterpart';
 import Icon from '@elements/Icon';
 import Ripple from '@elements/Ripple';
 import classNames from 'classnames';
+import * as authActions from '@redux/Auth/AuthReducer';
+import * as appActions from '@redux/App/AppReducer';
 
 class SideBarItem extends React.Component {
     static propTypes = {
@@ -32,6 +34,8 @@ class SideBarItem extends React.Component {
         link: PropTypes.string,
         /** The func of the onClick. */
         onClick: PropTypes.func,
+        /** Disables not login user. */
+        loginRequire: PropTypes.bool,
     };
 
     static defaultProps = {
@@ -42,6 +46,7 @@ class SideBarItem extends React.Component {
         value: '',
         image: '',
         link: '',
+        loginRequire: false,
     };
 
     state = {};
@@ -53,6 +58,20 @@ class SideBarItem extends React.Component {
     }
 
     handleRequest = e => {
+        const {
+            loginRequire,
+            current_user,
+            onClick,
+            showLogin,
+            ...inputProps
+        } = this.props;
+
+        if (loginRequire && !current_user) {
+            if (e) e.preventDefault();
+            showLogin();
+            return;
+        }
+
         if (this.props.onClick) this.props.onClick(e);
     };
 
@@ -66,13 +85,16 @@ class SideBarItem extends React.Component {
             value,
             image,
             link,
+            loginRequire,
+            current_user,
+            onClick,
             ...inputProps
         } = this.props;
 
         return (
             <Ripple>
                 <Link
-                    to={link}
+                    to={loginRequire && !current_user ? ' ' : link}
                     className={classNames('side-bar-item__link', { active })}
                     onClick={this.handleRequest}
                 >
@@ -92,8 +114,18 @@ class SideBarItem extends React.Component {
 
 export default connect(
     (state, props) => {
-        return {};
+        const current_user = authActions.getCurrentUser(state);
+        return {
+            current_user: current_user,
+        };
     },
 
-    dispatch => ({})
+    dispatch => ({
+        showLogin: () => {
+            dispatch(authActions.showLogin());
+        },
+        addError: error => {
+            dispatch(appActions.addError({ error }));
+        },
+    })
 )(SideBarItem);
