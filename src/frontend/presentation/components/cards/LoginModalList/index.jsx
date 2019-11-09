@@ -41,6 +41,8 @@ class LoginModalList extends React.Component {
                 return 'user/delete/confirm';
         };
 
+        console.log(modalPath());
+
         const logo = (
             <div className="login-modal-list__logo">
                 <Img
@@ -61,7 +63,10 @@ class LoginModalList extends React.Component {
                 <TwitterButton
                     text={confirmForDelete && tt('g.login')}
                     isSession={false}
-                    modalPath={confirmForDelete && modalPath()}
+                    modalPath={
+                        confirmForDelete &&
+                        'user/delete/confirm' /*modalPath()*/
+                    }
                 />
             </div>
         );
