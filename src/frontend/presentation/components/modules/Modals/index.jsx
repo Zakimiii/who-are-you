@@ -14,6 +14,7 @@ import LoginModal from '@pages/LoginModal';
 import AnswerNew from '@pages/AnswerNew';
 import HeadingNew from '@pages/HeadingNew';
 import SideBarModal from '@pages/SideBarModal';
+import LoginModalForDelete from '@pages/LoginModalForDelete';
 
 class Modals extends React.Component {
     static defaultProps = {
@@ -22,6 +23,7 @@ class Modals extends React.Component {
         show_new_heading_modal: false,
         show_new_answer_modal: false,
         show_side_bar_modal: false,
+        show_confirm_login_for_delete_modal: false,
     };
 
     static propTypes = {
@@ -30,10 +32,12 @@ class Modals extends React.Component {
         show_new_heading_modal: PropTypes.bool,
         show_new_answer_modal: PropTypes.bool,
         show_side_bar_modal: PropTypes.bool,
+        show_confirm_login_for_delete_modal: PropTypes.bool,
         hideLogin: PropTypes.func.isRequired,
         hideNewHeading: PropTypes.func.isRequired,
         hideNewAnswer: PropTypes.func.isRequired,
         hideSideBarModal: PropTypes.func.isRequired,
+        hideConfirmLoginForDeleteModal: PropTypes.func.isRequired,
     };
 
     constructor() {
@@ -53,6 +57,8 @@ class Modals extends React.Component {
             className,
             show_side_bar_modal,
             hideSideBarModal,
+            show_confirm_login_for_delete_modal,
+            hideConfirmLoginForDeleteModal,
         } = this.props;
 
         const themeClass = nightmodeEnabled ? ' theme-dark' : ' theme-original';
@@ -85,6 +91,16 @@ class Modals extends React.Component {
                         <SideBarModal onCancel={hideSideBarModal} />
                     </Reveal>
                 )}
+                {show_confirm_login_for_delete_modal && (
+                    <Reveal
+                        onHide={hideConfirmLoginForDeleteModal}
+                        show={show_confirm_login_for_delete_modal}
+                    >
+                        <LoginModalForDelete
+                            onCancel={hideConfirmLoginForDeleteModal}
+                        />
+                    </Reveal>
+                )}
             </div>
         );
     }
@@ -101,6 +117,9 @@ export default connect(
             show_new_heading_modal: state.heading.get('show_new_modal'),
             show_new_answer_modal: state.answer.get('show_new_modal'),
             show_side_bar_modal: state.app.get('show_side_bar_modal'),
+            show_confirm_login_for_delete_modal: state.auth.get(
+                'show_confirm_login_for_delete_modal'
+            ),
         };
     },
     dispatch => ({
@@ -119,6 +138,10 @@ export default connect(
         hideSideBarModal: e => {
             if (e) e.preventDefault();
             dispatch(appActions.hideSideBarModal());
+        },
+        hideConfirmLoginForDeleteModal: e => {
+            if (e) e.preventDefault();
+            dispatch(authActions.hideConfirmLoginForDeleteModal());
         },
     })
 )(Modals);

@@ -26,6 +26,7 @@
         "phone_verify": "電話番号認証",
         "please_enter": "%(data)sを入力してください",
         "quit": "退会する",
+        "login_quit": "退会のための確認ログイン",
         "respondent": "回答者",
         "notification": "お知らせ",
         "mypage": "マイページ",

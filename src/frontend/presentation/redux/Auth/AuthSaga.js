@@ -20,6 +20,7 @@ const authUseCase = new AuthUseCase();
 export const authWatches = [
     takeEvery(LOCATION_CHANGE, authUseCase.checkClientId),
     takeEvery(LOCATION_CHANGE, authUseCase.twitterLogin),
+    takeEvery(LOCATION_CHANGE, authUseCase.twitterConfirmLoginForDelete),
     takeLatest(authActions.SET_CURRENT_USER, authUseCase.setCurrentUser),
     takeLatest(authActions.SYNC_CURRENT_USER, authUseCase.syncCurrentUser),
     takeLatest(

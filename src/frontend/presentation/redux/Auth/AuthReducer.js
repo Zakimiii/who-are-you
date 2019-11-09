@@ -37,6 +37,9 @@ export default function reducer(state = defaultState, action) {
                 show_login_modal: loginRoute.isValidPath(
                     action.payload.pathname
                 ),
+                show_confirm_login_for_delete_modal: confirmForDeleteRoute.isValidPath(
+                    action.payload.pathname
+                ),
             });
         }
 

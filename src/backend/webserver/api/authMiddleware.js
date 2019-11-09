@@ -80,27 +80,27 @@ export default function AuthMiddleware(app) {
         });
     });
 
-    // router.get('/twitter/user/delete/confirm/callback', koaBody, function*(
-    //     ctx,
-    //     next
-    // ) {
-    //     const routing = this;
-    //     yield TwitterHandler.callback(function*(req, res, next) {
-    //         if (!res.profile) {
-    //             routing.redirect('/login');
-    //             return;
-    //         }
-    //         yield authHandler
-    //             .handleTwitterUserDeleteAuthenticateRequest(
-    //                 routing,
-    //                 req,
-    //                 res,
-    //                 next
-    //             )
-    //             .catch(async e => {
-    //                 await handleApiError(routing, ctx, next, e);
-    //                 routing.redirect(`/login?error_key=${e.tt_key}`);
-    //             });
-    //     });
-    // });
+    router.get('/twitter/user/delete/confirm/callback', koaBody, function*(
+        ctx,
+        next
+    ) {
+        const routing = this;
+        yield TwitterHandler.callback(function*(req, res, next) {
+            if (!res.profile) {
+                routing.redirect('/login');
+                return;
+            }
+            yield authHandler
+                .handleTwitterUserDeleteAuthenticateRequest(
+                    routing,
+                    req,
+                    res,
+                    next
+                )
+                .catch(async e => {
+                    await handleApiError(routing, ctx, next, e);
+                    routing.redirect(`/login?error_key=${e.tt_key}`);
+                });
+        });
+    });
 }

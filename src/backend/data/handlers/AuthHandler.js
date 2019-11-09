@@ -186,4 +186,49 @@ export default class AuthHandler extends HandlerImpl {
             success: true,
         };
     }
+
+    async handleTwitterUserDeleteAuthenticateRequest(router, req, res, next) {
+        const { profile } = res;
+
+        const { oauth_token } = router.query;
+
+        if (!profile) {
+            router.redirect('/login');
+            return;
+        }
+
+        const identity = await models.Identity.findOne({
+            where: {
+                twitter_id: profile.id,
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.is_not_registered',
+            });
+        });
+
+        if (!identity)
+            throw new ApiError({
+                error: new Error('is_not_registered'),
+                tt_key: 'errors.is_not_registered',
+            });
+
+        const newAccessToken = await sessionDataStore.setAccessToken({
+            identity,
+            client_id: '',
+            isOneTime: true,
+        });
+
+        const params = querystring.stringify({
+            twitter_logined: true,
+            accessToken: newAccessToken,
+        });
+
+        router.body = {
+            success: true,
+        };
+
+        router.redirect(`/user/delete/confirm?${params}`);
+    }
 }

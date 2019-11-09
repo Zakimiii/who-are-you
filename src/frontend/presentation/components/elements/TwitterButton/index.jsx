@@ -14,12 +14,14 @@ class TwitterButton extends React.Component {
         isSession: PropTypes.bool,
         error: PropTypes.any,
         modalPath: PropTypes.string,
+        text: PropTypes.string,
     };
 
     static defaultProps = {
         isSession: false,
         error: null,
         modalPath: null,
+        text: null,
     };
 
     state = {};
@@ -33,7 +35,7 @@ class TwitterButton extends React.Component {
     }
 
     render() {
-        const { isSession, error, addError, modalPath } = this.props;
+        const { isSession, error, addError, modalPath, text } = this.props;
 
         return (
             <GradationButton
@@ -47,7 +49,7 @@ class TwitterButton extends React.Component {
                                 ? '/auth/twitter'
                                 : `/auth/twitter/confirm?modal=${modalPath}`);
                 }}
-                value={tt('g.twitter_login')}
+                value={text || tt('g.twitter_login')}
             />
         );
     }

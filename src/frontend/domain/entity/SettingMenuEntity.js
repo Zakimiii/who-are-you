@@ -35,12 +35,12 @@ export const SETTING_MENU = defineEnum({
         url: '/',
         //MEMO: see onclick
     },
-    // Delete: {
-    //     rawValue: 9,
-    //     value: () => tt('g.quit'),
-    //     url: null, //'/user/delete/confirm',
-    //     //MEMO: see onclick
-    // },
+    Delete: {
+        rawValue: 9,
+        value: () => tt('g.quit'),
+        url: null, //'/user/delete/confirm',
+        //MEMO: see onclick
+    },
 });
 
 export default SETTING_MENU;

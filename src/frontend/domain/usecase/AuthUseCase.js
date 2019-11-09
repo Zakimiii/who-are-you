@@ -8,7 +8,11 @@ import UseCaseImpl from '@usecase/UseCaseImpl';
 import AuthRepository from '@repository/AuthRepository';
 import { browserHistory } from 'react-router';
 import * as cu2 from '@network/current_user';
-import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
+import {
+    homeRoute,
+    userShowRoute,
+    confirmForDeleteRoute,
+} from '@infrastructure/RouteInitialize';
 import expo from '@extension/object2json';
 import safe2json from '@extension/safe2json';
 import { ClientError } from '@extension/Error';
@@ -120,50 +124,50 @@ export default class AuthUseCase extends UseCaseImpl {
         yield put(appActions.fetchDataEnd());
     }
 
-    // *twitterConfirmLoginForDelete({ payload: { pathname } }) {
-    //     if (!confirmForDeleteRoute.isValidPath(pathname)) return;
-    //     try {
-    //         if (
-    //             browserHistory.getCurrentLocation().query.twitter_logined !=
-    //             'true'
-    //         )
-    //             return;
-    //         yield put(appActions.fetchDataBegin());
+    *twitterConfirmLoginForDelete({ payload: { pathname } }) {
+        if (!confirmForDeleteRoute.isValidPath(pathname)) return;
+        try {
+            if (
+                browserHistory.getCurrentLocation().query.twitter_logined !=
+                'true'
+            )
+                return;
+            yield put(appActions.fetchDataBegin());
 
-    //         const accessToken = browserHistory.getCurrentLocation().query
-    //             .accessToken;
+            const accessToken = browserHistory.getCurrentLocation().query
+                .accessToken;
 
-    //         const user = yield authRepository.twitter_authenticate(
-    //             accessToken,
-    //             ''
-    //         );
+            const user = yield authRepository.twitter_authenticate(
+                accessToken,
+                ''
+            );
 
-    //         yield put(appActions.fetchDataEnd());
+            yield put(appActions.fetchDataEnd());
 
-    //         if (!!user) {
-    //             const current_user = yield select(state =>
-    //                 authActions.getCurrentUser(state)
-    //             );
-    //             if (
-    //                 current_user.username != user.username ||
-    //                 current_user.id != user.id
-    //             ) {
-    //                 throw new ClientError({
-    //                     error: new Error('username is_not_correct'),
-    //                     tt_key: 'errors.is_not_correct',
-    //                     tt_params: { data: 'g.login' },
-    //                 });
-    //             }
-    //             yield put(authActions.hideConfirmLoginForDeleteModal());
-    //             yield put(userActions.deleteUser({ user }));
-    //             yield put(authActions.logout());
-    //             browserHistory.push(homeIndexRoute.path);
-    //         }
-    //     } catch (e) {
-    //         yield put(appActions.addError({ error: e }));
-    //     }
-    //     yield put(appActions.fetchDataEnd());
-    // }
+            if (!!user) {
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (
+                    current_user.username != user.username ||
+                    current_user.id != user.id
+                ) {
+                    throw new ClientError({
+                        error: new Error('username is_not_correct'),
+                        tt_key: 'errors.is_not_correct',
+                        tt_params: { data: 'g.login' },
+                    });
+                }
+                yield put(authActions.hideConfirmLoginForDeleteModal());
+                yield put(userActions.deleteUser({ user }));
+                yield put(authActions.logout());
+                browserHistory.push(homeIndexRoute.path);
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
 
     *syncCurrentUser({ payload }) {
         const synced = yield select(state => state.auth.get('synced'));

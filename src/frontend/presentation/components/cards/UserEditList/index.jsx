@@ -43,8 +43,8 @@ class UserEditList extends React.Component {
             this.props.logout();
             return;
         }
-        // if (item == SETTING_MENU.Delete)
-        //     this.props.showConfirmLoginForDeleteModal();
+        if (item == SETTING_MENU.Delete)
+            this.props.showConfirmLoginForDeleteModal();
     }
 
     render() {
@@ -86,5 +86,7 @@ export default connect(
 
     dispatch => ({
         logout: () => dispatch(authActions.logout()),
+        showConfirmLoginForDeleteModal: () =>
+            dispatch(authActions.showConfirmLoginForDeleteModal()),
     })
 )(UserEditList);
