@@ -137,6 +137,13 @@ export default class AuthUseCase extends UseCaseImpl {
             const accessToken = browserHistory.getCurrentLocation().query
                 .accessToken;
 
+            yield put(
+                sessionActions.generateAccessToken({
+                    accessToken,
+                    isOneTime: true,
+                })
+            );
+
             const user = yield authRepository.twitter_authenticate(
                 accessToken,
                 ''
