@@ -30,6 +30,19 @@ export default class AuthDataStore extends DataStoreImpl {
             profile.id
         }${profile.username}`;
 
+        const withdrawal = await models.Withdrawal.findOne({
+            where: {
+                twitter_id: profile.id,
+                twitter_username: profile.username,
+            },
+        });
+
+        if (withdrawal)
+            return {
+                user: null,
+                identity: null,
+            };
+
         const user = await models.User.create({
             username: uuidv4(),
             nickname: profile.displayName,
@@ -111,6 +124,19 @@ export default class AuthDataStore extends DataStoreImpl {
     }
 
     async create_by_twitter_profile({ profile }) {
+        const withdrawal = await models.Withdrawal.findOne({
+            where: {
+                twitter_id: profile.id,
+                twitter_username: profile.screen_name,
+            },
+        });
+
+        if (withdrawal)
+            return {
+                user: null,
+                identity: null,
+            };
+
         const user = await models.User.create({
             username: uuidv4(),
             nickname: profile.name,
@@ -209,6 +235,22 @@ export default class AuthDataStore extends DataStoreImpl {
             email = `${profile.provider.slice(0, data_config.provider_limit)}${
                 profile.id
             }${profile.username}`;
+        }
+
+        const withdrawal = await models.Withdrawal.findOne({
+            where: {
+                twitter_id: profile.id,
+                twitter_username: profile.screen_name,
+            },
+        });
+
+        if (withdrawal) {
+            await models.Withdrawal.destroy({
+                where: {
+                    twitter_id: profile.id,
+                    twitter_username: profile.screen_name,
+                },
+            });
         }
 
         const user = await models.User.create({
@@ -540,7 +582,7 @@ export default class AuthDataStore extends DataStoreImpl {
 
         if (!twitter_followers) return;
 
-        const followers = await Promise.all(
+        let followers = await Promise.all(
             twitter_followers.users.map(profile =>
                 this.find_or_create_by_twitter_profile({ profile })
             )
@@ -561,6 +603,10 @@ export default class AuthDataStore extends DataStoreImpl {
                 return { user: val };
             });
         });
+
+        followers = followers.filter(
+            val => !!val && !!val.user && val.identity
+        );
 
         await Promise.all(
             followers.map(val =>

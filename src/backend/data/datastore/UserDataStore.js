@@ -220,4 +220,31 @@ export default class UserDataStore extends DataStoreImpl {
 
         return users;
     }
+
+    async deleteUser({ user }) {
+        if (!user) return;
+
+        const withdrawal = await models.Withdrawal.create({
+            twitter_username: user.twitter_username,
+            twitter_id: user.twitter_id,
+            valid: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        const result = await models.User.destroy({
+            where: {
+                username: user.username,
+                id: Number(user.id),
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+    }
 }

@@ -77,10 +77,10 @@ export default class UserRepository extends RepositoryImpl {
     }
 
     async deleteUser(user) {
-        // const data = await super.apiCall('/api/v1/user/delete', {
-        //     user,
-        // });
-        // return data;
+        const data = await super.apiCall('/api/v1/user/delete', {
+            user,
+        });
+        return data;
     }
 
     async getHeadings({ id, username, offset, limit, isMyAccount = false }) {

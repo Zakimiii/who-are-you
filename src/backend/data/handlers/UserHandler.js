@@ -166,6 +166,26 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleDeleteUserRequest(router, ctx, next) {
+        const { user } = router.request.body;
+
+        // await apiSyncUserValidates
+        //     .isValid({
+        //         user,
+        //     })
+        //     .catch(e => {
+        //         throw e;
+        //     });
+
+        const result = await userDataStore.deleteUser({ user }).catch(e => {
+            throw new Error(e);
+        });
+
+        router.body = {
+            success: true,
+        };
+    }
+
     async handleGetUserFollowerRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 
