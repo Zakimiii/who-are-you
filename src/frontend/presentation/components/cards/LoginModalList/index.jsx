@@ -8,6 +8,7 @@ import autobind from 'class-autobind';
 import tt from 'counterpart';
 import Img from 'react-image';
 import TwitterButton from '@elements/TwitterButton';
+import CheckLaws from '@elements/CheckLaws';
 
 class LoginModalList extends React.Component {
     static propTypes = {};
@@ -50,6 +51,9 @@ class LoginModalList extends React.Component {
                 {logo}
                 {desc}
                 {buttons}
+                <div className="login-modal-list__check">
+                    <CheckLaws />
+                </div>
             </div>
         );
     }

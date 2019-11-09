@@ -23,7 +23,10 @@ class TabPager extends React.Component {
 
     constructor(props) {
         super(props);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'TabPager');
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'コンポーネントのクラス名'
+        );
         this.onClickItem = (e, key) => {
             const { onClick } = props;
             let { selected_list } = this.state;

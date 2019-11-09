@@ -9,6 +9,7 @@ import tt from 'counterpart';
 import TipsBackground from '@modules/TipsBackground';
 import TwitterButton from '@elements/TwitterButton';
 import Img from 'react-image';
+import CheckLaws from '@elements/CheckLaws';
 
 class HomeList extends React.Component {
     static propTypes = {};
@@ -42,6 +43,9 @@ class HomeList extends React.Component {
                     <div className="home-list__top-desc">{tt('apps.home')}</div>
                     <div className="home-list__top-button">
                         <TwitterButton />
+                    </div>
+                    <div className="home-list__top-check">
+                        <CheckLaws />
                     </div>
                     <Img
                         className="home-list__top__back-logo"

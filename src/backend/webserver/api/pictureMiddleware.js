@@ -42,7 +42,7 @@ const getBase64ImageBuffer = async (base64, id, foldername) => {
             `${id % data_config.picture_save_limit}`,
             async (err, filepath) => {
                 if (err) reject(err);
-                var buffer = fs.readFileSync(filepath);
+                const buffer = fs.readFileSync(filepath);
                 resolve(buffer);
             }
         );
@@ -66,6 +66,17 @@ export default function PictureMiddleware(app) {
                 id,
             },
         });
+
+        if (!heading || !heading.picture || heading.picture != '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
         this.type = 'image/png';
         this.response.type = 'image/png';
         this.response.length = heading.picture.toString().length;
@@ -85,6 +96,16 @@ export default function PictureMiddleware(app) {
                 id,
             },
         });
+
+        if (!answer || !answer.picture || answer.picture != '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
 
         this.type = 'image/png';
         this.response.type = 'image/png';

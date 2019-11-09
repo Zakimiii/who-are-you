@@ -80,6 +80,17 @@
         height: 44px;
       };
     }
+    &-check {
+      width: 640px;
+      margin: 0 auto;
+      margin-top: 24px;
+      @include mq-down(md) {
+        width: 75%;
+      };
+      @include themify($themes) {
+        background: themed('backgroundClear');
+      }
+    }
     &__back-logo {
       position: absolute;
       top: calc(50% - 400px);
