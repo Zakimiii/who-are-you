@@ -103,6 +103,7 @@ const shot_picture_ysize = 600;
 const picture_save_limit = 100;
 
 const default_user_image = '/images/default_profile_image.png';
+const default_opg_image = '/images/brands/ogp-logo.png';
 
 module.exports = {
     fetch_data_limit,
@@ -137,4 +138,5 @@ module.exports = {
     answer_body_min_limit,
     answer_body_max_limit,
     default_user_image,
+    default_opg_image,
 };
