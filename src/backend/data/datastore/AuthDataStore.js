@@ -240,7 +240,7 @@ export default class AuthDataStore extends DataStoreImpl {
         const withdrawal = await models.Withdrawal.findOne({
             where: {
                 twitter_id: profile.id,
-                twitter_username: profile.screen_name,
+                twitter_username: profile.username,
             },
         });
 
@@ -248,7 +248,7 @@ export default class AuthDataStore extends DataStoreImpl {
             await models.Withdrawal.destroy({
                 where: {
                     twitter_id: profile.id,
-                    twitter_username: profile.screen_name,
+                    twitter_username: profile.username,
                 },
             });
         }
