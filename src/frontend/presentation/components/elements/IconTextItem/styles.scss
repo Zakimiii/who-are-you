@@ -41,14 +41,23 @@
       @include themify($themes) {
         color: themed('subThick2');
       }
+      padding-bottom: 8px;
+      @include mq-down(fm) {
+        @include FS(S);
+      };
     }
     &-text {
       text-align: left;
+      word-wrap: break-word;
+      white-space: pre-wrap;
       @include FS(S);
       @include FM(R);
       @include themify($themes) {
         color: themed('backgroundThick');
       }
+      @include mq-down(fm) {
+        @include FS(FS);
+      };
     }
   }
 }

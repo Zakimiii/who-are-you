@@ -63,7 +63,7 @@ class HomeList extends React.Component {
                 <div className="home-list__welcome">
                     <WelcomeList />
                 </div>
-                {/*<ScrollNavigator/>*/}
+                <ScrollNavigator />
             </div>
         );
     }

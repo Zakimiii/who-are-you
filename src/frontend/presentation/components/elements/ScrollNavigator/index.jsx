@@ -49,11 +49,15 @@ class ScrollNavigator extends React.Component {
 
         return (
             <div
-                className={classNames('scroll-navigator', 'faster', {
-                    zoomIn: !!top,
-                    zoomOut: !top,
-                    animated: !top,
-                })}
+                className={classNames(
+                    'scroll-navigator',
+                    'faster',
+                    'fade-in--1',
+                    {
+                        zoomOut: !top,
+                        // animated: !top,
+                    }
+                )}
             >
                 <Icon
                     className="scroll-navigator__icon"

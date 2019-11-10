@@ -181,12 +181,12 @@ export function isScrollStart() {
         d = document,
         e = d.documentElement,
         g = d.body;
-    if (!g) return false;
-    d = d.clientHeight ? d : g;
-    return d.scrollTop == 0;
+    // if (!g) return false;
+    // d = d.clientHeight ? d : g;
+    return window.pageYOffset == 0;
 }
 
-export function isScrollEndByStart(classname) {
+export function isScrollStartByClass(classname) {
     if (!process.env.BROWSER) return false;
     var w = window,
         d = document,

@@ -10,6 +10,7 @@ import Img from 'react-image';
 import Gallery from '@modules/Gallery';
 import TwitterButton from '@elements/TwitterButton';
 import IconTextItem from '@elements/IconTextItem';
+import Responsible from '@modules/Responsible';
 
 class WelcomeList extends React.Component {
     static propTypes = {};
@@ -44,9 +45,20 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__lighting-title">
                     {tt('g.about')}
                 </div>
-                <Img
-                    className="welcome-list__lighting-image"
-                    src={'/images/screen_shot_heading.png'}
+                <Responsible
+                    defaultContent={
+                        <Img
+                            className="welcome-list__lighting-image"
+                            src={'/images/screen_shot_heading.png'}
+                        />
+                    }
+                    breakingContent={
+                        <Img
+                            className="welcome-list__lighting-image"
+                            src={'/images/screen_shot_heading-sm.png'}
+                        />
+                    }
+                    breakSm={true}
                 />
             </div>
         );
@@ -60,28 +72,28 @@ class WelcomeList extends React.Component {
                     <div className="welcome-list__ways-item">
                         <IconTextItem
                             src={'tip'}
-                            text={tt('g.way1_title')}
-                            title={tt('g.way1_desc')}
+                            text={tt('g.way1_desc')}
+                            title={tt('g.way1_title')}
                         />
                     </div>
                     <div className="welcome-list__ways-item">
                         <IconTextItem
                             src={'introduce'}
-                            text={tt('g.way2_title')}
-                            title={tt('g.way2_desc')}
+                            text={tt('g.way2_desc')}
+                            title={tt('g.way2_title')}
                         />
                     </div>
                     <div className="welcome-list__ways-item">
                         <IconTextItem
                             src={'tell'}
-                            text={tt('g.way3_title')}
-                            title={tt('g.way3_desc')}
+                            text={tt('g.way3_desc')}
+                            title={tt('g.way3_title')}
                         />
                     </div>
                     <div className="welcome-list__ways-item">
                         <IconTextItem
-                            text={tt('g.way4_title')}
-                            title={tt('g.way4_desc')}
+                            text={tt('g.way4_desc')}
+                            title={tt('g.way4_title')}
                         />
                     </div>
                 </Gallery>
