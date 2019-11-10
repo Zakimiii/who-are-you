@@ -145,6 +145,12 @@ export const cmpTestRoute = new RouteEntity({
     component: require('@components/pages/CmpTest'),
 });
 
+export const welcomeRoute = new RouteEntity({
+    path: '/welcome',
+    page: 'Welcome',
+    component: require('@components/pages/Welcome'),
+});
+
 // export const xssRoute = new RouteEntity({
 //     path: '/xss/test',
 //     page: 'XSSTest',
@@ -175,6 +181,7 @@ export const routeEntities = new RouteEntities({
         searchRoute,
         templateIndexRoute,
         cmpTestRoute,
+        welcomeRoute,
     ],
     notfoundRoute,
 });

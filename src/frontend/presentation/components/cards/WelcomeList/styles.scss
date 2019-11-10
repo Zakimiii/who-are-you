@@ -1,0 +1,141 @@
+.welcome-list {
+  padding: 44px 0;
+  &__head {
+    &-logo {
+      width: 374px;
+      height: 79px;
+      margin: 12px auto;
+      @include mq-down(fm) {
+        width: 255px;
+        height: 51px;
+      };
+      &-image {
+        width: 374px;
+        height: 70px;
+        @include mq-down(fm) {
+          width: 255px;
+          height: 51px;
+        };
+      }
+    }
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 20px auto;
+      width: 70vw;
+      max-width: 600px;
+      @include FS(L);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+      padding-bottom: 44px;
+    }
+  }
+
+  &__lighting {
+    padding-bottom: 64px;
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 12px auto;
+      min-height: 44px;
+      width: 70vw;
+      // width: calc(100% - 44px);
+      @include FS(M);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+      @include mq-down(fm) {
+        @include FS(FM);
+      };
+    }
+    &-image {
+      display: block;
+      text-align: center;
+      width: 840px;
+      height: 450px;
+      margin: 24px auto;
+      border-radius: 5px;
+      @include themify($themes) {
+        box-shadow: 0px 0px 3px 3px themed('shadow');
+      }
+    }
+  }
+
+  &__ways {
+    @include themify($themes) {
+      background: themed('backgroundLight');
+    }
+    padding: 44px 0;
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 12px auto;
+      min-height: 44px;
+      width: 70vw;
+      // width: calc(100% - 44px);
+      @include FS(M);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+      @include mq-down(fm) {
+        @include FS(FM);
+      };
+    }
+    &-items {
+      width: 75vw;
+      // width: calc(100% - 88px);
+      margin: 12px auto;
+    }
+    &-item {
+      width: calc(48% - 8px);
+      margin : 4px;
+      min-height: 44px;
+    }
+  }
+
+  &__finally {
+    width: 60%;
+    margin: 120px auto;
+    @include mq-down(md) {
+      margin: 44px auto;
+    };
+    padding-bottom: 35vh;
+    @include mq-down(md) {
+      width: 90%;
+    };
+    margin-bottom: 0;
+    &-image {
+      display: block;
+      margin: 0 auto;
+      width: 374px;
+      height: 70px;
+      @include mq-down(fm) {
+        width: 255px;
+        height: 51px;
+      };
+    }
+    &-desc {
+      @include FS(M);
+      @include FM(B);
+      margin: 64px;
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+      @include mq-down(md) {
+        @include FS(FM);
+        margin: 44px 24px;
+      };
+      text-align: center;
+      word-wrap: break-word;
+    }
+    &-button {
+      height: 50px;
+      width: 90%;
+      margin: 24px auto;
+    }
+  }
+}

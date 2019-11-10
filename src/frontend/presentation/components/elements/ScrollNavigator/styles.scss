@@ -1,0 +1,15 @@
+.scroll-navigator {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 44px;
+  @include themify($themes) {
+    background: themed('backgroundClear');
+  }
+  &__icon {
+    display: block !important;
+    margin: 8px auto;
+    transform: rotate(90deg);
+  }
+}

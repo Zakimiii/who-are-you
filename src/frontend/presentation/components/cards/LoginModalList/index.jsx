@@ -41,8 +41,6 @@ class LoginModalList extends React.Component {
                 return 'user/delete/confirm';
         };
 
-        console.log(modalPath());
-
         const logo = (
             <div className="login-modal-list__logo">
                 <Img

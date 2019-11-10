@@ -10,6 +10,8 @@ import TipsBackground from '@modules/TipsBackground';
 import TwitterButton from '@elements/TwitterButton';
 import Img from 'react-image';
 import CheckLaws from '@elements/CheckLaws';
+import WelcomeList from '@cards/WelcomeList';
+import ScrollNavigator from '@elements/ScrollNavigator';
 
 class HomeList extends React.Component {
     static propTypes = {};
@@ -55,7 +57,15 @@ class HomeList extends React.Component {
             </TipsBackground>
         );
 
-        return <div className="home-list">{top}</div>;
+        return (
+            <div className="home-list">
+                {top}
+                <div className="home-list__welcome">
+                    <WelcomeList />
+                </div>
+                {/*<ScrollNavigator/>*/}
+            </div>
+        );
     }
 }
 

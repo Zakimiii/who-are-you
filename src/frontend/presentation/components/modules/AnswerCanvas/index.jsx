@@ -113,9 +113,12 @@ class AnswerCanvas extends React.Component {
                 <div className="answer-canvas">
                     <div className="answer-canvas__user">
                         <div className="answer-canvas__user-title">
-                            {tt('g.of', {
+                            {
+                                repository.Heading.User
+                                    .nickname /*tt('g.of', {
                                 data: repository.Heading.User.nickname,
-                            })}
+                            })*/
+                            }
                         </div>
                     </div>
                     <div className="answer-canvas__title">
