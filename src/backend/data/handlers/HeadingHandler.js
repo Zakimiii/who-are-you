@@ -33,6 +33,7 @@ export default class HeadingHandler extends HandlerImpl {
     }
 
     async postTweet(heading) {
+        if (process.env.NODE_ENV == 'development') return true;
         if (!heading) return false;
 
         const user = await models.User.findOne({

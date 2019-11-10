@@ -86,10 +86,9 @@ class HeadingCanvas extends React.Component {
                     <div className="heading-canvas__container">
                         <div className="heading-canvas__user">
                             <div className="heading-canvas__user-title">
-                                {
-                                    repository.User
-                                        .nickname /*tt('g.of', { data: repository.User.nickname })*/
-                                }
+                                {tt('g.of', {
+                                    data: repository.User.nickname,
+                                }) + '　'}
                             </div>
                         </div>
                         <div className="heading-canvas__title">

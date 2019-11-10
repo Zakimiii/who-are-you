@@ -67,7 +67,7 @@ export default function PictureMiddleware(app) {
             },
         });
 
-        if (!heading || !heading.picture || heading.picture != '') {
+        if (!heading || !heading.picture || heading.picture == '') {
             const buffer = fs.readFileSync(
                 resolveAssetsPath(data_config.default_opg_image)
             );
@@ -97,7 +97,7 @@ export default function PictureMiddleware(app) {
             },
         });
 
-        if (!answer || !answer.picture || answer.picture != '') {
+        if (!answer || !answer.picture || answer.picture == '') {
             const buffer = fs.readFileSync(
                 resolveAssetsPath(data_config.default_opg_image)
             );
