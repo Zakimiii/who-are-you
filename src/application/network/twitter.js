@@ -50,6 +50,13 @@ export default class TwitterHandler {
             id
         )}`;
 
+    static getInviteUrl = ({ id }) =>
+        `https://twitter.com/intent/tweet?url=${
+            config.CURRENT_APP_URL
+        }&hashtags=whoareyou,自己紹介,友達紹介&text=${data_config.invite_text(
+            id
+        )}`;
+
     static fix_image_name = str => str.replace('_normal.', '_400x400.');
 
     static fix_banner_name = str => str + '/1500x500';

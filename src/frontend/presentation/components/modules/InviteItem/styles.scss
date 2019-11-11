@@ -1,0 +1,42 @@
+.invite-item {
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+  &__title {
+    text-align: center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+    };
+  }
+  &__text {
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    @include FS(FM);
+    @include LH(FM);
+    @include FM(FB);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+    }
+    @include mq-down(fm) {
+      @include FS(S);
+      @include LH(S);
+    };
+  }
+  &__button {
+    height: 44px;
+    width: calc(100% - 44px);
+    margin: 12px auto;
+  }
+}

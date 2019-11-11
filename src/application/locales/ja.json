@@ -11,6 +11,10 @@
         "contact": "お問い合わせ",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
+        "invite": "招待する",
+        "invite_title": "まだ未登録のユーザーです",
+        "invite_text":
+            "魅力的な自己紹介ページがみんなで遊びながら作れる\n「who are you?」に招待してみませんか？",
         "go_twitter": "Twitterで確認する",
         "login": "ログイン",
         "logout": "ログアウト",

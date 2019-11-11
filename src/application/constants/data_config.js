@@ -70,6 +70,11 @@ const post_template = (id, pathname) =>
 const post_text = id =>
     `【@${id}%20さんの紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
 
+const invite_text = id =>
+    `【@${
+        id
+    }%20さんも参加しませんか？】%0awho are you?を一緒に始めて、自分のプロフィールを遊びながら作成し、理解のある友達の輪を広げましょう！%0a%0a`;
+
 const username_min_limit = 0;
 const username_max_limit = 45;
 const small_picture_size = 256; //px
@@ -133,6 +138,7 @@ module.exports = {
     picture_save_limit,
     post_template,
     post_text,
+    invite_text,
     heading_body_min_limit,
     heading_body_max_limit,
     answer_body_min_limit,

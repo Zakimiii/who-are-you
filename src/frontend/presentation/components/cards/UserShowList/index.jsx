@@ -22,6 +22,7 @@ import { homeRoute, userShowRoute } from '@infrastructure/RouteInitialize';
 import TemplateItem from '@modules/TemplateItem';
 import Gallery from '@modules/Gallery';
 import { List } from 'immutable';
+import InviteItem from '@modules/InviteItem';
 
 class UserShowList extends React.Component {
     static propTypes = {
@@ -161,20 +162,32 @@ class UserShowList extends React.Component {
                 <div className="user-show-list__header">
                     <UserShowHeader repository={repository} />
                 </div>
-                <div className="user-show-list__heading-new">
-                    <HeadingNewSection repository={repository} />
-                </div>
-                <div id="#pager" />
-                {repository && (
-                    <SectionHeader>
-                        <div className="user-show-list__pager">
-                            <div className="user-show-list__pager-body">
-                                <TabPager repositories={pages} />
-                            </div>
+                {repository &&
+                    !Number.prototype.castBool(repository.verified) && (
+                        <div className="user-show-list__heading-new">
+                            <InviteItem repository={repository} />
                         </div>
-                    </SectionHeader>
-                )}
-                {body}
+                    )}
+                {repository &&
+                    Number.prototype.castBool(repository.verified) && (
+                        <div className="user-show-list__heading-new">
+                            <HeadingNewSection repository={repository} />
+                        </div>
+                    )}
+                <div id="#pager" />
+                {repository &&
+                    Number.prototype.castBool(repository.verified) && (
+                        <SectionHeader>
+                            <div className="user-show-list__pager">
+                                <div className="user-show-list__pager-body">
+                                    <TabPager repositories={pages} />
+                                </div>
+                            </div>
+                        </SectionHeader>
+                    )}
+                {repository &&
+                    Number.prototype.castBool(repository.verified) &&
+                    body}
             </div>
         );
     }
