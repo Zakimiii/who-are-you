@@ -10,6 +10,7 @@ import Img from 'react-image';
 import TwitterButton from '@elements/TwitterButton';
 import CheckLaws from '@elements/CheckLaws';
 import { confirmForDeleteRoute } from '@infrastructure/RouteInitialize';
+import data_config from '@constants/data_config';
 
 class LoginModalList extends React.Component {
     static propTypes = {
@@ -45,7 +46,7 @@ class LoginModalList extends React.Component {
             <div className="login-modal-list__logo">
                 <Img
                     className="login-modal-list__logo-image"
-                    src={'/images/brands/who_are_you.png'}
+                    src={data_config.logo_image}
                 />
             </div>
         );

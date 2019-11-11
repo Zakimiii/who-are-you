@@ -28,7 +28,7 @@ class Home extends React.Component {
 
         if (location.query.success_key) {
             addSuccess(tt(location.query.success_key));
-            Home.pushURLState('Who are you?');
+            Home.pushURLState('who are you?');
         }
     }
 

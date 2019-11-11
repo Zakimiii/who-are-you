@@ -11,6 +11,7 @@ import Gallery from '@modules/Gallery';
 import TwitterButton from '@elements/TwitterButton';
 import IconTextItem from '@elements/IconTextItem';
 import Responsible from '@modules/Responsible';
+import data_config from '@constants/data_config';
 
 class WelcomeList extends React.Component {
     static propTypes = {};
@@ -31,7 +32,7 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__head-logo">
                     <Img
                         className="welcome-list__head-logo-image"
-                        src={'/images/brands/who_are_you.png'}
+                        src={data_config.logo_image}
                     />
                 </div>
                 <div className="welcome-list__head-title">
@@ -104,7 +105,7 @@ class WelcomeList extends React.Component {
             <div className="welcome-list__finally">
                 <Img
                     className="welcome-list__finally-image"
-                    src={'/images/brands/who_are_you.png'}
+                    src={data_config.logo_image}
                 />
                 <div className="welcome-list__finally-desc">
                     {tt('g.welcome_desc')}

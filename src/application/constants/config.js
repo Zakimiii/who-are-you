@@ -1,7 +1,7 @@
 import env from '@env/env.json';
 
-export const APP_NAME = 'Who are you?';
-export const APP_NAME_LATIN = 'Who are you?';
+export const APP_NAME = 'who are you?';
+export const APP_NAME_LATIN = 'who are you?';
 export const APP_NAME_UPPERCASE = 'WHO ARE YOU?';
 export const APP_ICON = 'who are you';
 export const HOST_NAME = 'who are you';

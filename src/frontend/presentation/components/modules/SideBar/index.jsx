@@ -64,7 +64,7 @@ class SideBar extends React.Component {
                 <div className="side-bar__logo">
                     <Img
                         className="side-bar__logo-image"
-                        src={'/images/brands/gray-logo.png'}
+                        src={'/images/brands/app-gray-logo.png'}
                     />
                 </div>
             </div>

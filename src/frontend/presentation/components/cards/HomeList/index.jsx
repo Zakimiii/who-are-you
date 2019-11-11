@@ -12,6 +12,7 @@ import Img from 'react-image';
 import CheckLaws from '@elements/CheckLaws';
 import WelcomeList from '@cards/WelcomeList';
 import ScrollNavigator from '@elements/ScrollNavigator';
+import data_config from '@constants/data_config';
 
 class HomeList extends React.Component {
     static propTypes = {};
@@ -39,7 +40,7 @@ class HomeList extends React.Component {
                     <div className="home-list__top-logo">
                         <Img
                             className="home-list__top-logo-image"
-                            src={'/images/brands/who_are_you.png'}
+                            src={data_config.logo_image}
                         />
                     </div>
                     <div className="home-list__top-desc">{tt('apps.home')}</div>

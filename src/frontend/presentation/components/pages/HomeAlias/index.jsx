@@ -26,7 +26,7 @@ class HomeAlias extends React.Component {
 
         if (location.query.success_key) {
             addSuccess(tt(location.query.success_key));
-            HomeAlias.pushURLState('Who are you?');
+            HomeAlias.pushURLState('who are you?');
         }
     }
 

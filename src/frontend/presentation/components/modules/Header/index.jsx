@@ -26,6 +26,7 @@ import {
     headingCanvasTestRoute,
     answerCanvasTestRoute,
 } from '@infrastructure/RouteInitialize';
+import data_config from '@constants/data_config';
 
 class Header extends React.Component {
     static propTypes = {
@@ -178,7 +179,7 @@ class Header extends React.Component {
                 >
                     <Img
                         className="Header__logo"
-                        src="/images/brands/who_are_you.png"
+                        src={data_config.logo_image}
                         alt={tt('alts.default')}
                     />
                 </Link>
