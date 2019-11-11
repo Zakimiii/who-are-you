@@ -127,7 +127,7 @@ export default class AnswerDataStore extends DataStoreImpl {
         if (answer.picture) {
             answer.picture = await this.bcomposite_from_base64({
                 base64: answer.picture,
-                bsrc: this.resolveAssetsPath('images/brands/ogp-back'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
@@ -145,7 +145,7 @@ export default class AnswerDataStore extends DataStoreImpl {
         if (answer.picture) {
             answer.picture = await this.bcomposite_from_base64({
                 base64: answer.picture,
-                bsrc: this.resolveAssetsPath('images/brands/ogp-back'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,

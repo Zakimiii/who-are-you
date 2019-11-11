@@ -142,7 +142,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (heading.picture) {
             heading.picture = await this.bcomposite_from_base64({
                 base64: heading.picture,
-                bsrc: this.resolveAssetsPath('images/brands/ogp-back'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
@@ -159,7 +159,7 @@ export default class HeadingDataStore extends DataStoreImpl {
         if (heading.picture) {
             heading.picture = await this.bcomposite_from_base64({
                 base64: heading.picture,
-                bsrc: this.resolveAssetsPath('images/brands/ogp-back'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,

@@ -162,7 +162,7 @@ export default class HeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back',
+                    // bcomposite_src: '/images/brands/ogp-back.png',
                 });
             }
             const data = yield headingRepository.create(heading);
@@ -210,7 +210,7 @@ export default class HeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back',
+                    // bcomposite_src: '/images/brands/ogp-back.png',
                 });
             }
             const data = yield headingRepository.update(heading);

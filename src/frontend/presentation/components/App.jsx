@@ -191,6 +191,39 @@ class App extends Component {
                 .getElementsByName('twitter:image')[0]
                 .setAttribute('content', obj.image);
         }
+
+        if (!document.getElementsByName('og:title')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:title');
+            meta.setAttribute('content', obj.title);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:title')[0]
+                .setAttribute('content', obj.title);
+        }
+
+        if (!document.getElementsByName('og:description')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:description');
+            meta.setAttribute('content', obj.description);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:description')[0]
+                .setAttribute('content', obj.description);
+        }
+
+        if (!document.getElementsByName('og:image')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:image');
+            meta.setAttribute('content', obj.image);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:image')[0]
+                .setAttribute('content', obj.image);
+        }
     }
 
     render() {

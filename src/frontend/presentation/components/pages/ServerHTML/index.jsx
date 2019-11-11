@@ -130,6 +130,15 @@ export default class ServerHTML extends React.Component {
                         name="description"
                         content={tt('descriptions.Home')}
                     />
+
+                    <meta name="og:title" content={tt('pages.Home')} />
+                    <meta
+                        name="og:description"
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta name="og:image" content={getPageImage(pathname)} />
+                    <meta property="og:url" content={config.CURRENT_APP_URL} />
+
                     <meta name="twitter:title" content={tt('pages.Home')} />
                     <meta
                         name="twitter:description"
