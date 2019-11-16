@@ -238,7 +238,7 @@ export default class AuthHandler extends HandlerImpl {
         const { oauth_token, linkToken } = router.query;
 
         if (!profile) {
-            router.redirect('/login');
+            router.redirect(`/login/line/${linkToken}/confirm/`);
             return;
         }
 

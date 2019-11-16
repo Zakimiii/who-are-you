@@ -127,7 +127,7 @@ export default class LineHandler {
             });
         }
 
-        const linkToken = decoded;
+        const linkToken = decoded.linkToken;
 
         console.log('accont link 来たよ！', linkToken, line_user_id);
 
