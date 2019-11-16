@@ -112,7 +112,7 @@ export default class LineHandler {
 
     static handleAccountLink = async events => {
         const event = events[0];
-        if (event.type != 'accontLink') return;
+        if (event.type != 'accountLink') return;
 
         const line_user_id = event.source.type == 'user' && event.source.userId;
         const nonce = event.link.result == 'ok' && event.link.nonce;
