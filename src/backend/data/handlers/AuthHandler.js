@@ -235,8 +235,7 @@ export default class AuthHandler extends HandlerImpl {
 
     async handleTwitterLineLinkAuthenticateRequest(router, req, res, next) {
         const { profile } = res;
-        const { oauth_token } = router.query;
-        const { linkToken } = router.params;
+        const { oauth_token, linkToken } = router.query;
 
         if (!profile) {
             router.redirect('/login');

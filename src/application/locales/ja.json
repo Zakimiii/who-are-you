@@ -17,6 +17,7 @@
             "魅力的な自己紹介ページがみんなで遊びながら作れる\n「who are you?」に招待してみませんか？",
         "go_twitter": "Twitterで確認する",
         "login": "ログイン",
+        "login_line": "LINE連携のための確認ログイン",
         "logout": "ログアウト",
         "of": "%(data)sの",
         "password": "パスワード",

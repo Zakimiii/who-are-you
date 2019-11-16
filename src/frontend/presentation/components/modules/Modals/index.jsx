@@ -15,6 +15,7 @@ import AnswerNew from '@pages/AnswerNew';
 import HeadingNew from '@pages/HeadingNew';
 import SideBarModal from '@pages/SideBarModal';
 import LoginModalForDelete from '@pages/LoginModalForDelete';
+import LoginModalForLineLink from '@pages/LoginModalForLineLink';
 
 class Modals extends React.Component {
     static defaultProps = {
@@ -24,6 +25,7 @@ class Modals extends React.Component {
         show_new_answer_modal: false,
         show_side_bar_modal: false,
         show_confirm_login_for_delete_modal: false,
+        show_confirm_login_for_line_link_modal: false,
     };
 
     static propTypes = {
@@ -33,11 +35,13 @@ class Modals extends React.Component {
         show_new_answer_modal: PropTypes.bool,
         show_side_bar_modal: PropTypes.bool,
         show_confirm_login_for_delete_modal: PropTypes.bool,
+        show_confirm_login_for_line_link_modal: PropTypes.bool,
         hideLogin: PropTypes.func.isRequired,
         hideNewHeading: PropTypes.func.isRequired,
         hideNewAnswer: PropTypes.func.isRequired,
         hideSideBarModal: PropTypes.func.isRequired,
         hideConfirmLoginForDeleteModal: PropTypes.func.isRequired,
+        hideConfirmLoginForLineLinkModal: PropTypes.func.isRequired,
     };
 
     constructor() {
@@ -59,6 +63,8 @@ class Modals extends React.Component {
             hideSideBarModal,
             show_confirm_login_for_delete_modal,
             hideConfirmLoginForDeleteModal,
+            show_confirm_login_for_line_link_modal,
+            hideConfirmLoginForLineLinkModal,
         } = this.props;
 
         const themeClass = nightmodeEnabled ? ' theme-dark' : ' theme-original';
@@ -101,6 +107,16 @@ class Modals extends React.Component {
                         />
                     </Reveal>
                 )}
+                {show_confirm_login_for_line_link_modal && (
+                    <Reveal
+                        onHide={hideConfirmLoginForLineLinkModal}
+                        show={show_confirm_login_for_line_link_modal}
+                    >
+                        <LoginModalForLineLink
+                            onCancel={hideConfirmLoginForLineLinkModal}
+                        />
+                    </Reveal>
+                )}
             </div>
         );
     }
@@ -119,6 +135,9 @@ export default connect(
             show_side_bar_modal: state.app.get('show_side_bar_modal'),
             show_confirm_login_for_delete_modal: state.auth.get(
                 'show_confirm_login_for_delete_modal'
+            ),
+            show_confirm_login_for_line_link_modal: state.auth.get(
+                'show_confirm_login_for_line_link_modal'
             ),
         };
     },
@@ -142,6 +161,10 @@ export default connect(
         hideConfirmLoginForDeleteModal: e => {
             if (e) e.preventDefault();
             dispatch(authActions.hideConfirmLoginForDeleteModal());
+        },
+        hideConfirmLoginForLineLinkModal: e => {
+            if (e) e.preventDefault();
+            dispatch(authActions.hideConfirmLoginForLineLinkModal());
         },
     })
 )(Modals);

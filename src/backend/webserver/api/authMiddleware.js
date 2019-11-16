@@ -105,7 +105,7 @@ export default function AuthMiddleware(app) {
         });
     });
 
-    router.get('/twitter/line/:linkToken/confirm/callback', koaBody, function*(
+    router.get('/twitter/line/link/confirm/callback', koaBody, function*(
         ctx,
         next
     ) {

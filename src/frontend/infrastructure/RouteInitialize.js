@@ -109,6 +109,12 @@ export const confirmForDeleteRoute = new RouteEntity({
     component: require('@components/pages/LoginModalForDeleteAlias'),
 });
 
+export const confirmForLineLinkRoute = new RouteEntity({
+    path: '/line/:linkToken/confirm',
+    page: 'LoginModalForLineLinkAlias',
+    component: require('@components/pages/LoginModalForLineLinkAlias'),
+});
+
 export const privacyRoute = new RouteEntity({
     path: '/privacy',
     page: 'Privacy',
@@ -172,6 +178,7 @@ export const routeEntities = new RouteEntities({
         answerNewRoute,
         loginRoute,
         confirmForDeleteRoute,
+        confirmForLineLinkRoute,
         headingCanvasTestRoute,
         answerCanvasTestRoute,
         headingShowRoute,
