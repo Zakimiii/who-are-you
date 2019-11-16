@@ -42,7 +42,7 @@ export default class LineHandler {
         return responseData.linkToken;
     };
 
-    static pushAccountLink = async linkToken => {
+    static pushAccountLink = async (linkToken, user_id) => {
         const response = await fetch(
             `https://api.line.me/v2/bot/message/push`,
             {
@@ -53,7 +53,7 @@ export default class LineHandler {
                     Authorization: `Bearer ${env.LINE.ACCESS_TOKEN}`,
                 },
                 body: JSON.stringify({
-                    to: `${env.LINE.USER_ID}`,
+                    to: `${user_id}`,
                     messages: [
                         {
                             type: 'template',
@@ -110,8 +110,7 @@ export default class LineHandler {
         }&nonce=${nonce}`;
     };
 
-    static handleAccountLink = async events => {
-        const event = events[0];
+    static handleAccountLink = async event => {
         if (event.type != 'accountLink') return;
 
         const line_user_id = event.source.type == 'user' && event.source.userId;

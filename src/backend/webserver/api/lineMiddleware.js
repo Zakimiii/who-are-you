@@ -21,18 +21,32 @@ export default function LineMiddleware(app) {
     });
 
     router.post('/webhook', koaBody, function*(ctx, next) {
-        console.log(this.request.body);
         const events = this.request.body.events;
-        console.log(
-            events &&
-                events.map(val => {
-                    return { source: val.source, message: val.message };
-                })
-        );
+        // console.log(this.request.body);
+        // console.log(
+        //     events &&
+        //         events.map(val => {
+        //             return { source: val.source, message: val.message };
+        //         })
+        // );
 
-        LineHandler.handleAccountLink(events);
-        const linkToken = yield LineHandler.getLinkToken();
-        LineHandler.pushAccountLink(linkToken);
+        const results = yield Promise.all(
+            events.map(async event => {
+                await LineHandler.handleAccountLink(event);
+                if (event.source && event.source.type == 'user') {
+                    const identity = await models.Identity.findOne({
+                        where: {
+                            line_id: event.source.userId,
+                        },
+                    });
+
+                    if (identity) return;
+
+                    const linkToken = await LineHandler.getLinkToken();
+                    LineHandler.pushAccountLink(linkToken, event.source.userId);
+                }
+            })
+        );
 
         this.body = {
             success: true,
