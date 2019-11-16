@@ -21,11 +21,24 @@ export default function LineMiddleware(app) {
 
     router.post('/webhook', koaBody, function*(ctx, next) {
         console.log(this.request.body);
+
+        const linkToken = yield LineHandler.getLinkToken();
+        pushAccountLink(linkToken);
+
+        this.body = {
+            success: true,
+        };
     });
 
     router.get('/link', koaBody, function*(ctx, next) {
         const { linkToken } = this.params;
         console.log(linkToken, this.request.body);
+
+        LineHandler.redirectEndPointLinkUrl(linkToken);
+
+        this.body = {
+            success: true,
+        };
     });
 
     // router.get('/answer/:id/', koaBody, function*(ctx, next) {
