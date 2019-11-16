@@ -30,6 +30,7 @@ export default function LineMiddleware(app) {
                 })
         );
 
+        LineHandler.handleAccountLink(events);
         const linkToken = yield LineHandler.getLinkToken();
         LineHandler.pushAccountLink(linkToken);
 
@@ -40,11 +41,8 @@ export default function LineMiddleware(app) {
 
     router.get('/link', koaBody, function*(ctx, next) {
         const { linkToken } = this.query;
-        console.log(linkToken, this.request.body);
 
-        const url = yield LineHandler.redirectEndPointLinkUrl(linkToken);
-
-        this.redirect(url);
+        this.redirect(`/login/line/${linkToken}/confirm/`);
 
         this.body = {
             success: true,

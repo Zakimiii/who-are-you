@@ -109,6 +109,43 @@ export default class LineHandler {
             linkToken
         }&nonce=${nonce}`;
     };
+
+    static handleAccountLink = async events => {
+        const event = events[0];
+        if (event.type != 'accontLink') return;
+
+        const line_user_id = event.source.type == 'user' && event.source.userId;
+        const nonce = event.link.result == 'ok' && event.link.nonce;
+
+        const decoded = await jwt.verify(nonce, env.JWT_SECRET);
+
+        if (decoded.type !== 'linkToken') {
+            throw new ApiError({
+                error: new Error('Token is invalid'),
+                tt_key: 'errors.is_not_correct',
+                tt_params: { data: nonce },
+            });
+        }
+
+        const linkToken = decoded;
+
+        console.log('accont link 来たよ！', linkToken, line_user_id);
+
+        //TODO: set line user_id
+        // const identity = await models.Identity.findOne({
+        //     where: {
+        //         linkToken,
+        //     }
+        // });
+
+        // if (!identity) return;
+
+        // const updated = await identity.update({
+        //     line_id: line_user_id,
+        // });
+
+        // return updated;
+    };
 }
 
 // const Line = function () {};

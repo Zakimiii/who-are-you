@@ -9,6 +9,7 @@ import coBody from 'co-body';
 import TwitterHandler from '@network/twitter';
 import FacebookHandler from '@network/facebook';
 import InstagramHandler from '@network/instagram';
+import LineHandler from '@network/line';
 import {
     SessionHandler,
     SearchHandler,
@@ -92,6 +93,31 @@ export default function AuthMiddleware(app) {
             }
             yield authHandler
                 .handleTwitterUserDeleteAuthenticateRequest(
+                    routing,
+                    req,
+                    res,
+                    next
+                )
+                .catch(async e => {
+                    await handleApiError(routing, ctx, next, e);
+                    routing.redirect(`/login?error_key=${e.tt_key}`);
+                });
+        });
+    });
+
+    router.get('/twitter/line/:linkToken/confirm/callback', koaBody, function*(
+        ctx,
+        next
+    ) {
+        const routing = this;
+
+        yield TwitterHandler.callback(function*(req, res, next) {
+            if (!res.profile) {
+                routing.redirect('/login');
+                return;
+            }
+            yield authHandler
+                .handleTwitterLineLinkAuthenticateRequest(
                     routing,
                     req,
                     res,
