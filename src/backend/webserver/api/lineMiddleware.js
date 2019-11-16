@@ -9,6 +9,7 @@ import env from '@env/env.json';
 import coBody from 'co-body';
 import fetch from 'isomorphic-fetch';
 import LineHandler from '@network/line';
+import jwt from 'jsonwebtoken';
 
 export default function LineMiddleware(app) {
     const router = koa_router({ prefix: '/line' });
@@ -21,9 +22,16 @@ export default function LineMiddleware(app) {
 
     router.post('/webhook', koaBody, function*(ctx, next) {
         console.log(this.request.body);
+        const events = this.request.body.events;
+        console.log(
+            events &&
+                events.map(val => {
+                    return { source: val.source, message: val.message };
+                })
+        );
 
         const linkToken = yield LineHandler.getLinkToken();
-        pushAccountLink(linkToken);
+        LineHandler.pushAccountLink(linkToken);
 
         this.body = {
             success: true,
@@ -31,10 +39,12 @@ export default function LineMiddleware(app) {
     });
 
     router.get('/link', koaBody, function*(ctx, next) {
-        const { linkToken } = this.params;
+        const { linkToken } = this.query;
         console.log(linkToken, this.request.body);
 
-        LineHandler.redirectEndPointLinkUrl(linkToken);
+        const url = yield LineHandler.redirectEndPointLinkUrl(linkToken);
+
+        this.redirect(url);
 
         this.body = {
             success: true,

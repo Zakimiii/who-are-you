@@ -4,6 +4,8 @@ import fetch from 'isomorphic-fetch';
 import { ApiError } from '@extension/Error';
 import config from '@constants/config';
 import uuidv4 from 'uuid/v4';
+import jwt from 'jsonwebtoken';
+import models from '@models';
 
 export default class LineHandler {
     static getLinkToken = async () => {
@@ -94,10 +96,19 @@ export default class LineHandler {
         }
     };
 
-    static redirectEndPointLinkUrl = linkToken =>
-        `https://access.line.me/dialog/bot/accountLink?linkToken=${
+    static redirectEndPointLinkUrl = async linkToken => {
+        const nonce = await jwt.sign(
+            {
+                type: 'linkToken',
+                linkToken,
+            },
+            env.JWT_SECRET
+        );
+
+        return `https://access.line.me/dialog/bot/accountLink?linkToken=${
             linkToken
-        }&nonce=${uuidv4()}`;
+        }&nonce=${nonce}`;
+    };
 }
 
 // const Line = function () {};
