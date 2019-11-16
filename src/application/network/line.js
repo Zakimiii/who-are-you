@@ -65,9 +65,9 @@ export default class LineHandler {
                                     {
                                         type: 'uri',
                                         label: 'アカウントを連携',
-                                        uri: `${
-                                            config.CURRENT_APP_URL
-                                        }/line/link?linkToken=${linkToken}`,
+                                        uri: `${config.CURRENT_APP_URL}/line/${
+                                            linkToken
+                                        }/confirm`,
                                     },
                                 ],
                             },
