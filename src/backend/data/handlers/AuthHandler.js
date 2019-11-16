@@ -242,7 +242,6 @@ export default class AuthHandler extends HandlerImpl {
             return;
         }
 
-        //TODO: set linkToken in identity
         const identity = await models.Identity.findOne({
             where: {
                 twitter_id: profile.id,
@@ -259,6 +258,10 @@ export default class AuthHandler extends HandlerImpl {
                 error: new Error('is_not_registered'),
                 tt_key: 'errors.is_not_registered',
             });
+
+        const updated = await identity.update({
+            linkToken,
+        });
 
         const url = await LineHandler.redirectEndPointLinkUrl(linkToken);
 

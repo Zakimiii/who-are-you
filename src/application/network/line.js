@@ -129,64 +129,18 @@ export default class LineHandler {
 
         const linkToken = decoded.linkToken;
 
-        console.log('accont link 来たよ！', linkToken, line_user_id);
+        const identity = await models.Identity.findOne({
+            where: {
+                linkToken,
+            },
+        });
 
-        //TODO: set line user_id
-        // const identity = await models.Identity.findOne({
-        //     where: {
-        //         linkToken,
-        //     }
-        // });
+        if (!identity) return;
 
-        // if (!identity) return;
+        const updated = await identity.update({
+            line_id: line_user_id,
+        });
 
-        // const updated = await identity.update({
-        //     line_id: line_user_id,
-        // });
-
-        // return updated;
+        return updated;
     };
 }
-
-// const Line = function () {};
-
-// /**
-//  * LINE Notifyのトークンセット
-//  * @param {String} token LINE Notifyトークン
-//  */
-// Line.prototype.setToken = function(token) {
-//     this.token = token;
-// };
-
-// /**
-//  * LINE Notify実行
-//  * @param {String} text メッセージ
-//  */
-// Line.prototype.notify = function(text) {
-//   if(this.token == undefined || this.token == null){
-//     console.error('undefined token.');
-//     return;
-//   }
-//   console.log(`notify message : ${text}`);
-//   axios(
-//     {
-//       method: 'post',
-//       url: 'https://notify-api.line.me/api/notify',
-//       headers: {
-//         Authorization: `Bearer ${this.token}`,
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//       data: querystring.stringify({
-//         message: text,
-//       }),
-//     }
-//   )
-//   .then( function(res) {
-//     console.log(res.data);
-//   })
-//   .catch( function(err) {
-//     console.error(err);
-//   });
-// };
-
-// module.exports = Line;
