@@ -37,7 +37,7 @@ async function data({
         notifications(notifications_limit),
         categories(categories_limit),
         communities(communities_limit),
-        communityTemplates(communityTemplates_limit, communities_limit),
+        communityTemplates(communityTemplates_limit, categories_limit),
         communityHeadings(communityHeadings_limit, users_limit, communities_limit),
         communityAnswers(communityAnswers_limit, users_limit, communityHeadings_limit),
     ]);

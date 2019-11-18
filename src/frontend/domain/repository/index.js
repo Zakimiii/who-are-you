@@ -6,7 +6,11 @@ import SessionRepository from '@repository/SessionRepository';
 import AnswerRepository from '@repository/AnswerRepository';
 import UserRepository from '@repository/UserRepository';
 import NotificationRepository from '@repository/NotificationRepository';
-import TemplateRepository from '@repository/TemplateRepository';
+import CategoryRepository from '@repository/CategoryRepository';
+import CommnityRepository from '@repository/CommnityRepository';
+import CommnityTemplateRepository from '@repository/CommnityTemplateRepository';
+import CommnityHeadingRepository from '@repository/CommnityHeadingRepository';
+import CommnityAnswerRepository from '@repository/CommnityAnswerRepository';
 
 export {
     RepositoryImpl,
@@ -18,4 +22,9 @@ export {
     UserRepository,
     NotificationRepository,
     TemplateRepository,
+    CategoryRepository,
+    CommnityRepository,
+    CommnityTemplateRepository,
+    CommnityHeadingRepository,
+    CommnityAnswerRepository,
 };

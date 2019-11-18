@@ -149,10 +149,10 @@ module.exports = {
                             primaryKey: true,
                             type: Sequelize.INTEGER,
                         },
-                        community_id: {
+                        category_id: {
                             type: Sequelize.INTEGER,
                             references: {
-                                model: 'communities',
+                                model: 'categories',
                                 key: 'id',
                             },
                             onUpdate: 'cascade',

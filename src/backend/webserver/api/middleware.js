@@ -14,6 +14,11 @@ import {
     HeadingHandler,
     AnswerHandler,
     TemplateHandler,
+    CategoryHandler,
+    CommunityHandler,
+    CommunityHeadingHandler,
+    CommunityAnswerHandler,
+    CommunityTemplateHandler,
 } from '@handlers';
 import { handleApiError } from '@extension/Error';
 import Gateway from '@network/gateway';
@@ -30,6 +35,11 @@ const batchHandler = new BatchHandler();
 const headingHandler = new HeadingHandler();
 const answerHandler = new AnswerHandler();
 const templateHandler = new TemplateHandler();
+const categoryHandler = new CategoryHandler();
+const communityHandler = new CommunityHandler();
+const communityHeadingHandler = new CommunityHeadingHandler();
+const communityAnswerHandler = new CommunityAnswerHandler();
+const communityTemplateHandler = new CommunityTemplateHandler();
 
 export default function ApiMiddleware(app) {
     const router = koa_router({ prefix: '/api/v1' });

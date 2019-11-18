@@ -2,9 +2,9 @@ const casual = require('casual'); //.ja_JP;
 const times = require('../utils/times');
 const uuidv4 = require('uuid/v4');
 
-const communityTemplate = (key, communities_limit) => {
+const communityTemplate = (key, categories_limit) => {
     return {
-        community_id: casual.integer((from = 1), (to = communities_limit)),
+        category_id: casual.integer((from = 1), (to = categories_limit)),
         body: casual.title,
         locale: 'ja',
         country_code: 'JP',
@@ -18,10 +18,10 @@ const communityTemplate = (key, communities_limit) => {
     };
 };
 
-async function communityTemplates(limit = 30, communities_number = 30) {
+async function communityTemplates(limit = 30, categories_number = 30) {
     let communityTemplates_array = [];
     await times(limit)(() => {
-        communityTemplates_array.push(communityTemplate(communityTemplates_array.length, communities_number));
+        communityTemplates_array.push(communityTemplate(communityTemplates_array.length, categories_number));
     });
     return communityTemplates_array;
 }

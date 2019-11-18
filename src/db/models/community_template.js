@@ -12,13 +12,13 @@ module.exports = function(sequelize, DataTypes) {
                 primaryKey: true,
                 type: DataTypes.INTEGER,
             },
-            CommunityId: {
+            CategoryId: {
                 type: DataTypes.INTEGER,
                 references: {
-                    model: 'communities',
+                    model: 'categories',
                     key: 'id',
                 },
-                field: 'community_id',
+                field: 'category_id',
                 onUpdate: 'cascade',
                 onDelete: 'cascade',
             },
@@ -69,10 +69,10 @@ module.exports = function(sequelize, DataTypes) {
             classMethods: {
                 associate: function(models) {
                     CommunityTemplate.hasMany(models.CommunityHeading);
-                    CommunityTemplate.belongsTo(models.Community, {
+                    CommunityTemplate.belongsTo(models.Category, {
                         onDelete: 'CASCADE',
                         foreignKey: {
-                            name: 'community_id',
+                            name: 'category_id',
                             allowNull: false,
                         },
                     });
@@ -84,7 +84,7 @@ module.exports = function(sequelize, DataTypes) {
     CommunityTemplate.Instance.prototype.toJSON = self => {
         return {
             id: self.id,
-            CommunityId: self.CommunityId,
+            CategoryId: self.CategoryId,
             body: self.body,
             picture: self.picture,
             count: self.count,

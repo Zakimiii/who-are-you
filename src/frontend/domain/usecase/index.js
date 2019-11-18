@@ -8,6 +8,11 @@ import SessionUseCase from '@usecase/SessionUseCase';
 import SearchUseCase from '@usecase/SearchUseCase';
 import NotificationUseCase from '@usecase/NotificationUseCase';
 import TemplateUseCase from '@usecase/TemplateUseCase';
+import CategoryUseCase from '@usecase/CategoryUseCase';
+import CommunityUseCase from '@usecase/CommunityUseCase';
+import CommunityHeadingUseCase from '@usecase/CommunityHeadingUseCase';
+import CommunityAnswerUseCase from '@usecase/CommunityAnswerUseCase';
+import CommunityTemplateUseCase from '@usecase/CommunityTemplateUseCase';
 
 export {
     UseCaseImpl,
@@ -20,4 +25,9 @@ export {
     SearchUseCase,
     NotificationUseCase,
     TemplateUseCase,
+    CategoryUseCase,
+    CommunityUseCase,
+    CommunityHeadingUseCase,
+    CommunityAnswerUseCase,
+    CommunityTemplateUseCase,
 };
