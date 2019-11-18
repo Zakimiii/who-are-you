@@ -2,6 +2,22 @@ import HandlerImpl from '@handlers/HandlerImpl';
 import { Set, Map, fromJS, List } from 'immutable';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import models from '@models';
+import data_config from '@constants/data_config';
+import safe2json from '@extension/safe2json';
+import { ApiError } from '@extension/Error';
+import {
+    CommunityAnswerDataStore,
+    CommunityHeadingDataStore,
+    NotificationDataStore,
+    CommunityDataStore,
+    CommunityTemplateDataStore,
+} from '@datastore';
+
+const communityAnswerDataStore = new CommunityAnswerDataStore();
+const communityHeadingDataStore = new CommunityHeadingDataStore();
+const notificationDataStore = new NotificationDataStore();
+const communityDataStore = new CommunityDataStore();
+const communityTemplateDataStore = new CommunityTemplateDataStore();
 
 export default class CommunityHandler extends HandlerImpl {
     constructor() {
@@ -20,6 +36,43 @@ export default class CommunityHandler extends HandlerImpl {
         router.body = {
             success: true,
             user: safe2json(community),
+        };
+    }
+
+    async handleGetCommunityHeadingsRequest(router, ctx, next) {
+        const {
+            community_id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        if (!community_id)
+            throw new ApiError({
+                error: new Error('user_id or username is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'user_id or username' },
+            });
+
+        const headings = await communityHeadingDataStore.getCommunityHeadings({
+            community_id,
+            offset,
+            limit,
+            isMyAccount,
+        });
+
+        const results = await Promise.all(
+            headings.map(async heading => {
+                heading.Answers = await communityAnswerDataStore.getIndexIncludes(
+                    heading.Answers
+                );
+                return heading;
+            })
+        );
+
+        router.body = {
+            success: true,
+            headings: results,
         };
     }
 }

@@ -67,6 +67,12 @@ const post_template = (id, pathname) =>
     } さんの紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #自己紹介 #友達紹介\n${config.CURRENT_APP_URL +
         pathname} `;
 
+const post_text_template = (name, pathname) =>
+    `【${
+        name
+    } の紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #自己紹介 #友達紹介\n${config.CURRENT_APP_URL +
+        pathname} `;
+
 const post_text = id =>
     `【@${id}%20さんの紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
 
@@ -139,6 +145,7 @@ module.exports = {
     shot_picture_ysize,
     picture_save_limit,
     post_template,
+    post_text_template,
     post_text,
     invite_text,
     heading_body_min_limit,

@@ -161,6 +161,27 @@ export default class TwitterHandler {
         });
     };
 
+    static postTweetWithoutMention = async (text, pathname, accessToken, accessTokenSecret) => {
+        return new Promise((resolve, reject) => {
+            oauth.post(
+                'https://api.twitter.com/1.1/statuses/update.json',
+                accessToken,
+                accessTokenSecret,
+                {
+                    status: data_config.post_text_template(text, pathname),
+                },
+                '',
+                (err, data, res) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    }
+                    resolve(data, res);
+                }
+            );
+        });
+    };
+
     //@params: media or media_data(base64 encoded)
     static postMedia = async params => {
         return new Promise((resolve, reject) => {

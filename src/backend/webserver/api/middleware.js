@@ -148,30 +148,6 @@ export default function ApiMiddleware(app) {
             );
     });
 
-    router.post('/answer', koaBody, function*(ctx, next) {
-        const results = yield gateway.run(this, ctx, next);
-        if (!!results.error) {
-            yield handleApiError(
-                results.router,
-                results.ctx,
-                results.next,
-                results.error
-            );
-            return;
-        }
-        yield answerHandler
-            .handleGetRequest(results.router, results.ctx, results.next)
-            .catch(
-                async e =>
-                    await handleApiError(
-                        results.router,
-                        results.ctx,
-                        results.next,
-                        e
-                    )
-            );
-    });
-
     router.post('/heading', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -316,6 +292,174 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/community/heading', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleGetRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/create', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleCreateRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/update', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleCreateRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/delete', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleDestroyRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/trash', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleTrashRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/untrash', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleUnTrashRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield answerHandler
+            .handleGetRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/answer/create', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -424,6 +568,150 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield answerHandler
+            .handleUnTrashRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
+            .handleGetRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer/create', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
+            .handleCreateRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer/update', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
+            .handleCreateRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer/delete', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
+            .handleDestroyRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer/trash', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
+            .handleTrashRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/answer/untrash', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityAnswerHandler
             .handleUnTrashRequest(results.router, results.ctx, results.next)
             .catch(
                 async e =>
@@ -896,6 +1184,34 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/community/heading/answers', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleGetHeadingAnswersRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/user/sync', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -1093,6 +1409,238 @@ export default function ApiMiddleware(app) {
         }
         yield templateHandler
             .handleAddHeadingRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/templates/static/trends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleGetStaticTrendTemplateRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/templates/trends', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleGetTrendTemplateRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/template/answer', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleAnswerRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/templates/init', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleInitializeTemplateRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/template', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleGetTemplateRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/template/heading/create', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityTemplateHandler
+            .handleAddHeadingRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/categories', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield categoryHandler
+            .handleGetCategoriesRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHandler
+            .handleGetCommunityRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/headings', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHandler
+            .handleGetCommunityHeadingsRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(

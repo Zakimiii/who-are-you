@@ -73,14 +73,14 @@ export default class CommunityTemplateDataStore extends DataStoreImpl {
 
         let template = await models.CommunityTemplate.findOne({
             where: {
-                category_id: Number(community.CategoryId)
+                category_id: Number(community.CategoryId),
                 body: heading.body,
             },
         });
 
         if (!template) {
             template = await models.CommunityTemplate.create({
-                category_id: Number(community.CategoryId)
+                category_id: Number(community.CategoryId),
                 valid: true,
                 permission: true,
                 body: heading.body,
