@@ -19,7 +19,6 @@ export default class CommunityRepository extends RepositoryImpl {
     async getHeadings({ id, offset, limit }) {
         const data = await super.apiCall('/api/v1/community/headings', {
             community_id: id,
-            username,
             offset: Number(offset || 0),
             limit: limit || data_config.fetch_data_limit('S'),
         });

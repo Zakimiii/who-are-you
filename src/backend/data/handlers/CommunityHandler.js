@@ -35,7 +35,7 @@ export default class CommunityHandler extends HandlerImpl {
 
         router.body = {
             success: true,
-            user: safe2json(community),
+            community: safe2json(community),
         };
     }
 
@@ -44,7 +44,6 @@ export default class CommunityHandler extends HandlerImpl {
             community_id,
             limit,
             offset,
-            isMyAccount,
         } = router.request.body;
 
         if (!community_id)
@@ -58,7 +57,6 @@ export default class CommunityHandler extends HandlerImpl {
             community_id,
             offset,
             limit,
-            isMyAccount,
         });
 
         const results = await Promise.all(

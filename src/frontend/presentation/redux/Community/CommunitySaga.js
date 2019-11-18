@@ -10,7 +10,6 @@ import {
 
 import { browserHistory } from 'react-router';
 import { translate } from '@infrastructure/Translator';
-import DMCAUserList from '@constants/DMCAUserList';
 import { CommunityUseCase } from '@usecase';
 import * as communityActions from './CommunityReducer';
 import { LOCATION_CHANGE } from 'react-router-redux';
@@ -18,5 +17,10 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const communityUseCase = new CommunityUseCase();
 
 export const communityWatches = [
-    // takeLatest(communityActions.HIDE_ALL_MODAL, communityUseCase.hideAllModal),
+    takeEvery(LOCATION_CHANGE, communityUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, communityUseCase.initCommunityHeadings),
+    takeEvery(
+        communityActions.GET_MORE_COMMUNITY_HEADING,
+        communityUseCase.getMoreCommunityHeadings
+    ),
 ];

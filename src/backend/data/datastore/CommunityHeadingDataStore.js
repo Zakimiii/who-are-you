@@ -299,18 +299,10 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
     }
 
     async getCommunityHeadings({ community_id, offset, limit }) {
-
         const results = await models.CommunityHeading.findAll({
-            where,
-            include: [
-                {
-                    model: models.Community,
-                    where: {
-                        id: Number(community_id) || 0,
-                    },
-                    attributes: ['id'],
-                },
-            ],
+            where: {
+                community_id: Number(community_id),
+            },
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),

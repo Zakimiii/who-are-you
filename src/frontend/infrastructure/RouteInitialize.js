@@ -25,6 +25,16 @@ export const userShowRoute = new RouteEntity({
     },
 });
 
+export const communityShowRoute = new RouteEntity({
+    path: '/community/:id/:section?',
+    page: 'CommunityShow',
+    component: require('@components/pages/CommunityShow'),
+    validate: {
+        id: /\d+/,
+        section: /(headings|templates)/,
+    },
+});
+
 export const userEditRoute = new RouteEntity({
     path: '/settings',
     page: 'UserEdit',
@@ -173,6 +183,7 @@ export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
         userShowRoute,
+        communityShowRoute,
         userEditRoute,
         privacyRoute,
         faqRoute,
