@@ -33,6 +33,14 @@ module.exports = {
                         type: Sequelize.INTEGER,
                         defaultValue: 0,
                     },
+                    heading_count: {
+                        type: Sequelize.INTEGER,
+                        defaultValue: 0,
+                    },
+                    answer_count: {
+                        type: Sequelize.INTEGER,
+                        defaultValue: 0,
+                    },
                     //global colomn
                     isHide: {
                         type: Sequelize.BOOLEAN,

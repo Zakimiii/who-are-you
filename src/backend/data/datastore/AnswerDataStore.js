@@ -215,7 +215,7 @@ export default class AnswerDataStore extends DataStoreImpl {
     async search({ keyword, limit, offset }) {
         let like_results = await Promise.all(
             generateLikeQuery(keyword).map(val => {
-                return models.Heading.findAll({
+                return models.Answer.findAll({
                     where: {
                         $or: [
                             {
