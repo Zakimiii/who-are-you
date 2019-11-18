@@ -18,5 +18,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const categoryUseCase = new CategoryUseCase();
 
 export const categoryWatches = [
-    // takeLatest(categoryActions.HIDE_ALL_MODAL, categoryUseCase.hideAllModal),
+    takeEvery(LOCATION_CHANGE, categoryUseCase.initCategories),
+    takeEvery(categoryActions.GET_MORE_HOME, categoryUseCase.getMoreCategories),,
 ];

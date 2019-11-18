@@ -36,9 +36,6 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
-            tweet_url: {
-                type: DataTypes.STRING(255),
-            },
             locale: {
                 type: DataTypes.STRING(255),
             },
@@ -93,7 +90,6 @@ module.exports = function(sequelize, DataTypes) {
             picture: self.picture,
             heading_count: self.heading_count,
             answer_count: self.answer_count,
-            tweet_url: self.tweet_url,
             locale: self.locale,
             country_code: self.country_code,
             isHide: self.isHide,

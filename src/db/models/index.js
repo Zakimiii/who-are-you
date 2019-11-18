@@ -29,6 +29,11 @@ const models = [
     require('./notification')(sequelize, Sequelize),
     require('./follow')(sequelize, Sequelize),
     require('./withdrawal')(sequelize, Sequelize),
+    require('./category')(sequelize, Sequelize),
+    require('./community')(sequelize, Sequelize),
+    require('./community_heading')(sequelize, Sequelize),
+    require('./community_answer')(sequelize, Sequelize),
+    require('./community_template')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {

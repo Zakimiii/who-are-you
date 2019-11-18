@@ -76,6 +76,12 @@ export const postIndexRoute = new RouteEntity({
     component: require('@components/pages/PostIndex'),
 });
 
+export const communityIndexRoute = new RouteEntity({
+    path: '/communities',
+    page: 'CommunityIndex',
+    component: require('@components/pages/CommunityIndex'),
+});
+
 export const searchRoute = new RouteEntity({
     path: '/search/:section?',
     page: 'Search',
@@ -185,6 +191,7 @@ export const routeEntities = new RouteEntities({
         answerShowRoute,
         notificationIndexRoute,
         postIndexRoute,
+        communityIndexRoute,
         searchRoute,
         templateIndexRoute,
         cmpTestRoute,

@@ -57,7 +57,7 @@ export default class CategoryDataStore extends DataStoreImpl {
             contents.map(async (val, index) => {
                 if (!params.picture) val.picture = '';
                 if (params.communities) {
-                    val.Communities = includes[index][2];
+                    val.Communities = includes[index][0];
                     if (!params.picture) {
                         val.Communities = val.Communities.map(community => {
                             community.picture = '';
@@ -82,7 +82,7 @@ export default class CategoryDataStore extends DataStoreImpl {
             order: [['heading_count', 'DESC']],
             raw: true,
             offset: Number(offset || 0),
-            limit: Number(limit || data_config.fetch_data_limit('S')),
+            limit: Number(limit || data_config.fetch_data_limit('L')),
             subQuery: true,
         }).catch(e => {
             throw new ApiError({
