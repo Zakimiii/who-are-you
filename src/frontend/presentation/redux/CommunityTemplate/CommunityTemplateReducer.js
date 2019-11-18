@@ -22,7 +22,7 @@ export const SET_NEW = 'communityTemplate/SET_NEW';
 const defaultState = Map({
     home_template: List(),
     show_new_modal: false,
-    new_template: Map(models.communityTemplate.build()),
+    new_template: Map(models.CommunityTemplate.build()),
     caches: List([]),
     deletes: List([]),
 });
@@ -114,7 +114,7 @@ export default function reducer(state = defaultState, action = {}) {
         case HIDE_NEW: {
             return state.merge({
                 show_new_modal: false,
-                new_template: Map(models.communityTemplate.build()),
+                new_template: Map(models.CommunityTemplate.build()),
             });
         }
 
