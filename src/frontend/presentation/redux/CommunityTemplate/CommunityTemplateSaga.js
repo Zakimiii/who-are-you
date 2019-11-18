@@ -18,8 +18,8 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const communityTemplateUseCase = new CommunityTemplateUseCase();
 
 export const communityTemplateWatches = [
-    takeEvery(LOCATION_CHANGE, communityTemplateUseCase.initTrend),
-    takeEvery(communityTemplateActions.ADD_HEADING, communityTemplateUseCase.addHeading),
-    takeEvery(communityTemplateActions.GET_MORE_HOME, communityTemplateUseCase.getMoreTrend),
-    takeLatest(communityTemplateActions.ANSWER_TEMPLATE, communityTemplateUseCase.answer),
+    // takeEvery(LOCATION_CHANGE, communityTemplateUseCase.initTrend),
+    // takeEvery(communityTemplateActions.ADD_HEADING, communityTemplateUseCase.addHeading),
+    // takeEvery(communityTemplateActions.GET_MORE_HOME, communityTemplateUseCase.getMoreTrend),
+    // takeLatest(communityTemplateActions.ANSWER_TEMPLATE, communityTemplateUseCase.answer),
 ];
