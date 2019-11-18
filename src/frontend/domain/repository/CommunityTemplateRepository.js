@@ -6,4 +6,48 @@ export default class CommunityTemplateRepository extends RepositoryImpl {
     constructor() {
         super();
     }
+
+    async getTemplate({ id }) {
+        const data = await super.apiCall('/api/v1/community/template', {
+            id,
+        });
+        return data && data.template;
+    }
+
+    async getTrend({ id, username, offset, limit }) {
+        const data = await super.apiCall('/api/v1/community/templates/trends', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('M'),
+        });
+        return data && data.templates;
+    }
+
+    async getStaticTrend({ id, username, offset, limit }) {
+        const data = await super.apiCall('/api/v1/community/templates/static/trends', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('M'),
+        });
+        return data && data.templates;
+    }
+
+    async answer({ user, template, answer }) {
+        const data = await super.apiCall('/api/v1/community/template/answer', {
+            user,
+            template,
+            answer,
+        });
+        return data && data.answer;
+    }
+
+    async addHeading({ template, heading }) {
+        const data = await super.apiCall('/api/v1/community/template/heading/create', {
+            heading,
+            template,
+        });
+        return data;
+    }
 }

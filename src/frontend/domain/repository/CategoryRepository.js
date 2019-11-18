@@ -6,4 +6,13 @@ export default class CategoryRepository extends RepositoryImpl {
     constructor() {
         super();
     }
+
+    async getHeadings({ offset, limit }) {
+        const data = await super.apiCall('/api/v1/categories', {
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+        });
+
+        return data && data.categories;
+    }
 }
