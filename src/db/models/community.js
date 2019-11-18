@@ -28,7 +28,11 @@ module.exports = function(sequelize, DataTypes) {
             picture: {
                 type: DataTypes.BLOB('long'),
             },
-            count: {
+            heading_count: {
+                type: DataTypes.INTEGER,
+                defaultValue: 0,
+            },
+            answer_count: {
                 type: DataTypes.INTEGER,
                 defaultValue: 0,
             },
@@ -87,7 +91,8 @@ module.exports = function(sequelize, DataTypes) {
             CategoryId: self.CategoryId,
             body: self.body,
             picture: self.picture,
-            count: self.count,
+            heading_count: self.heading_count,
+            answer_count: self.answer_count,
             tweet_url: self.tweet_url,
             locale: self.locale,
             country_code: self.country_code,

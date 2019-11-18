@@ -107,7 +107,11 @@ module.exports = {
                         picture: {
                             type: Sequelize.BLOB('long'),
                         },
-                        count: {
+                        heading_count: {
+                            type: Sequelize.INTEGER,
+                            defaultValue: 0,
+                        },
+                        answer_count: {
                             type: Sequelize.INTEGER,
                             defaultValue: 0,
                         },
