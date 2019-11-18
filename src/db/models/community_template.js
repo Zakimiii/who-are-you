@@ -60,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
             },
         },
         {
-            tableName: 'templates',
+            tableName: 'community_templates',
             createdAt: 'created_at',
             updatedAt: 'updated_at',
             timestamps: true,

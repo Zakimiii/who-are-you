@@ -141,7 +141,7 @@ module.exports = {
             })
             .then(function() {
                 return queryInterface.createTable(
-                    'community_templates',
+                    'communityTemplates',
                     {
                         id: {
                             allowNull: false,
@@ -211,12 +211,12 @@ module.exports = {
             })
             .then(function() {
                 return queryInterface.sequelize.query(
-                    'ALTER TABLE `community_templates` ROW_FORMAT=DYNAMIC;'
+                    'ALTER TABLE `communityTemplates` ROW_FORMAT=DYNAMIC;'
                 );
             })
             .then(function() {
                 return queryInterface.createTable(
-                    'community_headings',
+                    'communityHeadings',
                     {
                         id: {
                             allowNull: false,
@@ -227,7 +227,7 @@ module.exports = {
                         template_id: {
                             type: Sequelize.INTEGER,
                             references: {
-                                model: 'community_templates',
+                                model: 'communityTemplates',
                                 key: 'id',
                             },
                             onUpdate: 'cascade',
@@ -306,12 +306,12 @@ module.exports = {
             })
             .then(function() {
                 return queryInterface.sequelize.query(
-                    'ALTER TABLE `community_headings` ROW_FORMAT=DYNAMIC;'
+                    'ALTER TABLE `communityHeadings` ROW_FORMAT=DYNAMIC;'
                 );
             })
             .then(function() {
                 return queryInterface.createTable(
-                    'community_answers',
+                    'communityAnswers',
                     {
                         id: {
                             allowNull: false,
@@ -332,7 +332,7 @@ module.exports = {
                         heading_id: {
                             type: Sequelize.INTEGER,
                             references: {
-                                model: 'community_headings',
+                                model: 'communityHeadings',
                                 key: 'id',
                             },
                             onUpdate: 'cascade',
@@ -390,7 +390,7 @@ module.exports = {
             })
             .then(function() {
                 return queryInterface.sequelize.query(
-                    'ALTER TABLE `community_answers` ROW_FORMAT=DYNAMIC;'
+                    'ALTER TABLE `communityAnswers` ROW_FORMAT=DYNAMIC;'
                 );
             });
     },

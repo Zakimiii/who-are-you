@@ -84,7 +84,7 @@ module.exports = function(sequelize, DataTypes) {
             },
         },
         {
-            tableName: 'headings',
+            tableName: 'community_headings',
             createdAt: 'created_at',
             updatedAt: 'updated_at',
             timestamps: true,
