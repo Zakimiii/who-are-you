@@ -12,6 +12,11 @@ import { sessionReducer } from '@redux/Session';
 import { userReducer } from '@redux/User';
 import { notificationReducer } from '@redux/Notification';
 import { templateReducer } from '@redux/Template';
+import { categoryReducer } from '@redux/Category';
+import { communityReducer } from '@redux/Community';
+import { communityAnswerReducer } from '@redux/CommunityAnswer';
+import { communityHeadingReducer } from '@redux/CommunityHeading';
+import { communityTemplateReducer } from '@redux/CommunityTemplate';
 
 function initReducer(reducer, type) {
     return (state, action) => {
@@ -57,6 +62,11 @@ export default combineReducers({
     user: initReducer(userReducer),
     notification: initReducer(notificationReducer),
     template: initReducer(templateReducer),
+    category: initReducer(categoryReducer),
+    community: initReducer(communityReducer),
+    communityAnswer: initReducer(communityAnswerReducer),
+    communityHeading: initReducer(communityHeadingReducer),
+    communityTemplate: initReducer(communityTemplateReducer),
     routing: initReducer(routerReducer),
     form: formReducer,
 });

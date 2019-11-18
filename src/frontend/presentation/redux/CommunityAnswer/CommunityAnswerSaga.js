@@ -9,10 +9,10 @@ import {
 } from 'redux-saga/effects';
 
 import { browserHistory } from 'react-router';
-import { translate } from '@ƒinfrastructure/Translator';
+import { translate } from '@infrastructure/Translator';
 import DMCAUserList from '@constants/DMCAUserList';
 import { CommunityAnswerUseCase } from '@usecase';
-import * as communityAnswerActions from './AnswerReducer';
+import * as communityAnswerActions from './CommunityAnswerReducer';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
 const communityAnswerUseCase = new CommunityAnswerUseCase();

@@ -11,7 +11,7 @@ import {
 import { browserHistory } from 'react-router';
 import { translate } from '@infrastructure/Translator';
 import DMCAUserList from '@constants/DMCAUserList';
-import * as communityTemplateActions from '@redux/Template/TemplateReducer';
+import * as communityTemplateActions from '@redux/CommunityTemplate/CommunityTemplateReducer';
 import { CommunityTemplateUseCase } from '@usecase';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
