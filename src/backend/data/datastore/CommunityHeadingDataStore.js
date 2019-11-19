@@ -12,6 +12,7 @@ import {
 import tt from 'counterpart';
 import prototype_data from '@locales/prototype/ja.json';
 import casual from 'casual';
+import Promise from 'bluebird';
 
 export default class CommunityHeadingDataStore extends DataStoreImpl {
     constructor() {

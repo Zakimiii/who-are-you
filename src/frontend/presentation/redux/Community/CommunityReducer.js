@@ -22,6 +22,7 @@ export const defaultState = Map({
 });
 
 export default function reducer(state = defaultState, action = {}) {
+  const payload = action.payload;
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
             return state.merge({
