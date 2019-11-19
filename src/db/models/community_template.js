@@ -60,7 +60,7 @@ module.exports = function(sequelize, DataTypes) {
             },
         },
         {
-            tableName: 'community_templates',
+            tableName: 'communityTemplates',
             createdAt: 'created_at',
             updatedAt: 'updated_at',
             timestamps: true,
@@ -68,7 +68,13 @@ module.exports = function(sequelize, DataTypes) {
             charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
-                    CommunityTemplate.hasMany(models.CommunityHeading);
+                    CommunityTemplate.hasMany(models.CommunityHeading, {
+                        as: 'Headings',
+                        foreignKey: {
+                            name: 'template_id',
+                            allowNull: true,
+                        },
+                    });
                     CommunityTemplate.belongsTo(models.Category, {
                         onDelete: 'CASCADE',
                         foreignKey: {

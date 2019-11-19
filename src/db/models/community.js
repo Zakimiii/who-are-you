@@ -69,7 +69,13 @@ module.exports = function(sequelize, DataTypes) {
             charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
-                    Community.hasMany(models.CommunityHeading);
+                    Community.hasMany(models.CommunityHeading, {
+                        as: 'Headings',
+                        foreignKey: {
+                            name: 'community_id',
+                            allowNull: false,
+                        },
+                    });
                     Community.belongsTo(models.Category, {
                         onDelete: 'CASCADE',
                         foreignKey: {

@@ -32,8 +32,8 @@ export default function reducer(state = defaultState, action = {}) {
 
         case SET_SHOW: {
             return state.merge({
-                show_community: Map(action.payload.community),
-                community_heading: Map(action.payload.community.Headings),
+                show_community: Map(payload.community),
+                community_heading: Map(payload.community.Headings),
             });
         }
 
@@ -41,7 +41,7 @@ export default function reducer(state = defaultState, action = {}) {
             if (!payload.headings) return state;
             return state.set(
                 'community_heading',
-                List(action.payload.headings.map(val => Map(val)))
+                List(payload.headings.map(val => Map(val)))
             );
         }
 
@@ -51,7 +51,7 @@ export default function reducer(state = defaultState, action = {}) {
             return state.set(
                 'community_heading',
                 before.concat(
-                    List(action.payload.headings.map(val => Map(val)))
+                    List(payload.headings.map(val => Map(val)))
                 )
             );
         }

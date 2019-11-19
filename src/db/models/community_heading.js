@@ -66,10 +66,6 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
             },
-            isBot: {
-                type: DataTypes.BOOLEAN,
-                defaultValue: false,
-            },
             isPrivate: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
@@ -84,7 +80,7 @@ module.exports = function(sequelize, DataTypes) {
             },
         },
         {
-            tableName: 'community_headings',
+            tableName: 'communityHeadings',
             createdAt: 'created_at',
             updatedAt: 'updated_at',
             timestamps: true,
@@ -113,8 +109,15 @@ module.exports = function(sequelize, DataTypes) {
                             name: 'template_id',
                             allowNull: true,
                         },
+                        as: 'Template',
                     });
-                    CommunityHeading.hasMany(models.CommunityAnswer);
+                    CommunityHeading.hasMany(models.CommunityAnswer, {
+                        as: 'Answers',
+                        foreignKey: {
+                            name: 'heading_id',
+                            allowNull: false,
+                        },
+                    });
                 },
             },
         }
@@ -133,7 +136,6 @@ module.exports = function(sequelize, DataTypes) {
             country_code: self.country_code,
             answer_count: self.answer_count,
             isHide: self.isHide,
-            isBot: self.isBot,
             isPrivate: self.isPrivate,
             valid: self.valid,
             permission: self.permission,

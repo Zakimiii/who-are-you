@@ -63,7 +63,13 @@ module.exports = function(sequelize, DataTypes) {
             charset: 'utf8mb4',
             classMethods: {
                 associate: function(models) {
-                    Category.hasMany(models.CommunityTemplate);
+                    Category.hasMany(models.CommunityTemplate, {
+                        as: 'Templates',
+                        foreignKey: {
+                            name: 'category_id',
+                            allowNull: false,
+                        },
+                    });
                     Category.hasMany(models.Community);
                 },
             },
