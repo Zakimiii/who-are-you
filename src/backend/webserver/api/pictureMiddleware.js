@@ -118,7 +118,7 @@ export default function PictureMiddleware(app) {
         this.body = buffer;
     });
 
-    router.get('/community/heading/:id/', koaBody, function*(ctx, next) {
+    router.get('/communities/heading/:id/', koaBody, function*(ctx, next) {
         let { id } = this.params;
         id = Number(id.replace('.png', ''));
         const heading = yield models.CommunityHeading.findOne({
@@ -148,7 +148,7 @@ export default function PictureMiddleware(app) {
         this.body = buffer;
     });
 
-    router.get('/community/answer/:id/', koaBody, function*(ctx, next) {
+    router.get('/communities/answer/:id/', koaBody, function*(ctx, next) {
         let { id } = this.params;
         id = Number(id.replace('.png', ''));
         const answer = yield models.CommunityAnswer.findOne({

@@ -356,11 +356,11 @@ export const getPageImage = pathname => {
     } else if (page == communityAnswerShowRoute.page) {
         image = `${
             config.CURRENT_APP_URL
-        }/pictures/community/answer/${communityAnswerShowRoute.params_value('id', pathname)}.png`;
+        }/pictures/communities/answer/${communityAnswerShowRoute.params_value('id', pathname)}.png`;
     } else if (page == communityHeadingShowRoute.page) {
         image = `${
             config.CURRENT_APP_URL
-        }/pictures/community/heading/${communityHeadingShowRoute.params_value(
+        }/pictures/communities/heading/${communityHeadingShowRoute.params_value(
             'id',
             pathname
         )}.png`;
