@@ -2,7 +2,7 @@ import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import {
-    headingNewRoute,
+    communityHeadingNewRoute,
     headingShowRoute,
 } from '@infrastructure/RouteInitialize';
 import TwitterHandler from '@network/twitter';
@@ -50,7 +50,7 @@ export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
             return state.merge({
-                show_new_modal: headingNewRoute.isValidPath(
+                show_new_modal: communityHeadingNewRoute.isValidPath(
                     action.payload.pathname
                 ),
                 caches: List([]),

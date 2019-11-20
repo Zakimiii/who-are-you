@@ -15,6 +15,23 @@ const User = models.User.build({
     bot: true,
 });
 
+
+const Community = models.Community.build({
+    id: null,
+    body: '',
+    picture: data_config.default_user_image,
+    locale: 'ja',
+    country_code: 'JP',
+    heading_count: 0,
+    answer_count: 0,
+    isHide: false,
+    isPrivate: false,
+    valid: false,
+    permission: false,
+});
+
+
 module.exports = {
     User,
+    Community,
 };

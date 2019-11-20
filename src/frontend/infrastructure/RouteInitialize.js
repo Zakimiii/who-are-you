@@ -68,6 +68,20 @@ export const answerNewRoute = new RouteEntity({
     component: require('@components/pages/AnswerNewAlias'),
 });
 
+export const communityHeadingNewRoute = new RouteEntity({
+    path: '/community/:id/heading/new',
+    page: 'HeadingNew',
+    component: require('@components/pages/HeadingNewAlias'),
+});
+
+export const communityAnswerNewRoute = new RouteEntity({
+    path: '/community/heading/:id/answer/new',
+    page: 'AnswerNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/AnswerNewAlias'),
+});
+
+
 export const templateIndexRoute = new RouteEntity({
     path: '/templates',
     page: 'TemplateIndex',
@@ -193,6 +207,8 @@ export const routeEntities = new RouteEntities({
         homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
+        communityHeadingNewRoute,
+        communityAnswerNewRoute,
         loginRoute,
         confirmForDeleteRoute,
         confirmForLineLinkRoute,

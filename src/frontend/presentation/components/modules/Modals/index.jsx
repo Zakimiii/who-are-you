@@ -8,11 +8,15 @@ import tt from 'counterpart';
 import * as appActions from '@redux/App/AppReducer';
 import * as headingActions from '@redux/Heading/HeadingReducer';
 import * as answerActions from '@redux/Answer/AnswerReducer';
+import * as communityHeadingActions from '@redux/CommunityHeading/CommunityHeadingReducer';
+import * as communityAnswerActions from '@redux/CommunityAnswer/CommunityAnswerReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import LoginModal from '@pages/LoginModal';
 import AnswerNew from '@pages/AnswerNew';
 import HeadingNew from '@pages/HeadingNew';
+import CommunityAnswerNew from '@pages/CommunityAnswerNew';
+import CommunityHeadingNew from '@pages/CommunityHeadingNew';
 import SideBarModal from '@pages/SideBarModal';
 import LoginModalForDelete from '@pages/LoginModalForDelete';
 import LoginModalForLineLink from '@pages/LoginModalForLineLink';
@@ -23,6 +27,8 @@ class Modals extends React.Component {
         show_login_modal: false,
         show_new_heading_modal: false,
         show_new_answer_modal: false,
+        show_new_community_heading_modal: false,
+        show_new_community_answer_modal: false,
         show_side_bar_modal: false,
         show_confirm_login_for_delete_modal: false,
         show_confirm_login_for_line_link_modal: false,
@@ -33,12 +39,16 @@ class Modals extends React.Component {
         show_login_modal: PropTypes.bool,
         show_new_heading_modal: PropTypes.bool,
         show_new_answer_modal: PropTypes.bool,
+        show_new_community_heading_modal: PropTypes.bool,
+        show_new_community_answer_modal: PropTypes.bool,
         show_side_bar_modal: PropTypes.bool,
         show_confirm_login_for_delete_modal: PropTypes.bool,
         show_confirm_login_for_line_link_modal: PropTypes.bool,
         hideLogin: PropTypes.func.isRequired,
         hideNewHeading: PropTypes.func.isRequired,
         hideNewAnswer: PropTypes.func.isRequired,
+        hideNewCommunityHeading: PropTypes.func.isRequired,
+        hideNewCommunityAnswer: PropTypes.func.isRequired,
         hideSideBarModal: PropTypes.func.isRequired,
         hideConfirmLoginForDeleteModal: PropTypes.func.isRequired,
         hideConfirmLoginForLineLinkModal: PropTypes.func.isRequired,
@@ -58,6 +68,10 @@ class Modals extends React.Component {
             show_new_heading_modal,
             hideNewAnswer,
             show_new_answer_modal,
+            hideNewCommunityHeading,
+            show_new_community_heading_modal,
+            hideNewCommunityAnswer,
+            show_new_community_answer_modal,
             className,
             show_side_bar_modal,
             hideSideBarModal,
@@ -87,6 +101,19 @@ class Modals extends React.Component {
                 {show_new_answer_modal && (
                     <Reveal onHide={hideNewAnswer} show={show_new_answer_modal}>
                         <AnswerNew onCancel={hideNewAnswer} />
+                    </Reveal>
+                )}
+                {show_new_community_heading_modal && (
+                    <Reveal
+                        onHide={hideNewCommunityHeading}
+                        show={show_new_community_heading_modal}
+                    >
+                        <CommunityHeadingNew onCancel={hideNewCommunityHeading} />
+                    </Reveal>
+                )}
+                {show_new_community_answer_modal && (
+                    <Reveal onHide={hideNewCommunityAnswer} show={show_new_community_answer_modal}>
+                        <CommunityAnswerNew onCancel={hideNewCommunityAnswer} />
                     </Reveal>
                 )}
                 {show_side_bar_modal && (
@@ -132,6 +159,8 @@ export default connect(
             show_login_modal: state.auth.get('show_login_modal'),
             show_new_heading_modal: state.heading.get('show_new_modal'),
             show_new_answer_modal: state.answer.get('show_new_modal'),
+            show_new_community_heading_modal: state.communityHeading.get('show_new_modal'),
+            show_new_community_answer_modal: state.communityAnswer.get('show_new_modal'),
             show_side_bar_modal: state.app.get('show_side_bar_modal'),
             show_confirm_login_for_delete_modal: state.auth.get(
                 'show_confirm_login_for_delete_modal'
@@ -149,6 +178,14 @@ export default connect(
         hideNewAnswer: e => {
             if (e) e.preventDefault();
             dispatch(answerActions.hideNew());
+        },
+        hideNewCommunityHeading: e => {
+            if (e) e.preventDefault();
+            dispatch(communityHeadingActions.hideNew());
+        },
+        hideNewCommunityAnswer: e => {
+            if (e) e.preventDefault();
+            dispatch(communityAnswerActions.hideNew());
         },
         hideLogin: e => {
             if (e) e.preventDefault();

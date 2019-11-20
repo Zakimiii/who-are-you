@@ -12,6 +12,7 @@ import {
     answerShowRoute,
     notificationIndexRoute,
     templateIndexRoute,
+    communityShowRoute,
 } from '@infrastructure/RouteInitialize';
 
 export const FETCH_DATA_BEGIN = 'app/FETCH_DATA_BEGIN';
@@ -361,6 +362,48 @@ export const userShowTemplatesLoading = state => {
     const loading = state.app.get('loading');
     if (!loading) return false;
     const list_model = state.template.get('home_template');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const communityShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.community.get('show_community');
+    const model = list_model.toJS();
+    if (!model) return true;
+    return loading && model.id != id;
+};
+
+export const communityShowContentsLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.community.get('community_heading');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading && model[0].CommunityId != id;
+};
+
+export const communityShowTemplatesLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.communityTemplate.get('home_template');
     const model = list_model.toJS();
     if (!model) return true;
     if (model.length == 0 && loading) return true;

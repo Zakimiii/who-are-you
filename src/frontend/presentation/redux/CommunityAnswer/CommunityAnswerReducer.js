@@ -2,7 +2,7 @@ import { fromJS, Map, List } from 'immutable';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import {
-    answerNewRoute,
+    communityAnswerNewRoute,
     answerShowRoute,
 } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
@@ -47,7 +47,7 @@ export default function reducer(state = defaultState, action) {
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
             return state.merge({
-                show_new_modal: answerNewRoute.isValidPath(
+                show_new_modal: communityAnswerNewRoute.isValidPath(
                     action.payload.pathname
                 ),
                 caches: List([]),

@@ -110,4 +110,21 @@ export default class CommunityUseCase extends UseCaseImpl {
         }
         yield put(appActions.fetchMoreDataEnd());
     }
+
+    *syncCommunity({ payload: { id } }) {
+        const community = yield communityRepository
+            .getCommunity({
+                id,
+            })
+            .catch(async e => {
+                await put(appActions.addError({ error: e }));
+            });
+        yield put(
+            !!community
+                ? communityActions.setCaches({ communities: [community] })
+                : communityActions.setDeletes({
+                      communities: [models.Community.build({ id })],
+                  })
+        );
+    }
 }

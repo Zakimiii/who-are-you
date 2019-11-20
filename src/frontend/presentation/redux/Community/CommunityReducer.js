@@ -14,6 +14,12 @@ export const SET_COMMUNITY_HEADING = 'community/SET_COMMUNITY_HEADING';
 export const ADD_COMMUNITY_HEADING = 'community/ADD_COMMUNITY_HEADING';
 export const GET_MORE_COMMUNITY_HEADING = 'community/GET_MORE_COMMUNITY_HEADING';
 
+export const SET_CACHES = 'community/SET_CACHES';
+export const RESET_CACHES = 'community/SET_CACHES';
+export const SET_DELETES = 'community/SET_DELETES';
+export const RESET_DELETES = 'community/SET_DELETES';
+export const SYNC_COMMUNITY = 'community/SYNC_COMMUNITY';
+
 export const defaultState = Map({
     show_community: Map(),
     community_heading: List([]),
@@ -56,10 +62,61 @@ export default function reducer(state = defaultState, action = {}) {
             );
         }
 
+        case SET_CACHES: {
+            const contents = action.payload.communities;
+            if (!(contents instanceof Array)) return;
+            if (contents.length == 0) return;
+            let before = state.get('caches') || List([]);
+            before = before.filter(val => !contents.find(x => x.id == val.id));
+            return state.set('caches', List(contents.map(val => Map(val))));
+        }
+
+        case RESET_CACHES: {
+            return state.set('caches', List([]));
+        }
+
+        case SET_DELETES: {
+            const contents = action.payload.communities;
+            if (!(contents instanceof Array)) return;
+            if (contents.length == 0) return;
+            let before = state.get('deletes') || List([]);
+            before = before.filter(val => !contents.find(x => x.id == val.id));
+            return state.set('deletes', List(contents.map(val => Map(val))));
+        }
+
+        case RESET_DELETES: {
+            return state.set('deletes', List([]));
+        }
+
         default:
             return state;
     }
 }
+
+export const setCaches = payload => ({
+    type: SET_CACHES,
+    payload,
+});
+
+export const resetCaches = payload => ({
+    type: RESET_CACHES,
+    payload,
+});
+
+export const setDeletes = payload => ({
+    type: SET_DELETES,
+    payload,
+});
+
+export const resetDeletes = payload => ({
+    type: RESET_DELETES,
+    payload,
+});
+
+export const syncCommunity = payload => ({
+    type: SYNC_COMMUNITY,
+    payload,
+});
 
 export const setShow = payload => ({
     type: SET_SHOW,
@@ -81,10 +138,35 @@ export const getMoreCommunityHeading = payload => ({
     payload,
 });
 
+export const getDelete = (id, state) => {
+    if (!id) return;
+    const val = state.community.get('deletes');
+    let contents = val.toJS();
+    if (!(contents instanceof Array)) return;
+    if (contents.length == 0) return;
+    return contents.find(x => x.id == id);
+};
+
+export const getCache = (id, state) => {
+    if (!id) return;
+    const val = state.community.get('caches');
+    let contents = val.toJS();
+    if (!(contents instanceof Array)) return;
+    if (contents.length == 0) return;
+    return contents.find(x => x.id == id);
+};
+
+export const bind = (community, state) => {
+    if (!community) return;
+    if (!community.id) return community;
+    if (getDelete(community.id, state)) return null;
+    return getCache(community.id, state) || community;
+};
+
 export const getShowCommunity = state => {
     let val = state.community.get('show_community');
     const community = !!val ? val.toJS() : null;
-    return community //bind(user, state);
+    return bind(community, state);
 };
 
 export const getCommunityHeading = state => {
