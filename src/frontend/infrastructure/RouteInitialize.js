@@ -56,16 +56,16 @@ export const answerShowRoute = new RouteEntity({
 });
 
 export const communityHeadingShowRoute = new RouteEntity({
-    path: '/heading/:id',
-    page: 'HeadingShow',
-    component: require('@components/pages/HeadingShow'),
+    path: '/community/heading/:id',
+    page: 'CommunityHeadingShow',
+    component: require('@components/pages/CommunityHeadingShow'),
     validate: { id: /\d+/ },
 });
 
 export const communityAnswerShowRoute = new RouteEntity({
-    path: '/answer/:id',
-    page: 'AnswerShow',
-    component: require('@components/pages/AnswerShow'),
+    path: '/community/answer/:id',
+    page: 'CommunityAnswerShow',
+    component: require('@components/pages/CommunityAnswerShow'),
     validate: { id: /\d+/ },
 });
 
@@ -229,7 +229,9 @@ export const routeEntities = new RouteEntities({
         headingCanvasTestRoute,
         answerCanvasTestRoute,
         headingShowRoute,
+        communityHeadingShowRoute,
         answerShowRoute,
+        communityAnswerShowRoute,
         notificationIndexRoute,
         postIndexRoute,
         communityIndexRoute,
