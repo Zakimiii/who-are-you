@@ -18,17 +18,17 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const communityHeadingUseCase = new CommunityHeadingUseCase();
 
 export const communityHeadingWatches = [
-    // takeLatest(communityHeadingActions.CREATE_HEADING, communityHeadingUseCase.createHeading),
-    // takeLatest(communityHeadingActions.UPDATE_HEADING, communityHeadingUseCase.updateHeading),
-    // takeLatest(communityHeadingActions.DELETE_HEADING, communityHeadingUseCase.deleteHeading),
-    // takeLatest(communityHeadingActions.SYNC_HEADING, communityHeadingUseCase.syncHeading),
-    // takeLatest(communityHeadingActions.TRASH_HEADING, communityHeadingUseCase.trashHeading),
-    // takeLatest(communityHeadingActions.UNTRASH_HEADING, communityHeadingUseCase.untrashHeading),
-    // takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initShow),
-    // takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initNew),
-    // takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initHeadingAnswers),
-    // takeEvery(
-    //     communityHeadingActions.GET_MORE_HEADING_ANSWER,
-    //     communityHeadingUseCase.getMoreHeadingAnswers
-    // ),
+    takeLatest(communityHeadingActions.CREATE_HEADING, communityHeadingUseCase.createHeading),
+    takeLatest(communityHeadingActions.UPDATE_HEADING, communityHeadingUseCase.updateHeading),
+    takeLatest(communityHeadingActions.DELETE_HEADING, communityHeadingUseCase.deleteHeading),
+    takeLatest(communityHeadingActions.SYNC_HEADING, communityHeadingUseCase.syncHeading),
+    takeLatest(communityHeadingActions.TRASH_HEADING, communityHeadingUseCase.trashHeading),
+    takeLatest(communityHeadingActions.UNTRASH_HEADING, communityHeadingUseCase.untrashHeading),
+    takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initNew),
+    takeEvery(LOCATION_CHANGE, communityHeadingUseCase.initHeadingAnswers),
+    takeEvery(
+        communityHeadingActions.GET_MORE_HEADING_ANSWER,
+        communityHeadingUseCase.getMoreHeadingAnswers
+    ),
 ];

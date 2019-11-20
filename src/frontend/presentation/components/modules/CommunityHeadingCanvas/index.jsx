@@ -42,7 +42,7 @@ class CommunityHeadingCanvas extends React.Component {
         const { repository, onShot } = this.props;
         const { mounted } = this.state;
         if (!process.env.BROWSER) return;
-        if (!repository || !repository.User) return;
+        if (!repository || !repository.Community) return;
         canvas.get_shot_by_url('heading-canvas').then(data => {
             this.setState({ mounted: !!data });
             !!data &&

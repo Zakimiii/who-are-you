@@ -16,22 +16,24 @@ export default class CommunityTemplateRepository extends RepositoryImpl {
         return data && data.template;
     }
 
-    async getTrend({ id, username, offset, limit }) {
+    async getTrend({ id, username, offset, limit, category_id, }) {
         const data = await super.apiCall('/api/v1/community/templates/trends', {
             user_id: id,
             username,
             offset: Number(offset || 0),
             limit: limit || data_config.fetch_data_limit('M'),
+            category_id,
         });
         return data && data.templates;
     }
 
-    async getStaticTrend({ id, username, offset, limit }) {
+    async getStaticTrend({ id, username, offset, limit, category_id, }) {
         const data = await super.apiCall('/api/v1/community/templates/static/trends', {
             user_id: id,
             username,
             offset: Number(offset || 0),
             limit: limit || data_config.fetch_data_limit('M'),
+            category_id,
         });
         return data && data.templates;
     }

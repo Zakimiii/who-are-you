@@ -112,11 +112,12 @@ export default class CommunityTemplateHandler extends HandlerImpl {
     }
 
     async handleGetStaticTrendTemplateRequest(router, ctx, next) {
-        const { limit, offset } = router.request.body;
+        const { limit, offset, category_id } = router.request.body;
 
         const templates = await communityTemplateDataStore.getStaticTrendTemplate({
             limit,
             offset,
+            category_id,
         });
 
         router.body = {
@@ -126,11 +127,12 @@ export default class CommunityTemplateHandler extends HandlerImpl {
     }
 
     async handleGetTrendTemplateRequest(router, ctx, next) {
-        const { limit, offset, user } = router.request.body;
+        const { limit, offset, user, category_id } = router.request.body;
 
         const templates = await communityTemplateDataStore.getStaticTrendTemplate({
             limit,
             offset,
+            category_id,
         });
 
         router.body = {

@@ -84,15 +84,16 @@ export const answerNewRoute = new RouteEntity({
 
 export const communityHeadingNewRoute = new RouteEntity({
     path: '/community/:id/heading/new',
-    page: 'HeadingNew',
-    component: require('@components/pages/HeadingNewAlias'),
+    page: 'CommunityHeadingNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/CommunityHeadingNewAlias'),
 });
 
 export const communityAnswerNewRoute = new RouteEntity({
     path: '/community/heading/:id/answer/new',
-    page: 'AnswerNew',
+    page: 'CommunityAnswerNew',
     validate: { id: /\d+/ },
-    component: require('@components/pages/AnswerNewAlias'),
+    component: require('@components/pages/CommunityAnswerNewAlias'),
 });
 
 

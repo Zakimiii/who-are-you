@@ -210,7 +210,7 @@ export const getCache = (id, state) => {
 
 export const getDelete = (id, state) => {
     if (!id) return;
-    const val = state.communityTemplate.get('deletes');ƒ
+    const val = state.communityTemplate.get('deletes');
     let templates = val.toJS();
     if (!(templates instanceof Array)) return;
     if (templates.length == 0) return;

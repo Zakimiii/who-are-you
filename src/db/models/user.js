@@ -81,10 +81,24 @@ module.exports = function(sequelize, DataTypes) {
                     User.hasMany(models.Heading);
                     User.hasMany(models.SearchHistory);
                     User.hasMany(models.Answer);
+                    User.hasMany(models.CommunityAnswer, {
+                        as: 'CommunityAnswers',
+                        foreignKey: {
+                            name: 'user_id',
+                            allowNull: true,
+                        },
+                    });
                     User.hasOne(models.Identity);
                     User.hasOne(models.Notification);
                     User.hasMany(models.Heading, {
                         as: 'VoteHeadings',
+                        foreignKey: {
+                            name: 'voter_id',
+                            allowNull: true,
+                        },
+                    });
+                    User.hasMany(models.CommunityHeading, {
+                        as: 'VoteCommunityHeadings',
                         foreignKey: {
                             name: 'voter_id',
                             allowNull: true,

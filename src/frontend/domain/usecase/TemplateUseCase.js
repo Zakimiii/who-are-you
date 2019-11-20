@@ -71,7 +71,13 @@ export default class TemplateUseCase extends UseCaseImpl {
 
     *getMoreTrend({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
-        if (templateIndexRoute.isValidPath(pathname)) {
+        if (templateIndexRoute.isValidPath(pathname) || userShowRoute.isValidPath(pathname)) {
+            if (userShowRoute.isValidPath(pathname)) {
+                const section = userShowRoute.params_value('section', pathname);
+                if (section !== 'templates') return;
+            }
+            const section = userShowRoute.params_value('section', pathname);
+            if (section !== 'templates') return;
             try {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>

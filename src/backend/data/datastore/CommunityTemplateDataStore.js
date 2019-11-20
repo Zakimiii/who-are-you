@@ -136,6 +136,8 @@ export default class CommunityTemplateDataStore extends DataStoreImpl {
             });
         }
 
+        heading.communitty_id = heading.CommunityId;
+
         const created_heading = await models.CommunityHeading.create(heading);
 
         this.updateCount(template);

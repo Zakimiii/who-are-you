@@ -18,12 +18,12 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const communityAnswerUseCase = new CommunityAnswerUseCase();
 
 export const communityAnswerWatches = [
-    // takeEvery(LOCATION_CHANGE, communityAnswerUseCase.initShow),
-    // takeEvery(LOCATION_CHANGE, communityAnswerUseCase.initNew),
-    // takeLatest(communityAnswerActions.CREATE_ANSWER, communityAnswerUseCase.createAnswer),
-    // takeLatest(communityAnswerActions.UPDATE_ANSWER, communityAnswerUseCase.updateAnswer),
-    // takeLatest(communityAnswerActions.DELETE_ANSWER, communityAnswerUseCase.deleteAnswer),
-    // takeLatest(communityAnswerActions.SYNC_ANSWER, communityAnswerUseCase.syncAnswer),
-    // takeLatest(communityAnswerActions.TRASH_ANSWER, communityAnswerUseCase.trashAnswer),
-    // takeLatest(communityAnswerActions.UNTRASH_ANSWER, communityAnswerUseCase.untrashAnswer),
+    takeEvery(LOCATION_CHANGE, communityAnswerUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, communityAnswerUseCase.initNew),
+    takeLatest(communityAnswerActions.CREATE_ANSWER, communityAnswerUseCase.createAnswer),
+    takeLatest(communityAnswerActions.UPDATE_ANSWER, communityAnswerUseCase.updateAnswer),
+    takeLatest(communityAnswerActions.DELETE_ANSWER, communityAnswerUseCase.deleteAnswer),
+    takeLatest(communityAnswerActions.SYNC_ANSWER, communityAnswerUseCase.syncAnswer),
+    takeLatest(communityAnswerActions.TRASH_ANSWER, communityAnswerUseCase.trashAnswer),
+    takeLatest(communityAnswerActions.UNTRASH_ANSWER, communityAnswerUseCase.untrashAnswer),
 ];

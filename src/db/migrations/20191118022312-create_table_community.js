@@ -366,10 +366,6 @@ module.exports = {
                             type: Sequelize.STRING(255),
                         },
                         //global colomn
-                        isMyAnswer: {
-                            type: Sequelize.BOOLEAN,
-                            defaultValue: false,
-                        },
                         isHide: {
                             type: Sequelize.BOOLEAN,
                             defaultValue: false,

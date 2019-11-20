@@ -136,6 +136,8 @@ export default class CommunityAnswerDataStore extends DataStoreImpl {
             });
         }
 
+        answer.heading_id = answer.HeadingId;
+
         const result = await models.CommunityAnswer.create(answer);
         return result;
     }
@@ -153,6 +155,8 @@ export default class CommunityAnswerDataStore extends DataStoreImpl {
                 },
             });
         }
+
+        answer.heading_id = answer.HeadingId;
 
         const data = await models.CommunityAnswer.findOne({
             where: {

@@ -150,6 +150,7 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
                 },
             });
         }
+        heading.community_id = heading.CommunityId
         const result = await models.CommunityHeading.create(heading);
         return result;
     }
