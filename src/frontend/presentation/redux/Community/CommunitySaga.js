@@ -18,10 +18,12 @@ const communityUseCase = new CommunityUseCase();
 
 export const communityWatches = [
     takeEvery(LOCATION_CHANGE, communityUseCase.initShow),
+    takeEvery(LOCATION_CHANGE, communityUseCase.initIndex),
     takeEvery(LOCATION_CHANGE, communityUseCase.initCommunityHeadings),
     takeEvery(
         communityActions.GET_MORE_COMMUNITY_HEADING,
         communityUseCase.getMoreCommunityHeadings
     ),
+    takeEvery(communityActions.GET_MORE_HOME, communityUseCase.getMoreIndex),
     takeLatest(communityActions.SYNC_COMMUNITY, communityUseCase.syncCommunity),
 ];

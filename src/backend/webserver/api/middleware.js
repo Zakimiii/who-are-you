@@ -316,6 +316,30 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/community/headings/static', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHeadingHandler
+            .handleStaticRecommendHeadingRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/community/heading/create', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
@@ -1613,6 +1637,30 @@ export default function ApiMiddleware(app) {
         }
         yield communityHandler
             .handleGetCommunityRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/communities/static', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHandler
+            .handleStaticRecommendCommunityRequest(results.router, results.ctx, results.next)
             .catch(
                 async e =>
                     await handleApiError(

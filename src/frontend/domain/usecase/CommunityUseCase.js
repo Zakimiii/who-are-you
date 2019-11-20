@@ -11,6 +11,7 @@ import * as communityHeadingActions from '@redux/CommunityHeading/CommunityHeadi
 import AppUseCase from '@usecase/AppUseCase';
 import {
     communityShowRoute,
+    communityIndexRoute,
     homeRoute,
     homeAliasRoute,
 } from '@infrastructure/RouteInitialize';
@@ -25,6 +26,53 @@ const appUsecase = new AppUseCase();
 export default class CommunityUseCase extends UseCaseImpl {
     constructor() {
         super();
+    }
+
+    *initIndex({ payload: { pathname } }) {
+        try {
+            if (communityIndexRoute.isValidPath(pathname)) {
+                yield put(appActions.fetchDataBegin());
+                yield put(authActions.syncCurrentUser());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const communities = yield communityRepository.getStaticCommunities({});
+                if (!communities) return;
+                yield put(communityActions.setHome({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreIndex({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        try {
+            if (communityIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    homeActions.getHomeCommunityLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const communities = yield communityRepository.getStaticCommunities({
+                    offset: indexContentsLength,
+                });
+                if (communities.length == 0) return;
+                yield put(communityActions.addHome({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
     }
 
     *initShow({ payload: { pathname } }) {
@@ -87,7 +135,7 @@ export default class CommunityUseCase extends UseCaseImpl {
                     pathname
                 );
                 const indexContentsLength = yield select(state =>
-                    userActions.getCommunityHeadingLength(state)
+                    communityActions.getCommunityHeadingLength(state)
                 );
                 if (indexContentsLength == 0) return;
                 const current_user = yield select(state =>

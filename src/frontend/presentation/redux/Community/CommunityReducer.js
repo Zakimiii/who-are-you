@@ -13,7 +13,10 @@ export const SET_SHOW = 'community/SET_SHOW';
 export const SET_COMMUNITY_HEADING = 'community/SET_COMMUNITY_HEADING';
 export const ADD_COMMUNITY_HEADING = 'community/ADD_COMMUNITY_HEADING';
 export const GET_MORE_COMMUNITY_HEADING = 'community/GET_MORE_COMMUNITY_HEADING';
-
+export const SET_HOME = 'community/SET_HOME';
+export const RESET_HOME = 'community/RESET_HOME';
+export const ADD_HOME = 'community/ADD_HOME';
+export const GET_MORE_HOME = 'community/GET_MORE_HOME';
 export const SET_CACHES = 'community/SET_CACHES';
 export const RESET_CACHES = 'community/SET_CACHES';
 export const SET_DELETES = 'community/SET_DELETES';
@@ -22,6 +25,7 @@ export const SYNC_COMMUNITY = 'community/SYNC_COMMUNITY';
 
 export const defaultState = Map({
     show_community: Map(),
+    home_community: List(),
     community_heading: List([]),
     caches: List([]),
     deletes: List([]),
@@ -35,6 +39,39 @@ export default function reducer(state = defaultState, action = {}) {
                 caches: List([]),
                 deletes: List([]),
             });
+
+        case SET_HOME: {
+            if (!action.payload.communities) return state;
+            if (action.payload.communities.length == 0) return state;
+            return state.set(
+                'home_community',
+                List(
+                    action.payload.communities.map(val => {
+                        return Map(val);
+                    })
+                )
+            );
+        }
+
+        case RESET_HOME: {
+            return state.set('home_community', List());
+        }
+
+        case ADD_HOME: {
+            if (!action.payload.communities) return state;
+            if (action.payload.communities.length == 0) return state;
+            let before = state.get('home_community');
+            return state.set(
+                'home_community',
+                before.concat(
+                    List(
+                        action.payload.communities.map(val => {
+                            return Map(val);
+                        })
+                    )
+                )
+            );
+        }
 
         case SET_SHOW: {
             return state.merge({
@@ -92,6 +129,26 @@ export default function reducer(state = defaultState, action = {}) {
             return state;
     }
 }
+
+export const setHome = payload => ({
+    type: SET_HOME,
+    payload,
+});
+
+export const resetHome = payload => ({
+    type: RESET_HOME,
+    payload,
+});
+
+export const addHome = payload => ({
+    type: ADD_HOME,
+    payload,
+});
+
+export const getMoreHome = payload => ({
+    type: GET_MORE_HOME,
+    payload,
+});
 
 export const setCaches = payload => ({
     type: SET_CACHES,
@@ -167,6 +224,21 @@ export const getShowCommunity = state => {
     let val = state.community.get('show_community');
     const community = !!val ? val.toJS() : null;
     return bind(community, state);
+};
+
+export const getHomeCommunity = state => {
+    const val = state.community.get('home_community');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getHomeCommunityLength = state => {
+    const val = state.community.get('home_community');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
 };
 
 export const getCommunityHeading = state => {

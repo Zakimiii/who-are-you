@@ -9,6 +9,7 @@
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
         "contact": "お問い合わせ",
+        "community": "トピック",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
         "invite": "招待する",

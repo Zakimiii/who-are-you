@@ -73,4 +73,18 @@ export default class CommunityHandler extends HandlerImpl {
             headings: results,
         };
     }
+
+    async handleStaticRecommendCommunityRequest(router, ctx, next) {
+        const { limit, offset } = router.request.body;
+
+        const communities = await communityDataStore.getStaticRecommendCommunities({
+            offset,
+            limit,
+        });
+
+        router.body = {
+            success: true,
+            communities,
+        };
+    }
 }

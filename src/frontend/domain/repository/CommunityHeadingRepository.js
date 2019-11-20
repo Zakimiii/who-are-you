@@ -17,6 +17,26 @@ export default class CommunityHeadingRepository extends RepositoryImpl {
         return data && data.heading;
     }
 
+    async getHeadings({ id, username, offset, limit }) {
+        const data = await super.apiCall('/api/v1/community/headings/static', {
+            user_id: Number(id),
+            username,
+            limit: limit || data_config.fetch_data_limit('S'),
+            offset: Number(offset || 0),
+        });
+
+        return data && data.headings;
+    }
+
+    async getStaticHeadings({ offset, limit }) {
+        const data = await super.apiCall('/api/v1/community/headings/static', {
+            limit: limit || data_config.fetch_data_limit('S'),
+            offset: Number(offset || 0),
+        });
+
+        return data && data.headings;
+    }
+
     async create(heading) {
         const data = await super.apiCall('/api/v1/community/heading/create', {
             heading: safe2json(heading),

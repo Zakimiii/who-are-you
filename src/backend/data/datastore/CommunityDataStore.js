@@ -2,6 +2,14 @@ import DataStoreImpl from '@datastore/DataStoreImpl';
 import { Set, Map, fromJS, List } from 'immutable';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import models from '@models';
+import Promise from 'bluebird';
+import data_config from '@constants/data_config';
+import { ApiError } from '@extension/Error';
+import {
+    generateLikeQuery,
+    generateOrQuery,
+    generateOrQueries,
+} from '@extension/query';
 
 export default class CommunityDataStore extends DataStoreImpl {
     constructor() {
@@ -12,6 +20,7 @@ export default class CommunityDataStore extends DataStoreImpl {
         datum,
         params = {
             headings: true,
+            category: true,
             picture: false,
         }
     ) {
@@ -28,6 +37,13 @@ export default class CommunityDataStore extends DataStoreImpl {
                         models.CommunityHeading.findAll({
                             where: {
                                 community_id: val.id,
+                            },
+                            raw: true,
+                        }),
+                    params.category &&
+                        models.Category.findOne({
+                            where: {
+                                id: val.CategoryId,
                             },
                             raw: true,
                         }),
@@ -52,9 +68,23 @@ export default class CommunityDataStore extends DataStoreImpl {
                         });
                     }
                 }
+                if (params.category) {
+                    val.Category = includes[index][1];
+                    if (!params.picture && val.Category) {
+                        val.Category.picture = '';
+                    }
+                }
                 return val;
             })
         );
+    }
+
+    async getIndexIncludes(datum) {
+        return await this.getIncludes(datum, {
+            headings: false,
+            category: true,
+            picture: false,
+        });
     }
 
     async updateCount(value) {
@@ -140,5 +170,21 @@ export default class CommunityDataStore extends DataStoreImpl {
         // like_results = await this.getIndexIncludes(like_results);
 
         return results;
+    }
+
+    async getStaticRecommendCommunities({ offset, limit }) {
+        const results = await models.Community.findAll({
+            order: [['answer_count', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return await this.getIndexIncludes(results);
     }
 }

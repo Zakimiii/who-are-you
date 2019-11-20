@@ -215,4 +215,18 @@ export default class CommunityHeadingHandler extends HandlerImpl {
             answers,
         };
     }
+
+    async handleStaticRecommendHeadingRequest(router, ctx, next) {
+        const { limit, offset } = router.request.body;
+
+        const headings = await communityHeadingDataStore.getStaticRecommendHeadings({
+            offset,
+            limit,
+        });
+
+        router.body = {
+            success: true,
+            headings,
+        };
+    }
 }

@@ -16,6 +16,26 @@ export default class CommunityRepository extends RepositoryImpl {
         return data && data.community;
     }
 
+    async getCommunities({ id, username, offset, limit }) {
+        const data = await super.apiCall('/api/v1/communities/static', {
+            user_id: Number(id),
+            username,
+            limit: limit || data_config.fetch_data_limit('S'),
+            offset: Number(offset || 0),
+        });
+
+        return data && data.communities;
+    }
+
+    async getStaticCommunities({ offset, limit }) {
+        const data = await super.apiCall('/api/v1/communities/static', {
+            limit: limit || data_config.fetch_data_limit('S'),
+            offset: Number(offset || 0),
+        });
+
+        return data && data.communities;
+    }
+
     async getHeadings({ id, offset, limit }) {
         const data = await super.apiCall('/api/v1/community/headings', {
             community_id: id,
