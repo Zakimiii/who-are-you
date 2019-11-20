@@ -109,14 +109,14 @@ class CommunityAnswerItem extends React.Component {
                             width={22}
                             redius={22 / 2}
                             url={
-                                _repository.Community &&
-                                _repository.Community.picture
+                                _repository.User &&
+                                _repository.User.picture_small
                             }
-                            alt={_repository.Community && _repository.Community.body}
+                            alt={_repository.User && _repository.User.nickname}
                         />
                     </div>
                     <div className="answer-item__user-value">
-                        {_repository.Community && _repository.Community.body}
+                        {_repository.User && _repository.User.nickname}
                     </div>
                 </Link>
                 <div className="answer-item__body">{text}</div>
