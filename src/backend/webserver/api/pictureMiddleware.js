@@ -117,4 +117,64 @@ export default function PictureMiddleware(app) {
         );
         this.body = buffer;
     });
+
+    router.get('/community/heading/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const heading = yield models.CommunityHeading.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!heading || !heading.picture || heading.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = heading.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            heading.picture.toString(),
+            id,
+            'community_heading'
+        );
+        this.body = buffer;
+    });
+
+    router.get('/community/answer/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const answer = yield models.CommunityAnswer.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!answer || !answer.picture || answer.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = answer.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            answer.picture.toString(),
+            id,
+            'community_answer'
+        );
+        this.body = buffer;
+    });
 }

@@ -261,6 +261,20 @@ export const getPageTitle = (pathname, state) => {
             title = tt(`pages.${headingShowRoute.page}`, {
                 data: `${heading.User.nickname}の紹介`,
             });
+    } else if (page == communityAnswerShowRoute.page) {
+        let val = state.communityAnswer.get('show_answer');
+        const answer = !!val ? val.toJS() : null;
+        if (!!answer && !!answer.Heading && !!answer.Heading.Community)
+            title = tt(`pages.${answerShowRoute.page}`, {
+                data: `${answer.Heading.Community.body}の紹介`,
+            });
+    } else if (page == communityHeadingShowRoute.page) {
+        let val = state.communityHeading.get('show_heading');
+        const heading = !!val ? val.toJS() : null;
+        if (!!heading && !!heading.Community)
+            title = tt(`pages.${headingShowRoute.page}`, {
+                data: `${heading.Community.body}の紹介`,
+            });
     } else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
@@ -294,6 +308,20 @@ export const getPageDescription = (pathname, state) => {
             description = tt(`descriptions.${headingShowRoute.page}`, {
                 user: `${heading.User.nickname}`,
             });
+    } else if (page == communityAnswerShowRoute.page) {
+        let val = state.communityAnswer.get('show_answer');
+        const answer = !!val ? val.toJS() : null;
+        if (!!answer && !!answer.Heading)
+            description = tt(`descriptions.${answerShowRoute.page}`, {
+                heading: `${models.Heading.getBody(answer.Heading)}`,
+            });
+    } else if (page == communityHeadingShowRoute.page) {
+        let val = state.communityHeading.get('show_heading');
+        const heading = !!val ? val.toJS() : null;
+        if (!!heading && !!heading.Community)
+            description = tt(`descriptions.${headingShowRoute.page}`, {
+                user: `${heading.Community.body}`,
+            });
     } else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
@@ -322,6 +350,17 @@ export const getPageImage = pathname => {
         image = `${
             config.CURRENT_APP_URL
         }/pictures/heading/${headingShowRoute.params_value(
+            'id',
+            pathname
+        )}.png`;
+    } else if (page == communityAnswerShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/community/answer/${communityAnswerShowRoute.params_value('id', pathname)}.png`;
+    } else if (page == communityHeadingShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/community/heading/${communityHeadingShowRoute.params_value(
             'id',
             pathname
         )}.png`;
