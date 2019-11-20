@@ -16,7 +16,7 @@ import * as communityActions from '@redux/Community/CommunityReducer';
 import CommunityHeadingWantedItem from '@modules/CommunityHeadingWantedItem';
 import {
     communityShowRoute,
-    headingShowRoute,
+    communityHeadingShowRoute,
     userShowRoute,
 } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
@@ -48,7 +48,7 @@ class CommunityHeadingItem extends React.Component {
         const { _repository } = this.props;
         if (e) e.preventDefault();
         browserHistory.push(
-            headingShowRoute.getPath({
+            communityHeadingShowRoute.getPath({
                 params: {
                     id: _repository.id,
                 },
@@ -128,7 +128,7 @@ class CommunityHeadingItem extends React.Component {
                 {_repository.answer_count > _repository.Answers.length && (
                     <Link
                         className="heading-item__link"
-                        to={headingShowRoute.getPath({
+                        to={communityHeadingShowRoute.getPath({
                             params: {
                                 id: _repository.id,
                             },

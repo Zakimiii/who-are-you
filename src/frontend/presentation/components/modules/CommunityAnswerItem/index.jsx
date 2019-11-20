@@ -13,7 +13,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
 import {
-    answerShowRoute,
+    communityAnswerShowRoute,
     communityShowRoute,
     userShowRoute,
     homeRoute,
@@ -61,7 +61,7 @@ class CommunityAnswerItem extends React.Component {
         const { _repository } = this.props;
         if (e) e.stopPropagation();
         browserHistory.push(
-            answerShowRoute.getPath({
+            communityAnswerShowRoute.getPath({
                 params: {
                     id: _repository.id,
                 },

@@ -55,6 +55,20 @@ export const answerShowRoute = new RouteEntity({
     validate: { id: /\d+/ },
 });
 
+export const communityHeadingShowRoute = new RouteEntity({
+    path: '/heading/:id',
+    page: 'HeadingShow',
+    component: require('@components/pages/HeadingShow'),
+    validate: { id: /\d+/ },
+});
+
+export const communityAnswerShowRoute = new RouteEntity({
+    path: '/answer/:id',
+    page: 'AnswerShow',
+    component: require('@components/pages/AnswerShow'),
+    validate: { id: /\d+/ },
+});
+
 export const headingNewRoute = new RouteEntity({
     path: '/user/:username/heading/new',
     page: 'HeadingNew',

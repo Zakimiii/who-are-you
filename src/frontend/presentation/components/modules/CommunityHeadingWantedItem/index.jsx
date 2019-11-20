@@ -15,7 +15,7 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import CommunityAnswerNewButton from '@elements/CommunityAnswerNewButton';
 import {
     communityShowRoute,
-    headingShowRoute,
+    communityHeadingShowRoute,
     userShowRoute,
 } from '@infrastructure/RouteInitialize';
 import dummy from '@network/dummy';
@@ -47,7 +47,7 @@ class CommunityHeadingWantedItem extends React.Component {
         const { _repository } = this.props;
         if (e) e.preventDefault();
         browserHistory.push(
-            headingShowRoute.getPath({
+            communityHeadingShowRoute.getPath({
                 params: {
                     id: _repository.id,
                 },

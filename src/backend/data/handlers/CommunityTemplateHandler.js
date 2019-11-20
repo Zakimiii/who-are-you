@@ -46,7 +46,7 @@ export default class CommunityTemplateHandler extends HandlerImpl {
 
         await TwitterHandler.postTweetWithoutMention(
             community.body,
-            `/community/${community.id}/heading/${heading.id}`,
+            `/community/heading/${heading.id}`,
             identity.twitter_token,
             identity.twitter_secret
         ).catch(e => {

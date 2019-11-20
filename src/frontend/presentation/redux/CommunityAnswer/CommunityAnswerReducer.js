@@ -3,7 +3,7 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import {
     communityAnswerNewRoute,
-    answerShowRoute,
+    communityAnswerShowRoute,
 } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
 import TwitterHandler from '@network/twitter';
@@ -148,7 +148,7 @@ export default function reducer(state = defaultState, action) {
                 TwitterHandler.getShareUrl({
                     id: twitter_username,
                     text: answer.body,
-                    pathname: answerShowRoute.getPath({
+                    pathname: communityAnswerShowRoute.getPath({
                         params: {
                             id: answer.id,
                         },
@@ -158,7 +158,7 @@ export default function reducer(state = defaultState, action) {
             // window.open(
             //     TwitterHandler.getShareUrl({
             //         text: answer.body,
-            //         pathname: answerShowRoute.getPath({
+            //         pathname: communityAnswerShowRoute.getPath({
             //             params: {
             //                 id: answer.id,
             //             }

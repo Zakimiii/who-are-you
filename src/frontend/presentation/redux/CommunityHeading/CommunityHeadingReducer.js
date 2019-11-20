@@ -3,7 +3,7 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import models from '@network/client_models';
 import {
     communityHeadingNewRoute,
-    headingShowRoute,
+    communityHeadingShowRoute,
 } from '@infrastructure/RouteInitialize';
 import TwitterHandler from '@network/twitter';
 import { open } from '@network/window';
@@ -169,7 +169,7 @@ export default function reducer(state = defaultState, action) {
                 TwitterHandler.getShareUrl({
                     id: twitter_username,
                     text: heading.body,
-                    pathname: headingShowRoute.getPath({
+                    pathname: communityHeadingShowRoute.getPath({
                         params: {
                             id: heading.id,
                         },
