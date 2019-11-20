@@ -54,7 +54,7 @@ export default class CommunityAnswerHandler extends HandlerImpl {
 
         await TwitterHandler.postTweetWithoutMention(
             community.body,
-            `/community/answer/${answer.id}`,
+            `/communities/answer/${answer.id}`,
             identity.twitter_token,
             identity.twitter_secret
         ).catch(e => {

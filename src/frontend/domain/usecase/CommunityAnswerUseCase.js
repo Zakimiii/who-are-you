@@ -51,6 +51,7 @@ export default class CommunityAnswerUseCase extends UseCaseImpl {
             });
             yield put(communityAnswerActions.setShow({ answer }));
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());

@@ -83,8 +83,8 @@ class CommunityAnswerShowList extends React.Component {
 
         return (
             <div className="answer-show-list">
-                {/*repository.UserId != repository.Heading.UserId && voter*/}
                 {top}
+                {voter}
                 {/*user*/}
                 <div className="heading-show-list__category">
                     {tt('g.answered_theme')}
@@ -98,7 +98,7 @@ class CommunityAnswerShowList extends React.Component {
 export default connect(
     (state, props) => {
         return {
-            repository: communityAnswerActions.getShowCommunityAnswer(state),
+            repository: communityAnswerActions.getShowAnswer(state),
             loading: appActions.answerShowPageLoading(state),
         };
     },

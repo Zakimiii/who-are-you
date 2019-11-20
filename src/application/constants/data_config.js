@@ -76,6 +76,9 @@ const post_text_template = (name, pathname) =>
 const post_text = id =>
     `【@${id}%20さんの紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
 
+const post_text_hash = id =>
+    `【${id}%20の紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
+
 const invite_text = id =>
     `【@${
         id
@@ -147,6 +150,7 @@ module.exports = {
     post_template,
     post_text_template,
     post_text,
+    post_text_hash,
     invite_text,
     heading_body_min_limit,
     heading_body_max_limit,

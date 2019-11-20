@@ -102,7 +102,7 @@ class CommunityHeadingShowList extends React.Component {
         return (
             <div className="heading-show-list">
                 {top}
-                {repository.VoterId && voter}
+                {voter}
                 {/*user*/}
                 <div className="heading-show-list__category">
                     {tt('g.answers')}
@@ -121,15 +121,15 @@ class CommunityHeadingShowList extends React.Component {
 export default connect(
     (state, props) => {
         return {
-            repository: communityHeadingActions.getShowCommunityHeading(state),
-            repositories: communityHeadingActions.getCommunityHeadingCommunityAnswer(state),
+            repository: communityHeadingActions.getShowHeading(state),
+            repositories: communityHeadingActions.getHeadingAnswer(state),
             loading: appActions.headingShowPageLoading(state),
         };
     },
 
     dispatch => ({
         getMore: () => {
-            dispatch(communityHeadingActions.getMoreCommunityHeadingCommunityAnswer());
+            dispatch(communityHeadingActions.getMoreHeadingAnswer());
         },
     })
 )(CommunityHeadingShowList);

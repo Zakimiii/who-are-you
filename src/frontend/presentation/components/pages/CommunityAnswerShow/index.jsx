@@ -34,7 +34,7 @@ class CommunityAnswerShow extends React.Component {
 }
 
 module.exports = {
-    path: '/answer/:id',
+    path: '/communities/answer/:id',
     component: connect(
         (state, ownProps) => {
             return {};

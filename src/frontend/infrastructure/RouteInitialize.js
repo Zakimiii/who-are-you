@@ -56,14 +56,14 @@ export const answerShowRoute = new RouteEntity({
 });
 
 export const communityHeadingShowRoute = new RouteEntity({
-    path: '/community/heading/:id',
+    path: '/communities/heading/:id',
     page: 'CommunityHeadingShow',
     component: require('@components/pages/CommunityHeadingShow'),
     validate: { id: /\d+/ },
 });
 
 export const communityAnswerShowRoute = new RouteEntity({
-    path: '/community/answer/:id',
+    path: '/communities/answer/:id',
     page: 'CommunityAnswerShow',
     component: require('@components/pages/CommunityAnswerShow'),
     validate: { id: /\d+/ },

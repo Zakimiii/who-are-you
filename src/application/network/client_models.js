@@ -193,10 +193,9 @@ const CommunityHeading = {
     toJSON: arg => safe2json(arg),
     isInstance: obj =>
         !!obj &&
-        'UserId' in obj &&
+        'CommunityId' in obj &&
         'VoterId' in obj &&
-        'body' in obj &&
-        'isBot' in obj,
+        'body' in obj,
     getBody: obj => {
         if (!obj) return;
         return Number.prototype.castBool(obj.isBot)
@@ -214,7 +213,6 @@ const CommunityAnswer = {
             body: '',
             locale: 'ja',
             country_code: 'JP',
-            isMyAnswer: false,
             isHide: false,
             isPrivate: false,
             valid: false,
@@ -251,6 +249,7 @@ const CommunityTemplate = {
         !!obj &&
         !('UserId' in obj) &&
         !('HeadingId' in obj) &&
+        'CategoryId' in obj &&
         'body' in obj &&
         'count' in obj,
 };

@@ -18,7 +18,7 @@ import {
     userShowRoute,
     homeRoute,
 } from '@infrastructure/RouteInitialize';
-import StatsBar from '@modules/StatsBar';
+import CommunityStatsBar from '@modules/CommunityStatsBar';
 
 class CommunityAnswerItem extends React.Component {
     static propTypes = {
@@ -130,7 +130,7 @@ class CommunityAnswerItem extends React.Component {
                     </div>
                 )}
                 {/*<div className="answer-item__bar">
-                    <StatsBar repository={_repository} />
+                    <CommunityStatsBar repository={_repository} />
                 </div>*/}
             </div>
         );

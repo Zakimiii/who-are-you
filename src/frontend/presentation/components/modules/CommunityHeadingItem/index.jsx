@@ -20,7 +20,7 @@ import {
     userShowRoute,
 } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
-import StatsBar from '@modules/StatsBar';
+import CommunityStatsBar from '@modules/CommunityStatsBar';
 
 class CommunityHeadingItem extends React.Component {
     static propTypes = {
@@ -141,7 +141,7 @@ class CommunityHeadingItem extends React.Component {
                     <CommunityAnswerNewButton repository={_repository} />
                 </div>
                 <div className="heading-item__bar">
-                    <StatsBar repository={_repository} />
+                    <CommunityStatsBar repository={_repository} />
                 </div>
             </div>
         );

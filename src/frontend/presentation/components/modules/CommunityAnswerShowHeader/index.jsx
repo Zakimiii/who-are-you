@@ -14,7 +14,7 @@ import dummy from '@network/dummy';
 import data_config from '@constants/data_config';
 import { communityShowRoute, userShowRoute, homeRoute } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
-import StatsBar from '@modules/StatsBar';
+import CommunityStatsBar from '@modules/CommunityStatsBar';
 
 class CommunityAnswerShowHeader extends React.Component {
     static propTypes = {
@@ -85,7 +85,7 @@ class CommunityAnswerShowHeader extends React.Component {
                     {`${_repository.body}`}
                 </div>
                 <div className="answer-show-header__bar">
-                    <StatsBar repository={_repository} />
+                    <CommunityStatsBar repository={_repository} />
                 </div>
             </div>
         );

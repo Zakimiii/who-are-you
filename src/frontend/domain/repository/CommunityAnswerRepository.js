@@ -10,7 +10,7 @@ export default class CommunityAnswerRepository extends RepositoryImpl {
     }
 
     async getAnswer({ id, offset, limit }) {
-        const data = await super.apiCall('/api/community/v1/answer', {
+        const data = await super.apiCall('/api/v1/community/answer', {
             id: Number(id),
         });
 

@@ -162,13 +162,12 @@ export default function reducer(state = defaultState, action) {
         }
 
         case CREATED_HEADING: {
-            const { heading, twitter_username } = payload;
-            if (!heading || !twitter_username) return state;
+            const { heading, text } = payload;
+            if (!heading || !text) return state;
             if (!heading.id) return state;
             window.location.replace(
-                TwitterHandler.getShareUrl({
-                    id: twitter_username,
-                    text: heading.body,
+                TwitterHandler.getShareWithoutMentionUrl({
+                    text,
                     pathname: communityHeadingShowRoute.getPath({
                         params: {
                             id: heading.id,

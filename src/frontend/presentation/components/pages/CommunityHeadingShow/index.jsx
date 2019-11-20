@@ -25,6 +25,8 @@ class CommunityHeadingShow extends React.Component {
     render() {
         var { id } = this.props.routeParams;
 
+        console.log("come");
+
         return (
             <IndexComponent>
                 <CommunityHeadingShowList id={id} />
@@ -34,7 +36,7 @@ class CommunityHeadingShow extends React.Component {
 }
 
 module.exports = {
-    path: '/community/heading/:id',
+    path: '/communities/heading/:id',
     component: connect(
         (state, ownProps) => {
             return {};

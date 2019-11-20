@@ -53,6 +53,12 @@ export default class TwitterHandler {
             id
         )}`;
 
+    static getShareWithoutMentionUrl = ({ text, pathname }) =>
+        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
+            pathname}&hashtags=whoareyou,自己紹介,友達紹介&text=${data_config.post_text_hash(
+            text
+        )}`;
+
     static getInviteUrl = ({ id }) =>
         `https://twitter.com/intent/tweet?url=${
             config.CURRENT_APP_URL
