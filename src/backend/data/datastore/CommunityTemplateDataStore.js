@@ -136,7 +136,7 @@ export default class CommunityTemplateDataStore extends DataStoreImpl {
             });
         }
 
-        heading.communitty_id = heading.CommunityId;
+        heading.community_id = heading.CommunityId;
 
         const created_heading = await models.CommunityHeading.create(heading);
 
