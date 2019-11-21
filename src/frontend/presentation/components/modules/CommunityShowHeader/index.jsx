@@ -81,7 +81,7 @@ class CommunityShowHeader extends React.Component {
                         {_repository.body}
                     </div>
                     <div className="user-show-header__detail">
-                        {tt('g.number_of_answer', { data: _repository.answer_count || 0 })}
+                        {tt('g.number_of_heading', { data: _repository.heading_count || 0 }) + '\n' + tt('g.number_of_answer', { data: _repository.answer_count || 0 })}
                     </div>
                 </div>
             </div>

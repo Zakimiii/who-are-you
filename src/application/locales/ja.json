@@ -5,6 +5,7 @@
         "answer": "回答",
         "answers": "回答一覧",
         "number_of_answer": "回答数:%(data)s",
+        "number_of_heading": "紹介テーマ数:%(data)s",
         "example_answer": "（例）〇〇はここが素敵！",
         "add_answer": "回答を追加",
         "wanted_answer":

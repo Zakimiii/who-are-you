@@ -11,6 +11,7 @@ import {
     CommunityHeadingDataStore,
     NotificationDataStore,
     CommunityDataStore,
+    CategoryDataStore,
     CommunityTemplateDataStore,
 } from '@datastore';
 
@@ -19,6 +20,7 @@ const communityHeadingDataStore = new CommunityHeadingDataStore();
 const notificationDataStore = new NotificationDataStore();
 const communityDataStore = new CommunityDataStore();
 const communityTemplateDataStore = new CommunityTemplateDataStore();
+const categoryDataStore = new CategoryDataStore();
 
 export default class CommunityHeadingHandler extends HandlerImpl {
     constructor() {
@@ -95,7 +97,9 @@ export default class CommunityHeadingHandler extends HandlerImpl {
 
         // notificationDataStore.onCreateHeading(result);
         communityDataStore.updateCount({ id: result.CommunityId });
+        categoryDataStore.updateCountFromHeading({ id: result.id });
         communityTemplateDataStore.find_or_create_from_heading(result);
+
 
         const posted = await this.postTweet(result);
 
@@ -121,6 +125,7 @@ export default class CommunityHeadingHandler extends HandlerImpl {
         });
 
         // communityDataStore.updateCount({ id: result.CommunityId });
+        // categoryDataStore.updateCountFromHeading({ id: result.id });
         communityTemplateDataStore.find_or_create_from_heading(result);
 
         const posted = await this.postTweet(result);
@@ -147,6 +152,7 @@ export default class CommunityHeadingHandler extends HandlerImpl {
         });
 
         communityDataStore.updateCount({ id: heading.CommunityId });
+        categoryDataStore.updateCountFromHeading({ id: result.id });
 
         router.body = {
             success: true,

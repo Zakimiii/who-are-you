@@ -97,7 +97,7 @@ export default class CommunityDataStore extends DataStoreImpl {
                 id: Number(value.id),
             },
         });
-        if (!user) return;
+        if (!community) return;
 
         const headings = await models.CommunityHeading.findAll({
             where: {
@@ -106,7 +106,7 @@ export default class CommunityDataStore extends DataStoreImpl {
             attributes: ['id', 'answer_count'],
         });
 
-        const result = await user.update({
+        const result = await community.update({
             heading_count: headings.length,
             answer_count:
                 headings.length > 0
@@ -125,7 +125,7 @@ export default class CommunityDataStore extends DataStoreImpl {
             where: {
                 id: Number(answer.HeadingId),
             },
-            attributes: ['id', 'UserId'],
+            attributes: ['id', 'CommunityId'],
         });
         const result = await this.updateCount({
             id: heading.CommunityId,

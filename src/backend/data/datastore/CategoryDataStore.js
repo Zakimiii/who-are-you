@@ -94,4 +94,70 @@ export default class CategoryDataStore extends DataStoreImpl {
         return categories.filter(category => !!category.Communities && category.Communities.length != 0);
     }
 
+    async updateCount(value) {
+        if (!value) return;
+        const category = await models.Category.findOne({
+            where: {
+                id: Number(value.id),
+            },
+        });
+        if (!category) return;
+
+        const communities = await models.Community.findAll({
+            where: {
+                id: Number(category.CommunityId),
+            },
+            attributes: ['id', 'answer_count', 'heading_count'],
+        });
+
+        const result = await category.update({
+            count: communities.length,
+            heading_count:
+                communities.length > 0
+                    ? communities
+                          .map(val => val.heading_count)
+                          .reduce((p, c) => p + c)
+                    : 0,
+            answer_count:
+                communities.length > 0
+                    ? communities
+                          .map(val => val.answer_count)
+                          .reduce((p, c) => p + c)
+                    : 0,
+        });
+
+        return result;
+    }
+
+    async updateCountFromAnswer(answer) {
+        if (!answer || !answer.HeadingId) return;
+        const heading = await models.CommunityHeading.findOne({
+            where: {
+                id: Number(answer.HeadingId),
+            },
+            attributes: ['id', 'CommunityId'],
+        });
+        const community = await models.Community.findOne({
+            where: {
+                id: heading.CommunityId
+            },
+        });
+        const result = await this.updateCount({
+            id: community.CategoryId,
+        })
+        return result;
+    }
+
+    async updateCountFromHeading(heading) {
+        if (!heading || !answer.CommunityId) return;
+        const community = await models.Community.findOne({
+            where: {
+                id: heading.CommunityId
+            },
+        });
+        const result = await this.updateCount({
+            id: community.CategoryId,
+        })
+        return result;
+    }
 }
