@@ -20,7 +20,7 @@ export default class CommunityRepository extends RepositoryImpl {
         const data = await super.apiCall('/api/v1/communities/static', {
             user_id: Number(id),
             username,
-            limit: limit || data_config.fetch_data_limit('M'),
+            limit: limit || data_config.fetch_data_limit('S'),
             offset: Number(offset || 0),
         });
 
@@ -29,7 +29,7 @@ export default class CommunityRepository extends RepositoryImpl {
 
     async getStaticCommunities({ offset, limit }) {
         const data = await super.apiCall('/api/v1/communities/static', {
-            limit: limit || data_config.fetch_data_limit('M'),
+            limit: limit || data_config.fetch_data_limit('S'),
             offset: Number(offset || 0),
         });
 

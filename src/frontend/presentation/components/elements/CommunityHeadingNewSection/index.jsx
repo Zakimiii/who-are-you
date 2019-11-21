@@ -12,6 +12,7 @@ import InputText from '@elements/InputText';
 import * as communityHeadingActions from '@redux/CommunityHeading/CommunityHeadingReducer';
 import models from '@network/client_models';
 import prototype_data from '@locales/prototype/ja.json';
+import data_config from '@constants/data_config';
 
 class CommunityHeadingNewSection extends React.Component {
     static propTypes = {
@@ -62,6 +63,7 @@ class CommunityHeadingNewSection extends React.Component {
                             width={32}
                             redius={16}
                             alt={repository.body}
+                            rollback_url={data_config.default_community_image}
                         />
                     </div>
                     <div className="heading-new-section__user-title">

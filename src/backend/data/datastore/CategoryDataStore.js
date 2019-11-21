@@ -60,7 +60,7 @@ export default class CategoryDataStore extends DataStoreImpl {
                     val.Communities = includes[index][0];
                     if (!params.picture) {
                         val.Communities = val.Communities.map(community => {
-                            community.picture = '';
+                            community.picture = `/pictures/community/${community.id}`;
                             return community;
                         });
                     }
@@ -90,7 +90,8 @@ export default class CategoryDataStore extends DataStoreImpl {
                 tt_key: 'errors.invalid_response_from_server',
             });
         });
-        return await this.getIndexIncludes(results);
+        const categories = await this.getIndexIncludes(results);
+        return categories.filter(category => !!category.Communities && category.Communities.length != 0);
     }
 
 }

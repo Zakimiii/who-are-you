@@ -52,7 +52,7 @@ export default class CommunityUseCase extends UseCaseImpl {
             if (communityIndexRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
-                    homeActions.getHomeCommunityLength(state)
+                    communityActions.getHomeCommunityLength(state)
                 );
                 if (indexContentsLength == 0) return;
                 const current_user = yield select(state =>

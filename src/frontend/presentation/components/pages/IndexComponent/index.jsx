@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppPropTypes from '@extension/AppPropTypes';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import FollowerBar from '@modules/FollowerBar';
+import CommunityBar from '@modules/CommunityBar';
 import SideBar from '@modules/SideBar';
+import {
+    communityIndexRoute,
+    communityShowRoute,
+} from '@infrastructure/RouteInitialize';
 
 class IndexComponent extends React.Component {
     static propTypes = {
@@ -34,7 +39,7 @@ class IndexComponent extends React.Component {
 
     render() {
         const { style, showSide, children } = this.props;
-
+        const { pathname } = browserHistory.getCurrentLocation();
         // return showSide ? (
         //     <div className="index-component" style={style}>
         //         <div className="index-component__center">{children}</div>
@@ -60,7 +65,7 @@ class IndexComponent extends React.Component {
                         </div>
                         <div className="index-component__right">
                             <div className="index-component__right-in">
-                                <FollowerBar />
+                                <CommunityBar/>
                             </div>
                         </div>
                     </div>

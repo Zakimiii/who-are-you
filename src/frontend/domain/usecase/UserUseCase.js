@@ -15,6 +15,8 @@ import {
     homeAliasRoute,
     postIndexRoute,
     notificationIndexRoute,
+    communityIndexRoute,
+    communityShowRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -95,7 +97,12 @@ export default class UserUseCase extends UseCaseImpl {
     }
 
     *initFollower({ payload: { pathname } }) {
-        if (homeAliasRoute.isValidPath(pathname)) return;
+        if (
+            homeAliasRoute.isValidPath(pathname) ||
+            communityIndexRoute.isValidPath(pathname) ||
+            communityShowRoute.isValidPath(pathname)
+        ) return;
+
         try {
             // const username = userShowRoute.params_value('username', pathname);
             yield put(appActions.fetchDataBegin());

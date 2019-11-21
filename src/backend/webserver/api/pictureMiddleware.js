@@ -177,4 +177,34 @@ export default function PictureMiddleware(app) {
         );
         this.body = buffer;
     });
+
+    router.get('/community/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const community = yield models.Community.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!community || !community.picture || community.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath("/images/brands/back-mini-logo.png")
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = community.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            community.picture.toString(),
+            id,
+            'community_answer'
+        );
+        this.body = buffer;
+    });
 }

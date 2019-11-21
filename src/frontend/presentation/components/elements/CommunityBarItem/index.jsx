@@ -6,7 +6,9 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
-import Img from '@elements/react-image';
+import PictureItem from '@elements/PictureItem';
+import { communityShowRoute } from '@infrastructure/RouteInitialize';
+import data_config from '@constants/data_config';
 
 class CommunityBarItem extends React.Component {
 
@@ -42,12 +44,18 @@ class CommunityBarItem extends React.Component {
         } = this.props;
 
         return (
-            <div className="community-bar-item" >
-                <Img src={repository.picture} className="community-bar-item__image" />
+            <Link className="community-bar-item" to={communityShowRoute.getPath({ params: { id: repository.id }})} >
+                <PictureItem
+                    url={repository.picture}
+                    className="community-bar-item__image"
+                    width={24}
+                    radius={12}
+                    rollback_url={data_config.default_community_image}
+                />
                 <div className="community-bar-item__value" >
                     {repository.body}
                 </div>
-            </div>
+            </Link>
         )
     }
 }

@@ -79,7 +79,10 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (!params.picture) val.picture = '';
-                if (params.community) val.Community = includes[index][0];
+                if (params.community) {
+                    val.Community = includes[index][0];
+                    val.Community.picture = `/pictures/community/${val.Community.id}`;
+                };
                 if (params.voter) val.Voter = includes[index][1];
                 if (params.answers) {
                     val.Answers = includes[index][2];

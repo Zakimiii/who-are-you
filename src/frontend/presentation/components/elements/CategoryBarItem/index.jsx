@@ -34,7 +34,7 @@ class CategoryBarItem extends React.Component {
 
         return (
             <div className="category-bar-item" >
-                <Icon size="1x" src="tag" className="category-bar-item__icon" />
+                <Icon size="2x" src="tag" className="category-bar-item__icon" />
                 <div className="category-bar-item__value" >
                     {repository.body}
                 </div>

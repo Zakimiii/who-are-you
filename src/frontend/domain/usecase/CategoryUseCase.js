@@ -12,6 +12,7 @@ import {
     homeRoute,
     homeAliasRoute,
     communityIndexRoute,
+    communityShowRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -26,18 +27,21 @@ export default class CategoryUseCase extends UseCaseImpl {
     }
 
     *initCategories({ payload: { pathname } }) {
-        if (!communityIndexRoute.isValidPath(pathname)) return;
+        if (homeAliasRoute.isValidPath(pathname)) return;
         try {
             yield put(authActions.syncCurrentUser());
             yield put(appActions.fetchDataBegin());
             // const current_user = yield select(state =>
             //     authActions.getCurrentUser(state)
             // );
+            const indexContentsLength = yield select(state =>
+                categoryActions.getHomeCategoryLength(state)
+            );
+            if (indexContentsLength > 0) return;
             const categories = yield categoryRepository.getCategories({});
             if (categories.length == 0) return;
             yield put(categoryActions.setHome({ categories }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());

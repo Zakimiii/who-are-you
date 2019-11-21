@@ -12,6 +12,7 @@ import models from '@network/client_models';
 import dummy from '@network/dummy';
 import Responsible from '@modules/Responsible';
 import TwitterBar from '@elements/TwitterBar';
+import data_config from '@constants/data_config';
 
 class CommunityShowHeader extends React.Component {
     static propTypes = {
@@ -63,6 +64,7 @@ class CommunityShowHeader extends React.Component {
                                 width={120}
                                 radius={60}
                                 url={_repository.picture}
+                                rollback_url={data_config.default_community_image}
                             />
                         }
                         breakingContent={
@@ -70,6 +72,7 @@ class CommunityShowHeader extends React.Component {
                                 width={80}
                                 radius={40}
                                 url={_repository.picture}
+                                rollback_url={data_config.default_community_image}
                             />
                         }
                         breakFm={true}
@@ -78,7 +81,7 @@ class CommunityShowHeader extends React.Component {
                         {_repository.body}
                     </div>
                     <div className="user-show-header__detail">
-                        {_repository.heading_count}
+                        {tt('g.number_of_answer', { data: _repository.answer_count || 0 })}
                     </div>
                 </div>
             </div>

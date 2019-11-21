@@ -27,11 +27,13 @@ export default class CommunityHandler extends HandlerImpl {
     async handleGetCommunityRequest(router, ctx, next) {
         const { id } = router.request.body;
 
-        const community = await models.Community.findOne({
+        let community = await models.Community.findOne({
             where: {
                 id: Number(id) || 0,
             },
         });
+
+        community.picture = `/pictures/community/${community.id}`;
 
         router.body = {
             success: true,

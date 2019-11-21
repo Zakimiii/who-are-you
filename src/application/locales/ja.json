@@ -4,7 +4,8 @@
             "紹介したい人にちなんだ紹介テーマを作成→回答し、みんなで遊びながら紹介文を完成させ、お互いを知り合えます",
         "answer": "回答",
         "answers": "回答一覧",
-        "example_answer": "（例）〇〇さんはここが素敵！",
+        "number_of_answer": "回答数:%(data)s",
+        "example_answer": "（例）〇〇はここが素敵！",
         "add_answer": "回答を追加",
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",

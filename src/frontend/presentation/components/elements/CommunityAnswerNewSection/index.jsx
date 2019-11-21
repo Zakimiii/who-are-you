@@ -13,6 +13,7 @@ import { answerNewRoute } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
 import InputText from '@elements/InputText';
 import * as headingActions from '@redux/Heading/HeadingReducer';
+import data_config from '@constants/data_config';
 
 class CommunityAnswerNewSection extends React.Component {
     static propTypes = {
@@ -53,6 +54,7 @@ class CommunityAnswerNewSection extends React.Component {
                             width={32}
                             redius={16}
                             alt={repository.Community.body}
+                            rollback_url={data_config.default_community_image}
                         />
                     </div>
                     <div className="answer-new-section__user-title">

@@ -82,6 +82,7 @@ export default class CommunityAnswerDataStore extends DataStoreImpl {
                         },
                         raw: true,
                     });
+                    val.Heading.Community.picture = `/pictures/community/${val.Heading.CommunityId}`;
                     val.Heading.Voter = await models.User.findOne({
                         where: {
                             id: val.Heading.VoterId,

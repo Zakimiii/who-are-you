@@ -86,5 +86,22 @@
         width: calc(100%);
       };
     }
+    &__community {
+      width: calc(32% - 2px);
+      // max-height: 400px;
+      margin: 4px;
+      @include mq-down(xl) {
+        width: calc(48% - 2px);
+      };
+      @include mq-down(lg) {
+        width: calc(32% - 2px);
+      };
+      @include mq-down(md) {
+        width: calc(32% - 2px);
+      };
+      @include mq-down(fm) {
+        width: calc(48% - 2px);
+      };
+    }
   }
 }
