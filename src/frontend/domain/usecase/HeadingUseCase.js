@@ -121,7 +121,10 @@ export default class HeadingUseCase extends UseCaseImpl {
                     heading: { id },
                     offset: indexContentsLength,
                 });
-                if (answers.length == 0) return;
+                if (answers.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(headingActions.addHeadingAnswer({ answers }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));

@@ -100,7 +100,10 @@ export default class TemplateUseCase extends UseCaseImpl {
                     : yield templateRepository.getStaticTrend({
                           offset: indexContentsLength,
                       });
-                if (!templates || templates.length == 0) return;
+                if (!templates || templates.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(templateActions.addHome({ templates }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));

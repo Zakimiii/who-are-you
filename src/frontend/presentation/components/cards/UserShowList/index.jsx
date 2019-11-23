@@ -36,7 +36,10 @@ class UserShowList extends React.Component {
         repository: null,
     };
 
-    state = {};
+    state = {
+        headings_fetched: false,
+        templates_fetched: false,
+    }
 
     constructor(props) {
         super(props);
@@ -57,11 +60,36 @@ class UserShowList extends React.Component {
             window.removeEventListener('scroll', this.onWindowScroll, false);
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {
+            more_loading,
+            repositories,
+            templates,
+            seciton,
+        } = this.props;
+
+        this.setState({
+            headings_fetched:
+                seciton == 'headings' &&
+                more_loading &&
+                !nextProps.more_loading &&
+                repositories.length == nextProps.repositories.length,
+            templates_fetched:
+                seciton == 'templates' &&
+                more_loading &&
+                !nextProps.more_loading &&
+                repositories.length == nextProps.repositories.length,
+        })
+    }
+
     onWindowScroll() {
         const { getMore, username, section, getMoreTemplate } = this.props;
+        const { templates_fetched, headings_fetched } = this.state;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
-        if (isEnd && getMore)
-            section == 'templates' ? getMoreTemplate() : getMore();
+        if (isEnd && getMore) {
+            if (section == 'templates' && !templates_fetched) getMoreTemplate()
+            if (section == 'headings' && !headings_fetched) getMore();
+        }
     }
 
     render() {
@@ -74,6 +102,7 @@ class UserShowList extends React.Component {
             section,
             pages,
             templates,
+            more_loading,
         } = this.props;
 
         let body = <div />;
@@ -188,6 +217,14 @@ class UserShowList extends React.Component {
                 {repository &&
                     Number.prototype.castBool(repository.verified) &&
                     body}
+                {more_loading && (
+                    <center>
+                        <LoadingIndicator
+                            style={{ marginBottom: '2rem' }}
+                            type={'circle'}
+                        />
+                    </center>
+                )}
             </div>
         );
     }
@@ -225,6 +262,7 @@ export default connect(
                         }) + '#pager',
                 },
             ]),
+            more_loading: state.app.get('more_loading'),
         };
     },
 

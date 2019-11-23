@@ -217,7 +217,10 @@ export default class UserUseCase extends UseCaseImpl {
                     isMyAccount:
                         current_user && current_user.username == username,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserHeading({ headings }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
@@ -239,7 +242,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserHeading({ headings }));
             }
         } catch (e) {
@@ -267,10 +273,12 @@ export default class UserUseCase extends UseCaseImpl {
                 heading,
                 offset: indexContentsLength,
             });
-            if (answers.length == 0) return;
+            if (answers.length == 0) {
+                yield put(appActions.fetchMoreDataEnd());
+                return;
+            };
             yield put(userActions.addUserHeadingAnswer({ heading, answers }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchMoreDataEnd());
@@ -289,10 +297,12 @@ export default class UserUseCase extends UseCaseImpl {
                 username: current_user.username,
                 isMyAccount: true,
             });
-            if (headings.length == 0) return;
+            if (headings.length == 0) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            };
             yield put(userActions.setUserPost({ headings }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -321,7 +331,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserPost({ headings }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
@@ -374,7 +387,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (notifications.length == 0) return;
+                if (notifications.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(userActions.addUserNotification({ notifications }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));

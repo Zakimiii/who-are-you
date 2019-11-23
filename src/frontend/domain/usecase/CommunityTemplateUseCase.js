@@ -106,7 +106,10 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
                           offset: indexContentsLength,
                           category_id: community.CategoryId,
                       });
-                if (!templates || templates.length == 0) return;
+                if (!templates || templates.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(communityTemplateActions.addHome({ templates }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));

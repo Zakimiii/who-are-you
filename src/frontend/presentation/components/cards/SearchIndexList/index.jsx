@@ -28,7 +28,9 @@ class SearchIndexList extends React.Component {
         repositories: [],
     };
 
-    state = {};
+    state = {
+        fetched: false,
+    }
 
     constructor(props) {
         super(props);

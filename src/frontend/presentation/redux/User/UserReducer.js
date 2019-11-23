@@ -112,7 +112,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.headings) return state;
             return state.set(
                 'user_heading',
-                List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
             );
         }
 
@@ -121,8 +125,12 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_heading');
             return state.set(
                 'user_heading',
-                before.concat(
-                    List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -131,7 +139,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.headings) return state;
             return state.set(
                 'user_post',
-                List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
             );
         }
 
@@ -140,8 +152,12 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_post');
             return state.set(
                 'user_post',
-                before.concat(
-                    List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -150,7 +166,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.notifications) return state;
             return state.set(
                 'user_notification',
-                List(action.payload.notifications.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.notifications).toJS()
+                    )
+                )
             );
         }
 
@@ -159,8 +179,12 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_notification');
             return state.set(
                 'user_notification',
-                before.concat(
-                    List(action.payload.notifications.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.notifications.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }

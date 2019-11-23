@@ -23,7 +23,9 @@ class TemplateIndexList extends React.Component {
 
     static defaultProps = {};
 
-    state = {};
+    state = {
+        fetched: false,
+    }
 
     constructor(props) {
         super(props);
@@ -44,14 +46,29 @@ class TemplateIndexList extends React.Component {
             window.removeEventListener('scroll', this.onWindowScroll, false);
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {
+            more_loading,
+            repositories,
+        } = this.props;
+
+        this.setState({
+            fetched:
+                more_loading &&
+                !nextProps.more_loading &&
+                repositories.length == nextProps.repositories.length,
+        })
+    }
+
     onWindowScroll() {
         const { getMore } = this.props;
+        const { fetched } = this.state;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
-        if (isEnd && getMore) getMore();
+        if (isEnd && getMore && !fetched) getMore();
     }
 
     render() {
-        const { repositories, loading, current_user } = this.props;
+        const { repositories, loading, current_user, more_loading } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -82,11 +99,14 @@ class TemplateIndexList extends React.Component {
                             renderItems(repositories)
                         )}
                     </Gallery>
-                    {/*{loading && (
+                    {more_loading && (
                         <center>
-                            <LoadingIndicator style={{ marginBottom: '2rem' }} />
+                            <LoadingIndicator
+                                style={{ marginBottom: '2rem' }}
+                                type={'circle'}
+                            />
                         </center>
-                    )}*/}
+                    )}
                 </div>
             </div>
         );
@@ -99,6 +119,7 @@ export default connect(
             loading: appActions.templateIndexPageLoading(state),
             repositories: templateActions.getHomeTemplate(state),
             current_user: authActions.getCurrentUser(state),
+            more_loading: state.app.get('more_loading'),
         };
     },
 

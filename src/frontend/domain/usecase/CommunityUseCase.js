@@ -66,7 +66,10 @@ export default class CommunityUseCase extends UseCaseImpl {
                 const communities = yield communityRepository.getStaticCommunities({
                     offset: indexContentsLength,
                 });
-                if (communities.length == 0) return;
+                if (communities.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(communityActions.addHome({ communities }));
             }
         } catch (e) {
@@ -119,7 +122,6 @@ export default class CommunityUseCase extends UseCaseImpl {
                 yield put(communityActions.setCommunityHeading({ headings }));
             }
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -150,7 +152,10 @@ export default class CommunityUseCase extends UseCaseImpl {
                     id,
                     offset: indexContentsLength,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(communityActions.addCommunityHeading({ headings }));
             }
         } catch (e) {

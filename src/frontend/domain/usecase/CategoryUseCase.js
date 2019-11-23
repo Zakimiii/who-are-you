@@ -68,7 +68,10 @@ export default class CategoryUseCase extends UseCaseImpl {
                 const categories = yield categoryRepository.getCategories({
                     offset: indexContentsLength,
                 });
-                if (categories.length == 0) return;
+                if (categories.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(categoryActions.addHome({ categories }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));

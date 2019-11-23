@@ -84,7 +84,11 @@ export default function reducer(state = defaultState, action = {}) {
             if (!payload.headings) return state;
             return state.set(
                 'community_heading',
-                List(payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
             );
         }
 
@@ -93,8 +97,12 @@ export default function reducer(state = defaultState, action = {}) {
             let before = state.get('community_heading');
             return state.set(
                 'community_heading',
-                before.concat(
-                    List(payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }

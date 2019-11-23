@@ -82,7 +82,11 @@ export default function reducer(state = defaultState, action) {
         case SET_USER_RESULT: {
             return state.set(
                 'search_user',
-                List(action.payload.users.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.users).toJS()
+                    )
+                )
             );
         }
 
@@ -97,7 +101,14 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('search_user');
             before = before.toJS();
             before.concat(payload.users);
-            return state.set('search_user', List(before));
+            return state.set(
+                'search_user',
+                List(
+                    Array.prototype.unique_by_id(
+                        List(before).toJS()
+                    )
+                )
+            );
         }
 
         case ADD_ANSWER_RESULT: {
