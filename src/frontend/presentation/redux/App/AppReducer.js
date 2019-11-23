@@ -7,6 +7,7 @@ import * as detection from '@network/detection';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import {
     userShowRoute,
+    categoryShowRoute,
     postIndexRoute,
     headingShowRoute,
     answerShowRoute,
@@ -353,6 +354,33 @@ export const userShowContentsLoading = state => {
     if (model.length == 0 && loading) return true;
     if (!model[0]) return true;
     return loading && model[0].User.username != username;
+};
+
+export const categoryShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!categoryShowRoute.isValidPath(pathname)) return false;
+    const id = categoryShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.category.get('show_category');
+    const model = list_model.toJS();
+    if (!model) return true;
+    return loading && model.id != id;
+};
+
+export const categoryShowContentsLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!categoryShowRoute.isValidPath(pathname)) return false;
+    const id = categoryShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.category.get('category_community');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading && model[0].id != id;
 };
 
 export const userShowTemplatesLoading = state => {

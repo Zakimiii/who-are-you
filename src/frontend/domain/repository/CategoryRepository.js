@@ -17,4 +17,21 @@ export default class CategoryRepository extends RepositoryImpl {
 
         return data && data.categories;
     }
+
+    async getCategory({ id }) {
+        const data = await super.apiCall('/api/v1/category', {
+            id,
+        });
+        return data && data.category;
+    }
+
+    async getCommunities({ id, offset, limit }) {
+        const data = await super.apiCall('/api/v1/category/communities', {
+            category_id: id,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+        });
+
+        return data && data.communities;
+    }
 }

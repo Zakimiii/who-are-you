@@ -190,4 +190,23 @@ export default class CommunityDataStore extends DataStoreImpl {
 
         return await this.getIndexIncludes(results);
     }
+
+    async getCategoryCommunities({ category_id, offset, limit }) {
+        const results = await models.Community.findAll({
+            where: {
+                category_id,
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return await this.getIndexIncludes(results);
+    }
 }
