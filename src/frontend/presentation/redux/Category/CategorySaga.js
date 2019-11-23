@@ -19,5 +19,8 @@ const categoryUseCase = new CategoryUseCase();
 
 export const categoryWatches = [
     takeEvery(LOCATION_CHANGE, categoryUseCase.initCategories),
-    takeEvery(categoryActions.GET_MORE_HOME, categoryUseCase.getMoreCategories),,
+    takeEvery(LOCATION_CHANGE, categoryUseCase.initCategoryCommunities),
+    takeEvery(LOCATION_CHANGE, categoryUseCase.initShow),
+    takeEvery(categoryActions.GET_MORE_HOME, categoryUseCase.getMoreCategories),
+    takeEvery(categoryActions.GET_MORE_CATEGORY_COMMUNITY, categoryUseCase.getMoreCategoryCommunities),
 ];

@@ -34,7 +34,7 @@ class CategoryShow extends React.Component {
 }
 
 module.exports = {
-    path: '/answer/:id',
+    path: '/category/:id',
     component: connect(
         (state, ownProps) => {
             return {};
