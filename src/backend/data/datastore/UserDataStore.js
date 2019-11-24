@@ -249,7 +249,7 @@ export default class UserDataStore extends DataStoreImpl {
     }
 
     async getHeadingsFromCommunityFollow(community_follow) {
-        const communities = await models.Community.findAll({
+        const community = await models.Community.findOne({
             where: {
                 id: Number(community_follow.VotedId),
             },
@@ -262,24 +262,18 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        const results = await Promise.all(
-            communities.map(
-                community =>
-                    models.CommunityHeading.findAll({
-                        where: {
-                            community_id: Number(community.id)
-                        },
-                        order: [['created_at', 'DESC']],
-                        raw: true,
-                    }),
-            )
-        );
-
-        return Array.prototype.concat.apply([], results);
+        return await models.CommunityHeading.findAll({
+            where: {
+                community_id: Number(community.id),
+                isHide: false,
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+        });
     }
 
     async getHeadingsFromFollow(follow) {
-        const users = await models.User.findAll({
+        const user = await models.User.findOne({
             where: {
                 id: Number(follow.VoteredId),
             },
@@ -292,24 +286,18 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        const results = await Promise.all(
-            users.map(
-                user =>
-                    models.Heading.findAll({
-                        where: {
-                            user_id: Number(user.id)
-                        },
-                        order: [['created_at', 'DESC']],
-                        raw: true,
-                    }),
-            )
-        );
-
-        return Array.prototype.concat.apply([], results);
+        return await models.Heading.findAll({
+            where: {
+                user_id: Number(user.id),
+                isHide: false,
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+        });
     }
 
     async getHeadingsFromFollower(follow) {
-        const users = await models.User.findAll({
+        const user = await models.User.findOne({
             where: {
                 id: Number(follow.VoterId),
             },
@@ -322,20 +310,14 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        const results = await Promise.all(
-            users.map(
-                user =>
-                    models.Heading.findAll({
-                        where: {
-                            user_id: Number(user.id)
-                        },
-                        order: [['created_at', 'DESC']],
-                        raw: true,
-                    }),
-            )
-        );
-
-        return Array.prototype.concat.apply([], results);
+        return await models.Heading.findAll({
+            where: {
+                user_id: Number(user.id),
+                isHide: false,
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+        });
     }
 
     async getUserFeeds({ user, offset, limit }) {
@@ -381,12 +363,13 @@ export default class UserDataStore extends DataStoreImpl {
             )
         );
 
-        const datum = await Promise.all([
+        let datum = await Promise.all([
             communityHeadingsPromise,
             headingsPromise,
         ]);
 
-        console.log("datum", datum);
+        datum[0] = Array.prototype.concat.apply([], datum[0]);
+        datum[1] = Array.prototype.concat.apply([], datum[1]);
 
         const befores = datum[0].concat(datum[1])
             .filter(val => !!val)

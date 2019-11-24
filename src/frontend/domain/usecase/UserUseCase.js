@@ -18,6 +18,7 @@ import {
     communityIndexRoute,
     communityShowRoute,
     feedIndexRoute,
+    communityFollowIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -91,7 +92,6 @@ export default class UserUseCase extends UseCaseImpl {
                 : yield userRepository.getStaticUserRecommend({});
             yield put(userActions.setRecommend({ users }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -473,7 +473,6 @@ export default class UserUseCase extends UseCaseImpl {
                 yield put(userActions.setUserFeed({ headings }));
             }
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -512,4 +511,57 @@ export default class UserUseCase extends UseCaseImpl {
         yield put(appActions.fetchMoreDataEnd());
     }
 
+    *initCommunityFollower({ payload: { pathname } }) {
+        try {
+            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                yield put(appActions.fetchDataBegin());
+                let communities = yield userRepository.getUserCommunityFollower({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                yield put(userActions.setCommunityFollower({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreCommunityFollower({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        try {
+            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserHeadingLength(state)
+                );
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0 || !current_user) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const communities = yield userRepository.getUserCommunityFollower({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (communities.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
+                yield put(userActions.addCommunityFollower({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
 }

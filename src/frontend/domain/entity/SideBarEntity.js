@@ -8,6 +8,7 @@ import {
     postIndexRoute,
     templateIndexRoute,
     communityIndexRoute,
+    feedIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import tt from 'counterpart';
@@ -47,6 +48,18 @@ export const SideBarSection = defineEnum({
                 : false,
         loginRequire: false,
     },
+    Feed: {
+        rawValue: 1,
+        value: 'Feed',
+        string: () => tt('g.feeds'),
+        image: 'feed',
+        link: '/feeds',
+        active: pathname =>
+            !!feedIndexRoute
+                ? feedIndexRoute.isValidPath(pathname)
+                : false,
+        loginRequire: true,
+    },
     Notification: {
         rawValue: 1,
         value: 'Notification',
@@ -58,6 +71,7 @@ export const SideBarSection = defineEnum({
                 ? notificationIndexRoute.isValidPath(pathname)
                 : false,
         loginRequire: true,
+        responsible: true,
     },
     Setting: {
         rawValue: 1,

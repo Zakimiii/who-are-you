@@ -11,6 +11,7 @@ import {
     UserDataStore,
     NotificationDataStore,
     CommunityHeadingDataStore,
+    CommunityDataStore,
 } from '@datastore';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
@@ -24,6 +25,7 @@ const answerDataStore = new AnswerDataStore();
 const authDataStore = new AuthDataStore();
 const userDataStore = new UserDataStore();
 const notificationDataStore = new NotificationDataStore();
+const communityDataStore = new CommunityDataStore();
 
 export default class UserHandler extends HandlerImpl {
     constructor() {
@@ -360,6 +362,29 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleGetUserFollowCommunityRequest(router, ctx, next) {
+        const {
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        const communities = await communityDataStore.getUserFollowCommunities({
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        });
+
+        router.body = {
+            success: true,
+            communities,
+        };
+    }
+
     async handleGetUserFeedsRequest(router, ctx, next) {
         const {
             username,
@@ -391,9 +416,13 @@ export default class UserHandler extends HandlerImpl {
         });
 
         if (!befores && befores.length == 0) {
+            const communityHeadings = await communityHeadingDataStore.getLatestHeadings({
+                limit,
+                offset,
+            });
             router.body = {
                 success: true,
-                headings: [],
+                headings: communityHeadings,
             };
             return;
         };

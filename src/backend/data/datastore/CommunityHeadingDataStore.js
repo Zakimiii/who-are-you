@@ -307,6 +307,7 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
         const results = await models.CommunityHeading.findAll({
             where: {
                 community_id: Number(community_id),
+                isHide: false
             },
             order: [['created_at', 'DESC']],
             raw: true,
@@ -324,6 +325,28 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
 
     async getStaticRecommendHeadings({ offset, limit }) {
         const results = await models.CommunityHeading.findAll({
+            where: {
+                isHide: false
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getLatestHeadings({ offset, limit }) {
+        const results = await models.CommunityHeading.findAll({
+            where: {
+                isHide: false,
+            },
             order: [['created_at', 'DESC']],
             raw: true,
             offset: Number(offset || 0),

@@ -17,6 +17,7 @@ import {
     communityIndexRoute,
     categoryIndexRoute,
     feedIndexRoute,
+    communityFollowIndexRoute,
 } from '@infrastructure/RouteInitialize';
 
 export const FETCH_DATA_BEGIN = 'app/FETCH_DATA_BEGIN';
@@ -529,6 +530,22 @@ export const feedIndexPageLoading = state => {
     const loading = state.app.get('loading');
     // if (!loading) return false;
     const list_model = state.user.get('user_feed');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const communityFollowIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityFollowIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.user.get('community_follower');
     const model = list_model.toJS();
     const cumodel = state.auth.get('current_user');
     if (!model || !cumodel) return true;

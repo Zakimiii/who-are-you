@@ -305,6 +305,7 @@ export default class CommunityAnswerDataStore extends DataStoreImpl {
         const results = await models.CommunityAnswer.findAll({
             where: {
                 heading_id,
+                isHide: false,
             },
             order: [['created_at', 'DESC']],
             raw: true,

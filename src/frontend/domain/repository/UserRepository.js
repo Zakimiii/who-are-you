@@ -131,6 +131,18 @@ export default class UserRepository extends RepositoryImpl {
         return data && data.headings;
     }
 
+    async getUserCommunityFollower({ id, username, offset, limit, isMyAccount = false }) {
+        const data = await super.apiCall('/api/v1/user/communities/follows', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+            isMyAccount,
+        });
+
+        return data && data.communities;
+    }
+
     async getNotifications({
         id,
         username,

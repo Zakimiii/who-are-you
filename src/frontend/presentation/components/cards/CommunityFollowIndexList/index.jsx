@@ -6,24 +6,21 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
-import ConditionalHeadingItem from '@modules/ConditionalHeadingItem';
 import { isScrollEndByClass } from '@extension/scroll';
 import * as userActions from '@redux/User/UserReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import * as appActions from '@redux/App/AppReducer';
 import LoadingIndicator from '@elements/LoadingIndicator';
-import CommunityViewer from '@modules/CommunityViewer';
+import * as communityActions from '@redux/Community/CommunityReducer';
+import Gallery from '@modules/Gallery';
+import CommunityItem from '@modules/CommunityItem';
 
-class FeedIndexList extends React.Component {
+class CommunityFollowIndexList extends React.Component {
 
     static propTypes = {
-        repository: AppPropTypes.User,
-        repositories: PropTypes.array,
     };
 
     static defaultProps = {
-        repository: null,
-        repositories: [],
     };
 
     state = {
@@ -33,7 +30,7 @@ class FeedIndexList extends React.Component {
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'FeedIndexList')
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommunityFollowIndexList')
     }
 
     componentWillMount() {
@@ -68,38 +65,44 @@ class FeedIndexList extends React.Component {
     }
 
     render() {
-        const { repository, repositories, loading, more_loading, communities } = this.props;
+        const {
+            repositories,
+            loading,
+            current_user,
+            more_loading,
+        } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
-                <div className="user-show-list__body__item" key={key}>
-                    <ConditionalHeadingItem repository={item} />
+                <div className="user-show-list__body__community" key={key}>
+                    <CommunityItem repository={item}/>
                 </div>
-            ));
+            )
+        );
+
 
         return (
-            <div className="user-show-list">
+            <div className="user-show-list__body__community-list">
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__category">
-                            {tt('g.follow_communities')}
-                        </div>
-                    <div className="user-show-list__viewer">
-                        <CommunityViewer repositories={communities} />
+                        {tt('g.follow_communities')}
                     </div>
-                    <div className="user-show-list__body__category">
-                        {tt('g.feeds')}
-                    </div>
-                    <div className="user-show-list__body__items">
+                    <Gallery className="user-show-list__body__items">
                         {loading ? (
-                            <center>
+                            <div
+                                style={{
+                                    marginLeft: '48%',
+                                    marginRight: '48%',
+                                }}
+                            >
                                 <LoadingIndicator type={'circle'} />
-                            </center>
+                            </div>
                         ) : (
                             repositories &&
                             repositories.length > 0 &&
                             renderItems(repositories)
                         )}
-                    </div>
+                    </Gallery>
                     {more_loading && (
                         <center>
                             <LoadingIndicator
@@ -117,17 +120,16 @@ class FeedIndexList extends React.Component {
 export default connect(
     (state, props) => {
         return {
-            communities: userActions.getCommunityFollower(state),
             repository: authActions.getCurrentUser(state),
-            repositories: userActions.getUserFeed(state),
-            loading: appActions.feedIndexPageLoading(state),
+            repositories: userActions.getCommunityFollower(state),
+            loading: appActions.communityFollowIndexPageLoading(state),
             more_loading: state.app.get('more_loading'),
         };
     },
 
     dispatch => ({
         getMore: () => {
-            dispatch(userActions.getMoreUserFeed());
+            dispatch(userActions.getMoreCommunityFollower());
         },
     })
-)(FeedIndexList);
+)(CommunityFollowIndexList);

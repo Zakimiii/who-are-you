@@ -36,6 +36,7 @@ export default class CommunityDataStore extends DataStoreImpl {
                     params.headings &&
                         models.CommunityHeading.findAll({
                             where: {
+                                isHide: false,
                                 community_id: val.id,
                             },
                             raw: true,
@@ -206,6 +207,55 @@ export default class CommunityDataStore extends DataStoreImpl {
                 tt_key: 'errors.invalid_response_from_server',
             });
         });
+
+        return await this.getIndexIncludes(results);
+    }
+
+    async getUserFollowCommunities({
+        user_id,
+        username,
+        offset,
+        limit,
+    }) {
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(user_id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+        });
+
+        const follows = await models.CommunityFollow.findAll({
+            where: {
+                voter_id: user.id
+            },
+            order: [['created_at', 'DESC']],
+            raw: true,
+            offset: Number(offset || 0),
+            limit: Number(limit || data_config.fetch_data_limit('S')),
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+
+        const results = await Promise.all(
+            follows.map(
+                follow => models.Community.findOne({
+                    where: {
+                        id: follow.VotedId,
+                    },
+                    raw: true,
+                })
+            )
+        );
 
         return await this.getIndexIncludes(results);
     }

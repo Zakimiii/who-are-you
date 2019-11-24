@@ -7,10 +7,11 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import models from '@network/client_models';
-import { communityShowRoute } from '@infrastructure/RouteInitialize';
+import { communityShowRoute, communityFollowIndexRoute } from '@infrastructure/RouteInitialize';
 import * as communityActions from '@redux/Community/CommunityReducer';
 import Img from 'react-image';
 import data_config from '@constants/data_config';
+import dummy from '@network/dummy';
 
 class CommunityItem extends React.Component {
 
@@ -41,11 +42,10 @@ class CommunityItem extends React.Component {
         return (
             <Link
                 className="community-item"
-                to={communityShowRoute.getPath({
-                    params: {
-                        id: _repository.id
-                    }
-                })}
+                to={_repository.id == dummy.AllCommunity.id ?
+                    communityFollowIndexRoute.path :
+                    communityShowRoute.getPath({ params: { id: _repository.id }})
+                }
             >
                   <div className="community-item__back">
                       <Img

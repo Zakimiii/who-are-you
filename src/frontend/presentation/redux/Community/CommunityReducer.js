@@ -17,6 +17,10 @@ export const SET_HOME = 'community/SET_HOME';
 export const RESET_HOME = 'community/RESET_HOME';
 export const ADD_HOME = 'community/ADD_HOME';
 export const GET_MORE_HOME = 'community/GET_MORE_HOME';
+
+export const FOLLOW = 'community/FOLLOW';
+export const UNFOLLOW = 'community/UNFOLLOW';
+
 export const SET_CACHES = 'community/SET_CACHES';
 export const RESET_CACHES = 'community/SET_CACHES';
 export const SET_DELETES = 'community/SET_DELETES';
@@ -136,6 +140,16 @@ export default function reducer(state = defaultState, action = {}) {
             return state;
     }
 }
+
+export const follow = payload => ({
+    type: FOLLOW,
+    payload,
+});
+
+export const unfollow = payload => ({
+    type: UNFOLLOW,
+    payload,
+});
 
 export const setHome = payload => ({
     type: SET_HOME,

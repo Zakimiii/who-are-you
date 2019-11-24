@@ -77,6 +77,7 @@ export default class CommunityAnswerHandler extends HandlerImpl {
 
         let answer = await models.CommunityAnswer.findOne({
             where: {
+                // isHide: false,
                 id,
             },
             raw: true,

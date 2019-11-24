@@ -105,6 +105,12 @@ export const communityAnswerNewRoute = new RouteEntity({
     component: require('@components/pages/CommunityAnswerNewAlias'),
 });
 
+export const communityFollowIndexRoute = new RouteEntity({
+    path: '/communities/follows',
+    page: 'CommunityFollowIndex',
+    component: require('@components/pages/CommunityFollowIndex'),
+});
+
 export const categoryIndexRoute = new RouteEntity({
     path: '/categories',
     page: 'CategoryIndex',
@@ -246,6 +252,7 @@ export const routeEntities = new RouteEntities({
         answerNewRoute,
         communityHeadingNewRoute,
         communityAnswerNewRoute,
+        communityFollowIndexRoute,
         loginRoute,
         confirmForDeleteRoute,
         confirmForLineLinkRoute,

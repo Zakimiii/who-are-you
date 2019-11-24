@@ -32,6 +32,10 @@ export const SET_USER_FEED = 'user/SET_USER_FEED';
 export const ADD_USER_FEED = 'user/ADD_USER_FEED';
 export const GET_MORE_USER_FEED = 'user/GET_MORE_USER_FEED';
 
+export const SET_COMMUNITY_FOLLOWER = 'user/SET_COMMUNITY_FOLLOWER';
+export const ADD_COMMUNITY_FOLLOWER = 'user/ADD_COMMUNITY_FOLLOWER';
+export const GET_MORE_COMMUNITY_FOLLOWER = 'user/GET_MORE_COMMUNITY_FOLLOWER';
+
 export const SET_CACHES = 'user/SET_CACHES';
 export const RESET_CACHES = 'user/SET_CACHES';
 export const SET_DELETES = 'user/SET_DELETES';
@@ -43,6 +47,7 @@ const defaultState = fromJS({
     user_post: List([]),
     user_notification: List([]),
     user_follower: List([]),
+    community_follower: List([]),
     user_recommend: List([]),
     user_feed: List([]),
     caches: List([]),
@@ -108,7 +113,34 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_follower');
             return state.set(
                 'user_follower',
-                before.concat(List(action.payload.users.map(val => Map(val))))
+                before.concat(List(payload.users.map(val => Map(val))))
+            );
+        }
+
+        case SET_COMMUNITY_FOLLOWER: {
+            if (!payload.communities) return state;
+            return state.set(
+                'community_follower',
+                List(
+                    Array.prototype.unique_by_id(
+                        List(payload.communities).toJS()
+                    )
+                )
+            );
+        }
+
+        case ADD_COMMUNITY_FOLLOWER: {
+            if (!payload.communities) return state;
+            let before = state.get('community_follower');
+            return state.set(
+                'community_follower',
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(payload.communities.map(val => Map(val)))
+                        ).toJS()
+                    )
+                )
             );
         }
 
@@ -314,6 +346,21 @@ export const addFollower = payload => ({
 
 export const getMoreFollower = payload => ({
     type: GET_MORE_FOLLOWER,
+    payload,
+});
+
+export const setCommunityFollower = payload => ({
+    type: SET_COMMUNITY_FOLLOWER,
+    payload,
+});
+
+export const addCommunityFollower = payload => ({
+    type: ADD_COMMUNITY_FOLLOWER,
+    payload,
+});
+
+export const getMoreCommunityFollower = payload => ({
+    type: GET_MORE_COMMUNITY_FOLLOWER,
     payload,
 });
 
@@ -535,6 +582,21 @@ export const getUserFeed = state => {
 
 export const getUserFeedLength = state => {
     const val = state.user.get('user_feed');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getCommunityFollower = state => {
+    const val = state.user.get('community_follower');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getCommunityFollowerLength = state => {
+    const val = state.user.get('community_follower');
     if (!val) return 0;
     let home_models = val.toJS();
     if (!home_models) return 0;

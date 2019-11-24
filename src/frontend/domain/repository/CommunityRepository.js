@@ -45,4 +45,22 @@ export default class CommunityRepository extends RepositoryImpl {
 
         return data && data.headings;
     }
+
+    async follow({ user, target }) {
+        const data = await super.apiCall('/api/v1/user/community/follow', {
+            user,
+            target,
+        });
+
+        return !!data.success;
+    }
+
+    async unfollow({ user, target }) {
+        const data = await super.apiCall('/api/v1/user/community/unfollow', {
+            user,
+            target,
+        });
+
+        return !!data.success;
+    }
 }

@@ -27,6 +27,7 @@ export const userWatches = [
     takeEvery(LOCATION_CHANGE, userUseCase.initRecommend),
     takeEvery(LOCATION_CHANGE, userUseCase.initUserHeadings),
     takeEvery(LOCATION_CHANGE, userUseCase.initUserFeeds),
+    takeEvery(LOCATION_CHANGE, userUseCase.initCommunityFollower),
     takeEvery(
         userActions.GET_MORE_USER_HEADING,
         userUseCase.getMoreUserHeadings
@@ -43,6 +44,10 @@ export const userWatches = [
     takeEvery(
         userActions.GET_MORE_USER_NOTIFICATION,
         userUseCase.getMoreUserNotifications
+    ),
+    takeEvery(
+        userActions.GET_MORE_COMMUNITY_FOLLOWER,
+        userUseCase.getMoreCommunityFollower
     ),
     takeEvery(userActions.UPDATE_USER, userUseCase.updateUser),
     takeEvery(userActions.DELETE_USER, userUseCase.deleteUser),
