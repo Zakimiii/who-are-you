@@ -16,7 +16,9 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import * as userActions from '@redux/User/UserReducer';
 import * as communityTemplateActions from '@redux/CommunityTemplate/CommunityTemplateReducer';
 import * as communityActions from '@redux/Community/CommunityReducer';
+import * as categoryActions from '@redux/Category/CategoryReducer';
 import * as appActions from '@redux/App/AppReducer';
+import CategoryViewer from '@modules/CategoryViewer';
 
 class CommunityIndexList extends React.Component {
 
@@ -68,7 +70,7 @@ class CommunityIndexList extends React.Component {
     }
 
     render() {
-        const { repositories, loading, current_user, more_loading } = this.props;
+        const { repositories, loading, current_user, more_loading, categories } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -80,8 +82,14 @@ class CommunityIndexList extends React.Component {
 
 
         return (
-            <div className="template-index-list">
+            <div className="user-show-list__body__community-list">
                 <div className="user-show-list__body">
+                    <div className="user-show-list__body__category">
+                            {tt('g.category')}
+                        </div>
+                    <div className="user-show-list__viewer">
+                        <CategoryViewer repositories={categories} />
+                    </div>
                     <div className="user-show-list__body__category">
                         {tt('g.community')}
                     </div>
@@ -118,6 +126,7 @@ class CommunityIndexList extends React.Component {
 export default connect(
     (state, props) => {
         return {
+            categories: categoryActions.getHomeCategory(state),
             loading: appActions.communityIndexPageLoading(state),
             repositories: communityActions.getHomeCommunity(state),
             current_user: authActions.getCurrentUser(state),

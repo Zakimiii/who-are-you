@@ -30,8 +30,22 @@ const Community = models.Community.build({
     permission: false,
 });
 
+const AllCategory = models.Category.build({
+    id: null,
+    body: '全カテゴリ一覧',
+    picture: data_config.default_community_image,
+    locale: 'ja',
+    country_code: 'JP',
+    heading_count: 0,
+    answer_count: 0,
+    isHide: false,
+    isPrivate: false,
+    valid: false,
+    permission: false,
+});
 
 module.exports = {
     User,
     Community,
+    AllCategory,
 };
