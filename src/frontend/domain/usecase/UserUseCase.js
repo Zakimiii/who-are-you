@@ -17,6 +17,7 @@ import {
     notificationIndexRoute,
     communityIndexRoute,
     communityShowRoute,
+    feedIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -455,4 +456,60 @@ export default class UserUseCase extends UseCaseImpl {
                   })
         );
     }
+
+    *initUserFeeds({ payload: { pathname } }) {
+        try {
+            if (feedIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                yield put(appActions.fetchDataBegin());
+                let headings = yield userRepository.getFeeds({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                yield put(userActions.setUserFeed({ headings }));
+            }
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreUserFeeds({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        try {
+            if (feedIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserHeadingLength(state)
+                );
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0 || !current_user) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const headings = yield userRepository.getFeeds({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
+                yield put(userActions.addUserFeed({ headings }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
 }

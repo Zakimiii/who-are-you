@@ -107,6 +107,18 @@ export default class UserRepository extends RepositoryImpl {
         return data && data.answers;
     }
 
+    async getFeeds({ id, username, offset, limit, isMyAccount = false }) {
+        const data = await super.apiCall('/api/v1/user/feeds', {
+            user_id: id,
+            username,
+            offset: Number(offset || 0),
+            limit: limit || data_config.fetch_data_limit('S'),
+            isMyAccount,
+        });
+
+        return data && data.headings;
+    }
+
     async getPosts({ id, username, offset, limit, isMyAccount = false }) {
         const data = await super.apiCall('/api/v1/user/posts', {
             user_id: id,

@@ -83,6 +83,18 @@ module.exports = function(sequelize, DataTypes) {
                             allowNull: true,
                         },
                     });
+                    Community.hasMany(models.CommunityFollow, {
+                        foreignKey: {
+                            name: 'voted_id',
+                            allowNull: false,
+                        },
+                    });
+                    Community.belongsToMany(models.User, {
+                        as: 'CommunityFollows',
+                        through: 'CommunityFollow',
+                        foreignKey: 'voted_id',
+                        otherKey: 'voter_id',
+                    });
                 },
             },
         }

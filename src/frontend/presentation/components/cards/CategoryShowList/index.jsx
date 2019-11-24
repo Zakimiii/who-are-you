@@ -81,7 +81,7 @@ class CategoryShowList extends React.Component {
             <div className="user-show-list" >
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__category">
-                        {`${tt('g.community')}: ${repository.body}`}
+                        {`${tt('g.community')}: ${repository.body || ''}`}
                     </div>
                     <Gallery className="user-show-list__body__items">
                         {loading ? (

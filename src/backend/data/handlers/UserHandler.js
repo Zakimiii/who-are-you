@@ -10,13 +10,16 @@ import {
     AuthDataStore,
     UserDataStore,
     NotificationDataStore,
+    CommunityHeadingDataStore,
 } from '@datastore';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
 import Promise from 'bluebird';
 import tt from 'counterpart';
+import client_models from '@network/client_models';
 
 const headingDataStore = new HeadingDataStore();
+const communityHeadingDataStore = new CommunityHeadingDataStore();
 const answerDataStore = new AnswerDataStore();
 const authDataStore = new AuthDataStore();
 const userDataStore = new UserDataStore();
@@ -354,6 +357,125 @@ export default class UserHandler extends HandlerImpl {
         router.body = {
             success: true,
             notifications: results,
+        };
+    }
+
+    async handleGetUserFeedsRequest(router, ctx, next) {
+        const {
+            username,
+            id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+            attributes: ['id'],
+            raw: true,
+        });
+
+        const befores = await userDataStore.getUserFeeds({
+            user,
+            limit,
+            offset,
+        });
+
+        if (!befores && befores.length == 0) {
+            router.body = {
+                success: true,
+                headings: [],
+            };
+            return;
+        };
+
+        const headingsPromise = headingDataStore.getIndexIncludes(
+            befores.filter(
+                val => client_models.Heading.isInstance(val)
+            )
+        );
+
+        const communityHeadingsPromise = communityHeadingDataStore.getIndexIncludes(
+            befores.filter(
+                val => client_models.CommunityHeading.isInstance(val)
+            )
+        );
+
+        const datum = await Promise.all([
+            headingsPromise,
+            communityHeadingsPromise,
+        ]);
+
+        const headings = datum[0].concat(datum[1])
+            .filter(val => !!val)
+            .sort((a,b) => (a.createdAt < b.createdAt ? 1 : -1))
+
+        router.body = {
+            success: true,
+            headings,
+        };
+    }
+
+    async handleFollowCommunityRequest(router, ctx, next) {
+        const { user, target } = router.request.body;
+
+        if (!user)
+            throw new ApiError({
+                error: new Error('User is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'User' },
+            });
+        if (!target)
+            throw new ApiError({
+                error: new Error('Community is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'Community' },
+            });
+
+        const result = await userDataStore
+            .followCommunity(user, target)
+            .catch(e => {
+                throw e;
+            });
+
+        router.body = {
+            success: true,
+        };
+    }
+
+    async handleUnFollowCommunityRequest(router, ctx, next) {
+        const { user, target } = router.request.body;
+
+        if (!user)
+            throw new ApiError({
+                error: new Error('User is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'User' },
+            });
+        if (!target)
+            throw new ApiError({
+                error: new Error('Community is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'Community' },
+            });
+
+        const result = await userDataStore
+            .unfollowCommunity(user, target)
+            .catch(e => {
+                throw e;
+            });
+
+        router.body = {
+            success: true,
         };
     }
 

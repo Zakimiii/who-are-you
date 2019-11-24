@@ -960,6 +960,34 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/user/feeds', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield userHandler
+            .handleGetUserFeedsRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/user/static/recommends', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
