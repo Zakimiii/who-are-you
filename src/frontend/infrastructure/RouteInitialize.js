@@ -111,6 +111,11 @@ export const categoryIndexRoute = new RouteEntity({
     component: require('@components/pages/CategoryIndex'),
 });
 
+export const feedIndexRoute = new RouteEntity({
+    path: '/feeds',
+    page: 'FeedIndex',
+    component: require('@components/pages/FeedIndex'),
+});
 
 export const templateIndexRoute = new RouteEntity({
     path: '/templates',
@@ -234,6 +239,7 @@ export const routeEntities = new RouteEntities({
         faqRoute,
         termRoute,
         contactRoute,
+        feedIndexRoute,
         homeRoute,
         homeAliasRoute,
         headingNewRoute,

@@ -34,6 +34,7 @@ const models = [
     require('./community_heading')(sequelize, Sequelize),
     require('./community_answer')(sequelize, Sequelize),
     require('./community_template')(sequelize, Sequelize),
+    require('./community_follow')(sequelize, Sequelize),
 ];
 
 models.forEach(model => {
