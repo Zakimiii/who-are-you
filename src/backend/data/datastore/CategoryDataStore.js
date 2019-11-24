@@ -56,7 +56,9 @@ export default class CategoryDataStore extends DataStoreImpl {
 
         return await Promise.all(
             contents.map(async (val, index) => {
-                if (!params.picture) val.picture = '';
+                if (!params.picture) {
+                    val.picture = `/pictures/category/${val.id}`
+                };
                 if (params.communities) {
                     val.Communities = includes[index][0];
                     if (!params.picture) {

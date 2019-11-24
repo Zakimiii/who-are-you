@@ -14,6 +14,7 @@ import {
     communityIndexRoute,
     communityShowRoute,
     categoryShowRoute,
+    categoryIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -50,7 +51,7 @@ export default class CategoryUseCase extends UseCaseImpl {
 
     *getMoreCategories({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
-        if (communityIndexRoute.isValidPath(pathname)) {
+        if (categoryIndexRoute.isValidPath(pathname)) {
             try {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
@@ -90,9 +91,6 @@ export default class CategoryUseCase extends UseCaseImpl {
                 );
                 yield put(appActions.fetchDataBegin());
                 yield put(authActions.syncCurrentUser());
-                const current_user = yield select(state =>
-                    authActions.getCurrentUser(state)
-                );
                 const category = yield categoryRepository.getCategory({
                     id,
                 });
@@ -114,9 +112,6 @@ export default class CategoryUseCase extends UseCaseImpl {
                 );
                 yield put(authActions.syncCurrentUser());
                 yield put(appActions.fetchDataBegin());
-                const current_user = yield select(state =>
-                    authActions.getCurrentUser(state)
-                );
                 const communities = yield categoryRepository.getCommunities({
                     id,
                 });

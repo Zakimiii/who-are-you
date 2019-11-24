@@ -70,7 +70,7 @@ const post_template = (id, pathname) =>
 const post_text_template = (name, pathname) =>
     `【#${
         name
-    } の紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #自己紹介 #友達紹介\n${config.CURRENT_APP_URL +
+    } の紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #トピック紹介\n${config.CURRENT_APP_URL +
         pathname} `;
 
 const post_text = id =>

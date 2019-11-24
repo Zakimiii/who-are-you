@@ -57,7 +57,6 @@ export default function reducer(state = defaultState, action) {
         case SET_SHOW: {
             return state.merge({
                 show_user: Map(action.payload.user),
-                user_heading: Map(action.payload.user.Headings),
             });
         }
 

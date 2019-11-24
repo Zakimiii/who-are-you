@@ -10,6 +10,7 @@
         "add_answer": "回答を追加",
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
+        "category": "カテゴリー",
         "contact": "お問い合わせ",
         "community": "トピック",
         "do_it": "%(data)sをしてください",

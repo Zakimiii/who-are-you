@@ -18,6 +18,6 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 const appUseCase = new AppUseCase();
 
 export const appWatches = [
-    takeLatest(appActions.HIDE_ALL_MODAL, appUseCase.hideAllModal),
+    takeEvery(appActions.HIDE_ALL_MODAL, appUseCase.hideAllModal),
     takeEvery(LOCATION_CHANGE, appUseCase.detectNotificationId),
 ];

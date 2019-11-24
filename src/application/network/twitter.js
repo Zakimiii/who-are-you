@@ -55,7 +55,7 @@ export default class TwitterHandler {
 
     static getShareWithoutMentionUrl = ({ text, pathname }) =>
         `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
-            pathname}&hashtags=whoareyou,自己紹介,友達紹介&text=${data_config.post_text_hash(
+            pathname}&hashtags=whoareyou,トピック紹介&ext=${data_config.post_text_hash(
             text
         )}`;
 

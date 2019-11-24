@@ -39,7 +39,7 @@ export const userWatches = [
         userActions.GET_MORE_USER_NOTIFICATION,
         userUseCase.getMoreUserNotifications
     ),
-    takeLatest(userActions.UPDATE_USER, userUseCase.updateUser),
-    takeLatest(userActions.DELETE_USER, userUseCase.deleteUser),
-    takeLatest(userActions.SYNC_USER, userUseCase.syncUser),
+    takeEvery(userActions.UPDATE_USER, userUseCase.updateUser),
+    takeEvery(userActions.DELETE_USER, userUseCase.deleteUser),
+    takeEvery(userActions.SYNC_USER, userUseCase.syncUser),
 ];

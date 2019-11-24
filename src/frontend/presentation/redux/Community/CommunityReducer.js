@@ -76,7 +76,6 @@ export default function reducer(state = defaultState, action = {}) {
         case SET_SHOW: {
             return state.merge({
                 show_community: Map(payload.community),
-                community_heading: Map(payload.community.Headings),
             });
         }
 

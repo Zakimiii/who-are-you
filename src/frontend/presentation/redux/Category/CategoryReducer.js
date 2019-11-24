@@ -37,14 +37,16 @@ export default function reducer(state = defaultState, action = {}) {
             });
 
         case SET_HOME: {
-            if (!action.payload.categories) return state;
-            if (action.payload.categories.length == 0) return state;
+            if (!payload.categories) return state;
+            if (payload.categories.length == 0) return state;
             return state.set(
                 'home_category',
                 List(
-                    action.payload.categories.map(val => {
-                        return Map(val);
-                    })
+                    Array.prototype.unique_by_id(
+                        List(
+                            payload.categories.map(val =>  Map(val))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -52,7 +54,6 @@ export default function reducer(state = defaultState, action = {}) {
         case SET_SHOW: {
             return state.merge({
                 show_category: Map(action.payload.category),
-                category_community: Map(action.payload.category.Communities),
             });
         }
 
@@ -61,16 +62,20 @@ export default function reducer(state = defaultState, action = {}) {
         }
 
         case ADD_HOME: {
-            if (!action.payload.categories) return state;
-            if (action.payload.categories.length == 0) return state;
+            if (!payload.categories) return state;
+            if (payload.categories.length == 0) return state;
             let before = state.get('home_category');
             return state.set(
                 'home_category',
-                before.concat(
-                    List(
-                        action.payload.categories.map(val => {
-                            return Map(val);
-                        })
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(
+                                payload.categories.map(
+                                    val => Map(val)
+                                )
+                            )
+                        ).toJS()
                     )
                 )
             );

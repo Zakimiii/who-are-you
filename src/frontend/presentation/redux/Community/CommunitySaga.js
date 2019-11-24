@@ -25,5 +25,5 @@ export const communityWatches = [
         communityUseCase.getMoreCommunityHeadings
     ),
     takeEvery(communityActions.GET_MORE_HOME, communityUseCase.getMoreIndex),
-    takeLatest(communityActions.SYNC_COMMUNITY, communityUseCase.syncCommunity),
+    takeEvery(communityActions.SYNC_COMMUNITY, communityUseCase.syncCommunity),
 ];

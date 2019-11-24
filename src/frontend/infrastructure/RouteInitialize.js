@@ -105,6 +105,12 @@ export const communityAnswerNewRoute = new RouteEntity({
     component: require('@components/pages/CommunityAnswerNewAlias'),
 });
 
+export const categoryIndexRoute = new RouteEntity({
+    path: '/categories',
+    page: 'CategoryIndex',
+    component: require('@components/pages/CategoryIndex'),
+});
+
 
 export const templateIndexRoute = new RouteEntity({
     path: '/templates',
@@ -246,6 +252,7 @@ export const routeEntities = new RouteEntities({
         notificationIndexRoute,
         postIndexRoute,
         communityIndexRoute,
+        categoryIndexRoute,
         searchRoute,
         templateIndexRoute,
         cmpTestRoute,

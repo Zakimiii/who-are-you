@@ -7,6 +7,7 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import Icon from '@elements/Icon';
+import { categoryShowRoute } from '@infrastructure/RouteInitialize';
 
 class CategoryBarItem extends React.Component {
 
@@ -32,13 +33,15 @@ class CategoryBarItem extends React.Component {
             repository
         } = this.props;
 
+        if (!repository) return <div />;
+
         return (
-            <div className="category-bar-item" >
+            <Link className="category-bar-item" to={categoryShowRoute.getPath({ params: { id: repository.id }})} >
                 <Icon size="2x" src="tag" className="category-bar-item__icon" />
                 <div className="category-bar-item__value" >
                     {repository.body}
                 </div>
-            </div>
+            </Link>
         )
     }
 }

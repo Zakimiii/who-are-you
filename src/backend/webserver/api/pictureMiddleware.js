@@ -207,4 +207,34 @@ export default function PictureMiddleware(app) {
         );
         this.body = buffer;
     });
+
+    router.get('/category/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const category = yield models.Category.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!category || !category.picture || category.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath("/images/brands/back-mini-logo.png")
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = category.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            category.picture.toString(),
+            id,
+            'category'
+        );
+        this.body = buffer;
+    });
 }

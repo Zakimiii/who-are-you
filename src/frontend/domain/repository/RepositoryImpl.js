@@ -41,10 +41,7 @@ export default class RepositoryImpl {
         });
         const contentType = response.headers.get('content-type');
         if (!contentType || contentType.indexOf('application/json') === -1) {
-            throw new ClientError({
-                error: new Error('Invalid response from server'),
-                tt_key: 'errors.invalid_response_from_server',
-            });
+            throw new Error('connection error');
         }
         let responseData = await response.json();
         if (responseData.error) {

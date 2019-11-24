@@ -18,8 +18,8 @@ import CommunityItem from '@modules/CommunityItem';
 class CategoryShowList extends React.Component {
 
     static propTypes = {
-        repository: AppPropTypes.Category,
-        repositories: AppPropTypes.Community,
+        // repository: AppPropTypes.Category,
+        // repositories: AppPropTypes.Community,
     };
 
     static defaultProps = {
@@ -67,7 +67,7 @@ class CategoryShowList extends React.Component {
 
     render() {
 
-        const { repositories, loading, current_user, more_loading } = this.props;
+        const { repositories, loading, current_user, more_loading, repository } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -81,7 +81,7 @@ class CategoryShowList extends React.Component {
             <div className="user-show-list" >
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__category">
-                        {tt('g.community')}
+                        {`${tt('g.community')}: ${repository.body}`}
                     </div>
                     <Gallery className="user-show-list__body__items">
                         {loading ? (
