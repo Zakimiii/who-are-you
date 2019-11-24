@@ -41,6 +41,7 @@ export default class CategoryDataStore extends DataStoreImpl {
                                 isHide: false,
                                 category_id: val.id,
                             },
+                            order: [['heading_count', 'DESC']],
                             raw: true,
                         }),
                 ]);
@@ -91,7 +92,14 @@ export default class CategoryDataStore extends DataStoreImpl {
             });
         });
         const categories = await this.getIndexIncludes(results);
-        return categories.filter(category => !!category.Communities && category.Communities.length != 0);
+        return categories
+            .filter(
+                category => !!category.Communities && category.Communities.length != 0
+            )
+            .map(category => {
+                category.Communities = category.Communities.slice(0, data_config.community_index_limit)
+                return category;
+            })
     }
 
     async updateCount(value) {
@@ -105,7 +113,7 @@ export default class CategoryDataStore extends DataStoreImpl {
 
         const communities = await models.Community.findAll({
             where: {
-                id: Number(category.CommunityId),
+                category_id: Number(category.id),
             },
             attributes: ['id', 'answer_count', 'heading_count'],
         });
@@ -149,7 +157,7 @@ export default class CategoryDataStore extends DataStoreImpl {
     }
 
     async updateCountFromHeading(heading) {
-        if (!heading || !answer.CommunityId) return;
+        if (!heading || !heading.CommunityId) return;
         const community = await models.Community.findOne({
             where: {
                 id: heading.CommunityId

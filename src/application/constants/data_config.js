@@ -116,6 +116,8 @@ const shot_picture_ysize = 600;
 
 const picture_save_limit = 100;
 
+const community_index_limit = 3;
+
 const default_user_image = '/images/default_profile_image.png';
 const default_community_image = `/images/brands/back-mini-logo.png`;
 const default_opg_image = '/images/brands/ogp-logo.png';
@@ -162,4 +164,5 @@ module.exports = {
     default_opg_image,
     logo_image,
     mini_logo_image,
+    community_index_limit,
 };

@@ -3,10 +3,12 @@ import { Set, Map, fromJS, List } from 'immutable';
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 import models from '@models';
 import CategoryDataStore from '@datastore/CategoryDataStore';
+import CommunityDataStore from '@datastore/CommunityDataStore';
 import data_config from '@constants/data_config';
 import safe2json from '@extension/safe2json';
 import { ApiError } from '@extension/Error';
 
+const communityDataStore = new CommunityDataStore();
 const categoryDataStore = new CategoryDataStore();
 
 export default class CategoryHandler extends HandlerImpl {

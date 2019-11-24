@@ -11,6 +11,10 @@ import CategoryBarItem from '@elements/CategoryBarItem';
 import * as userActions from '@redux/User/UserReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
 import * as categoryActions from '@redux/Category/CategoryReducer';
+import data_config from '@constants/data_config';
+import {
+    categoryShowRoute,
+} from '@infrastructure/RouteInitialize';
 
 class CategoryBar extends React.Component {
     static propTypes = {
@@ -38,13 +42,32 @@ class CategoryBar extends React.Component {
                     <div className="community-bar__item-category">
                         <CategoryBarItem repository={item} />
                     </div>
-                    <div className="community-bar__item-communities">
+                    <div
+                        className="community-bar__item-communities"
+                        style={{ paddingBottom:
+                            item.count > data_config.community_index_limit ?
+                                '0' :
+                                '16px'
+                        }}
+                    >
                         {item.Communities.map((community, i) => (
                             <div className="community-bar__item-community" key={i}>
                                 <CommunityBarItem repository={community} />
                             </div>
                         ))}
                     </div>
+                    {item.count > data_config.community_index_limit && (
+                        <Link
+                            className="community-bar__link"
+                            to={categoryShowRoute.getPath({
+                                params: {
+                                    id: item.id,
+                                },
+                            })}
+                        >
+                            {tt('g.show_more')}
+                        </Link>
+                    )}
                 </div>
             )
         );

@@ -117,10 +117,10 @@ export default class CategoryUseCase extends UseCaseImpl {
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
                 );
-                let communities = yield categoryRepository.getCommunities({
+                const communities = yield categoryRepository.getCommunities({
                     id,
                 });
-                yield put(categoryActions.setCategoryCommunityH({ communities }));
+                yield put(categoryActions.setCategoryCommunity({ communities }));
             }
         } catch (e) {
             yield put(appActions.addError({ error: e }));

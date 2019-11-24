@@ -26,7 +26,7 @@ export const userShowRoute = new RouteEntity({
 });
 
 export const categoryShowRoute = new RouteEntity({
-    path: '/category/:id/',
+    path: '/category/:id',
     page: 'CategoryShow',
     component: require('@components/pages/CategoryShow'),
     validate: {
@@ -221,6 +221,7 @@ export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
         userShowRoute,
+        categoryShowRoute,
         communityShowRoute,
         userEditRoute,
         privacyRoute,
@@ -231,7 +232,6 @@ export const routeEntities = new RouteEntities({
         homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
-        categoryShowRoute,
         communityHeadingNewRoute,
         communityAnswerNewRoute,
         loginRoute,

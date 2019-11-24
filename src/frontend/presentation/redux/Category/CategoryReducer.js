@@ -179,7 +179,7 @@ export const getCategoryCommunityLength = state => {
 };
 
 export const getShowCategory = state => {
-    let val = state.categories.get('show_category');
-    const user = !!val ? val.toJS() : null;
-    return bind(user, state);
+    let val = state.category.get('show_category');
+    const category = !!val ? val.toJS() : null;
+    return category;
 };
