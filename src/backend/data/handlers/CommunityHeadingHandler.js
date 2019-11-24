@@ -97,7 +97,10 @@ export default class CommunityHeadingHandler extends HandlerImpl {
 
         // notificationDataStore.onCreateHeading(result);
         communityDataStore.updateCount({ id: result.CommunityId });
-        categoryDataStore.updateCountFromHeading({ id: result.id });
+        categoryDataStore.updateCountFromHeading({
+            id: result.id,
+            CommunityId: result.CommunityId,
+        });
         communityTemplateDataStore.find_or_create_from_heading(result);
 
 
@@ -152,7 +155,10 @@ export default class CommunityHeadingHandler extends HandlerImpl {
         });
 
         communityDataStore.updateCount({ id: heading.CommunityId });
-        categoryDataStore.updateCountFromHeading({ id: result.id });
+        categoryDataStore.updateCountFromHeading({
+            id: result.id,
+            CommunityId: result.CommunityId,
+        });
 
         router.body = {
             success: true,

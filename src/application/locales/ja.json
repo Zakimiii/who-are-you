@@ -87,6 +87,10 @@
         "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"
     },
     "notifications": {
+        "welcome": {
+            "title": "「who are you?」の遊び方はこちらです！",
+            "body": "「who are you?」へようこそ！"
+        },
         "on_create_heading": {
             "title": "新しい紹介テーマが届きました！",
             "body": "カードをシェアして回答を募集しましょう！"
