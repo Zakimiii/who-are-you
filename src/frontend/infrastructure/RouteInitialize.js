@@ -302,6 +302,24 @@ export const getPageTitle = (pathname, state) => {
                 nickname: state.user.get('show_user').get('nickname'),
                 detail: state.user.get('show_user').get('detail'),
             });
+    } else if (page == communityShowRoute.page) {
+        if (
+            !!state.community.get('show_community') &&
+            !!state.community.get('show_community').get('body')
+        )
+            title = tt(`pages.${userShowRoute.page}`, {
+                nickname: state.community.get('show_community').get('body'),
+                detail: '',
+            });
+    } else if (page == categoryShowRoute.page) {
+        if (
+            !!state.category.get('show_category') &&
+            !!state.category.get('show_category').get('body')
+        )
+            title = tt(`pages.${userShowRoute.page}`, {
+                nickname: state.category.get('show_category').get('body'),
+                detail: '',
+            });
     } else {
         title = tt(`pages.${page}`, { fallback: tt('pages.Home') });
     }
@@ -347,6 +365,22 @@ export const getPageDescription = (pathname, state) => {
         )
             description = tt(`descriptions.${userShowRoute.page}`, {
                 user: state.user.get('show_user').get('nickname'),
+            });
+    } else if (page == communityShowRoute.page) {
+        if (
+            !!state.community.get('show_community') &&
+            !!state.community.get('show_community').get('body')
+        )
+            description = tt(`descriptions.${userShowRoute.page}`, {
+                user: state.community.get('show_community').get('body'),
+            });
+    } else if (page == categoryShowRoute.page) {
+        if (
+            !!state.category.get('show_category') &&
+            !!state.category.get('show_category').get('body')
+        )
+            description = tt(`descriptions.${userShowRoute.page}`, {
+                user: state.category.get('show_category').get('body'),
             });
     } else {
         description = tt(`descriptions.${page}`, {
