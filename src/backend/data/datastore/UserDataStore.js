@@ -251,7 +251,7 @@ export default class UserDataStore extends DataStoreImpl {
     async getHeadingsFromCommunityFollow(community_follow) {
         const communities = await models.Community.findAll({
             where: {
-                id: Number(community_follow.CommunityId),
+                id: Number(community_follow.VotedId),
             },
             raw: true,
             attributes: ['id'],
@@ -262,7 +262,7 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        return await Promise.all(
+        const results = await Promise.all(
             communities.map(
                 community =>
                     models.CommunityHeading.findAll({
@@ -273,7 +273,9 @@ export default class UserDataStore extends DataStoreImpl {
                         raw: true,
                     }),
             )
-        )
+        );
+
+        return Array.prototype.concat.apply([], results);
     }
 
     async getHeadingsFromFollow(follow) {
@@ -290,7 +292,7 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        return await Promise.all(
+        const results = await Promise.all(
             users.map(
                 user =>
                     models.Heading.findAll({
@@ -301,7 +303,9 @@ export default class UserDataStore extends DataStoreImpl {
                         raw: true,
                     }),
             )
-        )
+        );
+
+        return Array.prototype.concat.apply([], results);
     }
 
     async getHeadingsFromFollower(follow) {
@@ -318,7 +322,7 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
-        return await Promise.all(
+        const results = await Promise.all(
             users.map(
                 user =>
                     models.Heading.findAll({
@@ -329,7 +333,9 @@ export default class UserDataStore extends DataStoreImpl {
                         raw: true,
                     }),
             )
-        )
+        );
+
+        return Array.prototype.concat.apply([], results);
     }
 
     async getUserFeeds({ user, offset, limit }) {
@@ -355,8 +361,6 @@ export default class UserDataStore extends DataStoreImpl {
             },
             raw: true,
         });
-
-        console.log(user, "follows", user.CommunityFollows, user.Followers);
 
         const communityHeadingsPromise = Promise.all(
             user.CommunityFollows.map(follow =>
