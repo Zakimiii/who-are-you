@@ -415,7 +415,7 @@ export default class UserHandler extends HandlerImpl {
             offset,
         });
 
-        if (!befores && befores.length == 0) {
+        if (!befores || befores.length == 0) {
             const communityHeadings = await communityHeadingDataStore.getLatestHeadings({
                 limit,
                 offset,

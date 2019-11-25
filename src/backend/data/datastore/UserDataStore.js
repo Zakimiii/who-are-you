@@ -262,6 +262,8 @@ export default class UserDataStore extends DataStoreImpl {
             });
         });
 
+        if (!community) return [];
+
         return await models.CommunityHeading.findAll({
             where: {
                 community_id: Number(community.id),
@@ -276,6 +278,7 @@ export default class UserDataStore extends DataStoreImpl {
         const user = await models.User.findOne({
             where: {
                 id: Number(follow.VoteredId),
+                verified: true,
             },
             raw: true,
             attributes: ['id'],
@@ -285,6 +288,8 @@ export default class UserDataStore extends DataStoreImpl {
                 tt_key: 'invalid_response_from_server',
             });
         });
+
+        if (!user) return [];
 
         return await models.Heading.findAll({
             where: {
@@ -300,6 +305,7 @@ export default class UserDataStore extends DataStoreImpl {
         const user = await models.User.findOne({
             where: {
                 id: Number(follow.VoterId),
+                verified: true,
             },
             raw: true,
             attributes: ['id'],
@@ -309,6 +315,8 @@ export default class UserDataStore extends DataStoreImpl {
                 tt_key: 'invalid_response_from_server',
             });
         });
+
+        if (!user) return [];
 
         return await models.Heading.findAll({
             where: {
@@ -343,6 +351,11 @@ export default class UserDataStore extends DataStoreImpl {
             },
             raw: true,
         });
+
+        if (
+            user.CommunityFollows.length == 0 &&
+            user.Followers.length == 0
+        ) return [];
 
         const communityHeadingsPromise = Promise.all(
             user.CommunityFollows.map(follow =>

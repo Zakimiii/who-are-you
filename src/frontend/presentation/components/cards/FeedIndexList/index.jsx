@@ -80,12 +80,16 @@ class FeedIndexList extends React.Component {
         return (
             <div className="user-show-list">
                 <div className="user-show-list__body">
-                    <div className="user-show-list__body__category">
-                            {tt('g.follow_communities')}
+                    {communities && communities.length > 0 && (
+                        <div>
+                            <div className="user-show-list__body__category">
+                                {tt('g.follow_communities')}
+                            </div>
+                            <div className="user-show-list__viewer">
+                                <CommunityViewer repositories={communities} />
+                            </div>
                         </div>
-                    <div className="user-show-list__viewer">
-                        <CommunityViewer repositories={communities} />
-                    </div>
+                    )}
                     <div className="user-show-list__body__category">
                         {tt('g.feeds')}
                     </div>
