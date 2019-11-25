@@ -386,7 +386,7 @@ export default class UserDataStore extends DataStoreImpl {
 
         const befores = datum[0].concat(datum[1])
             .filter(val => !!val)
-            .sort((a,b) => (a.createdAt < b.createdAt ? 1 : -1))
+            .sort((a,b) => (a.createdAt > b.createdAt ? 1 : -1))
             .slice(Number(offset || 0), Number(limit || data_config.fetch_data_limit('M')));
 
         //TODO: Get associates value!

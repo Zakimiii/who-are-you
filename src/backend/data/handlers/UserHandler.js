@@ -446,7 +446,7 @@ export default class UserHandler extends HandlerImpl {
 
         const headings = datum[0].concat(datum[1])
             .filter(val => !!val)
-            .sort((a,b) => (a.createdAt < b.createdAt ? 1 : -1))
+            .sort((a,b) => (a.createdAt > b.createdAt ? 1 : -1))
 
         router.body = {
             success: true,
