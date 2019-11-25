@@ -31,9 +31,11 @@ export default class CommunityHandler extends HandlerImpl {
             where: {
                 id: Number(id) || 0,
             },
+            raw: true,
         });
 
-        community.picture = `/pictures/community/${community.id}`;
+        community = await communityDataStore.getShowIncludes(community);
+        community = community[0];
 
         router.body = {
             success: true,

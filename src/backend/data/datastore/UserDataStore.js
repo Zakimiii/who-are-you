@@ -412,7 +412,7 @@ export default class UserDataStore extends DataStoreImpl {
 
     async unfollowCommunity(user, target) {
         const results = await Promise.all([
-            models.Follow.destroy({
+            models.CommunityFollow.destroy({
                 where: {
                     VoterId: Number(user.id),
                     VotedId: Number(target.id),

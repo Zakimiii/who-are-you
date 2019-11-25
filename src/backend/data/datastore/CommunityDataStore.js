@@ -22,6 +22,7 @@ export default class CommunityDataStore extends DataStoreImpl {
             headings: true,
             category: true,
             picture: false,
+            followers: true,
         }
     ) {
         if (!datum) return;
@@ -48,6 +49,13 @@ export default class CommunityDataStore extends DataStoreImpl {
                             },
                             raw: true,
                         }),
+                    params.followers &&
+                        models.CommunityFollow.findAll({
+                            where: {
+                                voted_id: val.id,
+                            },
+                            raw: true,
+                        }),
                 ]);
             },
             { concurrency: 10 }
@@ -57,6 +65,30 @@ export default class CommunityDataStore extends DataStoreImpl {
                 tt_key: 'errors.invalid_response_from_server',
             });
         });
+
+        const follower_users = params.followers
+            ? await Promise.all(
+                  includes.map(async data => {
+                      let followers = data[2];
+                      return await Promise.all(
+                          followers.map(follower => {
+                              return models.User.findOne({
+                                  where: {
+                                      id: follower.VoterId,
+                                  },
+                                  raw: true,
+                              });
+                          })
+                      );
+                  })
+              ).catch(e => {
+                  throw new ApiError({
+                      error: e,
+                      tt_key: 'errors.invalid_response_from_server',
+                  });
+              })
+            : [];
+
 
         return await Promise.all(
             contents.map(async (val, index) => {
@@ -78,6 +110,7 @@ export default class CommunityDataStore extends DataStoreImpl {
                         val.Category.picture = '';
                     }
                 }
+                if (params.followers) val.Followers = follower_users[index]; //includes[index][4];
                 return val;
             })
         );
@@ -88,6 +121,16 @@ export default class CommunityDataStore extends DataStoreImpl {
             headings: false,
             category: true,
             picture: false,
+            followers: false,
+        });
+    }
+
+    async getShowIncludes(datum) {
+        return await this.getIncludes(datum, {
+            headings: false,
+            category: true,
+            picture: false,
+            followers: true,
         });
     }
 

@@ -241,6 +241,16 @@ export const bind = (community, state) => {
     return getCache(community.id, state) || community;
 };
 
+export const isFollow = (state, community) => {
+    let val = state.auth.get('current_user');
+    if (!val) return false;
+    val = val.toJS();
+    if (!community) return false;
+    if (!community.Followers) return false;
+    if (!(community.Followers.length > 0)) return false;
+    return community.Followers.filter(follower => follower.id == val.id).length > 0;
+};
+
 export const getShowCommunity = state => {
     let val = state.community.get('show_community');
     const community = !!val ? val.toJS() : null;

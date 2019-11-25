@@ -13,6 +13,7 @@ import dummy from '@network/dummy';
 import Responsible from '@modules/Responsible';
 import TwitterBar from '@elements/TwitterBar';
 import data_config from '@constants/data_config';
+import CommunityFollowButton from '@elements/CommunityFollowButton';
 
 class CommunityShowHeader extends React.Component {
     static propTypes = {
@@ -82,6 +83,9 @@ class CommunityShowHeader extends React.Component {
                     </div>
                     <div className="user-show-header__detail">
                         {tt('g.number_of_heading', { data: _repository.heading_count || 0 }) + '\n' + tt('g.number_of_answer', { data: _repository.answer_count || 0 })}
+                    </div>
+                    <div className="user-show-header__button">
+                        <CommunityFollowButton repository={_repository} />
                     </div>
                 </div>
             </div>

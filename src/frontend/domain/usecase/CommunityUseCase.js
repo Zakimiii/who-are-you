@@ -184,7 +184,9 @@ export default class CommunityUseCase extends UseCaseImpl {
     *follow({ payload: { user, target } }) {
         if (!user || !target) return;
         try {
-            const data = yield communityRepository.follow(user, target);
+            const data = yield communityRepository.follow({
+                user, target
+            });
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
@@ -193,10 +195,10 @@ export default class CommunityUseCase extends UseCaseImpl {
     *unfollow({ payload: { user, target } }) {
         if (!user || !target) return;
         try {
-            const data = yield communityRepository.unfollow(
+            const data = yield communityRepository.unfollow({
                 user,
                 target
-            );
+            });
         } catch (e) {
             yield put(appActions.addError({ error: e }));
         }
