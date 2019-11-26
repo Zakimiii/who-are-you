@@ -62,7 +62,9 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
                           username: current_user.username,
                           category_id: community.CategoryId,
                       })
-                    : yield communityTemplateRepository.getStaticTrend({});
+                    : yield communityTemplateRepository.getStaticTrend({
+                          category_id: community.CategoryId,
+                      });
                 if (!templates || templates.length == 0) return;
                 yield put(communityTemplateActions.setHome({ templates }));
             } catch (e) {
