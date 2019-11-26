@@ -7,9 +7,9 @@ import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
 import IndexComponent from '@pages/IndexComponent';
-import CommuntyNewList from '@cards/CommuntyNewList';
+import CommunityNewList from '@cards/CommunityNewList';
 
-class CommuntyNew extends React.Component {
+class CommunityNew extends React.Component {
     static propTypes = {};
 
     static defaultProps = {};
@@ -19,7 +19,7 @@ class CommuntyNew extends React.Component {
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommuntyNew');
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommunityNew');
     }
 
     render() {
@@ -27,14 +27,14 @@ class CommuntyNew extends React.Component {
 
         return (
             <IndexComponent>
-                <CommuntyNewList id={id} />
+                <CommunityNewList id={id} />
             </IndexComponent>
         );
     }
 }
 
 module.exports = {
-    path: '/community/:id/new',
+    path: '/communities/new',
     component: connect(
         (state, ownProps) => {
             return {};
@@ -42,5 +42,5 @@ module.exports = {
         dispatch => {
             return {};
         }
-    )(CommuntyNew),
+    )(CommunityNew),
 };

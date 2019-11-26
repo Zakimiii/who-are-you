@@ -63,4 +63,11 @@ export default class CommunityRepository extends RepositoryImpl {
 
         return !!data.success;
     }
+
+    async review(community) {
+        const data = await super.apiCall('/api/v1/community/review', {
+            community: community,
+        });
+        return data && data.community;
+    }
 }

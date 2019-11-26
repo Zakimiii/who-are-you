@@ -20,7 +20,7 @@ export const img_proxy_prefix = 'https://selfinity.s3.amazonaws.com';
 export const img_host = 'https://selfinity.s3.ap-northeast-1.amazonaws.com';
 export const INC_ADDRESS = env.ADDRESS;
 export const APP_PUBLIC_IP =
-    'http://ec2-54-196-92-235.compute-1.amazonaws.com/';
+    'http://ec2-3-87-156-15.compute-1.amazonaws.com';
 
 module.exports = {
     APP_NAME,

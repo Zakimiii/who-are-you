@@ -28,4 +28,5 @@ export const communityWatches = [
     takeEvery(communityActions.SYNC_COMMUNITY, communityUseCase.syncCommunity),
     takeLatest(communityActions.FOLLOW, communityUseCase.follow),
     takeLatest(communityActions.UNFOLLOW, communityUseCase.unfollow),
+    takeLatest(communityActions.REVIEW, communityUseCase.review),
 ];

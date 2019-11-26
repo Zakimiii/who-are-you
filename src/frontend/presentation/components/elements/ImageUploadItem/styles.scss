@@ -1,0 +1,32 @@
+.image-upload-item {
+  &__title {
+    cursor: pointer;
+    display: block;
+    padding: 10px 20px;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    text-align: center;
+    @include FS(FM);
+    @include FM(B);
+    @include themify($themes) {
+      transition: all 0.3s ease-in-out;
+      background: linear-gradient(-135deg, themed('gradationL'), themed('gradationR'));
+      color: themed('background');
+    }
+    text-decoration: none !important;
+    &:hover, [disabled] {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        background: linear-gradient(-135deg, lighten(themed('gradationL'), 20%), lighten(themed('gradationR'), 20%));
+      }
+    }
+  }
+  &__previews {
+    margin: 10px;
+  }
+  &__field {
+    display:none;
+  }
+}

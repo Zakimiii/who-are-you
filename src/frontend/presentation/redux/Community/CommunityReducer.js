@@ -8,6 +8,7 @@ import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import {
     communityShowRoute,
 } from '@infrastructure/RouteInitialize';
+import models from '@network/client_models';
 
 export const SET_SHOW = 'community/SET_SHOW';
 export const SET_COMMUNITY_HEADING = 'community/SET_COMMUNITY_HEADING';
@@ -27,10 +28,15 @@ export const SET_DELETES = 'community/SET_DELETES';
 export const RESET_DELETES = 'community/SET_DELETES';
 export const SYNC_COMMUNITY = 'community/SYNC_COMMUNITY';
 
+export const REVIEW = 'heading/REVIEW';
+export const RESET_REVIEW = 'heading/RESET_REVIEW';
+export const SET_REVIEW = 'heading/SET_REVIEW';
+
 export const defaultState = Map({
     show_community: Map(),
     home_community: List(),
     community_heading: List([]),
+    review_community: Map(models.Community.build()),
     caches: List([]),
     deletes: List([]),
 });
@@ -136,6 +142,17 @@ export default function reducer(state = defaultState, action = {}) {
             return state.set('deletes', List([]));
         }
 
+        case SET_REVIEW: {
+            if (!payload.community) return state;
+            return state.set('review_community', Map(action.payload.community));
+        }
+
+        case RESET_REVIEW: {
+            return state.merge({
+                review_community: Map(models.Community.build()),
+            });
+        }
+
         default:
             return state;
     }
@@ -216,6 +233,21 @@ export const getMoreCommunityHeading = payload => ({
     payload,
 });
 
+export const review = payload => ({
+    type: REVIEW,
+    payload,
+});
+
+export const setReview = payload => ({
+    type: SET_REVIEW,
+    payload,
+});
+
+export const resetReview = payload => ({
+    type: RESET_REVIEW,
+    payload,
+});
+
 export const getDelete = (id, state) => {
     if (!id) return;
     const val = state.community.get('deletes');
@@ -285,4 +317,10 @@ export const getCommunityHeadingLength = state => {
     let home_models = val.toJS();
     if (!home_models) return 0;
     return home_models.length;
+};
+
+export const getReviewCommunity = state => {
+    let val = state.community.get('review_community');
+    const community = !!val ? val.toJS() : null;
+    return bind(community, state);
 };

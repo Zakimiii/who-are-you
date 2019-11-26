@@ -197,4 +197,33 @@ export default class CommunityUseCase extends UseCaseImpl {
             yield put(appActions.addError({ error: e }));
         }
     }
+
+    *review({ payload: { community } }) {
+        if (!community) return;
+        yield put(appActions.screenLoadingBegin());
+        try {
+            if (community.picture instanceof Map) {
+                let model = FileEntity.build(community.picture.toJS());
+                community.picture = yield model.getBuffer({
+                    xsize: data_config.picture_xsize,
+                    ysize: data_config.picture_ysize,
+                });
+
+                let model_c = FileEntity.build(community.Category.picture.toJS());
+                community.Category.picture = yield model_c.getBuffer({
+                    xsize: data_config.picture_xsize,
+                    ysize: data_config.picture_ysize,
+                });
+            }
+            const data = yield communityRepository.review(community);
+            if (!!data) {
+                browserHistory.push(
+                    communityIndexRoute.path
+                );
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.screenLoadingEnd());
+    }
 }

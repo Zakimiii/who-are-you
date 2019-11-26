@@ -302,4 +302,18 @@ export default class CommunityDataStore extends DataStoreImpl {
 
         return await this.getIndexIncludes(results);
     }
+
+    async review(
+        community,
+    ) {
+        community = await models.Community.create({
+            isHide: true,
+            valid: false,
+            permission: false,
+            body: community.body,
+            picture: community.picture,
+        });
+
+        return community
+    }
 }

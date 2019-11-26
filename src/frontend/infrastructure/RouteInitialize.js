@@ -78,6 +78,13 @@ export const communityAnswerShowRoute = new RouteEntity({
     validate: { id: /\d+/ },
 });
 
+export const communityNewRoute = new RouteEntity({
+    path: '/communities/new',
+    page: 'CommunityNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/CommunityNew'),
+});
+
 export const headingNewRoute = new RouteEntity({
     path: '/user/:username/heading/new',
     page: 'HeadingNew',
@@ -250,6 +257,7 @@ export const routeEntities = new RouteEntities({
         homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
+        communityNewRoute,
         communityHeadingNewRoute,
         communityAnswerNewRoute,
         communityFollowIndexRoute,

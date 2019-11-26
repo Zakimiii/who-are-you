@@ -11,12 +11,14 @@ import {
     NotificationDataStore,
     CommunityDataStore,
     CommunityTemplateDataStore,
+    CategoryDataStore,
 } from '@datastore';
 
 const communityAnswerDataStore = new CommunityAnswerDataStore();
 const communityHeadingDataStore = new CommunityHeadingDataStore();
 const notificationDataStore = new NotificationDataStore();
 const communityDataStore = new CommunityDataStore();
+const categoryDataStore = new CategoryDataStore();
 const communityTemplateDataStore = new CommunityTemplateDataStore();
 
 export default class CommunityHandler extends HandlerImpl {
@@ -89,6 +91,35 @@ export default class CommunityHandler extends HandlerImpl {
         router.body = {
             success: true,
             communities,
+        };
+    }
+
+    async handleReviewRequest(router, ctx, next) {
+        const {
+            community,
+        } = router.request.body;
+
+        if (!community)
+            throw new ApiError({
+                error: new Error('community is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'community' },
+            });
+
+        const category = community.Category;
+
+        const result_category = await categoryDataStore.review(
+            category,
+        );
+
+        const result_community = await communityDataStore.review(
+            community,
+        );
+
+        router.body = {
+            success: true,
+            community: safe2json(result_community),
+            category: safe2json(result_category),
         };
     }
 }

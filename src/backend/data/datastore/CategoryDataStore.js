@@ -170,4 +170,28 @@ export default class CategoryDataStore extends DataStoreImpl {
         })
         return result;
     }
+
+    async review(
+        category
+    ) {
+        const result = await models.Category.findOne({
+            where: {
+                valid: true,
+                permission: true,
+                body: category.body,
+            },
+        });
+
+        if (result) return;
+
+        category = await models.Category.create({
+            isHide: true,
+            valid: false,
+            permission: false,
+            body: category.body,
+            picture: category.picture,
+        });
+
+        return category;
+    }
 }
