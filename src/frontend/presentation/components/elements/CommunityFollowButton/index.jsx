@@ -43,9 +43,9 @@ class CommunityFollowButton extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({
-            isFollow: nextProps.isFollow,
-        });
+        // this.setState({
+        //     isFollow: nextProps.isFollow,
+        // });
     }
 
     onClick(e) {
