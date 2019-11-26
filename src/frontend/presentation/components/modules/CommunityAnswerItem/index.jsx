@@ -89,6 +89,10 @@ class CommunityAnswerItem extends React.Component {
             _repository.Community = dummy.Community;
         }
 
+        if (!_repository.User) {
+            _repository.User = dummy.User;
+        }
+
         const text =
             isShow &&
             _repository.body.length > data_config.answer_show_text_limit
