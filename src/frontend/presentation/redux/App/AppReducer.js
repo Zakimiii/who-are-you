@@ -451,9 +451,7 @@ export const communityIndexPageLoading = state => {
     // if (!loading) return false;
     const list_model = state.community.get('home_community');
     const model = list_model.toJS();
-    const cumodel = state.auth.get('current_user');
-    if (!model || !cumodel) return true;
-    const current_user = cumodel.toJS();
+    if (!model) return true;
     if (model.length == 0 && loading) return true;
     if (!model[0]) return true;
     return loading;

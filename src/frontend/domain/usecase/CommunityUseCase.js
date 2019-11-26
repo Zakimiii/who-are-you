@@ -33,9 +33,6 @@ export default class CommunityUseCase extends UseCaseImpl {
             if (communityIndexRoute.isValidPath(pathname)) {
                 yield put(appActions.fetchDataBegin());
                 yield put(authActions.syncCurrentUser());
-                const current_user = yield select(state =>
-                    authActions.getCurrentUser(state)
-                );
                 const communities = yield communityRepository.getStaticCommunities({});
                 if (!communities) return;
                 yield put(communityActions.setHome({ communities }));
@@ -55,9 +52,6 @@ export default class CommunityUseCase extends UseCaseImpl {
                     communityActions.getHomeCommunityLength(state)
                 );
                 if (indexContentsLength == 0) return;
-                const current_user = yield select(state =>
-                    authActions.getCurrentUser(state)
-                );
                 const loading = yield select(state =>
                     state.app.get('more_loading')
                 );

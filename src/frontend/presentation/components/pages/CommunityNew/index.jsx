@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import autobind from 'class-autobind';
 import tt from 'counterpart';
-import CommunityHeadingShowList from '@cards/CommunityHeadingShowList';
 import IndexComponent from '@pages/IndexComponent';
+import CommuntyNewList from '@cards/CommuntyNewList';
 
-class CommunityHeadingShow extends React.Component {
+class CommuntyNew extends React.Component {
     static propTypes = {};
 
     static defaultProps = {};
@@ -19,7 +19,7 @@ class CommunityHeadingShow extends React.Component {
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommunityHeadingShow');
+        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommuntyNew');
     }
 
     render() {
@@ -27,14 +27,14 @@ class CommunityHeadingShow extends React.Component {
 
         return (
             <IndexComponent>
-                <CommunityHeadingShowList id={id} />
+                <CommuntyNewList id={id} />
             </IndexComponent>
         );
     }
 }
 
 module.exports = {
-    path: '/communities/heading/:id',
+    path: '/community/:id/new',
     component: connect(
         (state, ownProps) => {
             return {};
@@ -42,5 +42,5 @@ module.exports = {
         dispatch => {
             return {};
         }
-    )(CommunityHeadingShow),
+    )(CommuntyNew),
 };
