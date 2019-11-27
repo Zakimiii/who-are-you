@@ -19,11 +19,13 @@ class IndexComponent extends React.Component {
         children: PropTypes.node,
         style: PropTypes.object,
         showSide: PropTypes.bool,
+        loginRequire: PropTypes.bool,
     };
 
     static defaultProps = {
         style: {},
         showSide: true,
+        loginRequire: false,
     };
 
     state = {};
