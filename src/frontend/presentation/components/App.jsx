@@ -109,15 +109,18 @@ class App extends Component {
     }
 
     componentWillReceiveProps(np) {
-        // Add listener if the next page requires entropy and the current page didn't
         window.previousLocation = this.props.location;
 
         if (
             np.pathname != this.props.pathname &&
             process.env.NODE_ENV == 'production'
         ) {
-            window.dataLayer.push('config', env.GOOGLE.ANALYSTICS_CLIENT, {
-                page_path: np.location.pathname,
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('config', env.GOOGLE.ANALYSTICS_CLIENT, {
+                page_path: np.pathname,
             });
         }
 
