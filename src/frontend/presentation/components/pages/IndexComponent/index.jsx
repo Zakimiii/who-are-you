@@ -13,6 +13,7 @@ import {
     communityIndexRoute,
     communityShowRoute,
 } from '@infrastructure/RouteInitialize';
+import ActionButton from '@modules/ActionButton';
 
 class IndexComponent extends React.Component {
     static propTypes = {
@@ -20,12 +21,14 @@ class IndexComponent extends React.Component {
         style: PropTypes.object,
         showSide: PropTypes.bool,
         loginRequire: PropTypes.bool,
+        action_button: PropTypes.node,
     };
 
     static defaultProps = {
         style: {},
         showSide: true,
         loginRequire: false,
+        action_button: <div />,
     };
 
     state = {};
@@ -40,7 +43,7 @@ class IndexComponent extends React.Component {
     }
 
     render() {
-        const { style, showSide, children } = this.props;
+        const { style, showSide, children, action_button } = this.props;
         const { pathname } = browserHistory.getCurrentLocation();
         // return showSide ? (
         //     <div className="index-component" style={style}>
@@ -63,11 +66,12 @@ class IndexComponent extends React.Component {
                         <div className="index-component__center">
                             <div className="index-component__center-in">
                                 {children}
+                                {action_button}
                             </div>
                         </div>
                         <div className="index-component__right">
                             <div className="index-component__right-in">
-                                <CommunityBar/>
+                                <CommunityBar />
                             </div>
                         </div>
                     </div>

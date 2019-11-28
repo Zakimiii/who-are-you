@@ -33,6 +33,7 @@
       max-width: 300px;
       margin-right: auto;
       height: 100%;
+      position: relative;
       @include mq-down(xl) {
         width: 240px;
       };

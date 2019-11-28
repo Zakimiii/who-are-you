@@ -46,11 +46,7 @@ export default class CommunityHandler extends HandlerImpl {
     }
 
     async handleGetCommunityHeadingsRequest(router, ctx, next) {
-        const {
-            community_id,
-            limit,
-            offset,
-        } = router.request.body;
+        const { community_id, limit, offset } = router.request.body;
 
         if (!community_id)
             throw new ApiError({
@@ -83,10 +79,12 @@ export default class CommunityHandler extends HandlerImpl {
     async handleStaticRecommendCommunityRequest(router, ctx, next) {
         const { limit, offset } = router.request.body;
 
-        const communities = await communityDataStore.getStaticRecommendCommunities({
-            offset,
-            limit,
-        });
+        const communities = await communityDataStore.getStaticRecommendCommunities(
+            {
+                offset,
+                limit,
+            }
+        );
 
         router.body = {
             success: true,
@@ -95,9 +93,7 @@ export default class CommunityHandler extends HandlerImpl {
     }
 
     async handleReviewRequest(router, ctx, next) {
-        const {
-            community,
-        } = router.request.body;
+        let { community } = router.request.body;
 
         if (!community)
             throw new ApiError({
@@ -108,18 +104,40 @@ export default class CommunityHandler extends HandlerImpl {
 
         const category = community.Category;
 
-        const result_category = await categoryDataStore.review(
-            category,
-        );
+        const result_category = await categoryDataStore.review(category);
 
-        const result_community = await communityDataStore.review(
-            community,
-        );
+        community.CategoryId = result_category.id;
+
+        const result_community = await communityDataStore.review(community);
 
         router.body = {
             success: true,
             community: safe2json(result_community),
             category: safe2json(result_category),
+        };
+    }
+
+    async handleCreateBotRequest(router, ctx, next) {
+        const { id } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const community = await models.Community.findOne({
+            where: {
+                id: Number(id) || 0,
+            },
+        });
+
+        const heading = await communityHeadingDataStore.createBot(community);
+
+        router.body = {
+            success: true,
+            community: safe2json(community),
+            heading: safe2json(heading),
         };
     }
 }

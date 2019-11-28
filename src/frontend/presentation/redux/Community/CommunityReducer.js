@@ -5,15 +5,14 @@ import safe2json from '@extension/safe2json';
 import { ClientError } from '@extension/Error';
 import * as detection from '@network/detection';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
-import {
-    communityShowRoute,
-} from '@infrastructure/RouteInitialize';
+import { communityShowRoute } from '@infrastructure/RouteInitialize';
 import models from '@network/client_models';
 
 export const SET_SHOW = 'community/SET_SHOW';
 export const SET_COMMUNITY_HEADING = 'community/SET_COMMUNITY_HEADING';
 export const ADD_COMMUNITY_HEADING = 'community/ADD_COMMUNITY_HEADING';
-export const GET_MORE_COMMUNITY_HEADING = 'community/GET_MORE_COMMUNITY_HEADING';
+export const GET_MORE_COMMUNITY_HEADING =
+    'community/GET_MORE_COMMUNITY_HEADING';
 export const SET_HOME = 'community/SET_HOME';
 export const RESET_HOME = 'community/RESET_HOME';
 export const ADD_HOME = 'community/ADD_HOME';
@@ -36,13 +35,17 @@ export const defaultState = Map({
     show_community: Map(),
     home_community: List(),
     community_heading: List([]),
-    review_community: Map(models.Community.build()),
+    review_community: Map(
+        models.Community.build({
+            Category: models.Category.build(),
+        })
+    ),
     caches: List([]),
     deletes: List([]),
 });
 
 export default function reducer(state = defaultState, action = {}) {
-  const payload = action.payload;
+    const payload = action.payload;
     switch (action.type) {
         case '@@router/LOCATION_CHANGE':
             return state.merge({
@@ -108,9 +111,13 @@ export default function reducer(state = defaultState, action = {}) {
                 'community_heading',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(action.payload.headings.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(
+                                List(
+                                    action.payload.headings.map(val => Map(val))
+                                )
+                            )
+                            .toJS()
                     )
                 )
             );
@@ -149,7 +156,11 @@ export default function reducer(state = defaultState, action = {}) {
 
         case RESET_REVIEW: {
             return state.merge({
-                review_community: Map(models.Community.build()),
+                review_community: Map(
+                    models.Community.build({
+                        Category: models.Category.build(),
+                    })
+                ),
             });
         }
 
@@ -280,7 +291,9 @@ export const isFollow = (state, community) => {
     if (!community) return false;
     if (!community.Followers) return false;
     if (!(community.Followers.length > 0)) return false;
-    return community.Followers.filter(follower => follower.id == val.id).length > 0;
+    return (
+        community.Followers.filter(follower => follower.id == val.id).length > 0
+    );
 };
 
 export const getShowCommunity = state => {

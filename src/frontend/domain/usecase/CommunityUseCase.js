@@ -33,7 +33,9 @@ export default class CommunityUseCase extends UseCaseImpl {
             if (communityIndexRoute.isValidPath(pathname)) {
                 yield put(appActions.fetchDataBegin());
                 yield put(authActions.syncCurrentUser());
-                const communities = yield communityRepository.getStaticCommunities({});
+                const communities = yield communityRepository.getStaticCommunities(
+                    {}
+                );
                 if (!communities) return;
                 yield put(communityActions.setHome({ communities }));
             }
@@ -57,13 +59,15 @@ export default class CommunityUseCase extends UseCaseImpl {
                 );
                 if (loading || indexContentsLength == 0) return;
                 yield put(appActions.fetchMoreDataBegin());
-                const communities = yield communityRepository.getStaticCommunities({
-                    offset: indexContentsLength,
-                });
+                const communities = yield communityRepository.getStaticCommunities(
+                    {
+                        offset: indexContentsLength,
+                    }
+                );
                 if (communities.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(communityActions.addHome({ communities }));
             }
         } catch (e) {
@@ -75,10 +79,7 @@ export default class CommunityUseCase extends UseCaseImpl {
     *initShow({ payload: { pathname } }) {
         try {
             if (communityShowRoute.isValidPath(pathname)) {
-                const id = communityShowRoute.params_value(
-                    'id',
-                    pathname
-                );
+                const id = communityShowRoute.params_value('id', pathname);
                 yield put(appActions.fetchDataBegin());
                 yield put(authActions.syncCurrentUser());
                 const current_user = yield select(state =>
@@ -99,11 +100,11 @@ export default class CommunityUseCase extends UseCaseImpl {
     *initCommunityHeadings({ payload: { pathname } }) {
         try {
             if (communityShowRoute.isValidPath(pathname)) {
-                const id = communityShowRoute.params_value(
-                    'id',
+                const id = communityShowRoute.params_value('id', pathname);
+                const section = communityShowRoute.params_value(
+                    'section',
                     pathname
                 );
-                const section = communityShowRoute.params_value('section', pathname);
                 if (section !== 'headings' && !!section) return;
                 yield put(authActions.syncCurrentUser());
                 yield put(appActions.fetchDataBegin());
@@ -113,9 +114,19 @@ export default class CommunityUseCase extends UseCaseImpl {
                 let headings = yield communityRepository.getHeadings({
                     id,
                 });
+                if (headings.length == 0) {
+                    //FIXME: dry
+                    yield communityRepository.createBot({ id });
+                    yield communityRepository.createBot({ id });
+                    yield communityRepository.createBot({ id });
+                    headings = yield communityRepository.getHeadings({
+                        id,
+                    });
+                }
                 yield put(communityActions.setCommunityHeading({ headings }));
             }
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -126,10 +137,7 @@ export default class CommunityUseCase extends UseCaseImpl {
         try {
             if (communityShowRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
-                const id = communityShowRoute.params_value(
-                    'id',
-                    pathname
-                );
+                const id = communityShowRoute.params_value('id', pathname);
                 const indexContentsLength = yield select(state =>
                     communityActions.getCommunityHeadingLength(state)
                 );
@@ -149,7 +157,7 @@ export default class CommunityUseCase extends UseCaseImpl {
                 if (headings.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(communityActions.addCommunityHeading({ headings }));
             }
         } catch (e) {
@@ -179,7 +187,8 @@ export default class CommunityUseCase extends UseCaseImpl {
         if (!user || !target) return;
         try {
             const data = yield communityRepository.follow({
-                user, target
+                user,
+                target,
             });
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -191,7 +200,7 @@ export default class CommunityUseCase extends UseCaseImpl {
         try {
             const data = yield communityRepository.unfollow({
                 user,
-                target
+                target,
             });
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -202,26 +211,32 @@ export default class CommunityUseCase extends UseCaseImpl {
         if (!community) return;
         yield put(appActions.screenLoadingBegin());
         try {
-            if (community.picture instanceof Map) {
-                let model = FileEntity.build(community.picture.toJS());
-                community.picture = yield model.getBuffer({
+            if (
+                community.picture instanceof Map &&
+                community.Category.picture instanceof Map
+            ) {
+                let model = FileEntities.build(community.picture.toJS());
+                yield model.getBuffer({
                     xsize: data_config.picture_xsize,
                     ysize: data_config.picture_ysize,
                 });
+                community.picture = model.items[0].url;
 
-                let model_c = FileEntity.build(community.Category.picture.toJS());
-                community.Category.picture = yield model_c.getBuffer({
+                let model_c = FileEntities.build(
+                    community.Category.picture.toJS()
+                );
+                yield model_c.getBuffer({
                     xsize: data_config.picture_xsize,
                     ysize: data_config.picture_ysize,
                 });
+                community.Category.picture = model_c.items[0].url;
             }
             const data = yield communityRepository.review(community);
             if (!!data) {
-                browserHistory.push(
-                    communityIndexRoute.path
-                );
+                browserHistory.push(communityIndexRoute.path);
             }
         } catch (e) {
+            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.screenLoadingEnd());

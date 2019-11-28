@@ -1,0 +1,110 @@
+.community-new-list {
+  &__title {
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    height: 44px;
+    @include FS(M);
+    @include LH(M);
+    @include FM(B);
+    @include init_wh();
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    margin: 12px auto;
+    @include mq-down(fm) {
+      @include FS(FM);
+      @include LH(FM);
+      height: 34px;
+    };
+  }
+  &__detail {
+    @include FM(M);
+    @include FS(FS);
+    margin: 16px 10px;
+    @include themify($themes) {
+      color: themed('backgroundContrast');
+    }
+  }
+  &__form {
+    &-submit {
+      padding: 10px;
+      height: 64px;
+    }
+  }
+  &__community {
+    padding: 24px;
+    &-label {
+      white-space: normal;
+      width: 100%;
+      text-align: left;
+      height: 44px;
+      @include FS(FM);
+      @include FM(B);
+      @include init_wh();
+      @include themify($themes) {
+        color: themed('backgroundContrast');
+      }
+      margin: 12px auto;
+      @include mq-down(fm) {
+        @include FS(S);
+        height: 34px;
+      };
+    }
+    &-detail {
+      @include FM(M);
+      @include FS(FS);
+      margin: 16px 0px;
+      @include themify($themes) {
+        color: themed('backgroundContrast');
+      }
+    }
+    &-form {
+      padding: 12px 0;
+    }
+    &-image {
+      max-width: 240px;
+      width: 100%;
+      margin-right: auto;
+      padding: 8px 0;
+    }
+  }
+
+  &__category {
+    padding: 24px;
+    &-label {
+      white-space: normal;
+      width: 100%;
+      text-align: left;
+      height: 44px;
+      @include FS(FM);
+      @include FM(B);
+      @include init_wh();
+      @include themify($themes) {
+        color: themed('backgroundContrast');
+      }
+      margin: 12px auto;
+      @include mq-down(fm) {
+        @include FS(S);
+        height: 34px;
+      };
+    }
+    &-detail {
+      @include FM(M);
+      @include FS(FS);
+      margin: 16px 0px;
+      @include themify($themes) {
+        color: themed('backgroundContrast');
+      }
+    }
+    &-form {
+      padding: 12px 0;
+    }
+    &-image {
+      max-width: 240px;
+      width: 100%;
+      margin-right: auto;
+      padding: 8px 0;
+    }
+  }
+}

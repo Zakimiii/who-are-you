@@ -11,7 +11,12 @@ import UserShowList from '@cards/UserShowList';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import * as appActions from '@redux/App/AppReducer';
 import * as authActions from '@redux/Auth/AuthReducer';
+import * as userActions from '@redux/User/UserReducer';
+import * as headingActions from '@redux/Heading/HeadingReducer';
 import IndexComponent from '@pages/IndexComponent';
+import models from '@network/client_models';
+import autobind from 'class-autobind';
+import ActionButton from '@modules/ActionButton';
 
 class Home extends React.Component {
     static pushURLState(title) {
@@ -20,6 +25,7 @@ class Home extends React.Component {
 
     constructor(props) {
         super(props);
+        autobind(this);
         this.shouldComponentUpdate = shouldComponentUpdate(this, 'Home');
     }
 
@@ -32,11 +38,24 @@ class Home extends React.Component {
         }
     }
 
+    onClick(e) {
+        const { showNew, repository } = this.props;
+        showNew(repository);
+    }
+
     render() {
         const { current_user } = this.props;
 
         return !!current_user ? (
-            <IndexComponent>
+            <IndexComponent
+                action_button={
+                    <ActionButton
+                        size={'3x'}
+                        src={'plus'}
+                        onClick={this.onClick}
+                    />
+                }
+            >
                 <UserShowList username={current_user.username} />
             </IndexComponent>
         ) : (
@@ -53,6 +72,7 @@ module.exports = {
         (state, ownProps) => {
             return {
                 current_user: authActions.getCurrentUser(state),
+                repository: userActions.getShowUser(state),
             };
         },
         dispatch => {
@@ -63,6 +83,17 @@ module.exports = {
                             success,
                         })
                     ),
+                showNew: user => {
+                    dispatch(
+                        headingActions.setNew({
+                            heading: models.Heading.build({
+                                User: user,
+                                UserId: user.id,
+                            }),
+                        })
+                    );
+                    dispatch(headingActions.showNew());
+                },
             };
         }
     )(Home),

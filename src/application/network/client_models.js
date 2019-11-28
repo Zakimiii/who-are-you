@@ -1,5 +1,6 @@
 const safe2json = require('@extension/safe2json');
 const tt = require('counterpart');
+const data_config = require('@constants/data_config');
 
 const User = {
     build: init => {
@@ -122,6 +123,7 @@ const Category = {
         return {
             id: null,
             body: '',
+            picture: data_config.default_category_image,
             locale: 'ja',
             country_code: 'JP',
             isHide: false,
@@ -142,12 +144,12 @@ const Category = {
         'count' in obj,
 };
 
-
 const Community = {
     build: init => {
         return {
             id: null,
             CategoryId: null,
+            picture: data_config.default_community_image,
             body: '',
             locale: 'ja',
             country_code: 'JP',
@@ -192,10 +194,7 @@ const CommunityHeading = {
     },
     toJSON: arg => safe2json(arg),
     isInstance: obj =>
-        !!obj &&
-        'CommunityId' in obj &&
-        'VoterId' in obj &&
-        'body' in obj,
+        !!obj && 'CommunityId' in obj && 'VoterId' in obj && 'body' in obj,
     getBody: obj => {
         if (!obj) return;
         return Number.prototype.castBool(obj.isBot)

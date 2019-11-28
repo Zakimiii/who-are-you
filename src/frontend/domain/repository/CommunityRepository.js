@@ -70,4 +70,14 @@ export default class CommunityRepository extends RepositoryImpl {
         });
         return data && data.community;
     }
+
+    async createBot({ id }) {
+        const data = await super.apiCall(
+            '/api/v1/community/heading/bot/create',
+            {
+                id,
+            }
+        );
+        return data && data.heading;
+    }
 }

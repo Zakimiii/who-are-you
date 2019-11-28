@@ -57,13 +57,15 @@ export default class CategoryDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (!params.picture) {
-                    val.picture = `/pictures/category/${val.id}`
-                };
+                    val.picture = `/pictures/category/${val.id}`;
+                }
                 if (params.communities) {
                     val.Communities = includes[index][0];
                     if (!params.picture) {
                         val.Communities = val.Communities.map(community => {
-                            community.picture = `/pictures/community/${community.id}`;
+                            community.picture = `/pictures/community/${
+                                community.id
+                            }`;
                             return community;
                         });
                     }
@@ -96,12 +98,16 @@ export default class CategoryDataStore extends DataStoreImpl {
         const categories = await this.getIndexIncludes(results);
         return categories
             .filter(
-                category => !!category.Communities && category.Communities.length != 0
+                category =>
+                    !!category.Communities && category.Communities.length != 0
             )
             .map(category => {
-                category.Communities = category.Communities.slice(0, data_config.community_index_limit)
+                category.Communities = category.Communities.slice(
+                    0,
+                    data_config.community_index_limit
+                );
                 return category;
-            })
+            });
     }
 
     async updateCount(value) {
@@ -149,12 +155,12 @@ export default class CategoryDataStore extends DataStoreImpl {
         });
         const community = await models.Community.findOne({
             where: {
-                id: heading.CommunityId
+                id: heading.CommunityId,
             },
         });
         const result = await this.updateCount({
             id: community.CategoryId,
-        })
+        });
         return result;
     }
 
@@ -162,18 +168,16 @@ export default class CategoryDataStore extends DataStoreImpl {
         if (!heading || !heading.CommunityId) return;
         const community = await models.Community.findOne({
             where: {
-                id: heading.CommunityId
+                id: heading.CommunityId,
             },
         });
         const result = await this.updateCount({
             id: community.CategoryId,
-        })
+        });
         return result;
     }
 
-    async review(
-        category
-    ) {
+    async review(category) {
         const result = await models.Category.findOne({
             where: {
                 valid: true,
@@ -182,7 +186,7 @@ export default class CategoryDataStore extends DataStoreImpl {
             },
         });
 
-        if (result) return;
+        if (result) return result;
 
         category = await models.Category.create({
             isHide: true,

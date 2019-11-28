@@ -81,8 +81,10 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
                 if (!params.picture) val.picture = '';
                 if (params.community) {
                     val.Community = includes[index][0];
-                    val.Community.picture = `/pictures/community/${val.Community.id}`;
-                };
+                    val.Community.picture = `/pictures/community/${
+                        val.Community.id
+                    }`;
+                }
                 if (params.voter) val.Voter = includes[index][1];
                 if (params.answers) {
                     val.Answers = includes[index][2];
@@ -153,7 +155,7 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
                 },
             });
         }
-        heading.community_id = heading.CommunityId
+        heading.community_id = heading.CommunityId;
         const result = await models.CommunityHeading.create(heading);
         return result;
     }
@@ -307,7 +309,7 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
         const results = await models.CommunityHeading.findAll({
             where: {
                 community_id: Number(community_id),
-                isHide: false
+                isHide: false,
             },
             order: [['created_at', 'DESC']],
             raw: true,
@@ -326,7 +328,7 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
     async getStaticRecommendHeadings({ offset, limit }) {
         const results = await models.CommunityHeading.findAll({
             where: {
-                isHide: false
+                isHide: false,
             },
             order: [['created_at', 'DESC']],
             raw: true,
@@ -359,5 +361,38 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
         });
 
         return await this.getIndexIncludes(results);
+    }
+
+    async createBot(community) {
+        if (!community || !community.id || !community.CategoryId) return;
+
+        const templates = await models.CommunityTemplate.findAll({
+            where: {
+                category_id: Number(community.CategoryId),
+            },
+        });
+
+        const headings = await models.CommunityHeading.findAll({
+            where: {
+                community_id: Number(community.id),
+            },
+        });
+
+        if (templates.length == 0) return;
+
+        const result = templates.filter(
+            template =>
+                headings.filter(heading => template.body == heading.body)
+                    .length == 0
+        )[0];
+
+        if (!result) return;
+
+        const created = await models.CommunityHeading.create({
+            community_id: Number(community.id),
+            body: `${result.body}`,
+        });
+
+        return created;
     }
 }

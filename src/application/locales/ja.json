@@ -13,8 +13,17 @@
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
         "category": "カテゴリー",
+        "category_new_form":
+            "トピックの種類を決めるものです。既存にはないカテゴリーにすれば新規作成されます。",
+        "category_new": "カテゴリー作成",
         "contact": "お問い合わせ",
+        "choose_image": "画像を選択",
         "community": "トピック",
+        "community_new_form":
+            "トピック内で様々な紹介が行われます。みんなが紹介文を書きやすいようなトピックにしましょう。",
+        "community_new": "トピック作成",
+        "community_new_detail":
+            "トピック作成は審査制です。\n基本的には利害関係のない固有名詞を作成しサービスの活性化を促す機能です。\n特定の人物や団体などを指すトピックは関係者の同意を得なければいけません。また自分自身や許可を頂いた人物でもPRや売名目的であれば課金機能をご利用頂く必要があります。",
         "follow_communities": "登録トピック一覧",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
@@ -35,6 +44,7 @@
         "phone_number": "電話番号",
         "phone_code": "認証コード",
         "phone_code_with_notif": "認証コード(メッセンジャーを確認してください)",
+        "send": "送信",
         "send_code_not_reach": "認証コードを再発行する",
         "privacy_policy": "プライバシーポリシー",
         "phone_verify": "電話番号認証",

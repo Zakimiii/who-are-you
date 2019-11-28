@@ -10,6 +10,13 @@ import classnames from 'classnames';
 import CommunityShowList from '@cards/CommunityShowList';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import IndexComponent from '@pages/IndexComponent';
+import ActionButton from '@modules/ActionButton';
+import * as communityActions from '@redux/Community/CommunityReducer';
+import * as communityHeadingActions from '@redux/CommunityHeading/CommunityHeadingReducer';
+import * as appActions from '@redux/App/AppReducer';
+import { communityNewRoute } from '@infrastructure/RouteInitialize';
+import autobind from 'class-autobind';
+import models from '@network/client_models';
 
 class CommunityShow extends React.Component {
     static propTypes = {
@@ -18,10 +25,19 @@ class CommunityShow extends React.Component {
 
     static defaultProps = {};
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        autobind(this);
         this.state = {};
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CommunityShow');
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'CommunityShow'
+        );
+    }
+
+    onClick(e) {
+        const { repository, showNew } = this.props;
+        showNew(repository);
     }
 
     render() {
@@ -32,7 +48,15 @@ class CommunityShow extends React.Component {
         }
 
         return (
-            <IndexComponent>
+            <IndexComponent
+                action_button={
+                    <ActionButton
+                        size={'3x'}
+                        src={'plus'}
+                        onClick={this.onClick}
+                    />
+                }
+            >
                 <CommunityShowList id={id} section={section} />
             </IndexComponent>
         );
@@ -43,10 +67,24 @@ module.exports = {
     path: '/community/:id(/:section)',
     component: connect(
         (state, ownProps) => {
-            return {};
+            return {
+                repository: communityActions.getShowCommunity(state),
+            };
         },
         dispatch => {
-            return {};
+            return {
+                showNew: community => {
+                    dispatch(
+                        communityHeadingActions.setNew({
+                            heading: models.CommunityHeading.build({
+                                Community: community,
+                                CommunityId: community.id,
+                            }),
+                        })
+                    );
+                    dispatch(communityHeadingActions.showNew());
+                },
+            };
         }
     )(CommunityShow),
 };

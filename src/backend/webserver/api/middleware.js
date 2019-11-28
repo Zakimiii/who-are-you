@@ -328,7 +328,11 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield communityHeadingHandler
-            .handleStaticRecommendHeadingRequest(results.router, results.ctx, results.next)
+            .handleStaticRecommendHeadingRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(
@@ -1556,7 +1560,10 @@ export default function ApiMiddleware(app) {
             );
     });
 
-    router.post('/community/templates/static/trends', koaBody, function*(ctx, next) {
+    router.post('/community/templates/static/trends', koaBody, function*(
+        ctx,
+        next
+    ) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
             yield handleApiError(
@@ -1688,7 +1695,10 @@ export default function ApiMiddleware(app) {
             );
     });
 
-    router.post('/community/template/heading/create', koaBody, function*(ctx, next) {
+    router.post('/community/template/heading/create', koaBody, function*(
+        ctx,
+        next
+    ) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
             yield handleApiError(
@@ -1748,7 +1758,11 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield categoryHandler
-            .handleGetCategoriesRequest(results.router, results.ctx, results.next)
+            .handleGetCategoriesRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(
@@ -1772,7 +1786,11 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield categoryHandler
-            .handleGetCategoryCommunitiesRequest(results.router, results.ctx, results.next)
+            .handleGetCategoryCommunitiesRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(
@@ -1796,7 +1814,11 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield communityHandler
-            .handleGetCommunityRequest(results.router, results.ctx, results.next)
+            .handleGetCommunityRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(
@@ -1820,7 +1842,11 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield communityHandler
-            .handleStaticRecommendCommunityRequest(results.router, results.ctx, results.next)
+            .handleStaticRecommendCommunityRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
             .catch(
                 async e =>
                     await handleApiError(
@@ -1872,11 +1898,31 @@ export default function ApiMiddleware(app) {
             return;
         }
         yield communityHandler
-            .handleReviewRequest(
+            .handleReviewRequest(results.router, results.ctx, results.next)
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
+    router.post('/community/heading/bot/create', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
                 results.router,
                 results.ctx,
-                results.next
-            )
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield communityHandler
+            .handleCreateBotRequest(results.router, results.ctx, results.next)
             .catch(
                 async e =>
                     await handleApiError(

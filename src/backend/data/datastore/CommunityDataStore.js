@@ -89,7 +89,6 @@ export default class CommunityDataStore extends DataStoreImpl {
               })
             : [];
 
-
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (!params.picture) {
@@ -254,13 +253,7 @@ export default class CommunityDataStore extends DataStoreImpl {
         return await this.getIndexIncludes(results);
     }
 
-    async getUserFollowCommunities({
-        user_id,
-        username,
-        offset,
-        limit,
-    }) {
-
+    async getUserFollowCommunities({ user_id, username, offset, limit }) {
         const user = await models.User.findOne({
             where: {
                 $or: [
@@ -276,7 +269,7 @@ export default class CommunityDataStore extends DataStoreImpl {
 
         const follows = await models.CommunityFollow.findAll({
             where: {
-                voter_id: user.id
+                voter_id: user.id,
             },
             order: [['created_at', 'DESC']],
             raw: true,
@@ -290,8 +283,8 @@ export default class CommunityDataStore extends DataStoreImpl {
         });
 
         const results = await Promise.all(
-            follows.map(
-                follow => models.Community.findOne({
+            follows.map(follow =>
+                models.Community.findOne({
                     where: {
                         id: follow.VotedId,
                     },
@@ -303,17 +296,16 @@ export default class CommunityDataStore extends DataStoreImpl {
         return await this.getIndexIncludes(results);
     }
 
-    async review(
-        community,
-    ) {
+    async review(community) {
         community = await models.Community.create({
             isHide: true,
             valid: false,
             permission: false,
             body: community.body,
             picture: community.picture,
+            category_id: community.CategoryId,
         });
 
-        return community
+        return community;
     }
 }

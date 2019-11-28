@@ -123,6 +123,7 @@ const community_index_limit = 3;
 
 const default_user_image = '/images/default_profile_image.png';
 const default_community_image = `/images/brands/back-mini-logo.png`;
+const default_category_image = `/images/brands/back-mini-logo.png`;
 const default_opg_image = '/images/brands/ogp-logo.png';
 const logo_image = '/images/brands/app-logo.png';
 const mini_logo_image = '/images/brands/who-are-you_logo.png';
@@ -166,6 +167,7 @@ module.exports = {
     answer_body_max_limit,
     default_user_image,
     default_community_image,
+    default_category_image,
     default_opg_image,
     logo_image,
     mini_logo_image,
