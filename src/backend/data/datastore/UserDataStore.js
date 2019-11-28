@@ -252,6 +252,9 @@ export default class UserDataStore extends DataStoreImpl {
         const community = await models.Community.findOne({
             where: {
                 id: Number(community_follow.VotedId),
+                isHide: false,
+                permission: true,
+                valid: true,
             },
             raw: true,
             attributes: ['id'],
@@ -329,10 +332,9 @@ export default class UserDataStore extends DataStoreImpl {
     }
 
     async getUserFeeds({ user, offset, limit }) {
-
         user.CommunityFollows = await models.CommunityFollow.findAll({
             where: {
-                voter_id: user.id
+                voter_id: user.id,
             },
             raw: true,
         });
@@ -347,15 +349,13 @@ export default class UserDataStore extends DataStoreImpl {
 
         user.Followers = await models.Follow.findAll({
             where: {
-                votered_id: user.id
+                votered_id: user.id,
             },
             raw: true,
         });
 
-        if (
-            user.CommunityFollows.length == 0 &&
-            user.Followers.length == 0
-        ) return [];
+        if (user.CommunityFollows.length == 0 && user.Followers.length == 0)
+            return [];
 
         const communityHeadingsPromise = Promise.all(
             user.CommunityFollows.map(follow =>
@@ -371,9 +371,7 @@ export default class UserDataStore extends DataStoreImpl {
         // );
 
         const headingsPromise = Promise.all(
-            user.Followers.map(follow =>
-                this.getHeadingsFromFollower(follow)
-            )
+            user.Followers.map(follow => this.getHeadingsFromFollower(follow))
         );
 
         let datum = await Promise.all([
@@ -384,10 +382,14 @@ export default class UserDataStore extends DataStoreImpl {
         datum[0] = Array.prototype.concat.apply([], datum[0]);
         datum[1] = Array.prototype.concat.apply([], datum[1]);
 
-        const befores = datum[0].concat(datum[1])
+        const befores = datum[0]
+            .concat(datum[1])
             .filter(val => !!val)
-            .sort((a,b) => (a.createdAt < b.createdAt ? 1 : -1))
-            .slice(Number(offset || 0), Number(limit || data_config.fetch_data_limit('M')));
+            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
+            .slice(
+                Number(offset || 0),
+                Number(limit || data_config.fetch_data_limit('M'))
+            );
 
         //TODO: Get associates value!
         return befores;

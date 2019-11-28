@@ -28,6 +28,9 @@ export default class CategoryHandler extends HandlerImpl {
         const category = await models.Category.findOne({
             where: {
                 id: Number(id) || 0,
+                isHide: false,
+                permission: true,
+                valid: true,
             },
         });
 
@@ -58,12 +61,7 @@ export default class CategoryHandler extends HandlerImpl {
     }
 
     async handleGetCategoryCommunitiesRequest(router, ctx, next) {
-        const {
-            category_id,
-            limit,
-            offset,
-            isMyAccount,
-        } = router.request.body;
+        const { category_id, limit, offset, isMyAccount } = router.request.body;
 
         if (!category_id)
             throw new ApiError({

@@ -39,6 +39,8 @@ export default class CategoryDataStore extends DataStoreImpl {
                         models.Community.findAll({
                             where: {
                                 isHide: false,
+                                permission: true,
+                                valid: true,
                                 category_id: val.id,
                             },
                             order: [['heading_count', 'DESC']],
@@ -84,6 +86,11 @@ export default class CategoryDataStore extends DataStoreImpl {
 
     async getCategories({ limit, offset }) {
         const results = await models.Category.findAll({
+            where: {
+                isHide: false,
+                permission: true,
+                valid: true,
+            },
             order: [['heading_count', 'DESC']],
             raw: true,
             offset: Number(offset || 0),

@@ -45,6 +45,9 @@ export default class CommunityDataStore extends DataStoreImpl {
                     params.category &&
                         models.Category.findOne({
                             where: {
+                                isHide: false,
+                                permission: true,
+                                valid: true,
                                 id: val.CategoryId,
                             },
                             raw: true,
@@ -220,6 +223,11 @@ export default class CommunityDataStore extends DataStoreImpl {
 
     async getStaticRecommendCommunities({ offset, limit }) {
         const results = await models.Community.findAll({
+            where: {
+                isHide: false,
+                permission: true,
+                valid: true,
+            },
             order: [['answer_count', 'DESC']],
             raw: true,
             offset: Number(offset || 0),

@@ -32,6 +32,9 @@ export default class CommunityHandler extends HandlerImpl {
         let community = await models.Community.findOne({
             where: {
                 id: Number(id) || 0,
+                isHide: false,
+                permission: true,
+                valid: true,
             },
             raw: true,
         });

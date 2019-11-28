@@ -45,6 +45,9 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
                         models.Community.findOne({
                             where: {
                                 id: val.CommunityId,
+                                isHide: false,
+                                permission: true,
+                                valid: true,
                             },
                             raw: true,
                         }),
