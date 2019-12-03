@@ -119,7 +119,7 @@ export default class CommunityAnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield communityAnswerRepository.create(answer);
@@ -162,7 +162,7 @@ export default class CommunityAnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield communityAnswerRepository.update(answer);

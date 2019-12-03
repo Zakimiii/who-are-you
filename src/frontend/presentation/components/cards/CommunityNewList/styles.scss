@@ -11,7 +11,7 @@
     @include themify($themes) {
       color: themed('complementary');
     }
-    margin: 12px auto;
+    margin: 12px 24px;
     @include mq-down(fm) {
       @include FS(FM);
       @include LH(FM);
@@ -21,7 +21,7 @@
   &__detail {
     @include FM(M);
     @include FS(FS);
-    margin: 16px 10px;
+    margin: 16px 24px;
     @include themify($themes) {
       color: themed('backgroundContrast');
     }
@@ -33,7 +33,7 @@
     }
   }
   &__community {
-    padding: 24px;
+    padding: 8px 24px;
     &-label {
       white-space: normal;
       width: 100%;
@@ -71,7 +71,7 @@
   }
 
   &__category {
-    padding: 24px;
+    padding: 8px 24px;
     &-label {
       white-space: normal;
       width: 100%;

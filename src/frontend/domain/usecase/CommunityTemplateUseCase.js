@@ -45,7 +45,10 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
 
     *initTrend({ payload: { pathname } }) {
         if (communityShowRoute.isValidPath(pathname)) {
-            const section = communityShowRoute.params_value('section', pathname);
+            const section = communityShowRoute.params_value(
+                'section',
+                pathname
+            );
             const id = communityShowRoute.params_value('id', pathname);
             if (section !== 'templates') return;
             try {
@@ -77,7 +80,10 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
     *getMoreTrend({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
         if (communityShowRoute.isValidPath(pathname)) {
-            const section = communityShowRoute.params_value('section', pathname);
+            const section = communityShowRoute.params_value(
+                'section',
+                pathname
+            );
             const id = communityShowRoute.params_value('id', pathname);
             if (section !== 'templates') return;
             try {
@@ -88,7 +94,8 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
                     communityTemplateActions.getHomeTemplateLength(state)
-                );s
+                );
+                s;
                 if (indexContentsLength == 0) return;
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
@@ -134,7 +141,7 @@ export default class CommunityTemplateUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield communityTemplateRepository.addHeading({

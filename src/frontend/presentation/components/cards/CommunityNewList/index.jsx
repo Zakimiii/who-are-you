@@ -149,9 +149,6 @@ class CommunityNewList extends React.Component {
                 <div className="community-new-list__title">
                     {tt('g.community_new')}
                 </div>
-                <div className="community-new-list__detail">
-                    {tt('g.community_new_detail')}
-                </div>
                 <form
                     className="community-new-list__form"
                     onSubmit={this.onSubmit}
@@ -165,8 +162,10 @@ class CommunityNewList extends React.Component {
                         </div>
                         <div className="community-new-list__community-form">
                             <InputText
-                                label={tt('g.community')}
                                 prelabel={tt('g.community')}
+                                label={tt('g.please_enter', {
+                                    data: tt('g.community'),
+                                })}
                                 onChange={this.onCommunityBodyChange}
                                 placeholder={tt('g.please_enter', {
                                     data: tt('g.community'),
@@ -191,8 +190,10 @@ class CommunityNewList extends React.Component {
                         </div>
                         <div className="community-new-list__category-form">
                             <InputText
-                                label={tt('g.category')}
                                 prelabel={tt('g.category')}
+                                label={tt('g.please_enter', {
+                                    data: tt('g.category'),
+                                })}
                                 onChange={this.onCategoryBodyChange}
                                 placeholder={tt('g.please_enter', {
                                     data: tt('g.category'),
@@ -207,6 +208,9 @@ class CommunityNewList extends React.Component {
                             onChange={this.onCategoryPictureChange}
                             values={category_picture}
                         />
+                    </div>
+                    <div className="community-new-list__detail">
+                        {tt('g.community_new_detail')}
                     </div>
                     <div className="community-new-list__form-submit">
                         <GradationButton

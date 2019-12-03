@@ -113,7 +113,10 @@ export default class CommunityHeadingUseCase extends UseCaseImpl {
         if (communityHeadingShowRoute.isValidPath(pathname)) {
             try {
                 yield put(authActions.syncCurrentUser());
-                const id = communityHeadingShowRoute.params_value('id', pathname);
+                const id = communityHeadingShowRoute.params_value(
+                    'id',
+                    pathname
+                );
                 const indexContentsLength = yield select(state =>
                     communityHeadingActions.getHeadingAnswerLength(state)
                 );
@@ -133,8 +136,10 @@ export default class CommunityHeadingUseCase extends UseCaseImpl {
                 if (answers.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
-                yield put(communityHeadingActions.addHeadingAnswer({ answers }));
+                }
+                yield put(
+                    communityHeadingActions.addHeadingAnswer({ answers })
+                );
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
             }
@@ -174,7 +179,7 @@ export default class CommunityHeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield communityHeadingRepository.create(heading);
@@ -217,7 +222,7 @@ export default class CommunityHeadingUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/ogp-back.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield communityHeadingRepository.update(heading);

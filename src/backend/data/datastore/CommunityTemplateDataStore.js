@@ -128,7 +128,7 @@ export default class CommunityTemplateDataStore extends DataStoreImpl {
         if (heading.picture) {
             heading.picture = await this.bcomposite_from_base64({
                 base64: heading.picture,
-                bsrc: this.resolveAssetsPath('images/brands/ogp-back.png'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back_low.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,

@@ -27,7 +27,7 @@ Jimp.read(
         '..',
         '..',
         'assets',
-        'images/brands/ogp-back.png'
+        'images/brands/ogp-back_low.png'
     )
 ).then(val => {
     blenna = val;
@@ -42,13 +42,15 @@ export default class DataStoreImpl {
 
     async bcomposite_from_base64({
         base64,
-        bsrc = this.resolveAssetsPath('images/brands/ogp-back.png'),
+        bsrc = this.resolveAssetsPath('images/brands/ogp-back_low.png'),
         params = {},
     }) {
         if (!base64) return;
         const lennas = await Promise.all([
             Jimp.read(blenna) ||
-                Jimp.read(this.resolveAssetsPath('images/brands/ogp-back.png')),
+                Jimp.read(
+                    this.resolveAssetsPath('images/brands/ogp-back_low.png')
+                ),
             Jimp.read(
                 Buffer.from(
                     base64.replace(/^data:image\/png;base64,/, ''),

@@ -16,7 +16,6 @@ import Gallery from '@modules/Gallery';
 import CommunityItem from '@modules/CommunityItem';
 
 class CategoryShowList extends React.Component {
-
     static propTypes = {
         // repository: AppPropTypes.Category,
         // repositories: AppPropTypes.Community,
@@ -31,7 +30,10 @@ class CategoryShowList extends React.Component {
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CategoryShowList')
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'CategoryShowList'
+        );
     }
 
     componentWillMount() {
@@ -45,17 +47,14 @@ class CategoryShowList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {
-            more_loading,
-            repositories,
-        } = this.props;
+        const { more_loading, repositories } = this.props;
 
         this.setState({
             fetched:
                 more_loading &&
                 !nextProps.more_loading &&
                 repositories.length == nextProps.repositories.length,
-        })
+        });
     }
 
     onWindowScroll() {
@@ -66,22 +65,26 @@ class CategoryShowList extends React.Component {
     }
 
     render() {
-
-        const { repositories, loading, current_user, more_loading, repository } = this.props;
+        const {
+            repositories,
+            loading,
+            current_user,
+            more_loading,
+            repository,
+        } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
                 <div className="user-show-list__body__community" key={key}>
-                    <CommunityItem repository={item}/>
+                    <CommunityItem repository={item} />
                 </div>
-            )
-        );
+            ));
 
         return (
-            <div className="user-show-list" >
+            <div className="user-show-list">
                 <div className="user-show-list__body">
                     <div className="user-show-list__body__category">
-                        {`${tt('g.community')}: ${repository.body || ''}`}
+                        {`${tt('g.category')}: ${repository.body || ''}`}
                     </div>
                     <Gallery className="user-show-list__body__items">
                         {loading ? (
@@ -109,7 +112,7 @@ class CategoryShowList extends React.Component {
                     )}
                 </div>
             </div>
-        )
+        );
     }
 }
 
