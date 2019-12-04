@@ -12,6 +12,7 @@ import TwitterButton from '@elements/TwitterButton';
 import IconTextItem from '@elements/IconTextItem';
 import Responsible from '@modules/Responsible';
 import data_config from '@constants/data_config';
+import CheckLaws from '@elements/CheckLaws';
 
 class WelcomeList extends React.Component {
     static propTypes = {};
@@ -113,13 +114,18 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__finally-button">
                     <TwitterButton />
                 </div>
+                <div className="home-list__top-check">
+                    <CheckLaws />
+                </div>
             </div>
         );
 
         return (
             <div className="welcome-list">
-                {head}
-                {lighting}
+                <div className="welcome-list__pattern">
+                    {head}
+                    {lighting}
+                </div>
                 {ways}
                 {finallyBody}
             </div>

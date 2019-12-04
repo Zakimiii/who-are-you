@@ -1,5 +1,11 @@
 .welcome-list {
-  padding: 44px 0;
+  // padding: 44px 0;
+  &__pattern {
+    padding: 24px 0;
+    background-image: url('/icons/pattern_logo.svg');
+    background-size: 120px;
+    background-repeat: repeat;
+  }
   &__head {
     &-logo {
       width: 374px;
@@ -44,9 +50,11 @@
       margin: 12px auto;
       min-height: 44px;
       width: 70vw;
+      word-wrap: break-word;
+      white-space: pre-wrap;
       // width: calc(100% - 44px);
       @include FS(M);
-      @include FM(B);
+      @include FM(R);
       @include themify($themes) {
         color: themed('backgroundContrastLight');
       }
