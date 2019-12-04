@@ -39,6 +39,37 @@ export default class NotificationDataStore extends DataStoreImpl {
         return updated;
     }
 
+    async onSettingDefault(user) {
+        if (!user) return;
+
+        user = await models.User.findOne({
+            where: {
+                id: Number(user.id),
+            },
+        });
+
+        const identity = await models.Identity.findOne({
+            where: {
+                user_id: Number(user.id),
+            },
+        });
+
+        await Promise.all([
+            models.Notification.create({
+                user_id: user.id,
+                target_table: '',
+                target_id: 0,
+                template: 'welcome',
+                url: config.CURRENT_APP_URL + `/welcome`,
+            }),
+            notification.push({
+                tt_key: 'welcome',
+                url: config.CURRENT_APP_URL + `/welcome`,
+                ids: [user.notification_id || ''],
+            }),
+        ]);
+    }
+
     async onCreateAnswer(answer) {
         if (!answer) return;
         const target = await models.Answer.findOne({

@@ -333,7 +333,21 @@ export default class UserHandler extends HandlerImpl {
             isMyAccount,
         } = router.request.body;
 
-        const results = await models.Notification.findAll({
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(user_id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+            attributes: ['id'],
+        });
+
+        let results = await models.Notification.findAll({
             include: [
                 {
                     model: models.User,
@@ -355,6 +369,32 @@ export default class UserHandler extends HandlerImpl {
             offset: Number(offset || 0),
             limit: Number(limit || data_config.fetch_data_limit('L')),
         });
+
+        if (results.length == 0) {
+            await notificationDataStore.onSettingDefault(user);
+            results = await models.Notification.findAll({
+                include: [
+                    {
+                        model: models.User,
+                        where: {
+                            $or: [
+                                {
+                                    id: Number(user_id) || 0,
+                                },
+                                {
+                                    username,
+                                },
+                            ],
+                        },
+                        attributes: ['id'],
+                    },
+                ],
+                order: [['created_at', 'DESC']],
+                raw: true,
+                offset: Number(offset || 0),
+                limit: Number(limit || data_config.fetch_data_limit('L')),
+            });
+        }
 
         router.body = {
             success: true,
@@ -416,26 +456,26 @@ export default class UserHandler extends HandlerImpl {
         });
 
         if (!befores || befores.length == 0) {
-            const communityHeadings = await communityHeadingDataStore.getLatestHeadings({
-                limit,
-                offset,
-            });
+            const communityHeadings = await communityHeadingDataStore.getLatestHeadings(
+                {
+                    limit,
+                    offset,
+                }
+            );
             router.body = {
                 success: true,
                 headings: communityHeadings,
             };
             return;
-        };
+        }
 
         const headingsPromise = headingDataStore.getIndexIncludes(
-            befores.filter(
-                val => client_models.Heading.isInstance(val)
-            )
+            befores.filter(val => client_models.Heading.isInstance(val))
         );
 
         const communityHeadingsPromise = communityHeadingDataStore.getIndexIncludes(
-            befores.filter(
-                val => client_models.CommunityHeading.isInstance(val)
+            befores.filter(val =>
+                client_models.CommunityHeading.isInstance(val)
             )
         );
 
@@ -444,9 +484,10 @@ export default class UserHandler extends HandlerImpl {
             communityHeadingsPromise,
         ]);
 
-        const headings = datum[0].concat(datum[1])
+        const headings = datum[0]
+            .concat(datum[1])
             .filter(val => !!val)
-            .sort((a,b) => (a.createdAt < b.createdAt ? 1 : -1))
+            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
 
         router.body = {
             success: true,
