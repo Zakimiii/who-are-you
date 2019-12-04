@@ -38,6 +38,7 @@
       padding-bottom: 44px;
       @include mq-down(fm) {
         padding-bottom: 0;
+        @include FS(M);
       };
     }
   }
@@ -60,6 +61,10 @@
       }
       @include mq-down(lg) {
         @include FS(FM);
+      };
+      @include mq-down(fm) {
+        @include FS(S);
+         width: calc(100% - 20px);
       };
     }
     &-image {
