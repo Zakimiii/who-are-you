@@ -4,13 +4,14 @@
 $themes: (
   original: (
     background: $color-white,
-    backgroundContrast: $color-black,
-    backgroundContrastLight: $color-light-black,
+    backgroundContrast: $color-dark-blue-thick, //$color-black,
+    backgroundContrastLight: $color-dark-blue, //$color-light-black
     backgroundLight: $color-light-gray,
-    backgroundThick: $color-gray,
+    backgroundThick: $color-dark-blue-light, //$color-gray
     backgroundBlur: $blur-black,
     backgroundClear: $color-clear-white,
     base: $color-sky,
+    baseClear: $color-sky-clear,
     subThick: $color-blue,
     subThick2: $color-thick-blue,
     subLight: $color-thick-emerald,

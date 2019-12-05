@@ -30,10 +30,41 @@ const Template = PropTypes.shape({
     count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 });
 
+const Category = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+});
+
+const Community = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+});
+
+const CommunityHeading = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+});
+
+const CommunityAnswer = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+});
+
+const CommunityTemplate = PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    body: PropTypes.string,
+    count: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+});
+
 module.exports = {
     Children,
     User,
     Heading,
     Answer,
     Template,
+    Category,
+    Community,
+    CommunityHeading,
+    CommunityAnswer,
+    CommunityTemplate,
 };

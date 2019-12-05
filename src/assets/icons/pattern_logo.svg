@@ -1,0 +1,12 @@
+<svg id="レイヤー_1" data-name="レイヤー 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">
+  <defs>
+    <style>.cls-pattern_logo-1{fill:#fff;opacity:0;}.cls-pattern_logo-2{fill:#efefef;}
+    </style>
+  </defs>
+  <title>pattern_logo</title>
+  <rect class="cls-pattern_logo-1" width="280" height="280"/>
+  <path class="cls-pattern_logo-2" d="M70,34A36,36,0,0,0,39.76,89.52L35.48,99.67a2,2,0,0,0,2.72,2.63L47.42,98A36,36,0,1,0,70,34Z" transform="translate(0 0)"/>
+  <path class="cls-pattern_logo-2" d="M210.5,169a36,36,0,0,0-30.25,55.52L176,234.66a2,2,0,0,0,2.72,2.63l9.22-4.27a36,36,0,1,0,22.58-64Z" transform="translate(0 0)"/>
+  <circle class="cls-pattern_logo-2" cx="210.5" cy="70" r="7"/>
+  <circle class="cls-pattern_logo-2" cx="70" cy="204.99" r="7"/>
+</svg>

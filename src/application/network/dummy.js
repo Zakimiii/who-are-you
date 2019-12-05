@@ -15,6 +15,53 @@ const User = models.User.build({
     bot: true,
 });
 
+
+const Community = models.Community.build({
+    id: null,
+    body: '',
+    picture: data_config.default_user_image,
+    locale: 'ja',
+    country_code: 'JP',
+    heading_count: 0,
+    answer_count: 0,
+    isHide: false,
+    isPrivate: false,
+    valid: false,
+    permission: false,
+});
+
+const AllCategory = models.Category.build({
+    id: null,
+    body: '全カテゴリ一覧',
+    picture: data_config.default_community_image,
+    locale: 'ja',
+    country_code: 'JP',
+    heading_count: 0,
+    answer_count: 0,
+    isHide: false,
+    isPrivate: false,
+    valid: false,
+    permission: false,
+});
+
+const AllCommunity = models.Category.build({
+    id: null,
+    body: '全登録一覧',
+    picture: data_config.default_community_image,
+    locale: 'ja',
+    country_code: 'JP',
+    heading_count: 0,
+    answer_count: 0,
+    isHide: false,
+    isPrivate: false,
+    valid: false,
+    permission: false,
+});
+
+
 module.exports = {
     User,
+    Community,
+    AllCategory,
+    AllCommunity,
 };

@@ -8,6 +8,11 @@ import BatchHandler from './BatchHandler';
 import HeadingHandler from './HeadingHandler';
 import AnswerHandler from './AnswerHandler';
 import TemplateHandler from './TemplateHandler';
+import CategoryHandler from './CategoryHandler';
+import CommunityHandler from './CommunityHandler';
+import CommunityHeadingHandler from './CommunityHeadingHandler';
+import CommunityAnswerHandler from './CommunityAnswerHandler';
+import CommunityTemplateHandler from './CommunityTemplateHandler';
 
 export {
     HandlerImpl,
@@ -20,4 +25,9 @@ export {
     HeadingHandler,
     AnswerHandler,
     TemplateHandler,
+    CategoryHandler,
+    CommunityHandler,
+    CommunityHeadingHandler,
+    CommunityAnswerHandler,
+    CommunityTemplateHandler,
 };

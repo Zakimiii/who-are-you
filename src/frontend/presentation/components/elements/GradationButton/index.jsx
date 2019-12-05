@@ -51,6 +51,7 @@ class GradationButton extends Component {
             url,
             submit,
             src,
+            isLink,
             ...inputProps
         } = this.props;
 
@@ -107,7 +108,35 @@ class GradationButton extends Component {
             </div>
         );
 
-        return <Ripple outColor={COLOR.White.color}>{gradationButton}</Ripple>;
+        const body = (
+            <Link
+                target={'_blank'}
+                className={button_class_name + '__link'}
+                to={url}
+                disabled={disabled}
+            >
+                <div className={button_class_name}>
+                    <div className="gradation-button__items">
+                        {src && (
+                            <Icon
+                                className="gradation-button__items-image"
+                                src={src}
+                                size={'2x'}
+                            />
+                        )}
+                        <div className="gradation-button__items-text">
+                            {this.state.value}
+                        </div>
+                    </div>
+                </div>
+            </Link>
+        );
+
+        return isLink ? (
+            <Ripple outColor={COLOR.White.color}>{body}</Ripple>
+        ) : (
+            <Ripple outColor={COLOR.White.color}>{gradationButton}</Ripple>
+        );
     }
 }
 
@@ -121,6 +150,7 @@ GradationButton.defaultProps = {
     url: '',
     submit: false,
     stop: false,
+    isLink: false,
 };
 
 GradationButton.propTypes = {
@@ -148,6 +178,8 @@ GradationButton.propTypes = {
     stop: PropTypes.bool,
     /** The src for icon. */
     src: PropTypes.string,
+    /** The submit of the button. */
+    isLink: PropTypes.bool,
 };
 
 export default GradationButton;

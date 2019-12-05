@@ -1,0 +1,46 @@
+.check-laws {
+  @include FS(FS);
+  @include FM(L);
+  @include themify($themes) {
+    color: themed('backgroundThick');
+  }
+  @include mq-down(fm) {
+    @include FS(XS);
+    @include FM(FL);
+  };
+  &__term {
+    // min-height: 50px;
+    padding: 8px 0px;
+    clear: both;
+    @include FS(FS);
+    @include FM(L);
+    @include themify($themes) {
+      color: themed('backgroundThick');
+    }
+    @include mq-down(fm) {
+      @include FS(XS);
+      @include FM(FL);
+    };
+    &-input {
+      max-width: 232px;
+      float: left;
+      min-height: 50px;
+      margin-right: 8px;
+    }
+    &-value {
+      // float: left;
+      padding: 0px 10px;
+      text-decoration: underline;
+      cursor: pointer;
+      @include FS(FS);
+      @include FM(L);
+      @include themify($themes) {
+        color: themed('backgroundThick');
+      }
+      @include mq-down(fm) {
+        @include FS(XS);
+        @include FM(FL);
+      };
+    }
+  }
+}

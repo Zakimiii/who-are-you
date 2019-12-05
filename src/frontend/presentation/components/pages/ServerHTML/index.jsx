@@ -85,7 +85,7 @@ export default class ServerHTML extends React.Component {
                         httpEquiv="Content-Security-Policy"
                         content={`default-src * ${config.img_proxy_prefix} ${
                             config.img_host
-                        } blob: file: filesystem:;img-src * 'self' data: https: blob: file: filesystem:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com/pagead/js/r20190807/r20190131/show_ads_impl.js https://pagead2.googlesyndication.com/* https://cdn.onesignal.com https://adservice.google.com/adsid/integrator.js https://pagead2.googlesyndication.com/pagead/js/r20190729/r20190131/show_ads_impl.js https://www.googletagservices.com/activeview/js/current/osd.js https://www.googletagservices.com/* https://pagead2.googlesyndication.com/pagead/js/* https://googleads.g.doubleclick.net/ https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-7470746906401651.js https://pagead2.googlesyndication.com/pub-config/* https://www.googletagmanager.com/gtag/js https://cdn.onesignal.com/sdks/OneSignalSDK.js https://cdn.onesignal.com/sdks/* https://onesignal.com https://onesignal.com/* https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js https://adservice.google.co.jp https://onesignal.com/api/v1/players https://onesignal.com/api/v1/notifications https://pagead2.googlesyndication.com https://pagead2.googlesyndication.com/pagead/js/r20190805/r20190131/show_ads_impl.js https://pagead2.googlesyndication.com/pagead/js/* https://onesignal.com/api/v1/* *;style-src 'self' 'unsafe-inline' *`}
+                        } blob: file: filesystem:;img-src * 'self' data: https: blob: file: filesystem:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com/pagead/js/r20190807/r20190131/show_ads_impl.js https://pagead2.googlesyndication.com/* https://cdn.onesignal.com https://adservice.google.com/adsid/integrator.js https://pagead2.googlesyndication.com/pagead/js/r20190729/r20190131/show_ads_impl.js https://www.googletagservices.com/activeview/js/current/osd.js https://www.googletagservices.com/* https://pagead2.googlesyndication.com/pagead/js/* https://googleads.g.doubleclick.net/ https://pagead2.googlesyndication.com/pub-config/r20160913/ca-pub-7470746906401651.js https://pagead2.googlesyndication.com/pub-config/* https://www.googletagmanager.com/gtag/js https://cdn.onesignal.com/sdks/OneSignalSDK.js https://cdn.onesignal.com/sdks/* https://onesignal.com https://onesignal.com/* https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js https://adservice.google.co.jp https://onesignal.com/api/v1/players https://onesignal.com/api/v1/notifications https://pagead2.googlesyndication.com https://pagead2.googlesyndication.com/pagead/js/r20190805/r20190131/show_ads_impl.js https://pagead2.googlesyndication.com/pagead/js/* https://onesignal.com/api/v1/* https://i.ytimg.com/ https://www.youtube.com/ *;style-src 'self' 'unsafe-inline' *`}
                     />
                     <link
                         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600"
@@ -130,6 +130,15 @@ export default class ServerHTML extends React.Component {
                         name="description"
                         content={tt('descriptions.Home')}
                     />
+
+                    <meta name="og:title" content={tt('pages.Home')} />
+                    <meta
+                        name="og:description"
+                        content={tt('descriptions.Home')}
+                    />
+                    <meta name="og:image" content={getPageImage(pathname)} />
+                    <meta property="og:url" content={config.CURRENT_APP_URL} />
+
                     <meta name="twitter:title" content={tt('pages.Home')} />
                     <meta
                         name="twitter:description"

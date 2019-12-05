@@ -26,7 +26,9 @@ export default class TemplateHandler extends HandlerImpl {
     }
 
     async postTweet(heading) {
-        if (!heading) return false;
+        if (process.env.NODE_ENV == 'development') return true;
+
+        if (!heading || !heading.VoterId) return false;
 
         const user = await models.User.findOne({
             where: {

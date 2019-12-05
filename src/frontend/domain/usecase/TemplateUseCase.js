@@ -71,7 +71,16 @@ export default class TemplateUseCase extends UseCaseImpl {
 
     *getMoreTrend({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
-        if (templateIndexRoute.isValidPath(pathname)) {
+        if (
+            templateIndexRoute.isValidPath(pathname) ||
+            userShowRoute.isValidPath(pathname)
+        ) {
+            if (userShowRoute.isValidPath(pathname)) {
+                const section = userShowRoute.params_value('section', pathname);
+                if (section !== 'templates') return;
+            }
+            const section = userShowRoute.params_value('section', pathname);
+            if (section !== 'templates') return;
             try {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
@@ -94,7 +103,10 @@ export default class TemplateUseCase extends UseCaseImpl {
                     : yield templateRepository.getStaticTrend({
                           offset: indexContentsLength,
                       });
-                if (!templates || templates.length == 0) return;
+                if (!templates || templates.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(templateActions.addHome({ templates }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
@@ -117,7 +129,7 @@ export default class TemplateUseCase extends UseCaseImpl {
                 heading.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/eye_catch.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield templateRepository.addHeading({

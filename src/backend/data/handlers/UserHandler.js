@@ -10,17 +10,22 @@ import {
     AuthDataStore,
     UserDataStore,
     NotificationDataStore,
+    CommunityHeadingDataStore,
+    CommunityDataStore,
 } from '@datastore';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
 import Promise from 'bluebird';
 import tt from 'counterpart';
+import client_models from '@network/client_models';
 
 const headingDataStore = new HeadingDataStore();
+const communityHeadingDataStore = new CommunityHeadingDataStore();
 const answerDataStore = new AnswerDataStore();
 const authDataStore = new AuthDataStore();
 const userDataStore = new UserDataStore();
 const notificationDataStore = new NotificationDataStore();
+const communityDataStore = new CommunityDataStore();
 
 export default class UserHandler extends HandlerImpl {
     constructor() {
@@ -166,6 +171,26 @@ export default class UserHandler extends HandlerImpl {
         };
     }
 
+    async handleDeleteUserRequest(router, ctx, next) {
+        const { user } = router.request.body;
+
+        // await apiSyncUserValidates
+        //     .isValid({
+        //         user,
+        //     })
+        //     .catch(e => {
+        //         throw e;
+        //     });
+
+        const result = await userDataStore.deleteUser({ user }).catch(e => {
+            throw new Error(e);
+        });
+
+        router.body = {
+            success: true,
+        };
+    }
+
     async handleGetUserFollowerRequest(router, ctx, next) {
         const { username, id } = router.request.body;
 
@@ -308,7 +333,21 @@ export default class UserHandler extends HandlerImpl {
             isMyAccount,
         } = router.request.body;
 
-        const results = await models.Notification.findAll({
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(user_id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+            attributes: ['id'],
+        });
+
+        let results = await models.Notification.findAll({
             include: [
                 {
                     model: models.User,
@@ -331,9 +370,182 @@ export default class UserHandler extends HandlerImpl {
             limit: Number(limit || data_config.fetch_data_limit('L')),
         });
 
+        if (results.length == 0) {
+            await notificationDataStore.onSettingDefault(user);
+            results = await models.Notification.findAll({
+                include: [
+                    {
+                        model: models.User,
+                        where: {
+                            $or: [
+                                {
+                                    id: Number(user_id) || 0,
+                                },
+                                {
+                                    username,
+                                },
+                            ],
+                        },
+                        attributes: ['id'],
+                    },
+                ],
+                order: [['created_at', 'DESC']],
+                raw: true,
+                offset: Number(offset || 0),
+                limit: Number(limit || data_config.fetch_data_limit('L')),
+            });
+        }
+
         router.body = {
             success: true,
             notifications: results,
+        };
+    }
+
+    async handleGetUserFollowCommunityRequest(router, ctx, next) {
+        const {
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        const communities = await communityDataStore.getUserFollowCommunities({
+            username,
+            user_id,
+            limit,
+            offset,
+            isMyAccount,
+        });
+
+        router.body = {
+            success: true,
+            communities,
+        };
+    }
+
+    async handleGetUserFeedsRequest(router, ctx, next) {
+        const {
+            username,
+            id,
+            limit,
+            offset,
+            isMyAccount,
+        } = router.request.body;
+
+        const user = await models.User.findOne({
+            where: {
+                $or: [
+                    {
+                        id: Number(id) || 0,
+                    },
+                    {
+                        username,
+                    },
+                ],
+            },
+            attributes: ['id'],
+            raw: true,
+        });
+
+        const befores = await userDataStore.getUserFeeds({
+            user,
+            limit,
+            offset,
+        });
+
+        if (!befores || befores.length == 0) {
+            const communityHeadings = await communityHeadingDataStore.getLatestHeadings(
+                {
+                    limit,
+                    offset,
+                }
+            );
+            router.body = {
+                success: true,
+                headings: communityHeadings,
+            };
+            return;
+        }
+
+        const headingsPromise = headingDataStore.getIndexIncludes(
+            befores.filter(val => client_models.Heading.isInstance(val))
+        );
+
+        const communityHeadingsPromise = communityHeadingDataStore.getIndexIncludes(
+            befores.filter(val =>
+                client_models.CommunityHeading.isInstance(val)
+            )
+        );
+
+        const datum = await Promise.all([
+            headingsPromise,
+            communityHeadingsPromise,
+        ]);
+
+        const headings = datum[0]
+            .concat(datum[1])
+            .filter(val => !!val)
+            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+
+        router.body = {
+            success: true,
+            headings,
+        };
+    }
+
+    async handleFollowCommunityRequest(router, ctx, next) {
+        const { user, target } = router.request.body;
+
+        if (!user)
+            throw new ApiError({
+                error: new Error('User is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'User' },
+            });
+        if (!target)
+            throw new ApiError({
+                error: new Error('Community is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'Community' },
+            });
+
+        const result = await userDataStore
+            .followCommunity(user, target)
+            .catch(e => {
+                throw e;
+            });
+
+        router.body = {
+            success: true,
+        };
+    }
+
+    async handleUnFollowCommunityRequest(router, ctx, next) {
+        const { user, target } = router.request.body;
+
+        if (!user)
+            throw new ApiError({
+                error: new Error('User is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'User' },
+            });
+        if (!target)
+            throw new ApiError({
+                error: new Error('Community is required'),
+                tt_key: 'errors.is_required',
+                tt_params: { data: 'Community' },
+            });
+
+        const result = await userDataStore
+            .unfollowCommunity(user, target)
+            .catch(e => {
+                throw e;
+            });
+
+        router.body = {
+            success: true,
         };
     }
 

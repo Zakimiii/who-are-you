@@ -7,11 +7,17 @@ import * as detection from '@network/detection';
 import { DEFAULT_LANGUAGE } from '@infrastructure/client_config';
 import {
     userShowRoute,
+    categoryShowRoute,
     postIndexRoute,
     headingShowRoute,
     answerShowRoute,
     notificationIndexRoute,
     templateIndexRoute,
+    communityShowRoute,
+    communityIndexRoute,
+    categoryIndexRoute,
+    feedIndexRoute,
+    communityFollowIndexRoute,
 } from '@infrastructure/RouteInitialize';
 
 export const FETCH_DATA_BEGIN = 'app/FETCH_DATA_BEGIN';
@@ -353,6 +359,33 @@ export const userShowContentsLoading = state => {
     return loading && model[0].User.username != username;
 };
 
+export const categoryShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!categoryShowRoute.isValidPath(pathname)) return false;
+    const id = categoryShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.category.get('show_category');
+    const model = list_model.toJS();
+    if (!model) return true;
+    return loading && model.id != id;
+};
+
+export const categoryShowContentsLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!categoryShowRoute.isValidPath(pathname)) return false;
+    const id = categoryShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.category.get('category_community');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading && model[0].id != id;
+};
+
 export const userShowTemplatesLoading = state => {
     if (!browserHistory) return true;
     const pathname = browserHistory.getCurrentLocation().pathname;
@@ -368,6 +401,78 @@ export const userShowTemplatesLoading = state => {
     return loading;
 };
 
+export const communityShowPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    const list_model = state.community.get('show_community');
+    const model = list_model.toJS();
+    if (!model) return true;
+    return loading && model.id != id;
+};
+
+export const communityShowContentsLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.community.get('community_heading');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading && model[0].CommunityId != id;
+};
+
+export const communityShowTemplatesLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityShowRoute.isValidPath(pathname)) return false;
+    const id = communityShowRoute.params_value('id', pathname);
+    const loading = state.app.get('loading');
+    if (!loading) return false;
+    const list_model = state.communityTemplate.get('home_template');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const communityIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.community.get('home_community');
+    const model = list_model.toJS();
+    if (!model) return true;
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const categoryIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!categoryIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.category.get('home_category');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
 export const templateIndexPageLoading = state => {
     if (!browserHistory) return true;
     const pathname = browserHistory.getCurrentLocation().pathname;
@@ -376,9 +481,7 @@ export const templateIndexPageLoading = state => {
     // if (!loading) return false;
     const list_model = state.template.get('home_template');
     const model = list_model.toJS();
-    const cumodel = state.auth.get('current_user');
-    if (!model || !cumodel) return true;
-    const current_user = cumodel.toJS();
+    if (!model) return true;
     if (model.length == 0 && loading) return true;
     if (!model[0]) return true;
     return loading;
@@ -414,6 +517,38 @@ export const notificationIndexPageLoading = state => {
     if (model.length == 0 && loading) return true;
     if (!model[0]) return true;
     return loading || model[0].UserId != current_user.id;
+};
+
+export const feedIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!feedIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.user.get('user_feed');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
+};
+
+export const communityFollowIndexPageLoading = state => {
+    if (!browserHistory) return true;
+    const pathname = browserHistory.getCurrentLocation().pathname;
+    if (!communityFollowIndexRoute.isValidPath(pathname)) return false;
+    const loading = state.app.get('loading');
+    // if (!loading) return false;
+    const list_model = state.user.get('community_follower');
+    const model = list_model.toJS();
+    const cumodel = state.auth.get('current_user');
+    if (!model || !cumodel) return true;
+    const current_user = cumodel.toJS();
+    if (model.length == 0 && loading) return true;
+    if (!model[0]) return true;
+    return loading;
 };
 
 export const headingShowPageLoading = state => {

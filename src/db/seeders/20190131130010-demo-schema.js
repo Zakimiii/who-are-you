@@ -14,6 +14,11 @@ module.exports = {
             searchHistories_limit: 100,
             developers_limit: 1,
             notifications_limit: 1,
+            categories_limit: 100,
+            communities_limit: 100,
+            communityTemplates_limit: 100,
+            communityHeadings_limit: 100,
+            communityAnswers_limit: 100,
         }).then(results => {
             return queryInterface
                 .bulkInsert('users', results['users'], {})
@@ -63,6 +68,41 @@ module.exports = {
                     return queryInterface.bulkInsert(
                         'notifications',
                         results['notifications'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'categories',
+                        results['categories'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'communities',
+                        results['communities'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'communityTemplates',
+                        results['communityTemplates'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'communityHeadings',
+                        results['communityHeadings'],
+                        {}
+                    );
+                })
+                .then(() => {
+                    return queryInterface.bulkInsert(
+                        'communityAnswers',
+                        results['communityAnswers'],
                         {}
                     );
                 });

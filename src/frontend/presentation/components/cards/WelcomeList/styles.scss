@@ -1,0 +1,174 @@
+.welcome-list {
+  // padding: 44px 0;
+  &__pattern {
+    padding: 24px 0;
+    background-image: url('/icons/pattern_logo.svg');
+    background-size: 120px;
+    background-repeat: repeat;
+  }
+  &__head {
+    &-logo {
+      width: 374px;
+      height: 79px;
+      margin: 12px auto;
+      @include mq-down(fm) {
+        width: 255px;
+        height: 51px;
+      };
+      &-image {
+        width: 374px;
+        height: 70px;
+        @include mq-down(fm) {
+          width: 255px;
+          height: 51px;
+        };
+      }
+    }
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 20px auto;
+      width: 70vw;
+      max-width: 600px;
+      @include FS(L);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+      padding-bottom: 44px;
+      @include mq-down(fm) {
+        padding-bottom: 0;
+        @include FS(M);
+      };
+    }
+  }
+
+  &__lighting {
+    padding-bottom: 64px;
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 12px auto;
+      min-height: 44px;
+      width: 70vw;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+      // width: calc(100% - 44px);
+      @include FS(M);
+      @include FM(R);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+      @include mq-down(lg) {
+        @include FS(FM);
+      };
+      @include mq-down(fm) {
+        @include FS(S);
+         width: calc(100% - 20px);
+      };
+    }
+    &-image {
+      display: block;
+      text-align: center;
+      width: 840px;
+      height: 450px;
+      margin: 24px auto;
+      border-radius: 5px;
+      @include themify($themes) {
+        box-shadow: 0px 0px 3px 3px themed('shadow');
+      }
+      @include mq-down(lg) {
+        width: 540px;
+        height: 282px;
+      };
+      @include mq-down(fm) {
+        width: 400px;
+        height: 210px;
+      };
+      @include mq-down(sm) {
+        width: 300px;
+        height: 181px;
+      };
+    }
+  }
+
+  &__ways {
+    @include themify($themes) {
+      background: themed('backgroundLight');
+    }
+    padding: 44px 0;
+    &-title {
+      display: block;
+      text-align: center;
+      margin: 12px auto;
+      min-height: 44px;
+      width: 70vw;
+      // width: calc(100% - 44px);
+      @include FS(M);
+      @include FM(B);
+      @include themify($themes) {
+        color: themed('complementary');
+      }
+      @include mq-down(fm) {
+        @include FS(FM);
+      };
+    }
+    &-items {
+      width: 75vw;
+      margin: 12px auto;
+      @include mq-down(lg) {
+        width: calc(100% - 44px);
+      };
+    }
+    &-item {
+      width: calc(48% - 8px);
+      margin : 4px;
+      min-height: 44px;
+      @include mq-down(lg) {
+        width: calc(100% - 8px);
+      };
+    }
+  }
+
+  &__finally {
+    width: 60%;
+    margin: 120px auto;
+    @include mq-down(md) {
+      margin: 44px auto;
+    };
+    padding-bottom: 35vh;
+    @include mq-down(md) {
+      width: 90%;
+    };
+    margin-bottom: 0;
+    &-image {
+      display: block;
+      margin: 0 auto;
+      width: 374px;
+      height: 70px;
+      @include mq-down(fm) {
+        width: 255px;
+        height: 51px;
+      };
+    }
+    &-desc {
+      @include FS(M);
+      @include FM(B);
+      margin: 64px;
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+      }
+      @include mq-down(md) {
+        @include FS(FM);
+        margin: 44px 24px;
+      };
+      text-align: center;
+      word-wrap: break-word;
+    }
+    &-button {
+      height: 50px;
+      width: 90%;
+      margin: 24px auto;
+    }
+  }
+}

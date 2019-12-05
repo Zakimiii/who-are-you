@@ -7,6 +7,11 @@ import IdentityDataStore from '@datastore/IdentityDataStore';
 import AnswerDataStore from '@datastore/AnswerDataStore';
 import NotificationDataStore from '@datastore/NotificationDataStore';
 import TemplateDataStore from '@datastore/TemplateDataStore';
+import CategoryDataStore from '@datastore/CategoryDataStore';
+import CommunityDataStore from '@datastore/CommunityDataStore';
+import CommunityTemplateDataStore from '@datastore/CommunityTemplateDataStore';
+import CommunityHeadingDataStore from '@datastore/CommunityHeadingDataStore';
+import CommunityAnswerDataStore from '@datastore/CommunityAnswerDataStore';
 
 export {
     DataStoreImpl,
@@ -18,4 +23,9 @@ export {
     AnswerDataStore,
     NotificationDataStore,
     TemplateDataStore,
+    CategoryDataStore,
+    CommunityDataStore,
+    CommunityTemplateDataStore,
+    CommunityHeadingDataStore,
+    CommunityAnswerDataStore,
 };

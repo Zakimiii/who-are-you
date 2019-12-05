@@ -637,7 +637,7 @@
             "Because of Fraud prevention, user of getting request cannot evalate the request.",
         "not_agree_term": "Please agree with the Terms of service",
         "not_change_password_with_oauth":
-            "Who sign up with other SNS don't need set your password.",
+            "who sign up with other SNS don't need set your password.",
         "not_number_country_code": "You must enter the digits in Country Code",
         "not_number_phone": "You must enter the digits in TelePhone Number"
     }

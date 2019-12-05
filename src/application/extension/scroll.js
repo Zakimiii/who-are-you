@@ -175,6 +175,28 @@ export default useScroll({
     },
 });
 
+export function isScrollStart() {
+    if (!process.env.BROWSER) return false;
+    var w = window,
+        d = document,
+        e = d.documentElement,
+        g = d.body;
+    // if (!g) return false;
+    // d = d.clientHeight ? d : g;
+    return window.pageYOffset == 0;
+}
+
+export function isScrollStartByClass(classname) {
+    if (!process.env.BROWSER) return false;
+    var w = window,
+        d = document,
+        e = d.documentElement,
+        g = d.getElementsByClassName(classname)[0];
+    if (!g) return false;
+    const { top, height } = g.getBoundingClientRect();
+    return top == 0;
+}
+
 export function isScrollEndByClass(classname) {
     if (!process.env.BROWSER) return false;
     var w = window,

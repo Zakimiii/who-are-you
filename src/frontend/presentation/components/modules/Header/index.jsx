@@ -25,7 +25,9 @@ import {
     userShowRoute,
     headingCanvasTestRoute,
     answerCanvasTestRoute,
+    notificationIndexRoute,
 } from '@infrastructure/RouteInitialize';
+import data_config from '@constants/data_config';
 
 class Header extends React.Component {
     static propTypes = {
@@ -178,7 +180,7 @@ class Header extends React.Component {
                 >
                     <Img
                         className="Header__logo"
-                        src="/images/brands/who_are_you.png"
+                        src={data_config.logo_image}
                         alt={tt('alts.default')}
                     />
                 </Link>
@@ -188,7 +190,19 @@ class Header extends React.Component {
                 <div className="Header__buttons">
                     <Responsible
                         className="Header__button"
-                        breakMd={true}
+                        breakLg={true}
+                        breakingContent={
+                            <Link
+                                className="Header__button-icon"
+                                to={notificationIndexRoute.path}
+                            >
+                                <IconButton src="notification" size="2x" />
+                            </Link>
+                        }
+                    />
+                    <Responsible
+                        className="Header__button"
+                        breakLg={true}
                         breakingContent={
                             <div
                                 className="Header__button-icon"

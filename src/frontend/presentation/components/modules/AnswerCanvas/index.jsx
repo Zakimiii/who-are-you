@@ -78,7 +78,7 @@ class AnswerCanvas extends React.Component {
         } else {
             return (
                 text.slice(0, AnswerCanvas.limit) +
-                '...\nつづきはWho are youで！'
+                '...\nつづきはwho are youで！'
             );
         }
     }
@@ -115,7 +115,7 @@ class AnswerCanvas extends React.Component {
                         <div className="answer-canvas__user-title">
                             {tt('g.of', {
                                 data: repository.Heading.User.nickname,
-                            })}
+                            }) + '　'}
                         </div>
                     </div>
                     <div className="answer-canvas__title">

@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import {
     loginRoute,
     confirmForDeleteRoute,
+    confirmForLineLinkRoute,
 } from '@infrastructure/RouteInitialize';
 import safe2json from '@extension/safe2json';
 
@@ -20,24 +21,40 @@ export const SHOW_CONFIRM_LOGIN_FOR_DELETE =
     'auth/SHOW_CONFIRM_LOGIN_FOR_DELETE';
 export const HIDE_CONFIRM_LOGIN_FOR_DELETE =
     'auth/HIDE_CONFIRM_LOGIN_FOR_DELETE';
+export const SHOW_CONFIRM_LOGIN_FOR_LINE_LINK =
+    'auth/SHOW_CONFIRM_LOGIN_FOR_LINE_LINK';
+export const HIDE_CONFIRM_LOGIN_FOR_LINE_LINK =
+    'auth/HIDE_CONFIRM_LOGIN_FOR_LINE_LINK';
 
 const defaultState = fromJS({
     current_user: null,
+    linkToken: null,
     show_login_modal: false,
     synced: false,
     show_confirm_login_for_delete_modal: false,
+    show_confirm_login_for_line_link_modal: false,
 });
 
 export default function reducer(state = defaultState, action) {
     const payload = action.payload;
 
     switch (action.type) {
-        case '@@router/LOCATION_CHANGE':
+        case '@@router/LOCATION_CHANGE': {
+            const pathname = payload.pathname;
             return state.merge({
-                show_login_modal: loginRoute.isValidPath(
-                    action.payload.pathname
+                show_login_modal: loginRoute.isValidPath(pathname),
+                show_confirm_login_for_delete_modal: confirmForDeleteRoute.isValidPath(
+                    pathname
                 ),
+                show_confirm_login_for_line_link_modal: confirmForLineLinkRoute.isValidPath(
+                    pathname
+                ),
+                linkToken:
+                    confirmForLineLinkRoute.isValidPath(pathname) &&
+                    confirmForLineLinkRoute.params_value('linkToken', pathname),
             });
+        }
+
         case SHOW_LOGIN: {
             return state.merge({
                 show_login_modal: true,
@@ -53,7 +70,7 @@ export default function reducer(state = defaultState, action) {
             return state;
 
         case LOGOUT:
-            return defaultState.merge({
+            return state.merge({
                 logged_out: true,
                 current_user: null,
             });
@@ -79,6 +96,19 @@ export default function reducer(state = defaultState, action) {
         case HIDE_CONFIRM_LOGIN_FOR_DELETE: {
             return state.merge({
                 show_confirm_login_for_delete_modal: false,
+            });
+        }
+
+        case SHOW_CONFIRM_LOGIN_FOR_LINE_LINK: {
+            return state.merge({
+                show_confirm_login_for_line_link_modal: true,
+                linkToken: payload.linkToken,
+            });
+        }
+
+        case HIDE_CONFIRM_LOGIN_FOR_LINE_LINK: {
+            return state.merge({
+                show_confirm_login_for_line_link_modal: false,
             });
         }
 
@@ -134,6 +164,16 @@ export const showConfirmLoginForDeleteModal = payload => ({
 
 export const hideConfirmLoginForDeleteModal = payload => ({
     type: HIDE_CONFIRM_LOGIN_FOR_DELETE,
+    payload,
+});
+
+export const showConfirmLoginForLineLinkModal = payload => ({
+    type: SHOW_CONFIRM_LOGIN_FOR_LINE_LINK,
+    payload,
+});
+
+export const hideConfirmLoginForLineLinkModal = payload => ({
+    type: HIDE_CONFIRM_LOGIN_FOR_LINE_LINK,
     payload,
 });
 

@@ -17,7 +17,7 @@ import * as notificationActions from './NotificationReducer';
 const notificationUseCase = new NotificationUseCase();
 
 export const notificationWatches = [
-    takeLatest(
+    takeEvery(
         notificationActions.CHECK_NOTIFICATION,
         notificationUseCase.checkNotification
     ),

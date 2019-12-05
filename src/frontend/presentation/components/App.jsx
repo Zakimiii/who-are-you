@@ -27,6 +27,8 @@ import {
     getPageTitle,
     getPageDescription,
     getPageTweetTag,
+    homeRoute,
+    homeAliasRoute,
 } from '@infrastructure/RouteInitialize';
 import config from '@constants/config';
 import ScreenShot from '@modules/ScreenShot';
@@ -107,15 +109,18 @@ class App extends Component {
     }
 
     componentWillReceiveProps(np) {
-        // Add listener if the next page requires entropy and the current page didn't
         window.previousLocation = this.props.location;
 
         if (
             np.pathname != this.props.pathname &&
             process.env.NODE_ENV == 'production'
         ) {
-            window.dataLayer.push('config', env.GOOGLE.ANALYSTICS_CLIENT, {
-                page_path: np.location.pathname,
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('config', env.GOOGLE.ANALYSTICS_CLIENT, {
+                page_path: np.pathname,
             });
         }
 
@@ -189,6 +194,39 @@ class App extends Component {
                 .getElementsByName('twitter:image')[0]
                 .setAttribute('content', obj.image);
         }
+
+        if (!document.getElementsByName('og:title')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:title');
+            meta.setAttribute('content', obj.title);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:title')[0]
+                .setAttribute('content', obj.title);
+        }
+
+        if (!document.getElementsByName('og:description')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:description');
+            meta.setAttribute('content', obj.description);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:description')[0]
+                .setAttribute('content', obj.description);
+        }
+
+        if (!document.getElementsByName('og:image')[0]) {
+            var meta = document.createElement('meta');
+            meta.setAttribute('name', 'og:image');
+            meta.setAttribute('content', obj.image);
+            document.head.appendChild(meta);
+        } else {
+            document
+                .getElementsByName('og:image')[0]
+                .setAttribute('content', obj.image);
+        }
     }
 
     render() {
@@ -206,6 +244,7 @@ class App extends Component {
             description,
             enableModal,
             screen_loading,
+            current_user,
         } = this.props;
 
         if (!process.env.BROWSER)
@@ -241,7 +280,13 @@ class App extends Component {
                 >
                     <Header pathname={pathname} />
                     {children}
-                    <Responsible breakingContent={<TabBar />} breakLg={true} />
+                    {!homeAliasRoute.isValidPath(pathname) &&
+                        !(!current_user && homeRoute.isValidPath(pathname)) && (
+                            <Responsible
+                                breakingContent={<TabBar />}
+                                breakLg={true}
+                            />
+                        )}
                     <Modals />
                     <AlertContainer />
                     <FlashContainer />
@@ -266,10 +311,6 @@ export default connect(
     (state, ownProps) => {
         const isHeaderVisible = state.app.get('show_header');
         const show_heading_screen_shot = state.heading.get('show_screen_shot');
-        // const current_user = state.user.get('current');
-        // const current_account_name = current_user
-        //     ? current_user.get('username')
-        //     : state.offchain.get('account');
 
         return {
             nightmodeEnabled: state.app.getIn([
@@ -287,6 +328,7 @@ export default connect(
             show_heading_screen_shot,
             screen_shot_heading: headingActions.getScreenShotHeading(state),
             screen_loading: state.app.get('screen_loading'),
+            current_user: authActions.getCurrentUser(state),
             // showAnnouncemenzt: state.user.get('showAnnouncement'),
         };
     },

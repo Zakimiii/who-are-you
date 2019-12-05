@@ -13,6 +13,6 @@ class Welcome extends React.Component {
 }
 
 module.exports = {
-    path: 'welcome',
+    path: '/welcome',
     component: Welcome,
 };

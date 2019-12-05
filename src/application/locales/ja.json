@@ -1,16 +1,39 @@
 {
     "g": {
+        "about":
+            "「who are you?」は紹介したい人やモノにちなんだお題を作成して回答することで\nみんなで遊びながら紹介文を完成させ、理解ある友達の輪を広げられるサービスです。",
         "answer": "回答",
         "answers": "回答一覧",
-        "example_answer": "（例）〇〇さんはここが素敵！",
+        "number_of_answer": "回答数:%(data)s",
+        "number_of_heading": "紹介テーマ数:%(data)s",
+        "example_answer": "（例）〇〇はここが素敵！",
+        "feed": "新着",
+        "feeds": "新着一覧",
         "add_answer": "回答を追加",
         "wanted_answer":
             "回答募集中です！\n%(data)sをご存知の人はぜひご回答ください！",
+        "category": "カテゴリー",
+        "category_new_form":
+            "トピックの種類を決めるものです。既存にはないカテゴリーにすれば新規作成されます。",
+        "category_new": "カテゴリー作成",
         "contact": "お問い合わせ",
+        "choose_image": "画像を選択",
+        "community": "トピック",
+        "community_new_form":
+            "トピック内で様々な紹介が行われます。みんなが紹介文を書きやすいようなトピックにしましょう。",
+        "community_new": "トピック作成",
+        "community_new_detail":
+            "トピック作成は審査制です。\n特定の人物や団体などを指すトピックは関係者の同意を得なければいけません。また自分自身や許可を頂いた人物でもPRや売名目的であれば別プランをご利用頂く必要があります。",
+        "follow_communities": "登録トピック一覧",
         "do_it": "%(data)sをしてください",
         "enter": "%(data)sを入力",
+        "invite": "招待する",
+        "invite_title": "まだ未登録のユーザーです",
+        "invite_text":
+            "魅力的な自己紹介ページがみんなで遊びながら作れる\n「who are you?」に招待してみませんか？",
         "go_twitter": "Twitterで確認する",
         "login": "ログイン",
+        "login_line": "LINE連携のための確認ログイン",
         "logout": "ログアウト",
         "of": "%(data)sの",
         "password": "パスワード",
@@ -21,11 +44,13 @@
         "phone_number": "電話番号",
         "phone_code": "認証コード",
         "phone_code_with_notif": "認証コード(メッセンジャーを確認してください)",
+        "send": "送信",
         "send_code_not_reach": "認証コードを再発行する",
         "privacy_policy": "プライバシーポリシー",
         "phone_verify": "電話番号認証",
         "please_enter": "%(data)sを入力してください",
         "quit": "退会する",
+        "login_quit": "退会のための確認ログイン",
         "respondent": "回答者",
         "notification": "お知らせ",
         "mypage": "マイページ",
@@ -34,11 +59,13 @@
         "search_user": "ユーザー検索",
         "search_user_result": "ユーザー検索結果",
         "setting": "設定",
+        "subscribe": "登録",
+        "unsubscribe": "登録解除",
         "show_more": "もっと見る",
         "terms": "利用規約",
         "theme": "紹介テーマ",
         "themes": "紹介テーマ一覧",
-        "trend_themes": "急上昇テーマ",
+        "trend_themes": "人気テーマ",
         "count_theme": "%(data)s人がこの紹介テーマを追加!",
         "find_themes": "紹介テーマを探す",
         "add_theme": "紹介テーマ追加",
@@ -52,6 +79,22 @@
         "user_edit": "ユーザー編集",
         "voter": "投稿者",
         "votered": "被紹介者",
+        "ways_title": "楽しみ方は人それぞれです！",
+        "way1_title": "紹介テーマを作成してみんなに答えてもらう！",
+        "way1_desc":
+            "自分のことや友達のことをもっと知りたいと思った時に使えます！\nみんなが紹介テーマに答えてくれるので、自分が自覚してない魅力に気づけます！",
+        "way2_title": "SNSでは現れてない自分や友達の魅力を知ってもらう！",
+        "way2_desc":
+            "紹介テーマに対して答えていくだけで、知らないうちにその魅力が多くの人に伝わります！",
+        "way3_title": "自己紹介が欲しい時に！",
+        "way3_desc":
+            "遊びながら自己紹介を作成できます！\n固くないフォーマットなので馴染みもある自己紹介が作れ、それがTwitter等のSNSに拡散されるので効果も絶大です！",
+        "way4_title": "友達をもっと宣伝したい！",
+        "way4_desc":
+            "魅力的な活動をしていたり、魅力的なものを持っている友人のプロフィールが遊びながら作成されていきます！それらがTwitter等のSNSに拡散されるので効果も絶大です！",
+        "welcome": "ご利用ガイド",
+        "welcome_desc":
+            "who are you?で魅力をわかりあった人間関係を広げましょう！",
         "what_whoareyou": "who are you?とは",
         "your": "あなたの"
     },
@@ -59,6 +102,10 @@
         "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"
     },
     "notifications": {
+        "welcome": {
+            "title": "「who are you?」の遊び方はこちらです！",
+            "body": "「who are you?」へようこそ！"
+        },
         "on_create_heading": {
             "title": "新しい紹介テーマが届きました！",
             "body": "カードをシェアして回答を募集しましょう！"
@@ -77,9 +124,9 @@
     },
     "descriptions": {
         "Home":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
+            "who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "NotFound":
-            "Who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
+            "who are youはTwitter連携で秒速で始められる一問一答形式のフォロワー紹介アプリです。遊びながら友達のことがもっと「わかる」「広がる」「深まる」サービスです。",
         "HeadingShow": "%(user)sの紹介はこちら",
         "AnswerShow": "「%(heading)s」の回答はこちら！",
         "UserShow": "%(user)sの紹介はこちら"

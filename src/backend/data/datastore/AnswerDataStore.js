@@ -127,7 +127,7 @@ export default class AnswerDataStore extends DataStoreImpl {
         if (answer.picture) {
             answer.picture = await this.bcomposite_from_base64({
                 base64: answer.picture,
-                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back_low.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
@@ -145,7 +145,7 @@ export default class AnswerDataStore extends DataStoreImpl {
         if (answer.picture) {
             answer.picture = await this.bcomposite_from_base64({
                 base64: answer.picture,
-                bsrc: this.resolveAssetsPath('images/brands/eye_catch.png'),
+                bsrc: this.resolveAssetsPath('images/brands/ogp-back_low.png'),
                 params: {
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
@@ -215,7 +215,7 @@ export default class AnswerDataStore extends DataStoreImpl {
     async search({ keyword, limit, offset }) {
         let like_results = await Promise.all(
             generateLikeQuery(keyword).map(val => {
-                return models.Heading.findAll({
+                return models.Answer.findAll({
                     where: {
                         $or: [
                             {

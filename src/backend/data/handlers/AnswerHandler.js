@@ -31,7 +31,9 @@ export default class AnswerHandler extends HandlerImpl {
     }
 
     async postTweet(answer) {
-        if (!answer) return false;
+        if (process.env.NODE_ENV == 'development') return true;
+
+        if (!answer || !answer.UserId) return false;
 
         const heading = await models.Heading.findOne({
             where: {

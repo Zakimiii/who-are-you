@@ -15,6 +15,10 @@ import {
     homeAliasRoute,
     postIndexRoute,
     notificationIndexRoute,
+    communityIndexRoute,
+    communityShowRoute,
+    feedIndexRoute,
+    communityFollowIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -88,14 +92,18 @@ export default class UserUseCase extends UseCaseImpl {
                 : yield userRepository.getStaticUserRecommend({});
             yield put(userActions.setRecommend({ users }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
     }
 
     *initFollower({ payload: { pathname } }) {
-        if (homeAliasRoute.isValidPath(pathname)) return;
+        if (
+            homeAliasRoute.isValidPath(pathname) ||
+            communityIndexRoute.isValidPath(pathname) ||
+            communityShowRoute.isValidPath(pathname)
+        ) return;
+
         try {
             // const username = userShowRoute.params_value('username', pathname);
             yield put(appActions.fetchDataBegin());
@@ -210,7 +218,10 @@ export default class UserUseCase extends UseCaseImpl {
                     isMyAccount:
                         current_user && current_user.username == username,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserHeading({ headings }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
@@ -232,7 +243,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserHeading({ headings }));
             }
         } catch (e) {
@@ -260,10 +274,12 @@ export default class UserUseCase extends UseCaseImpl {
                 heading,
                 offset: indexContentsLength,
             });
-            if (answers.length == 0) return;
+            if (answers.length == 0) {
+                yield put(appActions.fetchMoreDataEnd());
+                return;
+            };
             yield put(userActions.addUserHeadingAnswer({ heading, answers }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchMoreDataEnd());
@@ -282,10 +298,12 @@ export default class UserUseCase extends UseCaseImpl {
                 username: current_user.username,
                 isMyAccount: true,
             });
-            if (headings.length == 0) return;
+            if (headings.length == 0) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            };
             yield put(userActions.setUserPost({ headings }));
         } catch (e) {
-            console.log(e);
             yield put(appActions.addError({ error: e }));
         }
         yield put(appActions.fetchDataEnd());
@@ -314,7 +332,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (headings.length == 0) return;
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
                 yield put(userActions.addUserPost({ headings }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
@@ -367,7 +388,10 @@ export default class UserUseCase extends UseCaseImpl {
                     offset: indexContentsLength,
                     isMyAccount: true,
                 });
-                if (notifications.length == 0) return;
+                if (notifications.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
                 yield put(userActions.addUserNotification({ notifications }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
@@ -431,5 +455,113 @@ export default class UserUseCase extends UseCaseImpl {
                       users: [models.User.build({ id, username })],
                   })
         );
+    }
+
+    *initUserFeeds({ payload: { pathname } }) {
+        try {
+            if (feedIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                yield put(appActions.fetchDataBegin());
+                let headings = yield userRepository.getFeeds({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                yield put(userActions.setUserFeed({ headings }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreUserFeeds({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        try {
+            if (feedIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserHeadingLength(state)
+                );
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0 || !current_user) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const headings = yield userRepository.getFeeds({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (headings.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
+                yield put(userActions.addUserFeed({ headings }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *initCommunityFollower({ payload: { pathname } }) {
+        try {
+            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                if (!current_user) return;
+                yield put(appActions.fetchDataBegin());
+                let communities = yield userRepository.getUserCommunityFollower({
+                    username: current_user.username,
+                    isMyAccount: true,
+                });
+                yield put(userActions.setCommunityFollower({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreCommunityFollower({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        try {
+            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    userActions.getUserHeadingLength(state)
+                );
+                const current_user = yield select(state =>
+                    authActions.getCurrentUser(state)
+                );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0 || !current_user) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const communities = yield userRepository.getUserCommunityFollower({
+                    username: current_user.username,
+                    offset: indexContentsLength,
+                    isMyAccount: true,
+                });
+                if (communities.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                };
+                yield put(userActions.addCommunityFollower({ communities }));
+            }
+        } catch (e) {
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchMoreDataEnd());
     }
 }

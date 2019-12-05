@@ -27,7 +27,9 @@ class HeadingShowList extends React.Component {
         repositories: [],
     };
 
-    state = {};
+    state = {
+        fetched: false,
+    }
 
     constructor(props) {
         super(props);
@@ -48,14 +50,29 @@ class HeadingShowList extends React.Component {
             window.removeEventListener('scroll', this.onWindowScroll, false);
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {
+            more_loading,
+            repositories,
+        } = this.props;
+
+        this.setState({
+            fetched:
+                more_loading &&
+                !nextProps.more_loading &&
+                repositories.length == nextProps.repositories.length,
+        })
+    }
+
     onWindowScroll() {
         const { getMore, username } = this.props;
+        const { fetched } = this.state;
         const isEnd = isScrollEndByClass('heading-show-list__answers');
-        if (isEnd && getMore) getMore();
+        if (isEnd && getMore && !fetched) getMore();
     }
 
     render() {
-        const { repository, repositories, loading } = this.props;
+        const { repository, repositories, loading, more_loading } = this.props;
 
         if (loading) {
             return (
@@ -113,6 +130,14 @@ class HeadingShowList extends React.Component {
                 <div className="heading-show-list__answers">
                     {repositories && renderItems(repositories)}
                 </div>
+                {more_loading && (
+                    <center>
+                        <LoadingIndicator
+                            style={{ marginBottom: '2rem' }}
+                            type={'circle'}
+                        />
+                    </center>
+                )}
             </div>
         );
     }
@@ -124,6 +149,7 @@ export default connect(
             repository: headingActions.getShowHeading(state),
             repositories: headingActions.getHeadingAnswer(state),
             loading: appActions.headingShowPageLoading(state),
+            more_loading: state.app.get('more_loading'),
         };
     },
 

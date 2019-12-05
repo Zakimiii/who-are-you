@@ -15,6 +15,7 @@ import data_config from '@constants/data_config';
 import uuidv4 from 'uuid/v4';
 import env from '@env/env.json';
 import Promise from 'bluebird';
+import LineHandler from '@network/line';
 
 const sessionDataStore = new SessionDataStore();
 const authDataStore = new AuthDataStore();
@@ -183,6 +184,90 @@ export default class AuthHandler extends HandlerImpl {
 
         router.body = {
             users: datum.map(data => safe2json(data)),
+            success: true,
+        };
+    }
+
+    async handleTwitterUserDeleteAuthenticateRequest(router, req, res, next) {
+        const { profile } = res;
+
+        const { oauth_token } = router.query;
+
+        if (!profile) {
+            router.redirect('/login');
+            return;
+        }
+
+        const identity = await models.Identity.findOne({
+            where: {
+                twitter_id: profile.id,
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.is_not_registered',
+            });
+        });
+
+        if (!identity)
+            throw new ApiError({
+                error: new Error('is_not_registered'),
+                tt_key: 'errors.is_not_registered',
+            });
+
+        const newAccessToken = await sessionDataStore.setAccessToken({
+            identity,
+            client_id: '',
+            isOneTime: true,
+        });
+
+        const params = querystring.stringify({
+            twitter_logined: true,
+            accessToken: newAccessToken,
+        });
+
+        router.body = {
+            success: true,
+        };
+
+        router.redirect(`/user/delete/confirm?${params}`);
+    }
+
+    async handleTwitterLineLinkAuthenticateRequest(router, req, res, next) {
+        const { profile } = res;
+        const { oauth_token, linkToken } = router.query;
+
+        if (!profile) {
+            router.redirect(`/login/line/${linkToken}/confirm/`);
+            return;
+        }
+
+        const identity = await models.Identity.findOne({
+            where: {
+                twitter_id: profile.id,
+            },
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.is_not_registered',
+            });
+        });
+
+        if (!identity)
+            throw new ApiError({
+                error: new Error('is_not_registered'),
+                tt_key: 'errors.is_not_registered',
+            });
+
+        const updated = await identity.update({
+            linkToken,
+        });
+
+        const url = await LineHandler.redirectEndPointLinkUrl(linkToken);
+
+        router.redirect(url);
+
+        router.body = {
             success: true,
         };
     }

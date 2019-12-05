@@ -14,7 +14,7 @@
   &__logo {
     width: 374px;
     height: 79px;
-    margin: 32px auto;
+    margin: 12px auto;
     @include mq-down(fm) {
       width: 255px;
       height: 51px;
@@ -32,7 +32,7 @@
     word-wrap: break-word;
     white-space: pre-wrap;
     min-height: 32px;
-    width: calc(100% - 44px);
+    // width: calc(100% - 44px);
     padding: 6px;
     text-align: center;
     @include FS(FM);
@@ -55,6 +55,14 @@
     @include mq-down(fm) {
       height: 44px;
       width: calc(100%);
+    };
+  }
+  &__check {
+    // width: 640px;
+    margin: 0 auto;
+    margin-top: 24px;
+    @include mq-down(md) {
+      // width: 75%;
     };
   }
 }

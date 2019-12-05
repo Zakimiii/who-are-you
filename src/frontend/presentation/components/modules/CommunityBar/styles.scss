@@ -1,0 +1,70 @@
+.community-bar {
+  width: 100%;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  display: block;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: themed('background');
+  }
+  &__category {
+    white-space: normal;
+    width: 100%;
+    text-align: left;
+    height: 44px;
+    @include FS(FM);
+    @include LH(FM);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundContrastLight');
+      border-bottom: solid 1px themed('border');
+    }
+    padding: 8px;
+    margin: 12px auto;
+    padding-bottom: 20px;
+  }
+
+  &__items {
+    width: 100%;
+    height: 100%;
+    margin: 12px auto;
+    margin-bottom: 0;
+  }
+
+  &__item {
+    width: 100%;
+    margin: 0px auto;
+    &-category {
+      min-height: 30px;
+      width: 100%;
+    }
+    &-communities {
+      height: 100%;
+      width: 100%;
+      padding-bottom: 16px;
+    }
+    &-community {
+      min-height: 32px;
+      width: 100%;
+    }
+  }
+  &__link {
+    cursor: pointer;
+    padding-bottom: 12px;
+    @include default-link;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    text-align: center;
+    text-decoration: underline !important;
+    display: block;
+    cursor: pointer;
+    @include FM(R);
+    @include FS(XS);
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+    @include mq-down(fm) {
+      @include FS(XS);
+    };
+  }
+}

@@ -8,6 +8,7 @@ import autobind from 'class-autobind';
 import tt from 'counterpart';
 import PictureItem from '@elements/PictureItem';
 import Img from 'react-image';
+import data_config from '@constants/data_config';
 
 class HeadingCanvasTest extends React.Component {
     static propTypes = {};
@@ -57,7 +58,7 @@ class HeadingCanvasTest extends React.Component {
                 </div>
                 <Img
                     className="heading-canvas__image"
-                    src={'/images/brands/who_are_you.png'}
+                    src={data_config.logo_image}
                 />
             </div>
         );

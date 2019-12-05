@@ -115,7 +115,7 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/eye_catch.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield answerRepository.create(answer);
@@ -163,7 +163,7 @@ export default class AnswerUseCase extends UseCaseImpl {
                 answer.picture = yield model.getBuffer({
                     xsize: data_config.shot_picture_xsize,
                     ysize: data_config.shot_picture_ysize,
-                    // bcomposite_src: '/images/brands/eye_catch.png',
+                    // bcomposite_src: '/images/brands/ogp-back_low.png',
                 });
             }
             const data = yield answerRepository.update(answer);

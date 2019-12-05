@@ -26,9 +26,15 @@ export const userWatches = [
     takeEvery(LOCATION_CHANGE, userUseCase.initUserNotifications),
     takeEvery(LOCATION_CHANGE, userUseCase.initRecommend),
     takeEvery(LOCATION_CHANGE, userUseCase.initUserHeadings),
+    takeEvery(LOCATION_CHANGE, userUseCase.initUserFeeds),
+    takeEvery(LOCATION_CHANGE, userUseCase.initCommunityFollower),
     takeEvery(
         userActions.GET_MORE_USER_HEADING,
         userUseCase.getMoreUserHeadings
+    ),
+    takeEvery(
+        userActions.GET_MORE_USER_FEED,
+        userUseCase.getMoreUserFeeds
     ),
     takeEvery(
         userActions.GET_MORE_USER_HEADING_ANSWER,
@@ -39,7 +45,11 @@ export const userWatches = [
         userActions.GET_MORE_USER_NOTIFICATION,
         userUseCase.getMoreUserNotifications
     ),
-    takeLatest(userActions.UPDATE_USER, userUseCase.updateUser),
-    takeLatest(userActions.DELETE_USER, userUseCase.deleteUser),
-    takeLatest(userActions.SYNC_USER, userUseCase.syncUser),
+    takeEvery(
+        userActions.GET_MORE_COMMUNITY_FOLLOWER,
+        userUseCase.getMoreCommunityFollower
+    ),
+    takeEvery(userActions.UPDATE_USER, userUseCase.updateUser),
+    takeEvery(userActions.DELETE_USER, userUseCase.deleteUser),
+    takeEvery(userActions.SYNC_USER, userUseCase.syncUser),
 ];
