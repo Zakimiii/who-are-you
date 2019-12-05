@@ -246,6 +246,9 @@ export default class CommunityDataStore extends DataStoreImpl {
         const results = await models.Community.findAll({
             where: {
                 category_id,
+                isHide: false,
+                permission: true,
+                valid: true,
             },
             order: [['created_at', 'DESC']],
             raw: true,
