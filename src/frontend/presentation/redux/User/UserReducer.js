@@ -28,6 +28,14 @@ export const SET_USER_NOTIFICATION = 'user/SET_USER_NOTIFICATION';
 export const ADD_USER_NOTIFICATION = 'user/ADD_USER_NOTIFICATION';
 export const GET_MORE_USER_NOTIFICATION = 'user/GET_MORE_USER_NOTIFICATION';
 
+export const SET_USER_FEED = 'user/SET_USER_FEED';
+export const ADD_USER_FEED = 'user/ADD_USER_FEED';
+export const GET_MORE_USER_FEED = 'user/GET_MORE_USER_FEED';
+
+export const SET_COMMUNITY_FOLLOWER = 'user/SET_COMMUNITY_FOLLOWER';
+export const ADD_COMMUNITY_FOLLOWER = 'user/ADD_COMMUNITY_FOLLOWER';
+export const GET_MORE_COMMUNITY_FOLLOWER = 'user/GET_MORE_COMMUNITY_FOLLOWER';
+
 export const SET_CACHES = 'user/SET_CACHES';
 export const RESET_CACHES = 'user/SET_CACHES';
 export const SET_DELETES = 'user/SET_DELETES';
@@ -39,7 +47,9 @@ const defaultState = fromJS({
     user_post: List([]),
     user_notification: List([]),
     user_follower: List([]),
+    community_follower: List([]),
     user_recommend: List([]),
+    user_feed: List([]),
     caches: List([]),
     deletes: List([]),
 });
@@ -57,7 +67,6 @@ export default function reducer(state = defaultState, action) {
         case SET_SHOW: {
             return state.merge({
                 show_user: Map(action.payload.user),
-                user_heading: Map(action.payload.user.Headings),
             });
         }
 
@@ -104,7 +113,34 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_follower');
             return state.set(
                 'user_follower',
-                before.concat(List(action.payload.users.map(val => Map(val))))
+                before.concat(List(payload.users.map(val => Map(val))))
+            );
+        }
+
+        case SET_COMMUNITY_FOLLOWER: {
+            if (!payload.communities) return state;
+            return state.set(
+                'community_follower',
+                List(
+                    Array.prototype.unique_by_id(
+                        List(payload.communities).toJS()
+                    )
+                )
+            );
+        }
+
+        case ADD_COMMUNITY_FOLLOWER: {
+            if (!payload.communities) return state;
+            let before = state.get('community_follower');
+            return state.set(
+                'community_follower',
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(payload.communities.map(val => Map(val)))
+                        ).toJS()
+                    )
+                )
             );
         }
 
@@ -112,7 +148,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.headings) return state;
             return state.set(
                 'user_heading',
-                List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
             );
         }
 
@@ -121,8 +161,12 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_heading');
             return state.set(
                 'user_heading',
-                before.concat(
-                    List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -131,7 +175,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.headings) return state;
             return state.set(
                 'user_post',
-                List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
             );
         }
 
@@ -140,8 +188,39 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_post');
             return state.set(
                 'user_post',
-                before.concat(
-                    List(action.payload.headings.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
+                )
+            );
+        }
+
+        case SET_USER_FEED: {
+            if (!payload.headings) return state;
+            return state.set(
+                'user_feed',
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.headings).toJS()
+                    )
+                )
+            );
+        }
+
+        case ADD_USER_FEED: {
+            if (!payload.headings) return state;
+            let before = state.get('user_feed');
+            return state.set(
+                'user_feed',
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.headings.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -150,7 +229,11 @@ export default function reducer(state = defaultState, action) {
             if (!payload.notifications) return state;
             return state.set(
                 'user_notification',
-                List(action.payload.notifications.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        List(action.payload.notifications).toJS()
+                    )
+                )
             );
         }
 
@@ -159,8 +242,12 @@ export default function reducer(state = defaultState, action) {
             let before = state.get('user_notification');
             return state.set(
                 'user_notification',
-                before.concat(
-                    List(action.payload.notifications.map(val => Map(val)))
+                List(
+                    Array.prototype.unique_by_id(
+                        before.concat(
+                            List(action.payload.notifications.map(val => Map(val)))
+                        ).toJS()
+                    )
                 )
             );
         }
@@ -262,6 +349,21 @@ export const getMoreFollower = payload => ({
     payload,
 });
 
+export const setCommunityFollower = payload => ({
+    type: SET_COMMUNITY_FOLLOWER,
+    payload,
+});
+
+export const addCommunityFollower = payload => ({
+    type: ADD_COMMUNITY_FOLLOWER,
+    payload,
+});
+
+export const getMoreCommunityFollower = payload => ({
+    type: GET_MORE_COMMUNITY_FOLLOWER,
+    payload,
+});
+
 export const setUserHeading = payload => ({
     type: SET_USER_HEADING,
     payload,
@@ -284,6 +386,21 @@ export const getMoreUserHeading = payload => ({
 
 export const getMoreUserHeadingAnswer = payload => ({
     type: GET_MORE_USER_HEADING_ANSWER,
+    payload,
+});
+
+export const setUserFeed = payload => ({
+    type: SET_USER_FEED,
+    payload,
+});
+
+export const addUserFeed = payload => ({
+    type: ADD_USER_FEED,
+    payload,
+});
+
+export const getMoreUserFeed = payload => ({
+    type: GET_MORE_USER_FEED,
     payload,
 });
 
@@ -450,6 +567,36 @@ export const getUserNotification = state => {
 
 export const getUserNotificationLength = state => {
     const val = state.user.get('user_notification');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getUserFeed = state => {
+    const val = state.user.get('user_feed');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getUserFeedLength = state => {
+    const val = state.user.get('user_feed');
+    if (!val) return 0;
+    let home_models = val.toJS();
+    if (!home_models) return 0;
+    return home_models.length;
+};
+
+export const getCommunityFollower = state => {
+    const val = state.user.get('community_follower');
+    if (!val) return [];
+    const contents = val.toJS();
+    return contents;
+};
+
+export const getCommunityFollowerLength = state => {
+    const val = state.user.get('community_follower');
     if (!val) return 0;
     let home_models = val.toJS();
     if (!home_models) return 0;

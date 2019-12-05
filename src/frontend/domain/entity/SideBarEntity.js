@@ -7,6 +7,8 @@ import {
     notificationIndexRoute,
     postIndexRoute,
     templateIndexRoute,
+    communityIndexRoute,
+    feedIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import tt from 'counterpart';
@@ -26,7 +28,7 @@ export const SideBarSection = defineEnum({
         rawValue: 0,
         value: 'Templates',
         string: () => tt('g.trend_themes'),
-        image: 'mini-logo-icon',
+        image: 'tip',
         link: '/templates',
         active: pathname =>
             !!templateIndexRoute
@@ -34,14 +36,28 @@ export const SideBarSection = defineEnum({
                 : false,
         loginRequire: true,
     },
-    Post: {
+    Communities: {
         rawValue: 0,
-        value: 'Post',
-        string: () => tt('g.posts'),
-        image: 'tip',
-        link: '/posts',
+        value: 'Communities',
+        string: () => tt('g.community'),
+        image: 'mini-logo-icon',
+        link: '/communities',
         active: pathname =>
-            !!postIndexRoute ? postIndexRoute.isValidPath(pathname) : false,
+            !!communityIndexRoute
+                ? communityIndexRoute.isValidPath(pathname)
+                : false,
+        loginRequire: false,
+    },
+    Feed: {
+        rawValue: 1,
+        value: 'Feed',
+        string: () => tt('g.feeds'),
+        image: 'feed',
+        link: '/feeds',
+        active: pathname =>
+            !!feedIndexRoute
+                ? feedIndexRoute.isValidPath(pathname)
+                : false,
         loginRequire: true,
     },
     Notification: {
@@ -55,6 +71,7 @@ export const SideBarSection = defineEnum({
                 ? notificationIndexRoute.isValidPath(pathname)
                 : false,
         loginRequire: true,
+        responsible: true,
     },
     Setting: {
         rawValue: 1,

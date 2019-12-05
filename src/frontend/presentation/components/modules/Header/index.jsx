@@ -25,6 +25,7 @@ import {
     userShowRoute,
     headingCanvasTestRoute,
     answerCanvasTestRoute,
+    notificationIndexRoute,
 } from '@infrastructure/RouteInitialize';
 import data_config from '@constants/data_config';
 
@@ -189,7 +190,19 @@ class Header extends React.Component {
                 <div className="Header__buttons">
                     <Responsible
                         className="Header__button"
-                        breakMd={true}
+                        breakLg={true}
+                        breakingContent={
+                            <Link
+                                className="Header__button-icon"
+                                to={notificationIndexRoute.path}
+                            >
+                                <IconButton src="notification" size="2x" />
+                            </Link>
+                        }
+                    />
+                    <Responsible
+                        className="Header__button"
+                        breakLg={true}
                         breakingContent={
                             <div
                                 className="Header__button-icon"

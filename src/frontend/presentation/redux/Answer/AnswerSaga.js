@@ -20,10 +20,10 @@ const answerUseCase = new AnswerUseCase();
 export const answerWatches = [
     takeEvery(LOCATION_CHANGE, answerUseCase.initShow),
     takeEvery(LOCATION_CHANGE, answerUseCase.initNew),
-    takeLatest(answerActions.CREATE_ANSWER, answerUseCase.createAnswer),
-    takeLatest(answerActions.UPDATE_ANSWER, answerUseCase.updateAnswer),
-    takeLatest(answerActions.DELETE_ANSWER, answerUseCase.deleteAnswer),
-    takeLatest(answerActions.SYNC_ANSWER, answerUseCase.syncAnswer),
-    takeLatest(answerActions.TRASH_ANSWER, answerUseCase.trashAnswer),
-    takeLatest(answerActions.UNTRASH_ANSWER, answerUseCase.untrashAnswer),
+    takeEvery(answerActions.CREATE_ANSWER, answerUseCase.createAnswer),
+    takeEvery(answerActions.UPDATE_ANSWER, answerUseCase.updateAnswer),
+    takeEvery(answerActions.DELETE_ANSWER, answerUseCase.deleteAnswer),
+    takeEvery(answerActions.SYNC_ANSWER, answerUseCase.syncAnswer),
+    takeEvery(answerActions.TRASH_ANSWER, answerUseCase.trashAnswer),
+    takeEvery(answerActions.UNTRASH_ANSWER, answerUseCase.untrashAnswer),
 ];

@@ -41,7 +41,7 @@ class TabBar extends React.Component {
         const { section, pathname } = this.props;
 
         const renderItem = items =>
-            items._enums.map((item, index) => {
+            items._enums.filter(item => !item.responsible).map((item, index) => {
                 switch (item.value) {
                     default:
                         return (

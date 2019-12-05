@@ -28,7 +28,9 @@ class PostIndexList extends React.Component {
         repository: null,
     };
 
-    state = {};
+    state = {
+        fetched: false,
+    }
 
     constructor(props) {
         super(props);
@@ -49,14 +51,29 @@ class PostIndexList extends React.Component {
             window.removeEventListener('scroll', this.onWindowScroll, false);
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {
+            more_loading,
+            repositories,
+        } = this.props;
+
+        this.setState({
+            fetched:
+                more_loading &&
+                !nextProps.more_loading &&
+                repositories.length == nextProps.repositories.length,
+        })
+    }
+
     onWindowScroll() {
         const { getMore, username } = this.props;
+        const { fetched } = this.state;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
-        if (isEnd && getMore) getMore();
+        if (isEnd && getMore && !fetched) getMore();
     }
 
     render() {
-        const { repository, repositories, loading } = this.props;
+        const { repository, repositories, loading, more_loading } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -82,6 +99,14 @@ class PostIndexList extends React.Component {
                             renderItems(repositories)
                         )}
                     </div>
+                    {more_loading && (
+                        <center>
+                            <LoadingIndicator
+                                style={{ marginBottom: '2rem' }}
+                                type={'circle'}
+                            />
+                        </center>
+                    )}
                 </div>
             </div>
         );
@@ -94,6 +119,7 @@ export default connect(
             repository: authActions.getCurrentUser(state),
             repositories: userActions.getUserPost(state),
             loading: appActions.postIndexPageLoading(state),
+            more_loading: state.app.get('more_loading'),
         };
     },
 

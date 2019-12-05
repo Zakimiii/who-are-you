@@ -14,6 +14,7 @@ import staticCache from 'koa-static-cache';
 import ApiMiddleware from '@webserver/api/middleware';
 import AuthMiddleware from '@webserver/api/authMiddleware';
 import PictureMiddleware from '@webserver/api/pictureMiddleware';
+import LineMiddleware from '@webserver/api/lineMiddleware';
 import isBot from 'koa-isbot';
 import csrf from 'koa-csrf';
 import minimist from 'minimist';
@@ -247,6 +248,7 @@ app.use(session({}, app));
 ApiMiddleware(app);
 AuthMiddleware(app);
 PictureMiddleware(app);
+LineMiddleware(app);
 useRedirects(app);
 
 // helmet wants some things as bools and some as lists, makes env.difficult.

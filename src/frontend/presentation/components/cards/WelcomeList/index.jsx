@@ -12,6 +12,7 @@ import TwitterButton from '@elements/TwitterButton';
 import IconTextItem from '@elements/IconTextItem';
 import Responsible from '@modules/Responsible';
 import data_config from '@constants/data_config';
+import CheckLaws from '@elements/CheckLaws';
 
 class WelcomeList extends React.Component {
     static propTypes = {};
@@ -46,20 +47,11 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__lighting-title">
                     {tt('g.about')}
                 </div>
-                <Responsible
-                    defaultContent={
-                        <Img
-                            className="welcome-list__lighting-image"
-                            src={'/images/screen_shot_heading.png'}
-                        />
-                    }
-                    breakingContent={
-                        <Img
-                            className="welcome-list__lighting-image"
-                            src={'/images/screen_shot_heading-sm.png'}
-                        />
-                    }
-                    breakSm={true}
+                <iframe
+                    className="welcome-list__lighting-image"
+                    src="https://www.youtube.com/embed/AMaUK1cY9N0"
+                    frameBorder="0"
+                    allowFullScreen
                 />
             </div>
         );
@@ -113,13 +105,18 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__finally-button">
                     <TwitterButton />
                 </div>
+                <div className="home-list__top-check">
+                    <CheckLaws />
+                </div>
             </div>
         );
 
         return (
             <div className="welcome-list">
-                {head}
-                {lighting}
+                <div className="welcome-list__pattern">
+                    {head}
+                    {lighting}
+                </div>
                 {ways}
                 {finallyBody}
             </div>

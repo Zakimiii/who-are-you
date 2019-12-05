@@ -122,6 +122,7 @@ export class FileEntity extends Entity {
                     .getBase64(Jimp.AUTO, (e, d) => {
                         src = d;
                     });
+                this.url = src;
                 return src;
         }
     }
@@ -180,5 +181,11 @@ export class FileEntities extends Entity {
 
     async upload({ xsize, ysize }) {
         await Promise.all(this.items.map(val => val.upload({ xsize, ysize })));
+    }
+
+    async getBuffer({ xsize, ysize }) {
+        await Promise.all(
+            this.items.map(val => val.getBuffer({ xsize, ysize }))
+        );
     }
 }

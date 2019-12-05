@@ -1,0 +1,28 @@
+.category-viewer-item {
+  height: 100%;
+  width: 100%;
+  border: none;
+  display: block;
+  &__image {
+    margin: 0 auto;
+    @include themify($themes) {
+      box-shadow: 0px 0px 3px 3px themed('shadow');
+    }
+  }
+  &__value {
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: center;
+    @include FS(FS);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('backgroundThick');
+    }
+    @include mq-down(fm) {
+      @include FS(XS);
+    };
+  }
+}

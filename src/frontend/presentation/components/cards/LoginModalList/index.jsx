@@ -11,14 +11,19 @@ import TwitterButton from '@elements/TwitterButton';
 import CheckLaws from '@elements/CheckLaws';
 import { confirmForDeleteRoute } from '@infrastructure/RouteInitialize';
 import data_config from '@constants/data_config';
+import TwitterHandler from '@network/twitter';
 
 class LoginModalList extends React.Component {
     static propTypes = {
         confirmForDelete: PropTypes.bool,
+        confirmForLineLink: PropTypes.bool,
+        linkToken: PropTypes.string,
     };
 
     static defaultProps = {
         confirmForDelete: false,
+        confirmForLineLink: false,
+        linkToken: '',
     };
 
     state = {};
@@ -33,13 +38,27 @@ class LoginModalList extends React.Component {
     }
 
     render() {
-        const { confirmForDelete } = this.props;
+        const { confirmForDelete, confirmForLineLink, linkToken } = this.props;
 
         const modalPath = () => {
-            if (!process.env.BROWSER) return;
-            const pathname = browserHistory.getCurrentLocation().pathname;
-            if (confirmForDeleteRoute.isValidPath(pathname))
-                return 'user/delete/confirm';
+            if (confirmForDelete) return 'user/delete/confirm';
+            if (confirmForLineLink && linkToken)
+                return `line/link/confirm${
+                    TwitterHandler.escape_symbol
+                }linkToken${TwitterHandler.escape_equal}${linkToken}`;
+            return null;
+        };
+
+        const desc_text = () => {
+            if (confirmForDelete) return tt('g.login_quit');
+            if (confirmForLineLink) return tt('g.login_line');
+            return tt('apps.home');
+        };
+
+        const button_text = () => {
+            if (confirmForDelete) return tt('g.login');
+            if (confirmForLineLink) return tt('g.login');
+            return null;
         };
 
         const logo = (
@@ -52,20 +71,15 @@ class LoginModalList extends React.Component {
         );
 
         const desc = (
-            <div className="login-modal-list__desc">
-                {confirmForDelete ? tt('g.login_quit') : tt('apps.home')}
-            </div>
+            <div className="login-modal-list__desc">{desc_text()}</div>
         );
 
         const buttons = (
             <div className="login-modal-list__button">
                 <TwitterButton
-                    text={confirmForDelete && tt('g.login')}
+                    text={button_text()}
                     isSession={false}
-                    modalPath={
-                        confirmForDelete &&
-                        'user/delete/confirm' /*modalPath()*/
-                    }
+                    modalPath={modalPath()}
                 />
             </div>
         );

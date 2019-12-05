@@ -25,6 +25,25 @@ export const userShowRoute = new RouteEntity({
     },
 });
 
+export const categoryShowRoute = new RouteEntity({
+    path: '/category/:id',
+    page: 'CategoryShow',
+    component: require('@components/pages/CategoryShow'),
+    validate: {
+        id: /\d+/
+    },
+});
+
+export const communityShowRoute = new RouteEntity({
+    path: '/community/:id/:section?',
+    page: 'CommunityShow',
+    component: require('@components/pages/CommunityShow'),
+    validate: {
+        id: /\d+/,
+        section: /(headings|templates)/,
+    },
+});
+
 export const userEditRoute = new RouteEntity({
     path: '/settings',
     page: 'UserEdit',
@@ -45,6 +64,27 @@ export const answerShowRoute = new RouteEntity({
     validate: { id: /\d+/ },
 });
 
+export const communityHeadingShowRoute = new RouteEntity({
+    path: '/communities/heading/:id',
+    page: 'CommunityHeadingShow',
+    component: require('@components/pages/CommunityHeadingShow'),
+    validate: { id: /\d+/ },
+});
+
+export const communityAnswerShowRoute = new RouteEntity({
+    path: '/communities/answer/:id',
+    page: 'CommunityAnswerShow',
+    component: require('@components/pages/CommunityAnswerShow'),
+    validate: { id: /\d+/ },
+});
+
+export const communityNewRoute = new RouteEntity({
+    path: '/communities/new',
+    page: 'CommunityNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/CommunityNew'),
+});
+
 export const headingNewRoute = new RouteEntity({
     path: '/user/:username/heading/new',
     page: 'HeadingNew',
@@ -56,6 +96,38 @@ export const answerNewRoute = new RouteEntity({
     page: 'AnswerNew',
     validate: { id: /\d+/ },
     component: require('@components/pages/AnswerNewAlias'),
+});
+
+export const communityHeadingNewRoute = new RouteEntity({
+    path: '/community/:id/heading/new',
+    page: 'CommunityHeadingNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/CommunityHeadingNewAlias'),
+});
+
+export const communityAnswerNewRoute = new RouteEntity({
+    path: '/community/heading/:id/answer/new',
+    page: 'CommunityAnswerNew',
+    validate: { id: /\d+/ },
+    component: require('@components/pages/CommunityAnswerNewAlias'),
+});
+
+export const communityFollowIndexRoute = new RouteEntity({
+    path: '/communities/follows',
+    page: 'CommunityFollowIndex',
+    component: require('@components/pages/CommunityFollowIndex'),
+});
+
+export const categoryIndexRoute = new RouteEntity({
+    path: '/categories',
+    page: 'CategoryIndex',
+    component: require('@components/pages/CategoryIndex'),
+});
+
+export const feedIndexRoute = new RouteEntity({
+    path: '/feeds',
+    page: 'FeedIndex',
+    component: require('@components/pages/FeedIndex'),
 });
 
 export const templateIndexRoute = new RouteEntity({
@@ -74,6 +146,12 @@ export const postIndexRoute = new RouteEntity({
     path: '/posts',
     page: 'PostIndex',
     component: require('@components/pages/PostIndex'),
+});
+
+export const communityIndexRoute = new RouteEntity({
+    path: '/communities',
+    page: 'CommunityIndex',
+    component: require('@components/pages/CommunityIndex'),
 });
 
 export const searchRoute = new RouteEntity({
@@ -107,6 +185,12 @@ export const confirmForDeleteRoute = new RouteEntity({
     path: '/user/delete/confirm',
     page: 'LoginModalForDeleteAlias',
     component: require('@components/pages/LoginModalForDeleteAlias'),
+});
+
+export const confirmForLineLinkRoute = new RouteEntity({
+    path: '/line/:linkToken/confirm',
+    page: 'LoginModalForLineLinkAlias',
+    component: require('@components/pages/LoginModalForLineLinkAlias'),
 });
 
 export const privacyRoute = new RouteEntity({
@@ -161,23 +245,35 @@ export const routeEntities = new RouteEntities({
     items: [
         notfoundRoute,
         userShowRoute,
+        categoryShowRoute,
+        communityShowRoute,
         userEditRoute,
         privacyRoute,
         faqRoute,
         termRoute,
         contactRoute,
+        feedIndexRoute,
         homeRoute,
         homeAliasRoute,
         headingNewRoute,
         answerNewRoute,
+        communityNewRoute,
+        communityHeadingNewRoute,
+        communityAnswerNewRoute,
+        communityFollowIndexRoute,
         loginRoute,
         confirmForDeleteRoute,
+        confirmForLineLinkRoute,
         headingCanvasTestRoute,
         answerCanvasTestRoute,
         headingShowRoute,
+        communityHeadingShowRoute,
         answerShowRoute,
+        communityAnswerShowRoute,
         notificationIndexRoute,
         postIndexRoute,
+        communityIndexRoute,
+        categoryIndexRoute,
         searchRoute,
         templateIndexRoute,
         cmpTestRoute,
@@ -203,6 +299,20 @@ export const getPageTitle = (pathname, state) => {
             title = tt(`pages.${headingShowRoute.page}`, {
                 data: `${heading.User.nickname}の紹介`,
             });
+    } else if (page == communityAnswerShowRoute.page) {
+        let val = state.communityAnswer.get('show_answer');
+        const answer = !!val ? val.toJS() : null;
+        if (!!answer && !!answer.Heading && !!answer.Heading.Community)
+            title = tt(`pages.${answerShowRoute.page}`, {
+                data: `${answer.Heading.Community.body}の紹介`,
+            });
+    } else if (page == communityHeadingShowRoute.page) {
+        let val = state.communityHeading.get('show_heading');
+        const heading = !!val ? val.toJS() : null;
+        if (!!heading && !!heading.Community)
+            title = tt(`pages.${headingShowRoute.page}`, {
+                data: `${heading.Community.body}の紹介`,
+            });
     } else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
@@ -212,6 +322,24 @@ export const getPageTitle = (pathname, state) => {
             title = tt(`pages.${userShowRoute.page}`, {
                 nickname: state.user.get('show_user').get('nickname'),
                 detail: state.user.get('show_user').get('detail'),
+            });
+    } else if (page == communityShowRoute.page) {
+        if (
+            !!state.community.get('show_community') &&
+            !!state.community.get('show_community').get('body')
+        )
+            title = tt(`pages.${userShowRoute.page}`, {
+                nickname: state.community.get('show_community').get('body'),
+                detail: '',
+            });
+    } else if (page == categoryShowRoute.page) {
+        if (
+            !!state.category.get('show_category') &&
+            !!state.category.get('show_category').get('body')
+        )
+            title = tt(`pages.${userShowRoute.page}`, {
+                nickname: state.category.get('show_category').get('body'),
+                detail: '',
             });
     } else {
         title = tt(`pages.${page}`, { fallback: tt('pages.Home') });
@@ -236,6 +364,20 @@ export const getPageDescription = (pathname, state) => {
             description = tt(`descriptions.${headingShowRoute.page}`, {
                 user: `${heading.User.nickname}`,
             });
+    } else if (page == communityAnswerShowRoute.page) {
+        let val = state.communityAnswer.get('show_answer');
+        const answer = !!val ? val.toJS() : null;
+        if (!!answer && !!answer.Heading)
+            description = tt(`descriptions.${answerShowRoute.page}`, {
+                heading: `${models.Heading.getBody(answer.Heading)}`,
+            });
+    } else if (page == communityHeadingShowRoute.page) {
+        let val = state.communityHeading.get('show_heading');
+        const heading = !!val ? val.toJS() : null;
+        if (!!heading && !!heading.Community)
+            description = tt(`descriptions.${headingShowRoute.page}`, {
+                user: `${heading.Community.body}`,
+            });
     } else if (page == userShowRoute.page) {
         if (
             !!state.user.get('show_user') &&
@@ -244,6 +386,22 @@ export const getPageDescription = (pathname, state) => {
         )
             description = tt(`descriptions.${userShowRoute.page}`, {
                 user: state.user.get('show_user').get('nickname'),
+            });
+    } else if (page == communityShowRoute.page) {
+        if (
+            !!state.community.get('show_community') &&
+            !!state.community.get('show_community').get('body')
+        )
+            description = tt(`descriptions.${userShowRoute.page}`, {
+                user: state.community.get('show_community').get('body'),
+            });
+    } else if (page == categoryShowRoute.page) {
+        if (
+            !!state.category.get('show_category') &&
+            !!state.category.get('show_category').get('body')
+        )
+            description = tt(`descriptions.${userShowRoute.page}`, {
+                user: state.category.get('show_category').get('body'),
             });
     } else {
         description = tt(`descriptions.${page}`, {
@@ -264,6 +422,17 @@ export const getPageImage = pathname => {
         image = `${
             config.CURRENT_APP_URL
         }/pictures/heading/${headingShowRoute.params_value(
+            'id',
+            pathname
+        )}.png`;
+    } else if (page == communityAnswerShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/communities/answer/${communityAnswerShowRoute.params_value('id', pathname)}.png`;
+    } else if (page == communityHeadingShowRoute.page) {
+        image = `${
+            config.CURRENT_APP_URL
+        }/pictures/communities/heading/${communityHeadingShowRoute.params_value(
             'id',
             pathname
         )}.png`;

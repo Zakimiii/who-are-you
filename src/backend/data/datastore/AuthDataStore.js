@@ -111,11 +111,11 @@ export default class AuthDataStore extends DataStoreImpl {
                 ) || data_config.default_user_image,
         });
 
-        identity = await identity.update({
-            email,
-            mail_notification_token,
-            isMailNotification,
-        });
+        // identity = await identity.update({
+        //     email,
+        //     mail_notification_token,
+        //     isMailNotification,
+        // });
 
         return {
             user,
@@ -321,11 +321,11 @@ export default class AuthDataStore extends DataStoreImpl {
                 ) || data_config.default_user_image,
         });
 
-        identity = await identity.update({
-            email,
-            mail_notification_token,
-            isMailNotification,
-        });
+        // identity = await identity.update({
+        //     email,
+        //     mail_notification_token,
+        //     isMailNotification,
+        // });
 
         return {
             user,
@@ -392,13 +392,25 @@ export default class AuthDataStore extends DataStoreImpl {
         if (!identity.verified) {
         }
 
-        // if (identity.email != email) {
-        //     identity = await identity.update({
-        //         email,
-        //         mail_notification_token,
-        //         isMailNotification,
-        //     });
-        // }
+        if (identity.email != email) {
+            const data = await models.Identity.findOne({
+                where: {
+                    email,
+                },
+            });
+
+            if (!!data)
+                return {
+                    user,
+                    identity,
+                };
+
+            identity = await identity.update({
+                email,
+                mail_notification_token,
+                isMailNotification,
+            });
+        }
 
         return {
             user,

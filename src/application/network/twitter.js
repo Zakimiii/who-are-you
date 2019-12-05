@@ -44,10 +44,19 @@ passport.use(
 export default class TwitterHandler {
     static passport = passport;
 
+    static escape_symbol = '？';
+    static escape_equal = '＝';
+
     static getShareUrl = ({ id, pathname }) =>
         `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
             pathname}&hashtags=whoareyou,自己紹介,友達紹介&text=${data_config.post_text(
             id
+        )}`;
+
+    static getShareWithoutMentionUrl = ({ text, pathname }) =>
+        `https://twitter.com/intent/tweet?url=${config.CURRENT_APP_URL +
+            pathname}&hashtags=whoareyou,トピック紹介&ext=${data_config.post_text_hash(
+            text
         )}`;
 
     static getInviteUrl = ({ id }) =>
@@ -82,13 +91,35 @@ export default class TwitterHandler {
                     : 'http://localhost:8080/auth/twitter/session/callback',
         });
 
-    static confirm = modal =>
-        passport.authenticate('twitter', {
-            callbackURL:
-                process.env.NODE_ENV == 'production'
-                    ? config.APP_URL + `/auth/twitter/${modal}/callback`
-                    : `http://localhost:8080/auth/twitter/${modal}/callback`,
-        });
+    static confirm = modal => {
+        console.log(modal);
+        if (modal.includes(TwitterHandler.escape_symbol)) {
+            const params = modal
+                .split(TwitterHandler.escape_symbol)[1]
+                .replace(TwitterHandler.escape_equal, '=');
+
+            modal = modal.split(TwitterHandler.escape_symbol)[0];
+
+            return passport.authenticate('twitter', {
+                callbackURL:
+                    process.env.NODE_ENV == 'production'
+                        ? config.APP_URL +
+                          `/auth/twitter/${modal}/callback?${params}`
+                        : `http://localhost:8080/auth/twitter/${
+                              modal
+                          }/callback?${params}`,
+            });
+        } else {
+            return passport.authenticate('twitter', {
+                callbackURL:
+                    process.env.NODE_ENV == 'production'
+                        ? config.APP_URL + `/auth/twitter/${modal}/callback`
+                        : `http://localhost:8080/auth/twitter/${
+                              modal
+                          }/callback`,
+            });
+        }
+    };
 
     //@params: user_id or screen_name
     static getUser = async params => {
@@ -123,6 +154,27 @@ export default class TwitterHandler {
                 accessTokenSecret,
                 {
                     status: data_config.post_template(id, pathname),
+                },
+                '',
+                (err, data, res) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err);
+                    }
+                    resolve(data, res);
+                }
+            );
+        });
+    };
+
+    static postTweetWithoutMention = async (text, pathname, accessToken, accessTokenSecret) => {
+        return new Promise((resolve, reject) => {
+            oauth.post(
+                'https://api.twitter.com/1.1/statuses/update.json',
+                accessToken,
+                accessTokenSecret,
+                {
+                    status: data_config.post_text_template(text, pathname),
                 },
                 '',
                 (err, data, res) => {

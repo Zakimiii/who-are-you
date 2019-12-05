@@ -21,7 +21,7 @@ class IconButton extends React.Component {
 
     onClick(e) {
         const { onClick } = this.props;
-        if (e) e.preventDefault();
+        // if (e) e.preventDefault();
         if (onClick) onClick(e);
     }
 

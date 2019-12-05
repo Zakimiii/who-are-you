@@ -1,0 +1,80 @@
+.community-viewer {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow-y: visible;
+  padding: 10px 0;
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    border-bottom: solid 2px themed('border');
+  }
+  @include mq-down(fm) {
+    height: 140px;
+  };
+  &__container {
+    width: 100%;
+    height: 1000px;
+    position: absolute;
+    top: 0px;
+    white-space: normal;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    // width: calc(100% - 30px);
+    @include mq-down(sm) {
+      // width: calc(100% - 8px);
+    };
+  }
+  &__items {
+    width: 100%;
+    height: 160px;
+    @include mq-down(fm) {
+      height: 120px;
+    };
+    position: absolute;
+    top: 10px;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  &__item {
+    margin: 0 4px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    width: 164px;
+    height: 100%;
+    @include mq-down(fm) {
+      width: 124px;
+    };
+  }
+  // &__ad {
+  //   vertical-align: middle;
+  //   position: relative;
+  //   margin: 0 4px;
+  //   display: inline-block;
+  //   width: 360px;
+  //   height: 300px;
+  //   @include mq-down(fm) {
+  //     // width: 270px;
+  //   };
+  //   @include mq-down(sm) {
+  //     width: 334px;
+  //     height: 280px;
+  //   };
+  // }
+  &__button {
+    // // padding: 70px 0;
+    // // margin: 4px;a
+    // margin-right: 8px;
+    // margin-left: 8px;
+    // display: inline-block;
+    // width: 214px;
+    // height: 68px;
+    // @include mq-down(fm) {
+    //   width: 170px;
+    // };
+  }
+  &__inline {
+    display: inline-block;
+    margin-left: 8%;
+  }
+}

@@ -86,11 +86,22 @@
       color: themed('background');
     }
     margin: 22px auto;
+    margin-bottom: 0;
+    padding-bottom: 22px;
     @include mq-down(fm) {
       @include FS(FS);
       @include LH(FS);
       margin: 12px auto;
+      margin-bottom: 0;
+      padding-bottom: 12px;
     };
+  }
+  &__button {
+    width: 100%;
+    max-width: 240px;
+    height: 60px;
+    padding-bottom: 20px;
+    margin: 0 auto;
   }
   &__bar {
     height: 44px;

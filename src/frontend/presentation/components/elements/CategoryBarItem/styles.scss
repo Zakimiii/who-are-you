@@ -1,0 +1,46 @@
+.category-bar-item {
+  width: 100%;
+  height: 100%;
+  clear: both;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  padding: 2px 8px;
+  display: block;
+  border: none;
+  @include flex-center();
+  @include themify($themes) {
+    transition: all 0.3s ease-in-out;
+    background: themed('background');
+    // border-top: solid 1px themed('border');
+    // border-bottom: solid 1px themed('border');
+  }
+  &__icon {
+    vertical-align: middle;
+    position: relative;
+    display: inline-block !important;
+    padding: 4px;
+    @include svg-set() {
+      @include themify($themes) {
+        transition: all 0.3s ease-in-out;
+        stroke: themed('complementary') !important;
+        fill: themed('complementary') !important;
+      }
+    }
+  }
+  &__value {
+    vertical-align: middle;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 4px;
+    text-align: left;
+    width: calc(100% - 40px);
+    @include FS(XS);
+    @include FM(B);
+    @include themify($themes) {
+      color: themed('complementary');
+    }
+  }
+}

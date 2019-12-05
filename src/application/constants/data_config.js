@@ -67,8 +67,17 @@ const post_template = (id, pathname) =>
     } さんの紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #自己紹介 #友達紹介\n${config.CURRENT_APP_URL +
         pathname} `;
 
+const post_text_template = (name, pathname) =>
+    `【#${
+        name
+    } の紹介】\n詳しくはwho are you?で確認！\n\n#whoareyou #トピック紹介\n${config.CURRENT_APP_URL +
+        pathname} `;
+
 const post_text = id =>
     `【@${id}%20さんの紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
+
+const post_text_hash = id =>
+    `【${id}%20の紹介】%0a詳しくはwho are you?で確認！%0a%0a`;
 
 const invite_text = id =>
     `【@${
@@ -105,9 +114,16 @@ const answer_show_text_limit = 100;
 const shot_picture_xsize = 1200;
 const shot_picture_ysize = 600;
 
+const picture_xsize = 600;
+const picture_ysize = 600;
+
 const picture_save_limit = 100;
 
+const community_index_limit = 3;
+
 const default_user_image = '/images/default_profile_image.png';
+const default_community_image = `/images/brands/back-mini-logo.png`;
+const default_category_image = `/images/brands/back-mini-logo.png`;
 const default_opg_image = '/images/brands/ogp-logo.png';
 const logo_image = '/images/brands/app-logo.png';
 const mini_logo_image = '/images/brands/who-are-you_logo.png';
@@ -137,16 +153,23 @@ module.exports = {
     answer_show_text_limit,
     shot_picture_xsize,
     shot_picture_ysize,
+    picture_xsize,
+    picture_ysize,
     picture_save_limit,
     post_template,
+    post_text_template,
     post_text,
+    post_text_hash,
     invite_text,
     heading_body_min_limit,
     heading_body_max_limit,
     answer_body_min_limit,
     answer_body_max_limit,
     default_user_image,
+    default_community_image,
+    default_category_image,
     default_opg_image,
     logo_image,
     mini_logo_image,
+    community_index_limit,
 };

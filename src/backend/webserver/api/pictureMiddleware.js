@@ -117,4 +117,124 @@ export default function PictureMiddleware(app) {
         );
         this.body = buffer;
     });
+
+    router.get('/communities/heading/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const heading = yield models.CommunityHeading.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!heading || !heading.picture || heading.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = heading.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            heading.picture.toString(),
+            id,
+            'community_heading'
+        );
+        this.body = buffer;
+    });
+
+    router.get('/communities/answer/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const answer = yield models.CommunityAnswer.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!answer || !answer.picture || answer.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath(data_config.default_opg_image)
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = answer.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            answer.picture.toString(),
+            id,
+            'community_answer'
+        );
+        this.body = buffer;
+    });
+
+    router.get('/community/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const community = yield models.Community.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!community || !community.picture || community.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath("/images/brands/back-mini-logo.png")
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = community.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            community.picture.toString(),
+            id,
+            'community_answer'
+        );
+        this.body = buffer;
+    });
+
+    router.get('/category/:id/', koaBody, function*(ctx, next) {
+        let { id } = this.params;
+        id = Number(id.replace('.png', ''));
+        const category = yield models.Category.findOne({
+            where: {
+                id,
+            },
+        });
+
+        if (!category || !category.picture || category.picture == '') {
+            const buffer = fs.readFileSync(
+                resolveAssetsPath("/images/brands/back-mini-logo.png")
+            );
+            this.type = 'image/png';
+            this.response.type = 'image/png';
+            this.body = buffer;
+            return;
+        }
+
+        this.type = 'image/png';
+        this.response.type = 'image/png';
+        this.response.length = category.picture.toString().length;
+        const buffer = yield getBase64ImageBuffer(
+            category.picture.toString(),
+            id,
+            'category'
+        );
+        this.body = buffer;
+    });
 }

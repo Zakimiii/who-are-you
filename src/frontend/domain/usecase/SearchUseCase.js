@@ -40,7 +40,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            }
             yield put(searchActions.setResult({ headings: data }));
             yield put(searchActions.setKeyword({ keyword }));
         } catch (e) {
@@ -65,7 +68,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchMoreDataEnd());
+                return;
+            }
             yield put(searchActions.addResult({ headings: data }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -82,7 +88,7 @@ export default class SearchUseCase extends UseCaseImpl {
         let search_user = search_state.get('search_user');
         search_user = search_user.toJS();
 
-        if (prevKeyword == keyword && search_user.length > 0) return;
+        if (prevKeyword == keyword) return;
         yield put(appActions.fetchDataBegin());
         try {
             yield put(authActions.syncCurrentUser());
@@ -97,7 +103,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            }
             yield put(searchActions.setUserResult({ users: data }));
             yield put(searchActions.setUserKeyword({ keyword }));
         } catch (e) {
@@ -122,7 +131,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchMoreDataEnd());
+                return;
+            }
             yield put(searchActions.addUserResult({ users: data }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -154,7 +166,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            }
             yield put(searchActions.setAnswerResult({ answers: data }));
             yield put(searchActions.setAnswerKeyword({ keyword }));
         } catch (e) {
@@ -179,7 +194,10 @@ export default class SearchUseCase extends UseCaseImpl {
                 .catch(e => {
                     throw new Error(e);
                 });
-            if (!data) return;
+            if (!data) {
+                yield put(appActions.fetchDataEnd());
+                return;
+            }
             yield put(searchActions.addAnswerResult({ answers: data }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));

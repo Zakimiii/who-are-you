@@ -7,6 +7,11 @@ import AnswerRepository from '@repository/AnswerRepository';
 import UserRepository from '@repository/UserRepository';
 import NotificationRepository from '@repository/NotificationRepository';
 import TemplateRepository from '@repository/TemplateRepository';
+import CategoryRepository from '@repository/CategoryRepository';
+import CommunityRepository from '@repository/CommunityRepository';
+import CommunityTemplateRepository from '@repository/CommunityTemplateRepository';
+import CommunityHeadingRepository from '@repository/CommunityHeadingRepository';
+import CommunityAnswerRepository from '@repository/CommunityAnswerRepository';
 
 export {
     RepositoryImpl,
@@ -18,4 +23,9 @@ export {
     UserRepository,
     NotificationRepository,
     TemplateRepository,
+    CategoryRepository,
+    CommunityRepository,
+    CommunityTemplateRepository,
+    CommunityHeadingRepository,
+    CommunityAnswerRepository,
 };
