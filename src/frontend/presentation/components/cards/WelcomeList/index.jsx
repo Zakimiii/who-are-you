@@ -47,20 +47,11 @@ class WelcomeList extends React.Component {
                 <div className="welcome-list__lighting-title">
                     {tt('g.about')}
                 </div>
-                <Responsible
-                    defaultContent={
-                        <Img
-                            className="welcome-list__lighting-image"
-                            src={'/images/screen_shot_heading.png'}
-                        />
-                    }
-                    breakingContent={
-                        <Img
-                            className="welcome-list__lighting-image"
-                            src={'/images/screen_shot_heading-sm.png'}
-                        />
-                    }
-                    breakSm={true}
+                <iframe
+                    className="welcome-list__lighting-image"
+                    src="https://www.youtube.com/embed/AMaUK1cY9N0"
+                    frameBorder="0"
+                    allowFullScreen
                 />
             </div>
         );
