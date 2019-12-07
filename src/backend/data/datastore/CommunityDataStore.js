@@ -95,7 +95,7 @@ export default class CommunityDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (!params.picture) {
-                    val.picture = val.picture && val.picture.toString('base64');
+                    val.picture = `/pictures/community/${val.id}`;
                 }
                 if (params.headings) {
                     val.Headings = includes[index][0];

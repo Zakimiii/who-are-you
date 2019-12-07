@@ -84,9 +84,9 @@ export default class CommunityHeadingDataStore extends DataStoreImpl {
                 if (!params.picture) val.picture = '';
                 if (params.community) {
                     val.Community = includes[index][0];
-                    val.Community.picture =
-                        val.Community.picture &&
-                        val.Community.picture.toString('base64');
+                    val.Community.picture = `/pictures/community/${
+                        val.Community.id
+                    }`;
                 }
                 if (params.voter) val.Voter = includes[index][1];
                 if (params.answers) {
