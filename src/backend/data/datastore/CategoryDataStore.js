@@ -84,6 +84,26 @@ export default class CategoryDataStore extends DataStoreImpl {
         });
     }
 
+    async getAllCategories() {
+        const results = await models.Category.findAll({
+            where: {
+                isHide: false,
+                permission: true,
+                valid: true,
+            },
+            attributes: ['id', 'body', 'heading_count'],
+            order: [['heading_count', 'DESC']],
+            raw: true,
+            subQuery: true,
+        }).catch(e => {
+            throw new ApiError({
+                error: e,
+                tt_key: 'errors.invalid_response_from_server',
+            });
+        });
+        return results;
+    }
+
     async getCategories({ limit, offset }) {
         const results = await models.Category.findAll({
             where: {

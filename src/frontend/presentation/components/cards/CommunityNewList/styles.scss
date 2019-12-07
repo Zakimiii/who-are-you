@@ -72,6 +72,9 @@
 
   &__category {
     padding: 8px 24px;
+    &-switch {
+      min-height: 50px;
+    }
     &-label {
       white-space: normal;
       width: 100%;

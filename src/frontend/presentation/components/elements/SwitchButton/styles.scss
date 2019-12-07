@@ -1,0 +1,71 @@
+.switch-button {
+  min-height: 50px;
+  &__label {
+    min-height: 50px;
+    display: inline-block;
+    cursor: pointer;
+    &-input {
+      display: none;
+      &:checked + .switch-button__label-parts {
+        @include themify($themes) {
+          background: themed('sub');
+          border: 1px solid themed('sub');
+        }
+        @include themify($themes) {
+          color: themed('background');
+        }
+        &::after {
+          left: 26px;
+          @include themify($themes) {
+            background: themed('sub');
+          }
+        }
+        &::before {
+          @include themify($themes) {
+            border: 1px solid themed('sub');
+          }
+        }
+      }
+    }
+    &-parts {
+      position: relative;
+      padding: 15px 20px 15px 53px;
+      transition: .3s;
+      @include FS(FS);
+      @include FM(L);
+      @include themify($themes) {
+        color: themed('backgroundContrastLight');
+        background: themed('background');
+      }
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      display: inline-block;
+      line-height: 1;
+      &::before {
+        content: "";
+        display: block;
+        left: 9px;
+        width: 30px;
+        height: 15px;
+        border-radius: 15px;
+        border: 1px solid #aaa;
+        margin: 1px;
+        background: #fff;
+        position: absolute;
+      }
+      &::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 17px;
+        left: 11px;
+        width: 13px;
+        height: 13px;
+        background: #aaa;
+        border-radius: 50%;
+        transition: .2s;
+        display: block;
+      }
+    }
+  }
+}

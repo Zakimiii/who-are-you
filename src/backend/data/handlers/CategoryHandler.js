@@ -60,6 +60,23 @@ export default class CategoryHandler extends HandlerImpl {
         };
     }
 
+    async handleGetAllCategoriesRequest(router, ctx, next) {
+        // const { limit, offset } = router.request.body;
+
+        // await apiFindUserValidates.isValid({
+        //     username,
+        //     id,
+        //     user: { id, username },
+        // });
+
+        const categories = await categoryDataStore.getAllCategories();
+
+        router.body = {
+            success: true,
+            categories,
+        };
+    }
+
     async handleGetCategoryCommunitiesRequest(router, ctx, next) {
         const { category_id, limit, offset, isMyAccount } = router.request.body;
 

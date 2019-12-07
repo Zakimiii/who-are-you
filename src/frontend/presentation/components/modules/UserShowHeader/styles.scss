@@ -72,6 +72,24 @@
       margin: 12px auto;
     };
   }
+  &__tag {
+    display: block;
+    border: none;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 500px;
+    text-align: center;
+    width: calc(100% - 20px);
+    @include FS(S);
+    @include FM(R);
+    @include themify($themes) {
+      color: lighten(themed('complementary'), 20%);
+    }
+    margin: 0px auto;
+    @include mq-down(fm) {
+      @include FS(FS);
+    };
+  }
   &__detail {
     word-wrap: break-word;
     white-space: pre-wrap;
