@@ -59,7 +59,7 @@ export default class CategoryDataStore extends DataStoreImpl {
         return await Promise.all(
             contents.map(async (val, index) => {
                 if (!params.picture) {
-                    val.picture = val.picture && val.picture.toString('base64'); //`/pictures/category/${val.id}`;
+                    val.picture = val.picture && val.picture.toString('base64');
                 }
                 if (params.communities) {
                     val.Communities = includes[index][0];
@@ -67,11 +67,7 @@ export default class CategoryDataStore extends DataStoreImpl {
                         val.Communities = val.Communities.map(community => {
                             community.picture =
                                 community.picture &&
-                                community.picture.toString(
-                                    'base64'
-                                ); /*`/pictures/community/${
-                                community.id
-                            }`; */
+                                community.picture.toString('base64');
                             return community;
                         });
                     }

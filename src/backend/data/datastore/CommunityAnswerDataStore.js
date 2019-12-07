@@ -87,11 +87,7 @@ export default class CommunityAnswerDataStore extends DataStoreImpl {
                     });
                     val.Heading.Community.picture =
                         val.Heading.Community.picture &&
-                        val.Heading.Community.picture.toString(
-                            'base64'
-                        ); /*`/pictures/community/${
-                        val.Heading.CommunityId
-                    }`;*/
+                        val.Heading.Community.picture.toString('base64');
                     val.Heading.Voter = await models.User.findOne({
                         where: {
                             id: val.Heading.VoterId,
