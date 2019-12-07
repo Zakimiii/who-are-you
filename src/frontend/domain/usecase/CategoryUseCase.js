@@ -15,6 +15,7 @@ import {
     communityShowRoute,
     categoryShowRoute,
     categoryIndexRoute,
+    communityNewRoute,
 } from '@infrastructure/RouteInitialize';
 import { browserHistory } from 'react-router';
 import { FileEntity, FileEntities } from '@entity';
@@ -64,8 +65,7 @@ export default class CategoryUseCase extends UseCaseImpl {
                 const loading = yield select(state =>
                     state.app.get('more_loading')
                 );
-                if (loading || indexContentsLength == 0)
-                    return;
+                if (loading || indexContentsLength == 0) return;
                 yield put(appActions.fetchMoreDataBegin());
                 const categories = yield categoryRepository.getCategories({
                     offset: indexContentsLength,
@@ -73,8 +73,62 @@ export default class CategoryUseCase extends UseCaseImpl {
                 if (categories.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(categoryActions.addHome({ categories }));
+            } catch (e) {
+                yield put(appActions.addError({ error: e }));
+            }
+        }
+        yield put(appActions.fetchMoreDataEnd());
+    }
+
+    *initAllCategories({ payload: { pathname } }) {
+        if (!communityNewRoute.isValidPath(pathname)) return;
+        try {
+            yield put(authActions.syncCurrentUser());
+            yield put(appActions.fetchDataBegin());
+            // const current_user = yield select(state =>
+            //     authActions.getCurrentUser(state)
+            // );
+            const indexContentsLength = yield select(state =>
+                categoryActions.getCategoriesLength(state)
+            );
+            if (indexContentsLength > 0) return;
+            const categories = yield categoryRepository.getAllCategories({});
+            if (categories.length == 0) return;
+            yield put(categoryActions.setCategories({ categories }));
+        } catch (e) {
+            console.log(e);
+            yield put(appActions.addError({ error: e }));
+        }
+        yield put(appActions.fetchDataEnd());
+    }
+
+    *getMoreAllCategories({ payload }) {
+        const pathname = browserHistory.getCurrentLocation().pathname;
+        if (communityNewRoute.isValidPath(pathname)) {
+            try {
+                yield put(authActions.syncCurrentUser());
+                const indexContentsLength = yield select(state =>
+                    categoryActions.getCategoriesLength(state)
+                );
+                if (indexContentsLength == 0) return;
+                // const current_user = yield select(state =>
+                //     authActions.getCurrentUser(state)
+                // );
+                const loading = yield select(state =>
+                    state.app.get('more_loading')
+                );
+                if (loading || indexContentsLength == 0) return;
+                yield put(appActions.fetchMoreDataBegin());
+                const categories = yield categoryRepository.getAllCategories({
+                    offset: indexContentsLength,
+                });
+                if (categories.length == 0) {
+                    yield put(appActions.fetchMoreDataEnd());
+                    return;
+                }
+                yield put(categoryActions.addCategories({ categories }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
             }
@@ -85,10 +139,7 @@ export default class CategoryUseCase extends UseCaseImpl {
     *initShow({ payload: { pathname } }) {
         try {
             if (categoryShowRoute.isValidPath(pathname)) {
-                const id = categoryShowRoute.params_value(
-                    'id',
-                    pathname
-                );
+                const id = categoryShowRoute.params_value('id', pathname);
                 yield put(appActions.fetchDataBegin());
                 yield put(authActions.syncCurrentUser());
                 const category = yield categoryRepository.getCategory({
@@ -106,16 +157,15 @@ export default class CategoryUseCase extends UseCaseImpl {
     *initCategoryCommunities({ payload: { pathname } }) {
         try {
             if (categoryShowRoute.isValidPath(pathname)) {
-                const id = categoryShowRoute.params_value(
-                    'id',
-                    pathname
-                );
+                const id = categoryShowRoute.params_value('id', pathname);
                 yield put(authActions.syncCurrentUser());
                 yield put(appActions.fetchDataBegin());
                 const communities = yield categoryRepository.getCommunities({
                     id,
                 });
-                yield put(categoryActions.setCategoryCommunity({ communities }));
+                yield put(
+                    categoryActions.setCategoryCommunity({ communities })
+                );
             }
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -128,10 +178,7 @@ export default class CategoryUseCase extends UseCaseImpl {
         try {
             if (categoryShowRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
-                const id = categoryShowRoute.params_value(
-                    'id',
-                    pathname
-                );
+                const id = categoryShowRoute.params_value('id', pathname);
                 const indexContentsLength = yield select(state =>
                     categoryActions.getCategoryCommunityLength(state)
                 );
@@ -151,8 +198,10 @@ export default class CategoryUseCase extends UseCaseImpl {
                 if (communities.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
-                yield put(categoryActions.addCategoryCommunity({ communities }));
+                }
+                yield put(
+                    categoryActions.addCategoryCommunity({ communities })
+                );
             }
         } catch (e) {
             yield put(appActions.addError({ error: e }));

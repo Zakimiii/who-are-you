@@ -45,7 +45,7 @@ class CommunityIndex extends React.Component {
                 action_button={
                     <ActionButton
                         size={'3x'}
-                        src={'plus'}
+                        src={'mini-logo-icon'}
                         onClick={this.onClick}
                     />
                 }

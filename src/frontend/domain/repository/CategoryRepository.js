@@ -18,6 +18,11 @@ export default class CategoryRepository extends RepositoryImpl {
         return data && data.categories;
     }
 
+    async getAllCategories() {
+        const data = await super.apiCall('/api/v1/categories/all', {});
+        return data && data.categories;
+    }
+
     async getCategory({ id }) {
         const data = await super.apiCall('/api/v1/category', {
             id,

@@ -10,6 +10,9 @@ import classnames from 'classnames';
 import CategoryIndexList from '@cards/CategoryIndexList';
 import shouldComponentUpdate from '@extension/shouldComponentUpdate';
 import IndexComponent from '@pages/IndexComponent';
+import ActionButton from '@modules/ActionButton';
+import { communityNewRoute } from '@infrastructure/RouteInitialize';
+import autobind from 'class-autobind';
 
 class CategoryIndex extends React.Component {
     static propTypes = {
@@ -20,14 +23,31 @@ class CategoryIndex extends React.Component {
 
     constructor() {
         super();
+        autobind(this);
         this.state = {};
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'CategoryIndex');
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'CategoryIndex'
+        );
+    }
+
+    onClick(e) {
+        const { repository } = this.props;
+        browserHistory.push(communityNewRoute.path);
     }
 
     render() {
         return (
-            <IndexComponent>
-                <CategoryIndexList/>
+            <IndexComponent
+                action_button={
+                    <ActionButton
+                        size={'3x'}
+                        src={'mini-logo-icon'}
+                        onClick={this.onClick}
+                    />
+                }
+            >
+                <CategoryIndexList />
             </IndexComponent>
         );
     }

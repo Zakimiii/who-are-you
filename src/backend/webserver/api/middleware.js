@@ -1774,6 +1774,34 @@ export default function ApiMiddleware(app) {
             );
     });
 
+    router.post('/categories/all', koaBody, function*(ctx, next) {
+        const results = yield gateway.run(this, ctx, next);
+        if (!!results.error) {
+            yield handleApiError(
+                results.router,
+                results.ctx,
+                results.next,
+                results.error
+            );
+            return;
+        }
+        yield categoryHandler
+            .handleGetAllCategoriesRequest(
+                results.router,
+                results.ctx,
+                results.next
+            )
+            .catch(
+                async e =>
+                    await handleApiError(
+                        results.router,
+                        results.ctx,
+                        results.next,
+                        e
+                    )
+            );
+    });
+
     router.post('/category/communities', koaBody, function*(ctx, next) {
         const results = yield gateway.run(this, ctx, next);
         if (!!results.error) {
