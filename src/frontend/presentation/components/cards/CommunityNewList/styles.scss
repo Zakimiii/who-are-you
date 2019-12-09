@@ -11,7 +11,8 @@
     @include themify($themes) {
       color: themed('complementary');
     }
-    margin: 12px 24px;
+    margin: 12px 0px;
+    padding: 0 24px;
     @include mq-down(fm) {
       @include FS(FM);
       @include LH(FM);
