@@ -99,7 +99,8 @@
         "your": "あなたの"
     },
     "apps": {
-        "home": "Twitter連携で秒速で始められる\n一問一答形式の友達紹介アプリ"
+        "home":
+            "Twitter連携で秒速で始められる\n一問一答形式の友達・趣味紹介アプリ"
     },
     "notifications": {
         "welcome": {
