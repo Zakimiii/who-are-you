@@ -124,7 +124,7 @@ const community_index_limit = 3;
 const default_user_image = '/images/default_profile_image.png';
 const default_community_image = `/images/brands/back-mini-logo.png`;
 const default_category_image = `/images/brands/back-mini-logo.png`;
-const default_opg_image = '/images/brands/ogp-logo.png';
+const default_opg_image = '/images/brands/ogp-image.png';
 const logo_image = '/images/brands/app-logo.png';
 const mini_logo_image = '/images/brands/who-are-you_logo.png';
 
