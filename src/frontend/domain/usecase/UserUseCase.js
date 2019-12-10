@@ -102,7 +102,8 @@ export default class UserUseCase extends UseCaseImpl {
             homeAliasRoute.isValidPath(pathname) ||
             communityIndexRoute.isValidPath(pathname) ||
             communityShowRoute.isValidPath(pathname)
-        ) return;
+        )
+            return;
 
         try {
             // const username = userShowRoute.params_value('username', pathname);
@@ -221,7 +222,7 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(userActions.addUserHeading({ headings }));
             } else if (homeRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
@@ -246,7 +247,7 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(userActions.addUserHeading({ headings }));
             }
         } catch (e) {
@@ -277,7 +278,7 @@ export default class UserUseCase extends UseCaseImpl {
             if (answers.length == 0) {
                 yield put(appActions.fetchMoreDataEnd());
                 return;
-            };
+            }
             yield put(userActions.addUserHeadingAnswer({ heading, answers }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -301,7 +302,7 @@ export default class UserUseCase extends UseCaseImpl {
             if (headings.length == 0) {
                 yield put(appActions.fetchDataEnd());
                 return;
-            };
+            }
             yield put(userActions.setUserPost({ headings }));
         } catch (e) {
             yield put(appActions.addError({ error: e }));
@@ -335,7 +336,7 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(userActions.addUserPost({ headings }));
             } catch (e) {
                 yield put(appActions.addError({ error: e }));
@@ -484,7 +485,7 @@ export default class UserUseCase extends UseCaseImpl {
             if (feedIndexRoute.isValidPath(pathname)) {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
-                    userActions.getUserHeadingLength(state)
+                    userActions.getUserFeedLength(state)
                 );
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
@@ -492,7 +493,8 @@ export default class UserUseCase extends UseCaseImpl {
                 const loading = yield select(state =>
                     state.app.get('more_loading')
                 );
-                if (loading || indexContentsLength == 0 || !current_user) return;
+                if (!!loading || indexContentsLength == 0 || !current_user)
+                    return;
                 yield put(appActions.fetchMoreDataBegin());
                 const headings = yield userRepository.getFeeds({
                     username: current_user.username,
@@ -502,7 +504,7 @@ export default class UserUseCase extends UseCaseImpl {
                 if (headings.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(userActions.addUserFeed({ headings }));
             }
         } catch (e) {
@@ -513,17 +515,22 @@ export default class UserUseCase extends UseCaseImpl {
 
     *initCommunityFollower({ payload: { pathname } }) {
         try {
-            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+            if (
+                feedIndexRoute.isValidPath(pathname) ||
+                communityFollowIndexRoute.isValidPath(pathname)
+            ) {
                 yield put(authActions.syncCurrentUser());
                 const current_user = yield select(state =>
                     authActions.getCurrentUser(state)
                 );
                 if (!current_user) return;
                 yield put(appActions.fetchDataBegin());
-                let communities = yield userRepository.getUserCommunityFollower({
-                    username: current_user.username,
-                    isMyAccount: true,
-                });
+                let communities = yield userRepository.getUserCommunityFollower(
+                    {
+                        username: current_user.username,
+                        isMyAccount: true,
+                    }
+                );
                 yield put(userActions.setCommunityFollower({ communities }));
             }
         } catch (e) {
@@ -535,7 +542,10 @@ export default class UserUseCase extends UseCaseImpl {
     *getMoreCommunityFollower({ payload }) {
         const pathname = browserHistory.getCurrentLocation().pathname;
         try {
-            if (feedIndexRoute.isValidPath(pathname) || communityFollowIndexRoute.isValidPath(pathname)) {
+            if (
+                feedIndexRoute.isValidPath(pathname) ||
+                communityFollowIndexRoute.isValidPath(pathname)
+            ) {
                 yield put(authActions.syncCurrentUser());
                 const indexContentsLength = yield select(state =>
                     userActions.getUserHeadingLength(state)
@@ -546,17 +556,20 @@ export default class UserUseCase extends UseCaseImpl {
                 const loading = yield select(state =>
                     state.app.get('more_loading')
                 );
-                if (loading || indexContentsLength == 0 || !current_user) return;
+                if (loading || indexContentsLength == 0 || !current_user)
+                    return;
                 yield put(appActions.fetchMoreDataBegin());
-                const communities = yield userRepository.getUserCommunityFollower({
-                    username: current_user.username,
-                    offset: indexContentsLength,
-                    isMyAccount: true,
-                });
+                const communities = yield userRepository.getUserCommunityFollower(
+                    {
+                        username: current_user.username,
+                        offset: indexContentsLength,
+                        isMyAccount: true,
+                    }
+                );
                 if (communities.length == 0) {
                     yield put(appActions.fetchMoreDataEnd());
                     return;
-                };
+                }
                 yield put(userActions.addCommunityFollower({ communities }));
             }
         } catch (e) {

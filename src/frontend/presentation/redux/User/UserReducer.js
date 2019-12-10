@@ -136,9 +136,11 @@ export default function reducer(state = defaultState, action) {
                 'community_follower',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(payload.communities.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(
+                                List(payload.communities.map(val => Map(val)))
+                            )
+                            .toJS()
                     )
                 )
             );
@@ -163,9 +165,13 @@ export default function reducer(state = defaultState, action) {
                 'user_heading',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(action.payload.headings.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(
+                                List(
+                                    action.payload.headings.map(val => Map(val))
+                                )
+                            )
+                            .toJS()
                     )
                 )
             );
@@ -190,9 +196,13 @@ export default function reducer(state = defaultState, action) {
                 'user_post',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(action.payload.headings.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(
+                                List(
+                                    action.payload.headings.map(val => Map(val))
+                                )
+                            )
+                            .toJS()
                     )
                 )
             );
@@ -217,9 +227,9 @@ export default function reducer(state = defaultState, action) {
                 'user_feed',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(action.payload.headings.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(List(payload.headings.map(val => Map(val))))
+                            .toJS()
                     )
                 )
             );
@@ -244,9 +254,15 @@ export default function reducer(state = defaultState, action) {
                 'user_notification',
                 List(
                     Array.prototype.unique_by_id(
-                        before.concat(
-                            List(action.payload.notifications.map(val => Map(val)))
-                        ).toJS()
+                        before
+                            .concat(
+                                List(
+                                    action.payload.notifications.map(val =>
+                                        Map(val)
+                                    )
+                                )
+                            )
+                            .toJS()
                     )
                 )
             );

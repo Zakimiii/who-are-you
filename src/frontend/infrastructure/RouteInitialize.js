@@ -30,7 +30,7 @@ export const categoryShowRoute = new RouteEntity({
     page: 'CategoryShow',
     component: require('@components/pages/CategoryShow'),
     validate: {
-        id: /\d+/
+        id: /\d+/,
     },
 });
 
@@ -428,7 +428,10 @@ export const getPageImage = pathname => {
     } else if (page == communityAnswerShowRoute.page) {
         image = `${
             config.CURRENT_APP_URL
-        }/pictures/communities/answer/${communityAnswerShowRoute.params_value('id', pathname)}.png`;
+        }/pictures/communities/answer/${communityAnswerShowRoute.params_value(
+            'id',
+            pathname
+        )}.png`;
     } else if (page == communityHeadingShowRoute.page) {
         image = `${
             config.CURRENT_APP_URL
@@ -445,7 +448,7 @@ export const getPageImage = pathname => {
             image = `${state.user.get('show_user').get('picture_small')}`;
     } */ image = `${
             config.CURRENT_APP_URL
-        }/images/brands/ogp-logo.png`;
+        }/images/brands/ogp-image.png`;
     }
 
     return image;

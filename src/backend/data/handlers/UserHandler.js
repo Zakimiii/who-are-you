@@ -316,7 +316,7 @@ export default class UserHandler extends HandlerImpl {
 
         const results = headings1
             .concat(headings2)
-            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+            .sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
 
         router.body = {
             success: true,
@@ -484,10 +484,20 @@ export default class UserHandler extends HandlerImpl {
             communityHeadingsPromise,
         ]);
 
-        const headings = datum[0]
+        let headings = datum[0]
             .concat(datum[1])
             .filter(val => !!val)
-            .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1));
+            .sort((a, b) => (a.created_at < b.created_at ? 1 : -1));
+
+        if (!!Number(limit) && headings.length < Number(limit)) {
+            const communityHeadings = await communityHeadingDataStore.getLatestHeadings(
+                {
+                    limit: Number(limit) - headings.length,
+                    offset,
+                }
+            );
+            headings = headings.concat(communityHeadings);
+        }
 
         router.body = {
             success: true,

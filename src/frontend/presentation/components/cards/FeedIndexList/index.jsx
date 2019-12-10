@@ -13,9 +13,9 @@ import * as authActions from '@redux/Auth/AuthReducer';
 import * as appActions from '@redux/App/AppReducer';
 import LoadingIndicator from '@elements/LoadingIndicator';
 import CommunityViewer from '@modules/CommunityViewer';
+import data_config from '@constants/data_config';
 
 class FeedIndexList extends React.Component {
-
     static propTypes = {
         repository: AppPropTypes.User,
         repositories: PropTypes.array,
@@ -28,12 +28,15 @@ class FeedIndexList extends React.Component {
 
     state = {
         fetched: false,
-    }
+    };
 
     constructor(props) {
         super(props);
         autobind(this);
-        this.shouldComponentUpdate = shouldComponentUpdate(this, 'FeedIndexList')
+        this.shouldComponentUpdate = shouldComponentUpdate(
+            this,
+            'FeedIndexList'
+        );
     }
 
     componentWillMount() {
@@ -47,28 +50,35 @@ class FeedIndexList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const {
-            more_loading,
-            repositories,
-        } = this.props;
+        const { more_loading, repositories } = this.props;
+
+        if (repositories.length == 0) return;
 
         this.setState({
             fetched:
-                more_loading &&
+                !!more_loading &&
                 !nextProps.more_loading &&
-                repositories.length == nextProps.repositories.length,
-        })
+                nextProps.repositories.length > data_config.feed_index_limit,
+            // repositories.length == nextProps.repositories.length,
+        });
     }
 
     onWindowScroll() {
-        const { getMore } = this.props;
+        const { getMore, repositories } = this.props;
         const { fetched } = this.state;
         const isEnd = isScrollEndByClass('user-show-list__body__items');
+        if (repositories.length == 0) return;
         if (isEnd && getMore && !fetched) getMore();
     }
 
     render() {
-        const { repository, repositories, loading, more_loading, communities } = this.props;
+        const {
+            repository,
+            repositories,
+            loading,
+            more_loading,
+            communities,
+        } = this.props;
 
         const renderItems = items =>
             items.map((item, key) => (
@@ -80,16 +90,19 @@ class FeedIndexList extends React.Component {
         return (
             <div className="user-show-list">
                 <div className="user-show-list__body">
-                    {communities && communities.length > 0 && (
-                        <div>
-                            <div className="user-show-list__body__category">
-                                {tt('g.follow_communities')}
+                    {communities &&
+                        communities.length > 0 && (
+                            <div>
+                                <div className="user-show-list__body__category">
+                                    {tt('g.follow_communities')}
+                                </div>
+                                <div className="user-show-list__viewer">
+                                    <CommunityViewer
+                                        repositories={communities}
+                                    />
+                                </div>
                             </div>
-                            <div className="user-show-list__viewer">
-                                <CommunityViewer repositories={communities} />
-                            </div>
-                        </div>
-                    )}
+                        )}
                     <div className="user-show-list__body__category">
                         {tt('g.feeds')}
                     </div>
