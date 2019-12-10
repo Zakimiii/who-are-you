@@ -120,6 +120,7 @@ const picture_ysize = 600;
 const picture_save_limit = 100;
 
 const community_index_limit = 3;
+const feed_index_limit = 100;
 
 const default_user_image = '/images/default_profile_image.png';
 const default_community_image = `/images/brands/back-mini-logo.png`;
@@ -172,4 +173,5 @@ module.exports = {
     logo_image,
     mini_logo_image,
     community_index_limit,
+    feed_index_limit,
 };
