@@ -65,7 +65,7 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!heading || !heading.picture || heading.picture == '') {
             const buffer = fs.readFileSync(
@@ -95,7 +95,7 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!answer || !answer.picture || answer.picture == '') {
             const buffer = fs.readFileSync(
@@ -125,7 +125,7 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!heading || !heading.picture || heading.picture == '') {
             const buffer = fs.readFileSync(
@@ -155,7 +155,7 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!answer || !answer.picture || answer.picture == '') {
             const buffer = fs.readFileSync(
@@ -185,11 +185,11 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!community || !community.picture || community.picture == '') {
             const buffer = fs.readFileSync(
-                resolveAssetsPath("/images/brands/back-mini-logo.png")
+                resolveAssetsPath('/images/brands/back-mini-logo.png')
             );
             this.type = 'image/png';
             this.response.type = 'image/png';
@@ -215,11 +215,11 @@ export default function PictureMiddleware(app) {
             where: {
                 id,
             },
-        });
+        }).catch(e => {});
 
         if (!category || !category.picture || category.picture == '') {
             const buffer = fs.readFileSync(
-                resolveAssetsPath("/images/brands/back-mini-logo.png")
+                resolveAssetsPath('/images/brands/back-mini-logo.png')
             );
             this.type = 'image/png';
             this.response.type = 'image/png';
