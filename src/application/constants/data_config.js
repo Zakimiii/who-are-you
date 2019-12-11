@@ -121,6 +121,7 @@ const picture_save_limit = 100;
 
 const community_index_limit = 3;
 const feed_index_limit = 100;
+const template_count_min_limit = 2;
 
 const default_user_image = '/images/default_profile_image.png';
 const default_community_image = `/images/brands/back-mini-logo.png`;
@@ -174,4 +175,5 @@ module.exports = {
     mini_logo_image,
     community_index_limit,
     feed_index_limit,
+    template_count_min_limit,
 };

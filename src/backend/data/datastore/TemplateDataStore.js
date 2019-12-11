@@ -144,6 +144,11 @@ export default class TemplateDataStore extends DataStoreImpl {
 
     async getStaticTrendTemplate({ limit, offset }) {
         const templates = await models.Template.findAll({
+            where: {
+                count: {
+                    $gte: data_config.template_count_min_limit,
+                },
+            },
             order: [['count', 'DESC']],
             limit: Number(limit) || data_config.fetch_data_limit('M'),
             offset: Number(offset || 0),
