@@ -32,6 +32,10 @@ module.exports = function(sequelize, DataTypes) {
                 type: DataTypes.STRING(255),
             },
             //global colomn
+            isBot: {
+                type: DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
             isHide: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: false,
@@ -74,6 +78,7 @@ module.exports = function(sequelize, DataTypes) {
             locale: self.locale,
             country_code: self.country_code,
             isHide: self.isHide,
+            isBot: self.isBot,
             isPrivate: self.isPrivate,
             valid: self.valid,
             permission: self.permission,
