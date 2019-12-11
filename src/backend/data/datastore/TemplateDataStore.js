@@ -28,6 +28,7 @@ export default class TemplateDataStore extends DataStoreImpl {
             where: {
                 template_id: Number(template.id),
                 body: template.body,
+                isBot: Number.prototype.castBool(template.isBot),
             },
             attributes: ['id'],
         });
@@ -39,15 +40,63 @@ export default class TemplateDataStore extends DataStoreImpl {
         return result;
     }
 
-    async find_or_create_from_heading(heading) {
+    async find_or_create_from_bot_heading(heading) {
         if (!heading) return;
         if (
             !heading.id ||
             !heading.body ||
             heading.body == '' ||
-            Number.prototype.castBool(heading.isBot)
+            !Number.prototype.castBool(heading.isBot)
         )
             return;
+
+        heading = await models.Heading.findOne({
+            where: {
+                id: Number(heading.id),
+                isBot: true,
+            },
+        });
+
+        // const [template, created] = await models.Template.findOrCreate({
+        //     where: {
+        //         valid: true,
+        //         permission: true,
+        //         body: heading.body,
+        //     },
+        // });
+
+        let template = await models.Template.findOne({
+            where: {
+                body: heading.body,
+                isBot: true,
+            },
+        });
+
+        if (!template) {
+            template = await models.Template.create({
+                valid: true,
+                permission: true,
+                body: heading.body,
+                isBot: true,
+            });
+        }
+
+        const updated = await heading.update({
+            template_id: template.id,
+        });
+
+        this.updateCount(template);
+
+        return template;
+    }
+
+    async find_or_create_from_heading(heading) {
+        if (!heading) return;
+        if (!heading.id || !heading.body || heading.body == '') return;
+
+        if (Number.prototype.castBool(heading.isBot)) {
+            return await this.find_or_create_from_bot_heading(heading);
+        }
 
         heading = await models.Heading.findOne({
             where: {

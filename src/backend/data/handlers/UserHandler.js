@@ -12,6 +12,7 @@ import {
     NotificationDataStore,
     CommunityHeadingDataStore,
     CommunityDataStore,
+    TemplateDataStore,
 } from '@datastore';
 import data_config from '@constants/data_config';
 import { ApiError } from '@extension/Error';
@@ -26,6 +27,7 @@ const authDataStore = new AuthDataStore();
 const userDataStore = new UserDataStore();
 const notificationDataStore = new NotificationDataStore();
 const communityDataStore = new CommunityDataStore();
+const templateDataStore = new TemplateDataStore();
 
 export default class UserHandler extends HandlerImpl {
     constructor() {
@@ -163,6 +165,7 @@ export default class UserHandler extends HandlerImpl {
         });
 
         const heading = await headingDataStore.createBot(user);
+        templateDataStore.find_or_create_from_heading(result);
 
         router.body = {
             success: true,

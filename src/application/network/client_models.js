@@ -116,6 +116,12 @@ const Template = {
         !('HeadingId' in obj) &&
         'body' in obj &&
         'count' in obj,
+    getBody: obj => {
+        if (!obj) return;
+        return Number.prototype.castBool(obj.isBot)
+            ? tt(`headings.${obj.body}`)
+            : obj.body;
+    },
 };
 
 const Category = {

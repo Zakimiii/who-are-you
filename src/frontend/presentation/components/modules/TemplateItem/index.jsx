@@ -59,7 +59,7 @@ class TemplateItem extends React.Component {
                     </div>
                 </div>
                 <div className="template-item__body">
-                    {`「${_repository.body}」`}
+                    {`「${models.Template.getBody(_repository)}」`}
                 </div>
                 <div className="template-item__button">
                     <AddHeadingButton
