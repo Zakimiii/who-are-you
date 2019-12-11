@@ -74,6 +74,7 @@ class AddHeadingButton extends React.Component {
             Template: repository,
             TemplateId: repository.id,
             body: repository.body,
+            isBot: Number.prototype.castBool(repository.isBot),
         });
 
         this.setState({

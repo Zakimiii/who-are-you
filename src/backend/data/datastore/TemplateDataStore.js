@@ -94,7 +94,7 @@ export default class TemplateDataStore extends DataStoreImpl {
         if (!heading) return;
         if (!heading.id || !heading.body || heading.body == '') return;
 
-        if (Number.prototype.castBool(heading.isBot)) {
+        if (!!Number.prototype.castBool(heading.isBot)) {
             return await this.find_or_create_from_bot_heading(heading);
         }
 

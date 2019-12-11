@@ -165,7 +165,7 @@ export default class UserHandler extends HandlerImpl {
         });
 
         const heading = await headingDataStore.createBot(user);
-        templateDataStore.find_or_create_from_heading(result);
+        await templateDataStore.find_or_create_from_heading(heading);
 
         router.body = {
             success: true,
