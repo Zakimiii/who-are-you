@@ -99,8 +99,7 @@
         "your": "あなたの"
     },
     "apps": {
-        "home":
-            "Twitter連携で秒速で始められる\n一問一答形式の友達・趣味紹介アプリ"
+        "home": "Twitter連携で秒速で始められる\n一問一答形式の自己紹介アプリ"
     },
     "notifications": {
         "welcome": {
@@ -117,24 +116,24 @@
         }
     },
     "pages": {
-        "Home": "一問一答形式の友達・趣味紹介アプリ",
-        "NotFound": "一問一答形式の友達・趣味紹介アプリ",
+        "Home": "一問一答形式の自己紹介アプリ",
+        "NotFound": "一問一答形式の自己紹介アプリ",
         "HeadingShow": "%(data)s",
         "AnswerShow": "%(data)s",
         "UserShow": "%(nickname)sさん %(detail)s"
     },
     "descriptions": {
         "Home":
-            "who are youはTwitter連携で秒速で始められる一問一答形式の友達・趣味紹介アプリです。みんなで遊びながら紹介文を完成させ、理解ある友達の輪を広げられるサービスです。",
+            "who are youはTwitter連携で秒速で始められる一問一答形式の自己紹介アプリです。みんなで遊びながら紹介文を完成させ、理解ある友達の輪を広げられるサービスです。",
         "NotFound":
-            "who are youはTwitter連携で秒速で始められる一問一答形式の友達・趣味紹介アプリです。みんなで遊びながら紹介文を完成させ、理解ある友達の輪を広げられるサービスです。",
+            "who are youはTwitter連携で秒速で始められる一問一答形式の自己紹介アプリです。みんなで遊びながら紹介文を完成させ、理解ある友達の輪を広げられるサービスです。",
         "HeadingShow": "%(user)sの紹介はこちら",
         "AnswerShow": "「%(heading)s」の回答はこちら！",
         "UserShow": "%(user)sの紹介はこちら"
     },
     "alts": {
-        "lighting": "一問一答形式の友達・趣味紹介アプリ",
-        "default": "一問一答形式の友達・趣味紹介アプリ"
+        "lighting": "一問一答形式の自己紹介アプリ",
+        "default": "一問一答形式の自己紹介アプリ"
     },
     "flash": {
         "new_message_upvote": "メッセージを添えるといいねができます",

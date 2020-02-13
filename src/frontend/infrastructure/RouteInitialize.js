@@ -448,7 +448,7 @@ export const getPageImage = pathname => {
             image = `${state.user.get('show_user').get('picture_small')}`;
     } */ image = `${
             config.CURRENT_APP_URL
-        }/images/brands/ogp-image.png`;
+        }/images/brands/ogp_image.png`;
     }
 
     return image;
